@@ -38,7 +38,7 @@
           <div v-for="item in daFareItems" :key="`${item.id}-${item.tipo}`"
             @click="openModal(item)"
             class="bg-white border-l-4 border-red-500 rounded p-3 cursor-pointer hover:shadow-md transition group">
-            <p class="font-semibold text-sm text-gray-900 group-hover:text-red-600">{{ item.nome }}</p>
+            <p class="font-semibold text-sm text-gray-900 group-hover:text-red-600">{{ item.nome }} {{ item.cognome }}</p>
             <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
             <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
             <div class="flex items-center justify-between mt-2">
@@ -72,7 +72,7 @@
           <div v-for="item in inCorsoItems" :key="`${item.id}-${item.tipo}`"
             @click="openModal(item)"
             class="bg-white border-l-4 border-orange-500 rounded p-3 cursor-pointer hover:shadow-md transition group">
-            <p class="font-semibold text-sm text-gray-900 group-hover:text-orange-600">{{ item.nome }}</p>
+            <p class="font-semibold text-sm text-gray-900 group-hover:text-orange-600">{{ item.nome }} {{ item.cognome }}</p>
             <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
             <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
             <div class="flex items-center justify-between mt-2">
@@ -102,7 +102,7 @@
             class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 group hover:opacity-100 transition">
             <div class="flex items-start justify-between">
               <div class="flex-1">
-                <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }}</p>
+                <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }} {{ item.cognome }}</p>
                 <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
                 <div class="flex items-center justify-between mt-2">
@@ -224,7 +224,7 @@ function moveToCompleted(item) {
 function archiveItem(item) {
   // Archive an item (remove from default view but keep in history)
   // This can be used to delete tasks that are not needed
-  if (confirm(`Eliminare definitivamente: ${item.nome} - ${item.tipo}?`)) {
+  if (confirm(`Eliminare definitivamente: ${item.nome} ${item.cognome} - ${item.tipo}?`)) {
     // Mark as archived or deleted by setting status to "Scartato"
     if (item.tipo === 'FU1') {
       store.updateEmployee(item.id, { statoFU1: 'Scartato' })
@@ -242,7 +242,7 @@ function archiveItem(item) {
 
 function deleteItem(item) {
   // Permanently delete a completed item from view
-  if (confirm(`Rimuovere definitivamente: ${item.nome}?`)) {
+  if (confirm(`Rimuovere definitivamente: ${item.nome} ${item.cognome}?`)) {
     // Mark the status as 'Eliminato' so it doesn't appear in Kanban anymore
     if (item.tipo === 'FU1') {
       store.updateEmployee(item.id, { statoFU1: 'Eliminato' })
@@ -264,9 +264,9 @@ function handleItemSaved() {
 }
 
 function exportCSV() {
-  const headers = ['Nome', 'Team', 'Tipo', 'Scadenza', 'Urgenza', 'Stato']
+  const headers = ['Nome Completo', 'Team', 'Tipo', 'Scadenza', 'Urgenza', 'Stato']
   const rows = filteredItems.value.map(item => [
-    item.nome,
+    `${item.nome} ${item.cognome}`,
     item.team,
     item.tipo,
     item.scadenza,
