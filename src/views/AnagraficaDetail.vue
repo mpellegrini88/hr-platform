@@ -218,6 +218,111 @@
       </div>
     </div>
 
+    <!-- CONTRACT RENEWAL STATUS Section (for determinati only) -->
+    <div v-if="emp?.tipoContratto === 'determinato'" class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-semibold text-gray-900">📌 Stato Rinnovo Contratto</h3>
+      </div>
+      <div class="p-6">
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Rinnovo Status -->
+          <div class="bg-blue-50 p-4 rounded border border-blue-200">
+            <div class="text-sm font-semibold text-blue-900 mb-2">Rinnovo Contratto</div>
+            <div v-if="emp?.decisione" class="space-y-2">
+              <p class="text-sm"><strong>Decisione:</strong> {{ emp.decisione }}</p>
+              <p class="text-sm"><strong>Data:</strong> {{ fmtDateShort(emp.dataDecisioneRinnovo) }}</p>
+              <p v-if="emp.noteDecisioneRinnovo" class="text-xs text-blue-800 italic">{{ emp.noteDecisioneRinnovo }}</p>
+              <p v-if="emp.decisione === 'Proroga'" class="text-sm font-medium text-amber-700">
+                Proroga fino: {{ fmtDateShort(emp.dataProrogaFino) }}
+              </p>
+            </div>
+            <div v-else class="text-sm text-blue-700">
+              Decisione non ancora registrata
+            </div>
+            <div v-if="emp?.scadenzaRinnovo" class="mt-3 pt-3 border-t border-blue-200 text-xs text-blue-800">
+              <strong>Scadenza Rinnovo:</strong> {{ fmtDateShort(emp.scadenzaRinnovo) }}
+            </div>
+          </div>
+
+          <!-- Dossier Status -->
+          <div class="bg-purple-50 p-4 rounded border border-purple-200">
+            <div class="text-sm font-semibold text-purple-900 mb-2">Dossier Contratto</div>
+            <div class="space-y-2">
+              <p class="text-sm"><strong>Stato:</strong> {{ emp?.statoDossierContratto || 'Da Fare' }}</p>
+              <p v-if="emp?.scadenzaDossierContratto" class="text-sm"><strong>Scadenza:</strong> {{ fmtDateShort(emp.scadenzaDossierContratto) }}</p>
+              <p v-else class="text-sm text-gray-600">Nessuna scadenza registrata</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P&C COLLOQUI Section -->
+    <div v-if="emp?.stato === 'Attivo'" class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-semibold text-gray-900">📋 Colloqui P&C (People & Culture)</h3>
+      </div>
+      <div class="p-6">
+        <div v-if="pcData" class="space-y-6">
+          <!-- Last P&C Colloquio -->
+          <div v-if="pcData.lastDate" class="bg-green-50 p-4 rounded border border-green-200">
+            <div class="text-sm font-semibold text-green-900 mb-3">Ultimo Colloquio P&C</div>
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              <div class="text-sm">
+                <div class="text-xs text-green-700">Data</div>
+                <div class="font-semibold text-green-900">{{ fmtDateShort(pcData.lastDate) }}</div>
+              </div>
+              <div class="text-sm">
+                <div class="text-xs text-green-700">Giorni fa</div>
+                <div class="font-semibold text-green-900">{{ pcData.daysSinceColloquio }}</div>
+              </div>
+              <div class="text-sm">
+                <div class="text-xs text-green-700">Prossimo</div>
+                <div class="font-semibold text-green-900">{{ pcData.nextReviewDate ? fmtDateShort(pcData.nextReviewDate) : 'Da pianificare' }}</div>
+              </div>
+            </div>
+
+            <!-- Behavioral Scores from last colloquio -->
+            <div v-if="lastColloquio" class="grid grid-cols-3 gap-2 text-xs mt-4 pt-4 border-t border-green-200">
+              <div class="bg-white p-2 rounded"><strong>Esaurimento:</strong> {{ lastColloquio.esaur }}/5</div>
+              <div class="bg-white p-2 rounded"><strong>Carico:</strong> {{ lastColloquio.carico }}/5</div>
+              <div class="bg-white p-2 rounded"><strong>Motivazione:</strong> {{ lastColloquio.motiv }}/5</div>
+              <div class="bg-white p-2 rounded"><strong>Supporto:</strong> {{ lastColloquio.supp }}/5</div>
+              <div class="bg-white p-2 rounded"><strong>Equilibrio:</strong> {{ lastColloquio.equil }}/5</div>
+              <div class="bg-white p-2 rounded"><strong>Intenzione:</strong> {{ lastColloquio.intent }}/5</div>
+            </div>
+
+            <!-- Manager Assessment -->
+            <div v-if="lastColloquio && (lastColloquio.performanceScore || lastColloquio.engagementScore)" class="grid grid-cols-2 gap-2 text-xs mt-3">
+              <div v-if="lastColloquio.performanceScore" class="bg-white p-2 rounded">
+                <strong>Performance Score:</strong> {{ lastColloquio.performanceScore }}/5
+              </div>
+              <div v-if="lastColloquio.engagementScore" class="bg-white p-2 rounded">
+                <strong>Engagement Score:</strong> {{ lastColloquio.engagementScore }}/5
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div v-if="lastColloquio && lastColloquio.noteColloquio" class="text-xs text-gray-700 mt-3 italic">
+              {{ lastColloquio.noteColloquio }}
+            </div>
+          </div>
+
+          <!-- Status Badge -->
+          <div :class="['p-3 rounded text-sm font-semibold',
+            pcData.status === 'Aggiornato' ? 'bg-green-100 text-green-800' :
+            pcData.status === 'Scaduto' ? 'bg-orange-100 text-orange-800' :
+            'bg-gray-100 text-gray-800']">
+            Status: {{ pcData.status === 'Aggiornato' ? '✓ Aggiornato' : pcData.status === 'Scaduto' ? '⚠️ Scaduto' : '❌ Non Fatto' }}
+          </div>
+        </div>
+
+        <div v-else class="text-sm text-gray-600">
+          Nessun colloquio P&C registrato per questo dipendente
+        </div>
+      </div>
+    </div>
+
     <!-- PERSONAL DETAILS Section -->
     <div class="card">
       <div class="px-5 py-4 border-b border-gray-100">
@@ -269,6 +374,18 @@ const { fmtDateShort } = useHelpers()
 
 const empId = parseInt(route.params.id)
 const emp = computed(() => store.employees.find(e => e.id === empId))
+
+// P&C Colloquio data
+const pcData = computed(() => {
+  if (!emp.value) return null
+  return store.pcColloquiStatus[emp.value.id] || null
+})
+
+// Last P&C Colloquio details
+const lastColloquio = computed(() => {
+  if (!emp.value) return null
+  return store.colloquiPCMap[emp.value.nome] || null
+})
 
 function initials(nome) {
   return nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2)
