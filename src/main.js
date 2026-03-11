@@ -12,6 +12,7 @@ import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
 import FerieMalattie from './views/FerieMalattie.vue'
 import Dimissioni    from './views/Dimissioni.vue'
 import Analytics     from './views/Analytics.vue'
+import ContrattiTermine from './views/ContrattiTermine.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -22,6 +23,7 @@ const router = createRouter({
     { path: '/onboarding',     component: Onboarding },
     { path: '/people-culture', component: PeopleCulture },
     { path: '/people-culture-analytics', component: PeopleCultureAnalytics },
+    { path: '/contratti-termine', component: ContrattiTermine },
     { path: '/ferie',          component: FerieMalattie },
     { path: '/dimissioni',     component: Dimissioni },
     { path: '/analytics',      component: Analytics },

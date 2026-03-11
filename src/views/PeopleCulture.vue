@@ -1,79 +1,80 @@
 <template>
   <div class="p-6 space-y-5">
-    <!-- Toolbar -->
-    <div class="flex flex-wrap items-center gap-3">
-      <input v-model="search" class="form-input max-w-xs" placeholder="🔍 Cerca dipendente...">
-      <select v-model="filterTeam" class="form-select w-44">
-        <option value="">Tutti i team</option>
-        <option v-for="t in store.teams" :key="t">{{ t }}</option>
-      </select>
-      <select v-model="filterRischio" class="form-select w-40">
-        <option value="">Tutti i rischi</option>
-        <option value="alto">Burnout alto</option>
-        <option value="medio">Burnout medio</option>
-        <option value="basso">Burnout basso</option>
-      </select>
-      <div class="ml-auto text-xs text-gray-500 space-x-3">
-        <span>↑ = peggio per esaur/carico</span>
-        <span>↑ = meglio per motiv/supp/equil/intent</span>
+    <!-- EMPTY STATE quando no P&C data -->
+    <div v-if="store.colloquiPC.length === 0" class="card p-8 border-2 border-dashed border-gray-300">
+      <div class="text-center">
+        <div class="text-4xl mb-3">📋</div>
+        <h3 class="font-semibold text-gray-900 mb-2">Nessun colloquio P&C compilato</h3>
+        <p class="text-sm text-gray-600">
+          Non ci sono ancora colloqui People & Culture. I dati e le analisi compariranno qui quando verranno compilati i primi colloqui.
+        </p>
+        <p class="text-xs text-gray-400 mt-3">
+          Fase: Fresh Start 2026 - Avvia compilazione colloqui P&C per iniziare l'analisi
+        </p>
       </div>
     </div>
 
-    <!-- Table -->
-    <div class="card overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th>Dipendente</th>
-              <th>Team</th>
-              <th class="text-red-500">😓 Esaur. <span class="text-gray-300 font-normal">(MBI)</span></th>
-              <th class="text-orange-500">⚡ Carico <span class="text-gray-300 font-normal">(CBI)</span></th>
-              <th class="text-emerald-500">💪 Motiv. <span class="text-gray-300 font-normal">(JD-R)</span></th>
-              <th class="text-blue-500">🤝 Supp. <span class="text-gray-300 font-normal">(JD-R)</span></th>
-              <th class="text-purple-500">⚖️ Equil. <span class="text-gray-300 font-normal">(WHO-5)</span></th>
-              <th class="text-indigo-500">🏠 Intent. <span class="text-gray-300 font-normal">(Mobley)</span></th>
-              <th>Score</th>
-              <th>Burnout</th>
-              <th>Retention</th>
-              <th>Ultimo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openModal(e)">
-              <td>
-                <div class="font-medium text-gray-900 text-sm">{{ e.nome }}</div>
-                <div class="text-xs text-gray-400">{{ e.citta }}</div>
-              </td>
-              <td><span class="badge badge-gray text-xs">{{ e.team }}</span></td>
-              <td><ScoreDot :value="e.lastC?.esaur" :inverted="true" /></td>
-              <td><ScoreDot :value="e.lastC?.carico" :inverted="true" /></td>
-              <td><ScoreDot :value="e.lastC?.motiv" /></td>
-              <td><ScoreDot :value="e.lastC?.supp" /></td>
-              <td><ScoreDot :value="e.lastC?.equil" /></td>
-              <td><ScoreDot :value="e.lastC?.intent" /></td>
-              <td>
-                <span v-if="e.scoreGlobale != null" class="font-bold text-sm" :style="{ color: scoreColor(e.scoreGlobale, true) }">{{ e.scoreGlobale }}</span>
-                <span v-else class="text-gray-300 text-xs">—</span>
-              </td>
-              <td>
-                <span v-if="e.burnoutRisk" :class="['badge', burnoutBadge(e.burnoutRisk)]">{{ e.burnoutRisk }}</span>
-                <span v-else class="text-gray-300 text-xs">—</span>
-              </td>
-              <td>
-                <span v-if="e.rischioRitenzione" :class="['badge', burnoutBadge(e.rischioRitenzione)]">{{ e.rischioRitenzione }}</span>
-                <span v-else class="text-gray-300 text-xs">—</span>
-              </td>
-              <td class="text-xs text-gray-500">{{ lastDate(e) }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- COLLOQUI when data exists -->
+    <div v-else class="space-y-5">
+      <!-- Toolbar -->
+      <div class="flex flex-wrap items-center gap-3">
+        <input v-model="search" class="form-input max-w-xs" placeholder="🔍 Cerca dipendente...">
+        <select v-model="filterTeam" class="form-select w-44">
+          <option value="">Tutti i team</option>
+          <option v-for="t in store.teams" :key="t">{{ t }}</option>
+        </select>
+        <div class="ml-auto text-xs text-gray-500 space-x-3">
+          <span>↑ = peggio per esaur/carico</span>
+          <span>↑ = meglio per motiv/supp/equil/intent</span>
+        </div>
       </div>
-      <div class="px-4 py-2 border-t border-gray-50 text-xs text-gray-400">{{ filtered.length }} dipendenti · Clicca per aprire il colloquio</div>
+
+      <!-- Table -->
+      <div class="card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Dipendente</th>
+                <th>Team</th>
+                <th class="text-red-500">😓 Esaur. <span class="text-gray-300 font-normal">(MBI)</span></th>
+                <th class="text-orange-500">⚡ Carico <span class="text-gray-300 font-normal">(CBI)</span></th>
+                <th class="text-emerald-500">💪 Motiv. <span class="text-gray-300 font-normal">(JD-R)</span></th>
+                <th class="text-blue-500">🤝 Supp. <span class="text-gray-300 font-normal">(JD-R)</span></th>
+                <th class="text-purple-500">⚖️ Equil. <span class="text-gray-300 font-normal">(WHO-5)</span></th>
+                <th class="text-indigo-500">🏠 Intent. <span class="text-gray-300 font-normal">(Mobley)</span></th>
+                <th>Score</th>
+                <th>Ultimo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openModal(e)">
+                <td>
+                  <div class="font-medium text-gray-900 text-sm">{{ e.nome }} {{ e.cognome }}</div>
+                  <div class="text-xs text-gray-400">{{ e.citta }}</div>
+                </td>
+                <td><span class="badge badge-gray text-xs">{{ e.team }}</span></td>
+                <td><ScoreDot :value="pcColl(e.id)?.esaur" :inverted="true" /></td>
+                <td><ScoreDot :value="pcColl(e.id)?.carico" :inverted="true" /></td>
+                <td><ScoreDot :value="pcColl(e.id)?.motiv" /></td>
+                <td><ScoreDot :value="pcColl(e.id)?.supp" /></td>
+                <td><ScoreDot :value="pcColl(e.id)?.equil" /></td>
+                <td><ScoreDot :value="pcColl(e.id)?.intent" /></td>
+                <td>
+                  <span v-if="pcColl(e.id)?.engagementScore != null" class="font-bold text-sm">{{ pcColl(e.id).engagementScore }}</span>
+                  <span v-else class="text-gray-300 text-xs">—</span>
+                </td>
+                <td class="text-xs text-gray-500">{{ pcCollDate(e.id) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-4 py-2 border-t border-gray-50 text-xs text-gray-400">{{ filtered.length }} dipendenti · Clicca per aprire il colloquio</div>
+      </div>
     </div>
 
-    <!-- MODAL COLLOQUIO -->
-    <Modal :open="modal.open" :title="'Colloqui P&C — ' + (modal.emp?.nome || '')" width="900px" @close="modal.open = false">
+    <!-- MODAL COLLOQUIO P&C -->
+    <Modal :open="modal.open" :title="'Colloquio P&C — ' + (modal.emp?.nome || '') + ' ' + (modal.emp?.cognome || '')" width="900px" @close="modal.open = false">
       <div v-if="modal.emp" class="space-y-5">
         <!-- Score summary -->
         <div class="grid grid-cols-4 gap-3">
@@ -82,240 +83,166 @@
           <InfoBlock label="Contratto" :value="modal.emp.tipoContratto" />
           <div class="bg-gray-50 rounded-xl p-3 text-center">
             <div class="text-xs text-gray-400 mb-1">Score globale</div>
-            <div class="text-3xl font-bold" :style="{ color: scoreColor(modal.emp.scoreGlobale, true) }">{{ modal.emp.scoreGlobale ?? '—' }}</div>
-            <div class="flex gap-1 justify-center mt-1 flex-wrap">
-              <span v-if="modal.emp.burnoutRisk" :class="['badge text-xs', burnoutBadge(modal.emp.burnoutRisk)]">B: {{ modal.emp.burnoutRisk }}</span>
-              <span v-if="modal.emp.rischioRitenzione" :class="['badge text-xs', burnoutBadge(modal.emp.rischioRitenzione)]">R: {{ modal.emp.rischioRitenzione }}</span>
-            </div>
+            <div class="text-3xl font-bold">{{ pcColl(modal.emp.id)?.engagementScore ?? '—' }}</div>
           </div>
         </div>
 
-        <!-- Ciclo tabs -->
-        <div class="border-b border-gray-100">
-          <div class="flex gap-1">
-            <button v-for="tab in ['C1','C2','C3']" :key="tab" @click="modal.tab = tab"
-              :class="['px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px',
-                modal.tab===tab ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700']">
-              {{ tab === 'C1' ? '1° Colloquio' : tab === 'C2' ? '2° Colloquio' : '3° Colloquio' }}
-              <span v-if="hasData(tab)" class="ml-1 w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block align-middle"></span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Ciclo form -->
-        <div class="space-y-5">
+        <!-- Form -->
+        <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 space-y-5">
+          <div class="text-xs font-bold text-blue-600 uppercase tracking-widest">Colloquio P&C</div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="form-label">Data colloquio</label>
-              <input class="form-input" type="date" v-model="currentCycle.data">
+              <input class="form-input" type="date" v-model="pcForm.data">
             </div>
             <div>
               <label class="form-label">Esito</label>
-              <select class="form-select" v-model="currentCycle.esito">
+              <select class="form-select" v-model="pcForm.esito">
                 <option>Positivo</option><option>Da Monitorare</option><option>Critico</option><option>Urgente</option>
               </select>
             </div>
           </div>
 
           <!-- Le 6 scale scientifiche -->
-          <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 space-y-5">
-            <div class="text-xs font-bold text-blue-600 uppercase tracking-widest">Scale Behavioral Wellness validate</div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <ScaleInput
-                label="😓 Esaurimento emotivo (MBI-GS, Maslach)"
-                v-model="currentCycle.esaur"
-                :inverted="true"
-                hint="↑ = peggio"
-                minLabel="1 = mai"
-                maxLabel="5 = ogni giorno"
-              />
-              <ScaleInput
-                label="⚡ Carico di lavoro (CBI, Copenhagen)"
-                v-model="currentCycle.carico"
-                :inverted="true"
-                hint="↑ = peggio"
-                minLabel="1 = basso"
-                maxLabel="5 = insostenibile"
-              />
-              <ScaleInput
-                label="💪 Motivazione & Autonomia (JD-R, Bakker)"
-                v-model="currentCycle.motiv"
-                hint="↑ = meglio"
-                minLabel="1 = molto bassa"
-                maxLabel="5 = molto alta"
-              />
-              <ScaleInput
-                label="🤝 Supporto & Chiarezza (JD-R, Bakker)"
-                v-model="currentCycle.supp"
-                hint="↑ = meglio"
-                minLabel="1 = assente"
-                maxLabel="5 = eccellente"
-              />
-              <ScaleInput
-                label="⚖️ Equilibrio vita-lavoro (WHO-5)"
-                v-model="currentCycle.equil"
-                hint="↑ = meglio"
-                minLabel="1 = mai"
-                maxLabel="5 = sempre"
-              />
-              <ScaleInput
-                label="🏠 Intenzione di restare (Mobley)"
-                v-model="currentCycle.intent"
-                hint="↑ = meglio"
-                minLabel="1 = molto bassa"
-                maxLabel="5 = molto alta"
-              />
-            </div>
-          </div>
-
-          <!-- Trend se c2 disponibile -->
-          <div v-if="modal.tab !== 'C1' && hasPrevData" class="grid grid-cols-6 gap-2 bg-gray-50 rounded-xl p-4">
-            <div v-for="dim in dims" :key="dim.key" class="text-center">
-              <div class="text-xs text-gray-400 mb-1">{{ dim.label }}</div>
-              <TrendArrow :prev="prevCycle[dim.key]" :curr="currentCycle[dim.key]" :inverted="dim.inverted" />
-            </div>
+          <div class="space-y-5">
+            <ScaleInput
+              label="😓 Esaurimento emotivo (MBI-GS, Maslach)"
+              v-model="pcForm.esaur"
+              :inverted="true"
+              hint="↑ = peggio"
+              minLabel="1 = mai"
+              maxLabel="5 = ogni giorno"
+            />
+            <ScaleInput
+              label="⚡ Carico di lavoro (CBI, Copenhagen)"
+              v-model="pcForm.carico"
+              :inverted="true"
+              hint="↑ = peggio"
+              minLabel="1 = basso"
+              maxLabel="5 = insostenibile"
+            />
+            <ScaleInput
+              label="💪 Motivazione & Autonomia (JD-R, Bakker)"
+              v-model="pcForm.motiv"
+              hint="↑ = meglio"
+              minLabel="1 = molto bassa"
+              maxLabel="5 = molto alta"
+            />
+            <ScaleInput
+              label="🤝 Supporto & Chiarezza (JD-R, Bakker)"
+              v-model="pcForm.supp"
+              hint="↑ = meglio"
+              minLabel="1 = assente"
+              maxLabel="5 = eccellente"
+            />
+            <ScaleInput
+              label="⚖️ Equilibrio vita-lavoro (WHO-5)"
+              v-model="pcForm.equil"
+              hint="↑ = meglio"
+              minLabel="1 = mai"
+              maxLabel="5 = sempre"
+            />
+            <ScaleInput
+              label="🏠 Intenzione di restare (Mobley)"
+              v-model="pcForm.intent"
+              hint="↑ = meglio"
+              minLabel="1 = molto bassa"
+              maxLabel="5 = molto alta"
+            />
           </div>
 
           <div>
             <label class="form-label">Note colloquio</label>
-            <textarea class="form-textarea" rows="3" v-model="currentCycle.note" placeholder="Osservazioni, azioni concordate..."></textarea>
+            <textarea class="form-textarea" rows="3" v-model="pcForm.note" placeholder="Osservazioni, azioni concordate..."></textarea>
           </div>
-        </div>
-
-        <!-- Storico cicli -->
-        <div v-if="hasSomeData" class="bg-gray-50 rounded-xl p-4">
-          <div class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Storico score</div>
-          <div class="overflow-x-auto">
-            <table class="tbl text-xs">
-              <thead><tr>
-                <th>Ciclo</th><th>Data</th>
-                <th class="text-red-500">Esaur.</th><th class="text-orange-500">Carico</th>
-                <th class="text-emerald-500">Motiv.</th><th class="text-blue-500">Supp.</th>
-                <th class="text-purple-500">Equil.</th><th class="text-indigo-500">Intent.</th>
-                <th>Esito</th>
-              </tr></thead>
-              <tbody>
-                <tr v-for="row in storicoRows" :key="row.label">
-                  <td class="font-semibold">{{ row.label }}</td>
-                  <td>{{ row.data || '—' }}</td>
-                  <td><ScoreDot :value="row.esaur" :inverted="true" /></td>
-                  <td><ScoreDot :value="row.carico" :inverted="true" /></td>
-                  <td><ScoreDot :value="row.motiv" /></td>
-                  <td><ScoreDot :value="row.supp" /></td>
-                  <td><ScoreDot :value="row.equil" /></td>
-                  <td><ScoreDot :value="row.intent" /></td>
-                  <td><span v-if="row.esito" :class="['badge text-xs', esitoCollClass(row.esito)]">{{ row.esito }}</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div v-if="modal.emp._coll?.note_trasversali" class="mt-2 text-xs text-gray-500">Note trasversali: {{ modal.emp._coll.note_trasversali }}</div>
         </div>
       </div>
 
       <template #footer>
         <button class="btn btn-secondary" @click="modal.open = false">Chiudi</button>
-        <button class="btn btn-primary" @click="save">💾 Salva colloquio</button>
+        <button class="btn btn-primary" @click="savePCColloquio">💾 Salva colloquio</button>
       </template>
     </Modal>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, reactive, watch } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
-import Section from '@/components/ui/Section.vue'
 import ScaleInput from '@/components/ui/ScaleInput.vue'
 import ScoreDot from '@/components/ui/ScoreDot.vue'
 import InfoBlock from '@/components/ui/InfoBlock.vue'
-import TrendArrow from '@/components/ui/TrendArrow.vue'
 
 const store = useHrStore()
-const { fmtDateShort, burnoutBadge, scoreColor, esitoCollClass } = useHelpers()
+const { fmtDateShort } = useHelpers()
 
-const search = ref(''), filterTeam = ref(''), filterRischio = ref('')
+const search = ref(''), filterTeam = ref('')
+
+const pcCollMap = computed(() => {
+  const map = {}
+  store.colloquiPC.forEach(c => {
+    map[c.employeeId] = c
+  })
+  return map
+})
 
 const filtered = computed(() => store.enrichedEmployees.filter(e => {
   const s = search.value.toLowerCase()
-  return (!s || e.nome.toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
+  const hasPCData = pcCollMap.value[e.id]
+  return hasPCData && (!s || e.nome.toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
     && (!filterTeam.value || e.team === filterTeam.value)
-    && (!filterRischio.value || e.burnoutRisk === filterRischio.value)
 }))
 
-const modal = reactive({ open: false, emp: null, tab: 'C1' })
-const currentCycle = reactive({ data: '', esaur: null, carico: null, motiv: null, supp: null, equil: null, intent: null, esito: '', note: '' })
+const pcColl = (empId) => pcCollMap.value[empId]
+const pcCollDate = (empId) => pcCollMap.value[empId]?.date ? fmtDateShort(pcCollMap.value[empId].date) : '—'
 
-const dims = [
-  { key: 'esaur', label: 'Esaur.', inverted: true },
-  { key: 'carico', label: 'Carico', inverted: true },
-  { key: 'motiv', label: 'Motiv.', inverted: false },
-  { key: 'supp', label: 'Supp.', inverted: false },
-  { key: 'equil', label: 'Equil.', inverted: false },
-  { key: 'intent', label: 'Intent.', inverted: false },
-]
-
-function cyclePrefix(tab) { return tab.toLowerCase() + '_' }
-
-function loadCycle(tab) {
-  const c = modal.emp?._coll || {}
-  const p = cyclePrefix(tab)
-  Object.assign(currentCycle, { data: c[p+'data']||'', esaur: c[p+'esaur']||null, carico: c[p+'carico']||null, motiv: c[p+'motiv']||null, supp: c[p+'supp']||null, equil: c[p+'equil']||null, intent: c[p+'intent']||null, esito: c[p+'esito']||'', note: c[p+'note']||'' })
-}
-
-watch(() => modal.tab, loadCycle)
-
-function hasData(tab) {
-  const c = modal.emp?._coll || {}
-  return !!c[cyclePrefix(tab)+'esaur']
-}
-
-const hasSomeData = computed(() => ['C1','C2','C3'].some(t => hasData(t)))
-
-const hasPrevData = computed(() => {
-  if (modal.tab === 'C2') return hasData('C1')
-  if (modal.tab === 'C3') return hasData('C2')
-  return false
-})
-
-const prevCycle = computed(() => {
-  const c = modal.emp?._coll || {}
-  const p = modal.tab === 'C2' ? 'c1_' : 'c2_'
-  return { esaur: c[p+'esaur'], carico: c[p+'carico'], motiv: c[p+'motiv'], supp: c[p+'supp'], equil: c[p+'equil'], intent: c[p+'intent'] }
-})
-
-const storicoRows = computed(() => {
-  const c = modal.emp?._coll || {}
-  return ['C1','C2','C3'].map(t => {
-    const p = cyclePrefix(t)
-    return { label: t, data: c[p+'data'], esaur: c[p+'esaur'], carico: c[p+'carico'], motiv: c[p+'motiv'], supp: c[p+'supp'], equil: c[p+'equil'], intent: c[p+'intent'], esito: c[p+'esito'] }
-  }).filter(r => r.esaur || r.data)
-})
+const modal = reactive({ open: false, emp: null })
+const pcForm = reactive({ data: '', esaur: null, carico: null, motiv: null, supp: null, equil: null, intent: null, esito: '', note: '' })
 
 function openModal(e) {
-  modal.emp = e; modal.tab = 'C1'; modal.open = true
-  loadCycle('C1')
+  modal.emp = e
+  const coll = pcColl(e.id)
+  if (coll) {
+    pcForm.data = coll.date || ''
+    pcForm.esaur = coll.esaur || null
+    pcForm.carico = coll.carico || null
+    pcForm.motiv = coll.motiv || null
+    pcForm.supp = coll.supp || null
+    pcForm.equil = coll.equil || null
+    pcForm.intent = coll.intent || null
+    pcForm.esito = coll.esito || ''
+    pcForm.note = coll.note || ''
+  } else {
+    pcForm.data = ''
+    pcForm.esaur = null
+    pcForm.carico = null
+    pcForm.motiv = null
+    pcForm.supp = null
+    pcForm.equil = null
+    pcForm.intent = null
+    pcForm.esito = ''
+    pcForm.note = ''
+  }
+  modal.open = true
 }
 
-function save() {
-  const p = cyclePrefix(modal.tab)
-  const update = {}
-  update[p+'data']  = currentCycle.data
-  update[p+'esaur'] = currentCycle.esaur
-  update[p+'carico']= currentCycle.carico
-  update[p+'motiv'] = currentCycle.motiv
-  update[p+'supp']  = currentCycle.supp
-  update[p+'equil'] = currentCycle.equil
-  update[p+'intent']= currentCycle.intent
-  update[p+'esito'] = currentCycle.esito
-  update[p+'note']  = currentCycle.note
-  store.saveColloquio(modal.emp.nome, update)
+function savePCColloquio() {
+  if (!modal.emp) return
+  const update = {
+    employeeId: modal.emp.id,
+    date: pcForm.data,
+    esaur: pcForm.esaur,
+    carico: pcForm.carico,
+    motiv: pcForm.motiv,
+    supp: pcForm.supp,
+    equil: pcForm.equil,
+    intent: pcForm.intent,
+    esito: pcForm.esito,
+    note: pcForm.note
+  }
+  store.saveColloquioPC(modal.emp.id, update)
   modal.open = false
-}
-
-function lastDate(e) {
-  const c = e._coll || {}
-  return c.c2_data ? fmtDateShort(c.c2_data) : c.c1_data ? fmtDateShort(c.c1_data) : '—'
 }
 </script>
