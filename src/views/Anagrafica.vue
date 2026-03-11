@@ -43,7 +43,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openEdit(e)">
+            <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openDetail(e)">
               <td class="text-gray-400 font-mono text-xs">{{ e.n }}</td>
               <td>
                 <div class="font-medium text-gray-900">{{ e.nome }} {{ e.cognome }}</div>
@@ -226,12 +226,14 @@
 
 <script setup>
 import { ref, computed, reactive, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import { LIVELLI_CCNL, TIPI_CONTRATTO, calcProvatione } from '@/composables/useCCNL.js'
 import Modal from '@/components/ui/Modal.vue'
 import Section from '@/components/ui/Section.vue'
 
+const router = useRouter()
 const store = useHrStore()
 const { fmtDate, fmtDateShort, toInput, statoClass, contractBadge } = useHelpers()
 
@@ -252,10 +254,8 @@ function openNew() {
   modal.data = { tipoContratto: 'indeterminato', stato: 'Attivo', statoFU1: 'Da Fare', statoFU2Dip: 'Da Fare', statoFU2Manager: 'Da Fare', esitoProva: 'In Corso' }
   modal.open = true
 }
-function openEdit(e) {
-  modal.isNew = false
-  modal.data = { ...e }
-  modal.open = true
+function openDetail(e) {
+  router.push(`/anagrafica/${e.id}`)
 }
 function save() {
   if (!modal.data.nome) { store.notify('Nome obbligatorio', 'error'); return }

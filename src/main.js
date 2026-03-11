@@ -6,6 +6,7 @@ import './style.css'
 
 import Dashboard     from './views/Dashboard.vue'
 import Anagrafica    from './views/Anagrafica.vue'
+import AnagraficaDetail from './views/AnagraficaDetail.vue'
 import Onboarding    from './views/Onboarding.vue'
 import PeopleCulture from './views/PeopleCulture.vue'
 import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
@@ -21,6 +22,7 @@ const router = createRouter({
     { path: '/', redirect: '/dashboard' },
     { path: '/dashboard',      component: Dashboard },
     { path: '/anagrafica',     component: Anagrafica },
+    { path: '/anagrafica/:id', component: AnagraficaDetail },
     { path: '/onboarding',     component: Onboarding },
     { path: '/valutazione-prova', component: ValutazioneProva },
     { path: '/people-culture', component: PeopleCulture },
