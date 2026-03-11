@@ -59,7 +59,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd <= 0)" :key="c.id" class="bg-red-50">
@@ -68,8 +68,17 @@
                 <td class="font-mono text-sm text-red-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-red font-mono">{{ c.daysToEnd }} gg</span></td>
                 <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td class="text-xs">
+                  <div class="flex flex-col gap-0.5">
+                    <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
+                    <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
+                  </div>
+                </td>
                 <td><span class="badge badge-red">SCADUTO</span></td>
-                <td><button @click="openReminder(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">📧 Invia CEO</button></td>
+                <td class="space-x-1">
+                  <button @click="openReminder(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">📧 CEO</button>
+                  <button @click="viewValutazione(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">🎯 Valut</button>
+                </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd <= 0).length === 0">
                 <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto scaduto</td>
@@ -88,7 +97,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 0 && x.daysToEnd <= 7)" :key="c.id" class="bg-orange-50">
@@ -97,8 +106,17 @@
                 <td class="font-mono text-sm text-orange-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-orange font-mono">{{ c.daysToEnd }} gg</span></td>
                 <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td class="text-xs">
+                  <div class="flex flex-col gap-0.5">
+                    <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
+                    <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
+                  </div>
+                </td>
                 <td><span class="badge badge-orange">URGENTE</span></td>
-                <td><button @click="openReminder(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">📧 Invia CEO</button></td>
+                <td class="space-x-1">
+                  <button @click="openReminder(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">📧 CEO</button>
+                  <button @click="viewValutazione(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">🎯 Valut</button>
+                </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 0 && x.daysToEnd <= 7).length === 0">
                 <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
@@ -117,7 +135,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 7 && x.daysToEnd <= 30)" :key="c.id" class="bg-yellow-50">
@@ -126,8 +144,17 @@
                 <td class="font-mono text-sm text-yellow-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-yellow font-mono">{{ c.daysToEnd }} gg</span></td>
                 <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td class="text-xs">
+                  <div class="flex flex-col gap-0.5">
+                    <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
+                    <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
+                  </div>
+                </td>
                 <td><span class="badge badge-yellow">Attenzione</span></td>
-                <td><button @click="openReminder(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">📧 Invia CEO</button></td>
+                <td class="space-x-1">
+                  <button @click="openReminder(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">📧 CEO</button>
+                  <button @click="viewValutazione(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">🎯 Valut</button>
+                </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 7 && x.daysToEnd <= 30).length === 0">
                 <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
@@ -146,7 +173,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>Stato</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 30)" :key="c.id">
@@ -155,6 +182,12 @@
                 <td class="font-mono text-sm text-emerald-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-emerald font-mono">{{ c.daysToEnd }} gg</span></td>
                 <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td class="text-xs">
+                  <div class="flex flex-col gap-0.5">
+                    <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
+                    <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
+                  </div>
+                </td>
                 <td><span class="badge badge-emerald">OK</span></td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 30).length === 0">
@@ -207,10 +240,12 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
 
+const router = useRouter()
 const store = useHrStore()
 const { fmtDateShort } = useHelpers()
 
@@ -232,6 +267,8 @@ const allContratti = computed(() => {
       team: e.team,
       citta: e.citta,
       scadenzaContratto: e.scadenzaContratto,
+      scadenzaFU1: e.scadenzaFU1,
+      scadenzaFU2: e.scadenzaFU2,
       daysToEnd: daysToEnd,
       esitoProva: e.esitoProva,
       tipoContratto: e.tipoContratto,
@@ -285,5 +322,12 @@ function sendReminder() {
   const msg = `Reminder inviato per ${reminderModal.contratto.nome} ${reminderModal.contratto.cognome}`
   alert(msg)
   reminderModal.open = false
+}
+
+function viewValutazione(contratto) {
+  // Navigate to ValutazioneProva page to see/edit evaluation for this employee
+  router.push('/valutazione-prova')
+  // In future: could use query parameter to jump directly to this employee
+  // router.push(`/valutazione-prova?emp=${contratto.id}`)
 }
 </script>
