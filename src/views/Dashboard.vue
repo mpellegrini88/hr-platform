@@ -28,6 +28,33 @@
       </div>
     </div>
 
+    <!-- CONTRATTI IN SCADENZA - Reminder valutazione prova per CEO -->
+    <div v-if="contratiInScadenza.length > 0" class="card border-l-4 border-amber-500 bg-amber-50">
+      <div class="px-5 py-4 border-b border-amber-200">
+        <h3 class="font-semibold text-amber-900">📋 Contratti in scadenza - Reminder Valutazione Prova</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="tbl">
+          <thead><tr>
+            <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni Rimanenti</th><th>Stato</th><th>Azione</th>
+          </tr></thead>
+          <tbody>
+            <tr v-for="c in contratiInScadenza" :key="c.id" :class="{'bg-red-50': c.daysToEnd <= 0, 'bg-amber-50': c.daysToEnd <= 7}">
+              <td class="font-medium text-amber-900">{{ c.nome }}</td>
+              <td><span class="badge badge-gray">{{ c.team }}</span></td>
+              <td class="font-mono text-sm text-amber-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
+              <td><span :class="['badge', c.daysToEnd <= 0 ? 'badge-red' : c.daysToEnd <= 7 ? 'badge-orange' : 'badge-yellow']">{{ c.daysToEnd }}gg</span></td>
+              <td><span class="text-xs text-amber-800">{{ c.esitoProva }}</span></td>
+              <td><button @click="openReminderCEO(c)" class="text-amber-700 hover:text-amber-900 font-medium text-sm">📧 Invia CEO</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-5 py-3 bg-amber-100 border-t border-amber-200 text-xs text-amber-900">
+        ℹ️ Reminder: Inviare report valutazione di prova al CEO <strong>1 mese prima</strong> della scadenza contratto
+      </div>
+    </div>
+
     <!-- Main grid -->
     <div class="grid grid-cols-12 gap-5">
       <!-- Azioni urgenti -->
@@ -296,6 +323,45 @@ const urgenti = computed(() => {
 const topTeams = computed(() => store.teamStats.slice(0, 8))
 const maxTeam  = computed(() => Math.max(...topTeams.value.map(t => t.n), 1))
 const teamStatsFiltered = computed(() => store.teamStats.filter(t => t.avgEsaur != null).slice(0, 6))
+
+// Contratti determinati in scadenza entro 30 giorni - con reminder valutazione prova
+const contratiInScadenza = computed(() => {
+  const today = new Date()
+  const list = []
+  store.employees.forEach(e => {
+    if (e.tipoContratto !== 'determinato' || !e.scadenzaContratto || e.stato !== 'Attivo') return
+    const scadenza = new Date(e.scadenzaContratto)
+    const daysToEnd = Math.round((scadenza - today) / 86400000)
+    // Show contratti che scadono entro 30 giorni oppure sono già scaduti
+    if (daysToEnd <= 30) {
+      list.push({
+        id: e.id,
+        nome: e.nome,
+        team: e.team,
+        scadenzaContratto: e.scadenzaContratto,
+        daysToEnd: daysToEnd,
+        esitoProva: e.esitoProva,
+        urgente: daysToEnd <= 7 ? 'URGENTE' : daysToEnd <= 0 ? 'SCADUTO' : 'In tempo'
+      })
+    }
+  })
+  return list.sort((a, b) => a.daysToEnd - b.daysToEnd)
+})
+
+// Funzione per aprire reminder CEO
+const openReminderCEO = (contratto) => {
+  const message = `
+REMINDER: Report Valutazione di Prova
+Dipendente: ${contratto.nome}
+Team: ${contratto.team}
+Scadenza Contratto: ${fmtDateShort(contratto.scadenzaContratto)}
+Esito Prova: ${contratto.esitoProva}
+
+⚠️ Inviare report valutazione di prova al CEO
+  `
+  alert(message)
+  // In futuro: integrare con email o system notification
+}
 
 const statoDistrib = computed(() => {
   const dotMap = { 'Attivo': 'bg-emerald-400', 'Dimissioni Volontarie': 'bg-red-400', 'Mancato Superamento Prova': 'bg-orange-400', 'In Uscita Concordata': 'bg-amber-400' }
