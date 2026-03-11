@@ -11,17 +11,58 @@ import { useIndexedDB } from '@/composables/useIndexedDB.js'
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
 
+  // ── Costanti ferie/permessi ──
+  // Contratto proprio (Silicon/Move): solo ferie 21.96gg a 7.5h/giorno
+  // CCNL Commercio: ferie 26gg + permessi ROL 56h + ex-festività 32h
+  const FERIE_CONTRATTO_PROPRIO = 21.96
+  const FERIE_CCNL_COMMERCIO = 26
+  const PERMESSI_ROL_ORE = 56
+  const EX_FESTIVITA_ORE = 32
+  const PERMESSI_TOTALI_ORE = PERMESSI_ROL_ORE + EX_FESTIVITA_ORE // 88h
+  const PERMESSI_TOTALI_GG = Math.round(PERMESSI_TOTALI_ORE / 8 * 100) / 100 // ~11gg
+
+  // ── Categorizzazione team ──
+  const SILICON_TEAMS = ['Silicon Milano', 'Silicon Lucca', 'Business Development Milano']
+
+  function getSocieta(team) {
+    if (!team) return 'Altro'
+    if (SILICON_TEAMS.includes(team)) return 'Silicon'
+    if (team.startsWith('Solutions >') || team === 'Freelance') return 'Move Solutions'
+    return 'Altro'
+  }
+
+  function getDefaultContratto(team) {
+    // Default: tutti con contratto proprio (21.96gg). Si può cambiare manualmente a CCNL.
+    return 'proprio'
+  }
+
+  function getFerieSpettanti(tipoContrattoFerie, oreSettimana) {
+    const ratio = (oreSettimana || 40) / 40
+    if (tipoContrattoFerie === 'proprio') {
+      return { ferie: Math.round(FERIE_CONTRATTO_PROPRIO * ratio * 100) / 100, permessiGg: 0, permessiOre: 0 }
+    }
+    return {
+      ferie: Math.round(FERIE_CCNL_COMMERCIO * ratio * 100) / 100,
+      permessiGg: Math.round(PERMESSI_TOTALI_GG * ratio * 100) / 100,
+      permessiOre: Math.round(PERMESSI_TOTALI_ORE * ratio * 100) / 100
+    }
+  }
+
   // Normalizza schema dipendente: aggiunge campi mancanti
   function normalizeEmployeeSchema(emp) {
+    // Assunti prima del 2026: FU già completati, non ha senso mostrare "Da Fare"
+    const pre2026 = emp.dataAssunzione && new Date(emp.dataAssunzione) < new Date('2026-01-01')
+    const fuDefault = pre2026 ? 'Fatto' : 'Da Fare'
+    
     return {
       ...emp,
       // Onboarding scadenze
-      statoFU1: emp.statoFU1 || 'Da Fare',
-      noteFU1: emp.noteFU1 || '',
-      statoFU2Dip: emp.statoFU2Dip || 'Da Fare',
-      noteFU2Dip: emp.noteFU2Dip || '',
-      statoFU2Manager: emp.statoFU2Manager || 'Da Fare',
-      noteFU2Manager: emp.noteFU2Manager || '',
+      statoFU1: emp.statoFU1 || fuDefault,
+      noteFU1: emp.noteFU1 || (pre2026 ? 'Completato (pre-2026)' : ''),
+      statoFU2Dip: emp.statoFU2Dip || fuDefault,
+      noteFU2Dip: emp.noteFU2Dip || (pre2026 ? 'Completato (pre-2026)' : ''),
+      statoFU2Manager: emp.statoFU2Manager || fuDefault,
+      noteFU2Manager: emp.noteFU2Manager || (pre2026 ? 'Completato (pre-2026)' : ''),
       // Dimissioni
       dataUscita: emp.dataUscita || null,
       motivoUscita: emp.motivoUscita || '',
@@ -66,6 +107,32 @@ export const useHrStore = defineStore('hr', () => {
   const colloquiPC = ref(SEED_COLLOQUI_PC)
   const dimissioni = ref(SEED_DIMISSIONI)
   const valutazioni360 = ref(SEED_VALUTAZIONI_COMPLETE)
+
+  // Auto-populate ferie for all employees that don't have a record yet
+  function ensureFerieForAll() {
+    const existing = new Set(ferie.value.map(f => f.empId || f.nome))
+    employees.value.forEach(e => {
+      if (!existing.has(e.id) && !existing.has(e.nome)) {
+        const nomeCompleto = `${e.nome} ${e.cognome}`
+        const tipoContrattoFerie = getDefaultContratto(e.team)
+        const spett = getFerieSpettanti(tipoContrattoFerie, e.oreSettimana)
+        ferie.value.push({
+          empId: e.id, nome: nomeCompleto, team: e.team, citta: e.citta,
+          tipoContrattoFerie,
+          societa: getSocieta(e.team),
+          ferieSpettanti: spett.ferie,
+          ferieGodute: 0, ferieResidue: spett.ferie,
+          permessiSpettantiGg: spett.permessiGg,
+          permessiSpettantiOre: spett.permessiOre,
+          permessiGodutiGg: 0, permessiResiduiGg: spett.permessiGg,
+          percGodute: 0, ggMalattia: 0, episodiMalattia: 0, ggMalattia3m: 0, assenzeNonGiust: 0,
+          noteFerie: '', noteMalattia: '', noteAssenze: '',
+          entries: []
+        })
+      }
+    })
+  }
+  ensureFerieForAll()
 
   // Composables per persistenza e migrazione
   const persistence = usePersistence()
@@ -136,21 +203,160 @@ export const useHrStore = defineStore('hr', () => {
 
   function saveFerie(nome, data) {
     const idx = ferie.value.findIndex(f => f.nome === nome)
-    if (idx !== -1) ferie.value[idx] = { ...ferie.value[idx], ...data }
+    if (idx !== -1) {
+      ferie.value[idx] = { ...ferie.value[idx], ...data }
+    } else {
+      ferie.value.push({ nome, ...data })
+    }
     notify('Ferie aggiornate ✓')
     saveToIndexedDB()
   }
 
-  function saveColloquioPC(nome, data) {
-    const idx = colloquiPC.value.findIndex(c => c.nome === nome)
-    if (idx !== -1) {
-      colloquiPC.value[idx] = { ...colloquiPC.value[idx], ...data }
+  function addFerieEntry(nome, entry) {
+    const idx = ferie.value.findIndex(f => f.nome === nome)
+    if (idx === -1) return
+    const rec = ferie.value[idx]
+    if (!rec.entries) rec.entries = []
+    rec.entries.push({ id: Date.now(), ...entry })
+    recalcFerieSummary(rec)
+    notify('Registro aggiunto ✓')
+    saveToIndexedDB()
+  }
+
+  function updateFerieEntry(nome, entryId, data) {
+    const rec = ferie.value.find(f => f.nome === nome)
+    if (!rec || !rec.entries) return
+    const eIdx = rec.entries.findIndex(e => e.id === entryId)
+    if (eIdx === -1) return
+    rec.entries[eIdx] = { ...rec.entries[eIdx], ...data }
+    recalcFerieSummary(rec)
+    notify('Registro aggiornato ✓')
+    saveToIndexedDB()
+  }
+
+  function deleteFerieEntry(nome, entryId) {
+    const rec = ferie.value.find(f => f.nome === nome)
+    if (!rec || !rec.entries) return
+    rec.entries = rec.entries.filter(e => e.id !== entryId)
+    recalcFerieSummary(rec)
+    notify('Registro eliminato ✓')
+    saveToIndexedDB()
+  }
+
+  function recalcFerieSummary(rec) {
+    if (!rec.entries) return
+    const now = new Date()
+    const tre = new Date(); tre.setMonth(tre.getMonth() - 3)
+    let godute = 0, permGoduti = 0, malGg = 0, malEp = 0, mal3m = 0, assNg = 0
+    const malEpSet = new Set()
+    rec.entries.forEach(e => {
+      const gg = e.giorni || 0
+      if (e.tipo === 'ferie' && e.stato === 'approvata') godute += gg
+      if (e.tipo === 'permesso' && e.stato === 'approvata') permGoduti += gg
+      if (e.tipo === 'malattia') {
+        malGg += gg; malEpSet.add(e.dataInizio)
+        if (e.dataInizio && new Date(e.dataInizio) >= tre) mal3m += gg
+      }
+      if (e.tipo === 'assenza_ng') assNg += gg
+    })
+    malEp = malEpSet.size
+    rec.ferieGodute = godute
+    rec.ferieResidue = Math.round(((rec.ferieSpettanti || 0) - godute) * 100) / 100
+    rec.percGodute = rec.ferieSpettanti > 0 ? Math.round(godute / rec.ferieSpettanti * 100) : 0
+    rec.permessiGodutiGg = permGoduti
+    rec.permessiResiduiGg = Math.round(((rec.permessiSpettantiGg || 0) - permGoduti) * 100) / 100
+    rec.ggMalattia = malGg
+    rec.episodiMalattia = malEp
+    rec.ggMalattia3m = mal3m
+    rec.assenzeNonGiust = assNg
+  }
+
+  // Aggiorna tipo contratto ferie per dipendente
+  function updateContrattoFerie(nome, tipoContrattoFerie) {
+    const rec = ferie.value.find(f => f.nome === nome)
+    if (!rec) return
+    rec.tipoContrattoFerie = tipoContrattoFerie
+    const emp = employees.value.find(e => `${e.nome} ${e.cognome}` === nome)
+    const spett = getFerieSpettanti(tipoContrattoFerie, emp?.oreSettimana)
+    rec.ferieSpettanti = spett.ferie
+    rec.permessiSpettantiGg = spett.permessiGg
+    rec.permessiSpettantiOre = spett.permessiOre
+    recalcFerieSummary(rec)
+    notify('Contratto ferie aggiornato ✓')
+    saveToIndexedDB()
+  }
+
+  function saveColloquioPC(idOrNome, data) {
+    // Trova emp e nome
+    let emp = null
+    if (typeof idOrNome === 'number') {
+      emp = employees.value.find(e => e.id === idOrNome)
     } else {
-      colloquiPC.value.push({ nome, team: employees.value.find(e => e.nome === nome)?.team, ...data })
+      emp = employees.value.find(e => e.nome === idOrNome || `${e.nome} ${e.cognome}` === idOrNome)
+    }
+    if (!emp) return
+    const nomeCompleto = `${emp.nome} ${emp.cognome}`
+    const idx = colloquiPC.value.findIndex(c => c.employeeId === emp.id || c.nome === nomeCompleto || c.nome === emp.nome)
+    
+    // Prepare the new entry with timestamp
+    const entry = {
+      id: Date.now(),
+      date: data.date,
+      esaur: data.esaur, carico: data.carico, motiv: data.motiv,
+      supp: data.supp, equil: data.equil, intent: data.intent,
+      esito: data.esito, note: data.note,
+      engagementScore: calcEngagementScore(data)
+    }
+
+    if (idx !== -1) {
+      const rec = colloquiPC.value[idx]
+      // Ensure storico array exists
+      if (!rec.storico) rec.storico = []
+      // Archive current values to storico if they have data
+      if (rec.date) {
+        rec.storico.push({
+          id: rec.storico.length + 1,
+          date: rec.date,
+          esaur: rec.esaur, carico: rec.carico, motiv: rec.motiv,
+          supp: rec.supp, equil: rec.equil, intent: rec.intent,
+          esito: rec.esito, note: rec.note,
+          engagementScore: rec.engagementScore
+        })
+      }
+      // Update current with new data
+      Object.assign(rec, {
+        employeeId: emp.id, nome: nomeCompleto, team: emp.team,
+        ...entry
+      })
+    } else {
+      colloquiPC.value.push({
+        employeeId: emp.id, nome: nomeCompleto, team: emp.team,
+        ...entry,
+        storico: [],
+        nextReviewDate: null
+      })
     }
     notify('Colloquio P&C salvato ✓')
     autoSave.trackChange(getStoreSnapshot())
     saveToIndexedDB()
+  }
+
+  function deletePCEntry(empId, entryId) {
+    const rec = colloquiPC.value.find(c => c.employeeId === empId)
+    if (!rec || !rec.storico) return
+    rec.storico = rec.storico.filter(e => e.id !== entryId)
+    notify('Registro P&C eliminato ✓')
+    saveToIndexedDB()
+  }
+
+  function calcEngagementScore(data) {
+    if (!data.esaur && !data.motiv) return null
+    const e = data.esaur || 3, c = data.carico || 3
+    const m = data.motiv || 3, s = data.supp || 3
+    const eq = data.equil || 3, i = data.intent || 3
+    const burnout = (e * 1.5 + c) / 2.5
+    const wellbeing = (m + s + eq + i) / 4
+    return Math.round((burnout * 0.4 + (6 - wellbeing) * 0.6) * 10) / 10
   }
 
   function saveDimissione(id, data) {
@@ -256,6 +462,39 @@ export const useHrStore = defineStore('hr', () => {
   const teams = computed(() => [...new Set(employees.value.map(e => e.team).filter(Boolean))].sort())
   const colloquiMap = computed(() => Object.fromEntries(colloqui.value.map(c => [c.nome, c])))
   const ferieMap    = computed(() => Object.fromEntries(ferie.value.map(f => [f.nome, f])))
+
+  // ── Ferie Analytics ──
+  const ferieAnalytics = computed(() => {
+    const byTeam = {}
+    ferie.value.forEach(f => {
+      const t = f.team || '—'
+      if (!byTeam[t]) byTeam[t] = { team: t, n: 0, spettanti: 0, godute: 0, residue: 0, malattia: 0, mal3m: 0, assenze: 0, episodi: 0 }
+      const m = byTeam[t]; m.n++
+      m.spettanti += f.ferieSpettanti || 0; m.godute += f.ferieGodute || 0
+      m.residue += f.ferieResidue || 0; m.malattia += f.ggMalattia || 0
+      m.mal3m += f.ggMalattia3m || 0; m.assenze += f.assenzeNonGiust || 0
+      m.episodi += f.episodiMalattia || 0
+    })
+    const teamArr = Object.values(byTeam).map(t => ({
+      ...t,
+      percGodute: t.spettanti > 0 ? Math.round(t.godute / t.spettanti * 100) : 0,
+      avgMal: t.n > 0 ? Math.round(t.malattia / t.n * 10) / 10 : 0
+    })).sort((a, b) => b.n - a.n)
+    const totals = ferie.value.reduce((acc, f) => {
+      acc.spettanti += f.ferieSpettanti || 0; acc.godute += f.ferieGodute || 0
+      acc.residue += f.ferieResidue || 0; acc.malattia += f.ggMalattia || 0
+      acc.mal3m += f.ggMalattia3m || 0; acc.assenze += f.assenzeNonGiust || 0
+      acc.episodi += f.episodiMalattia || 0
+      return acc
+    }, { spettanti: 0, godute: 0, residue: 0, malattia: 0, mal3m: 0, assenze: 0, episodi: 0 })
+    totals.percGodute = totals.spettanti > 0 ? Math.round(totals.godute / totals.spettanti * 100) : 0
+    totals.n = ferie.value.length
+    // Top assenteismo (most sick days)
+    const topMalattia = [...ferie.value].sort((a, b) => (b.ggMalattia || 0) - (a.ggMalattia || 0)).slice(0, 5)
+    // Most residual ferie (risk of accumulation)
+    const topResidue = [...ferie.value].sort((a, b) => (b.ferieResidue || 0) - (a.ferieResidue || 0)).slice(0, 5)
+    return { byTeam: teamArr, totals, topMalattia, topResidue }
+  })
   const colloquiPCMap = computed(() => Object.fromEntries(colloquiPC.value.map(c => [c.nome, c])))
   const dimissioniMap = computed(() => Object.fromEntries(dimissioni.value.map(d => [d.nome, d])))
 
@@ -707,8 +946,12 @@ export const useHrStore = defineStore('hr', () => {
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
     burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, kpiPCCopertura, pcColloquiStatus, urgentiAlert,
     onboardingUrgenze, contractUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
+    ferieAnalytics, ensureFerieForAll, getSocieta, getFerieSpettanti, updateContrattoFerie,
+    FERIE_CONTRATTO_PROPRIO, FERIE_CCNL_COMMERCIO, PERMESSI_TOTALI_GG, PERMESSI_TOTALI_ORE,
     addEmployee, updateEmployee, deleteEmployee,
-    saveColloquio, saveFerie, saveColloquioPC, saveDimissione, scheduleNextPC,
+    saveColloquio, saveFerie, addFerieEntry, updateFerieEntry, deleteFerieEntry,
+    saveColloquioPC, deletePCEntry, calcEngagementScore,
+    saveDimissione, scheduleNextPC,
     saveValutazioneManager, saveValutazioneHR, updateContractRenewal,
     saveFile, notify
   }

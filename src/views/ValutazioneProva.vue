@@ -7,13 +7,13 @@
         <p class="text-sm text-gray-500 mt-1">Manager → HR → CEO: Scala dettagliata (1-5) + Raccomandazione</p>
       </div>
       <div class="text-right">
-        <div class="text-3xl font-bold text-primary-600">{{ inCorso.length }}</div>
+        <div class="text-3xl font-bold text-primary-600">{{ allVisibili.length }}</div>
         <div class="text-xs text-gray-500">dipendenti (esclusi freelance)</div>
       </div>
     </div>
 
     <!-- KPI Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
       <div class="card p-4 border-l-4 border-blue-500 bg-blue-50">
         <div class="text-xs text-blue-600 font-semibold uppercase">In Corso</div>
         <div class="text-2xl font-bold text-blue-700 mt-1">{{ inCorso.length }}</div>
@@ -29,6 +29,11 @@
       <div class="card p-4 border-l-4 border-yellow-500 bg-yellow-50">
         <div class="text-xs text-yellow-600 font-semibold uppercase">Entro 30gg</div>
         <div class="text-2xl font-bold text-yellow-700 mt-1">{{ entro30gg.length }}</div>
+      </div>
+      <div class="card p-4 border-l-4 border-purple-500 bg-purple-50">
+        <div class="text-xs text-purple-600 font-semibold uppercase">Contratti a termine</div>
+        <div class="text-2xl font-bold text-purple-700 mt-1">{{ determinatiInScadenza.length }}</div>
+        <div class="text-[10px] text-purple-500">scadenza ≤ 30gg</div>
       </div>
       <div class="card p-4 border-l-4 border-emerald-500 bg-emerald-50">
         <div class="text-xs text-emerald-600 font-semibold uppercase">Completate</div>
@@ -86,6 +91,7 @@
         <option value="urgenti">Entro 7 giorni</option>
         <option value="attenzione">Entro 30 giorni</option>
         <option value="ok">In corso</option>
+        <option value="determinati">📄 Contratti a termine</option>
         <option value="completate">Completate</option>
       </select>
     </div>
@@ -100,21 +106,33 @@
         <!-- Header -->
         <div class="px-5 py-4 bg-gray-50 border-b border-gray-100 flex items-center justify-between cursor-pointer" @click="toggleExpanded(emp.id)">
           <div class="flex items-center gap-4 flex-1">
-            <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold shrink-0">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold shrink-0"
+              :class="emp._isDeterminato ? 'bg-purple-100 text-purple-700' : 'bg-primary-100 text-primary-700'">
               {{ initials(emp.nome) }}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="font-semibold text-gray-900">{{ emp.nome }} {{ emp.cognome }}</div>
+              <div class="font-semibold text-gray-900">
+                {{ emp.nome }} {{ emp.cognome }}
+                <span v-if="emp._isDeterminato" class="ml-2 text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">📄 Determinato</span>
+              </div>
               <div class="text-xs text-gray-500">{{ emp.team }} · {{ emp.livelloCCNL }}</div>
             </div>
           </div>
           <div class="flex items-center gap-4">
+            <!-- Scadenza contratto (per determinati) -->
+            <div v-if="emp._isDeterminato && emp.scadenzaContratto" class="text-right">
+              <div class="text-xs text-purple-500">Scad. contratto</div>
+              <div class="font-mono text-sm font-bold" :class="{'text-red-600': emp._daysToContratto <= 0, 'text-orange-600': emp._daysToContratto <= 7, 'text-purple-600': emp._daysToContratto <= 30}">
+                {{ fmtDateShort(emp.scadenzaContratto) }}
+              </div>
+              <div class="text-xs text-gray-500">{{ emp._daysToContratto }}gg</div>
+            </div>
             <div class="text-right">
               <div class="text-xs text-gray-400">Fine prova</div>
               <div class="font-mono text-sm font-bold" :class="{'text-red-600': emp.daysToProva <= 0, 'text-orange-600': emp.daysToProva <= 7, 'text-yellow-600': emp.daysToProva <= 30}">
                 {{ fmtDateShort(emp.fineProva) }}
               </div>
-              <div class="text-xs text-gray-500">{{ emp.daysToProva }}gg</div>
+              <div class="text-xs text-gray-500">{{ emp.daysToProva != null ? emp.daysToProva + 'gg' : '—' }}</div>
             </div>
             <svg :class="['w-5 h-5 transition-transform', expanded.includes(emp.id) ? 'rotate-180' : '']" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -482,13 +500,48 @@ const completate = computed(() => {
   )
 })
 
+// Contratti a termine in scadenza entro 30gg (anche se non "In Corso" come prova)
+const determinatiInScadenza = computed(() => {
+  const today = new Date()
+  return store.enrichedEmployees.filter(e => {
+    if (e.stato !== 'Attivo') return false
+    if (e.tipoContratto !== 'determinato') return false
+    if (e.team.toLowerCase().includes('freelance')) return false
+    if (!e.scadenzaContratto) return false
+    const days = Math.round((new Date(e.scadenzaContratto) - today) / 86400000)
+    return days <= 30
+  }).map(e => ({
+    ...e,
+    _isDeterminato: true,
+    _daysToContratto: Math.round((new Date(e.scadenzaContratto) - today) / 86400000)
+  }))
+})
+
+// Combina inCorso + determinati (senza duplicati)
+const allVisibili = computed(() => {
+  const inCorsoIds = new Set(inCorso.value.map(e => e.id))
+  const extra = determinatiInScadenza.value.filter(e => !inCorsoIds.has(e.id))
+  // Enrichisci inCorso con flag determinato
+  const today = new Date()
+  const enriched = inCorso.value.map(e => {
+    const isDet = e.tipoContratto === 'determinato' && e.scadenzaContratto
+    return {
+      ...e,
+      _isDeterminato: isDet,
+      _daysToContratto: isDet ? Math.round((new Date(e.scadenzaContratto) - today) / 86400000) : null
+    }
+  })
+  return [...enriched, ...extra]
+})
+
 const filtered = computed(() => {
   const s = search.value.toLowerCase()
-  let list = inCorso.value
+  let list = allVisibili.value
 
   if (filterStatus.value === 'scaduti') list = scaduti.value
   else if (filterStatus.value === 'urgenti') list = entro7gg.value
   else if (filterStatus.value === 'attenzione') list = entro30gg.value
+  else if (filterStatus.value === 'determinati') list = determinatiInScadenza.value
   else if (filterStatus.value === 'completate') list = completate.value
 
   return list.filter(e => {
