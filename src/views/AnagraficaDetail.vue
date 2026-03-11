@@ -208,7 +208,32 @@
           </div>
           <div class="bg-gray-50 p-3 rounded">
             <div class="text-xs text-gray-500">Stato</div>
-            <div :class="['font-semibold mt-1', emp?.stato === 'Attivo' ? 'text-emerald-700' : 'text-gray-700']">{{ emp?.stato || '—' }}</div>
+            <div :class="['font-semibold mt-1', emp?.stato === 'Attivo' ? 'text-emerald-700' : 'text-gray-700']" v-if="!editingStato">{{ emp?.stato || '—' }}
+              <button @click="startEditStato" class="ml-2 text-xs text-primary-600 hover:text-primary-800 font-medium">✎ Modifica</button>
+            </div>
+            <div v-else class="mt-1 space-y-2">
+              <select v-model="editStatoForm.stato" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                <option v-for="s in statiDipendente" :key="s" :value="s">{{ s }}</option>
+              </select>
+              <div v-if="editStatoForm.stato !== 'Attivo'" class="space-y-2">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-0.5">Data Uscita</label>
+                  <input type="date" v-model="editStatoForm.dataUscita" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-0.5">Motivo</label>
+                  <textarea v-model="editStatoForm.motivoUscita" rows="2" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm" placeholder="Motivo uscita..."></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-0.5">Note</label>
+                  <textarea v-model="editStatoForm.noteUscita" rows="2" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm" placeholder="Note aggiuntive..."></textarea>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button @click="saveEditStato" class="px-3 py-1 bg-primary-500 text-white text-xs rounded hover:bg-primary-600">Salva</button>
+                <button @click="editingStato = false" class="px-3 py-1 bg-gray-200 text-gray-700 text-xs rounded hover:bg-gray-300">Annulla</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -368,7 +393,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
@@ -380,6 +405,44 @@ const { fmtDateShort } = useHelpers()
 
 const empId = parseInt(route.params.id)
 const emp = computed(() => store.employees.find(e => e.id === empId))
+
+// Stato editing
+const statiDipendente = ['Attivo', 'Dimissioni Volontarie', 'Mancato Superamento Prova', 'In Uscita Concordata', 'Licenziato']
+const editingStato = ref(false)
+const editStatoForm = ref({
+  stato: '',
+  dataUscita: '',
+  motivoUscita: '',
+  noteUscita: ''
+})
+
+function startEditStato() {
+  editStatoForm.value = {
+    stato: emp.value?.stato || 'Attivo',
+    dataUscita: emp.value?.dataUscita || '',
+    motivoUscita: emp.value?.motivoUscita || '',
+    noteUscita: emp.value?.noteUscita || ''
+  }
+  editingStato.value = true
+}
+
+function saveEditStato() {
+  if (!emp.value) return
+  const updates = {
+    stato: editStatoForm.value.stato
+  }
+  if (editStatoForm.value.stato !== 'Attivo') {
+    updates.dataUscita = editStatoForm.value.dataUscita || new Date().toISOString().split('T')[0]
+    updates.motivoUscita = editStatoForm.value.motivoUscita || editStatoForm.value.stato
+    updates.noteUscita = editStatoForm.value.noteUscita || ''
+  } else {
+    updates.dataUscita = null
+    updates.motivoUscita = ''
+    updates.noteUscita = ''
+  }
+  store.updateEmployee(emp.value.id, updates)
+  editingStato.value = false
+}
 
 // P&C Colloquio data
 const pcData = computed(() => {

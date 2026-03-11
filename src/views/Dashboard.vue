@@ -181,71 +181,153 @@
     </div>
   </div>
 
-  <!-- MODAL INLINE EDIT URGENZA -->
-  <Modal v-if="selectedUrgenza" @close="selectedUrgenza = null" width="max-w-md">
-    <template #header>
-      ✎ Modifica Azione Urgente
-    </template>
-    <div class="space-y-4 py-4">
-      <!-- Info dipendente -->
-      <div class="bg-gray-50 p-3 rounded border border-gray-100">
-        <p class="text-sm font-medium text-gray-900">{{ selectedUrgenza.nome }} {{ selectedUrgenza.cognome }}</p>
-        <p class="text-xs text-gray-600">{{ selectedUrgenza.team }}</p>
-        <p class="text-xs text-gray-500 mt-1">{{ selectedUrgenza.tipo }} • Scadenza: {{ fmtDateShort(selectedUrgenza.data) }}</p>
+  <!-- MODAL INLINE EDIT URGENZA — Full feedback form (consistent with Onboarding/P&C) -->
+  <Modal :open="!!selectedUrgenza" @close="closeEditModal" :title="modalTitle" width="880px">
+    <div v-if="selectedUrgenza" class="space-y-5">
+      <!-- Header info dipendente -->
+      <div class="grid grid-cols-4 gap-3">
+        <InfoBlock label="Dipendente" :value="selectedUrgenza.nome + ' ' + selectedUrgenza.cognome" />
+        <InfoBlock label="Team" :value="selectedUrgenza.team" />
+        <InfoBlock label="Tipo azione" :value="selectedUrgenza.tipo" />
+        <InfoBlock label="Scadenza" :value="fmtDateShort(selectedUrgenza.data)" highlight />
       </div>
 
-      <!-- Tipo azione (readonly) -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo azione</label>
-        <input
-          type="text"
-          disabled
-          :value="selectedUrgenza.tipo"
-          class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-50 text-gray-600 text-sm"
-        />
-      </div>
-
-      <!-- Nuovo stato -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Stato</label>
-        <div class="flex gap-2">
-          <button
-            v-for="stato in ['Da Fare', 'In Corso', 'Fatto']"
-            :key="stato"
-            @click="selectedUrgenza.newStato = stato"
-            :class="[
-              'flex-1 px-3 py-2 rounded text-sm font-medium transition',
-              selectedUrgenza.newStato === stato
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            ]"
-          >
-            {{ stato }}
-          </button>
+      <!-- ─── FU1 / FU2: Onboarding follow-up form ─── -->
+      <Section v-if="selectedUrgenza.tipo === 'FU1' || selectedUrgenza.tipo === 'FU2'" :title="selectedUrgenza.tipo === 'FU1' ? 'Follow-up 1 — Colloquio con dipendente (30gg)' : 'Follow-up 2 — Dipendente + Manager (fine prova -30gg)'">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="form-label">Data colloquio</label>
+            <input class="form-input" type="date" v-model="editForm.dataColloquio">
+          </div>
+          <div>
+            <label class="form-label">Stato {{ selectedUrgenza.tipo }}</label>
+            <select class="form-select" v-model="editForm.statoAzione">
+              <option>Da Fare</option><option>In Corso</option><option>Fatto</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <!-- Note -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Note</label>
-        <textarea
-          v-model="selectedUrgenza.newNote"
-          placeholder="Aggiungi note..."
-          class="w-full px-3 py-2 border border-gray-200 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          rows="3"
-        ></textarea>
-      </div>
+        <!-- Scale behavioral wellness -->
+        <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 space-y-5">
+          <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest">Scale Behavioral Wellness ({{ selectedUrgenza.tipo }})</p>
+          <div class="grid grid-cols-2 gap-5">
+            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="⚡ Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="💪 Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+          </div>
+          <div>
+            <label class="form-label">Note colloquio</label>
+            <textarea class="form-textarea" rows="3" v-model="editForm.note" placeholder="Osservazioni, azioni concordate..."></textarea>
+          </div>
+        </div>
+      </Section>
+
+      <!-- ─── Fine prova: Valutazione periodo di prova ─── -->
+      <Section v-if="selectedUrgenza.tipo === 'Fine prova'" title="Valutazione Periodo di Prova">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="form-label">Esito periodo di prova</label>
+            <select class="form-select" v-model="editForm.esitoProva">
+              <option>In Corso</option><option>Superato</option><option>Non Superato</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Data valutazione</label>
+            <input class="form-input" type="date" v-model="editForm.dataColloquio">
+          </div>
+        </div>
+        <div v-if="editForm.esitoProva === 'Superato'" class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 mb-4">
+          <p class="text-sm font-medium text-emerald-800">✅ Periodo di prova superato — il dipendente passa al rapporto pieno.</p>
+        </div>
+        <div v-if="editForm.esitoProva === 'Non Superato'" class="p-4 bg-red-50 rounded-xl border border-red-200 mb-4">
+          <p class="text-sm font-medium text-red-800">❌ Periodo di prova non superato.<br>Aggiornare lo stato dipendente qui sotto.</p>
+        </div>
+
+        <!-- Scale finali -->
+        <div class="bg-purple-50 rounded-xl p-5 border border-purple-100 space-y-5">
+          <p class="text-xs font-semibold text-purple-600 uppercase tracking-widest">Scale Behavioral Wellness (Valutazione finale)</p>
+          <div class="grid grid-cols-2 gap-5">
+            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="⚡ Carico di lavoro (CBI)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="💪 Motivazione & Autonomia (JD-R)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+          </div>
+          <div>
+            <label class="form-label">Note valutazione</label>
+            <textarea class="form-textarea" rows="3" v-model="editForm.note" placeholder="Osservazioni su periodo di prova..."></textarea>
+          </div>
+        </div>
+      </Section>
+
+      <!-- ─── Burnout: Colloquio P&C ─── -->
+      <Section v-if="selectedUrgenza.tipo === 'Burnout'" title="Colloquio P&C — Monitoraggio Burnout">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label class="form-label">Data colloquio</label>
+            <input class="form-input" type="date" v-model="editForm.dataColloquio">
+          </div>
+          <div>
+            <label class="form-label">Esito</label>
+            <select class="form-select" v-model="editForm.esito">
+              <option>Positivo</option><option>Da Monitorare</option><option>Critico</option><option>Urgente</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-red-50 rounded-xl p-5 border border-red-100 space-y-5">
+          <p class="text-xs font-semibold text-red-600 uppercase tracking-widest">Scale scientifiche 1–5 (Colloquio P&C)</p>
+          <div class="grid grid-cols-2 gap-5">
+            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="⚡ Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="💪 Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+          </div>
+          <div>
+            <label class="form-label">Note colloquio</label>
+            <textarea class="form-textarea" rows="3" v-model="editForm.note" placeholder="Osservazioni, azioni concordate per burnout..."></textarea>
+          </div>
+        </div>
+      </Section>
+
+      <!-- ─── Stato Dipendente (sempre visibile) ─── -->
+      <Section title="Stato Dipendente">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="form-label">Stato attuale</label>
+            <select class="form-select" v-model="editForm.statoDipendente">
+              <option v-for="s in statiDipendente" :key="s" :value="s">{{ s }}</option>
+            </select>
+          </div>
+          <div v-if="editForm.statoDipendente !== 'Attivo'">
+            <label class="form-label">Data Uscita</label>
+            <input type="date" v-model="editForm.dataUscita" class="form-input" />
+          </div>
+        </div>
+        <div v-if="editForm.statoDipendente !== 'Attivo'" class="mt-3 bg-orange-50 p-4 rounded-xl border border-orange-200 space-y-3">
+          <div>
+            <label class="form-label text-orange-800">Motivo Uscita</label>
+            <textarea v-model="editForm.motivoUscita" rows="2" class="form-textarea" placeholder="Motivo..."></textarea>
+          </div>
+        </div>
+      </Section>
     </div>
 
     <template #footer>
-      <button @click="selectedUrgenza = null" class="btn btn-ghost">Annulla</button>
-      <button @click="saveUrgenzaEdit" class="btn btn-primary">Salva</button>
+      <button @click="closeEditModal" class="btn btn-secondary">Annulla</button>
+      <button @click="saveUrgenzaEdit" class="btn btn-primary">💾 Salva tutto</button>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
@@ -253,48 +335,169 @@ import KpiCard from '@/components/ui/KpiCard.vue'
 import DimBar  from '@/components/ui/DimBar.vue'
 import KanbanBoard from '@/components/dashboard/KanbanBoard.vue'
 import Modal from '@/components/ui/Modal.vue'
+import Section from '@/components/ui/Section.vue'
+import ScaleInput from '@/components/ui/ScaleInput.vue'
+import InfoBlock from '@/components/ui/InfoBlock.vue'
 
 const router = useRouter()
 const store = useHrStore()
 const { fmtDateShort, contractBadge } = useHelpers()
 
-// Inline edit urgenza
+// ─── Edit modal state ───
 const selectedUrgenza = ref(null)
+const statiDipendente = ['Attivo', 'Dimissioni Volontarie', 'Mancato Superamento Prova', 'In Uscita Concordata', 'Licenziato']
+
+const editForm = reactive({
+  statoAzione: 'In Corso',
+  esitoProva: 'In Corso',
+  esito: 'Positivo',
+  dataColloquio: '',
+  esaur: null, carico: null, motiv: null, supp: null, equil: null, intent: null,
+  note: '',
+  statoDipendente: 'Attivo',
+  dataUscita: '',
+  motivoUscita: ''
+})
+
+const modalTitle = computed(() => {
+  if (!selectedUrgenza.value) return ''
+  const tipo = selectedUrgenza.value.tipo
+  if (tipo === 'FU1') return '💬 Follow-up 1 — ' + selectedUrgenza.value.nome + ' ' + selectedUrgenza.value.cognome
+  if (tipo === 'FU2') return '👔 Follow-up 2 — ' + selectedUrgenza.value.nome + ' ' + selectedUrgenza.value.cognome
+  if (tipo === 'Fine prova') return '🏁 Valutazione Prova — ' + selectedUrgenza.value.nome + ' ' + selectedUrgenza.value.cognome
+  if (tipo === 'Burnout') return '🔴 Monitoraggio Burnout — ' + selectedUrgenza.value.nome + ' ' + selectedUrgenza.value.cognome
+  return '✎ Modifica — ' + selectedUrgenza.value.nome + ' ' + selectedUrgenza.value.cognome
+})
 
 const openEditModal = (urgenza) => {
-  selectedUrgenza.value = {
-    ...urgenza,
-    newStato: urgenza.azione.includes('Fatto') ? 'Fatto' : 'In Corso',
-    newNote: ''
+  // Find enriched employee and existing colloquio data
+  const empId = parseInt(urgenza.key)  // key is like "3fu1s" — extract numeric part
+  const emp = store.employees.find(e => urgenza.key.startsWith(String(e.id)))
+  const coll = emp ? (store.colloqui.find(c => c.nome === emp.nome) || {}) : {}
+
+  // Pre-populate form with existing data
+  const today = new Date().toISOString().split('T')[0]
+
+  // Reset all scales
+  editForm.esaur = null; editForm.carico = null; editForm.motiv = null
+  editForm.supp = null; editForm.equil = null; editForm.intent = null
+  editForm.note = ''
+  editForm.dataColloquio = today
+  editForm.esito = 'Positivo'
+  editForm.statoDipendente = emp?.stato || 'Attivo'
+  editForm.dataUscita = emp?.dataUscita || ''
+  editForm.motivoUscita = emp?.motivoUscita || ''
+
+  if (urgenza.tipo === 'FU1') {
+    editForm.statoAzione = emp?.statoFU1 || 'Da Fare'
+    // Pre-fill from existing FU1 colloquio if available
+    if (coll.c1_esaur) {
+      editForm.esaur = coll.c1_esaur; editForm.carico = coll.c1_carico
+      editForm.motiv = coll.c1_motiv; editForm.supp = coll.c1_supp
+      editForm.equil = coll.c1_equil; editForm.intent = coll.c1_intent
+      editForm.note = coll.c1_note || ''
+    }
+  } else if (urgenza.tipo === 'FU2') {
+    editForm.statoAzione = emp?.statoFU2Dip || 'Da Fare'
+    if (coll.c2_esaur) {
+      editForm.esaur = coll.c2_esaur; editForm.carico = coll.c2_carico
+      editForm.motiv = coll.c2_motiv; editForm.supp = coll.c2_supp
+      editForm.equil = coll.c2_equil; editForm.intent = coll.c2_intent
+      editForm.note = coll.c2_note || ''
+    }
+  } else if (urgenza.tipo === 'Fine prova') {
+    editForm.esitoProva = emp?.esitoProva || 'In Corso'
+    // Pre-fill from FU2 (latest) if available
+    if (coll.c2_esaur) {
+      editForm.esaur = coll.c2_esaur; editForm.carico = coll.c2_carico
+      editForm.motiv = coll.c2_motiv; editForm.supp = coll.c2_supp
+      editForm.equil = coll.c2_equil; editForm.intent = coll.c2_intent
+    }
+  } else if (urgenza.tipo === 'Burnout') {
+    // Pre-fill from P&C colloquio
+    const pc = store.colloquiPC.find(c => c.employeeId === emp?.id)
+    if (pc) {
+      editForm.esaur = pc.esaur; editForm.carico = pc.carico
+      editForm.motiv = pc.motiv; editForm.supp = pc.supp
+      editForm.equil = pc.equil; editForm.intent = pc.intent
+      editForm.note = pc.note || ''
+      editForm.esito = pc.esito || 'Critico'
+    }
   }
+
+  selectedUrgenza.value = { ...urgenza }
+}
+
+const closeEditModal = () => {
+  selectedUrgenza.value = null
 }
 
 const saveUrgenzaEdit = () => {
   if (!selectedUrgenza.value) return
-
   const u = selectedUrgenza.value
-  const emp = store.employees.find(e => e.id === parseInt(u.key.split('+')[0]))
+  const emp = store.employees.find(e => u.key.startsWith(String(e.id)))
+  if (!emp) { selectedUrgenza.value = null; return }
 
-  if (emp) {
-    // Update stato based on tipo
-    if (u.tipo === 'FU1') {
-      emp.statoFU1 = u.newStato
-      emp.noteFU1 = u.newNote
-    } else if (u.tipo === 'FU2') {
-      emp.statoFU2Dip = u.newStato
-      emp.noteFU2Dip = u.newNote
-    } else if (u.tipo === 'Fine prova') {
-      emp.esitoProva = u.newStato === 'Fatto' ? 'Superato' : 'In Corso'
+  const tipo = u.tipo
+
+  // ── Save scale data to colloqui (feeds Onboarding analytics) ──
+  if (tipo === 'FU1') {
+    const collData = {
+      c1_esaur: editForm.esaur, c1_carico: editForm.carico,
+      c1_motiv: editForm.motiv, c1_supp: editForm.supp,
+      c1_equil: editForm.equil, c1_intent: editForm.intent,
+      c1_note: editForm.note
     }
-
-    // Trigger auto-save
+    store.saveColloquio(emp.nome, collData)
     store.updateEmployee(emp.id, {
-      statoFU1: emp.statoFU1,
-      noteFU1: emp.noteFU1,
-      statoFU2Dip: emp.statoFU2Dip,
-      noteFU2Dip: emp.noteFU2Dip,
-      esitoProva: emp.esitoProva
+      statoFU1: editForm.statoAzione,
+      noteFU1: editForm.note
     })
+  } else if (tipo === 'FU2') {
+    const collData = {
+      c2_esaur: editForm.esaur, c2_carico: editForm.carico,
+      c2_motiv: editForm.motiv, c2_supp: editForm.supp,
+      c2_equil: editForm.equil, c2_intent: editForm.intent,
+      c2_note: editForm.note
+    }
+    store.saveColloquio(emp.nome, collData)
+    store.updateEmployee(emp.id, {
+      statoFU2Dip: editForm.statoAzione,
+      noteFU2Dip: editForm.note
+    })
+  } else if (tipo === 'Fine prova') {
+    // Save valutazione scales to colloquio (c2 = final assessment)
+    const collData = {
+      c2_esaur: editForm.esaur, c2_carico: editForm.carico,
+      c2_motiv: editForm.motiv, c2_supp: editForm.supp,
+      c2_equil: editForm.equil, c2_intent: editForm.intent,
+      c2_note: editForm.note
+    }
+    store.saveColloquio(emp.nome, collData)
+    store.updateEmployee(emp.id, { esitoProva: editForm.esitoProva })
+  } else if (tipo === 'Burnout') {
+    // Save as P&C colloquio (feeds P&C analytics)
+    store.saveColloquioPC(emp.id, {
+      date: editForm.dataColloquio,
+      esaur: editForm.esaur, carico: editForm.carico,
+      motiv: editForm.motiv, supp: editForm.supp,
+      equil: editForm.equil, intent: editForm.intent,
+      esito: editForm.esito,
+      note: editForm.note
+    })
+  }
+
+  // ── Update stato dipendente if changed ──
+  if (editForm.statoDipendente !== emp.stato) {
+    const statoUpdate = { stato: editForm.statoDipendente }
+    if (editForm.statoDipendente !== 'Attivo') {
+      statoUpdate.dataUscita = editForm.dataUscita || new Date().toISOString().split('T')[0]
+      statoUpdate.motivoUscita = editForm.motivoUscita || editForm.statoDipendente
+    } else {
+      statoUpdate.dataUscita = null
+      statoUpdate.motivoUscita = ''
+    }
+    store.updateEmployee(emp.id, statoUpdate)
   }
 
   selectedUrgenza.value = null
