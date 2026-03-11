@@ -4,11 +4,11 @@
     <div class="flex items-center justify-between">
       <div>
         <h2 class="text-2xl font-bold text-gray-900">🎯 Valutazione Periodi di Prova</h2>
-        <p class="text-sm text-gray-500 mt-1">Gestione timeline: FU1 → FU2Manager → FU2Dip → Fine Prova → Decisione CEO</p>
+        <p class="text-sm text-gray-500 mt-1">Manager → HR → CEO: Scala dettagliata (1-5) + Raccomandazione</p>
       </div>
       <div class="text-right">
         <div class="text-3xl font-bold text-primary-600">{{ inCorso.length }}</div>
-        <div class="text-xs text-gray-500">dipendenti in prova</div>
+        <div class="text-xs text-gray-500">dipendenti (esclusi freelance)</div>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
       <input v-model="search" class="form-input max-w-xs" placeholder="🔍 Cerca dipendente...">
       <select v-model="filterTeam" class="form-select w-44">
         <option value="">Tutti i team</option>
-        <option v-for="t in store.teams" :key="t">{{ t }}</option>
+        <option v-for="t in getTeamsExcludingFreelance" :key="t">{{ t }}</option>
       </select>
       <select v-model="filterStatus" class="form-select w-44">
         <option value="">Tutti gli stati</option>
@@ -53,10 +53,10 @@
       </select>
     </div>
 
-    <!-- Elenco dipendenti con timeline -->
+    <!-- Elenco dipendenti -->
     <div class="space-y-4">
       <div v-if="filtered.length === 0" class="card p-8 text-center text-gray-400">
-        Nessun dipendente corrisponde ai criteri selezionati
+        Nessun dipendente corrisponde ai criteri selezionati (i freelance sono esclusi)
       </div>
 
       <div v-for="emp in filtered" :key="emp.id" class="card overflow-hidden">
@@ -85,117 +85,97 @@
           </div>
         </div>
 
-        <!-- Timeline -->
-        <div v-if="expanded.includes(emp.id)" class="px-5 py-4 bg-white space-y-5">
-          <!-- Timeline visiva -->
-          <div class="relative">
-            <div class="absolute top-5 left-0 right-0 h-1 bg-gray-200"></div>
-            <div class="absolute top-5 left-0 h-1" :style="{ width: progressPct(emp) + '%', backgroundColor: progressColor(emp) }"></div>
+        <!-- Expanded Content -->
+        <div v-if="expanded.includes(emp.id)" class="px-5 py-4 bg-white space-y-6 border-t border-gray-100">
+          <!-- Manager Evaluation -->
+          <div class="bg-blue-50 rounded-lg p-5 border border-blue-200">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-semibold text-blue-900">👨‍💼 Valutazione Manager/Responsabile Tecnico</h4>
+              <button v-if="!getManagerEvaluation(emp.id)" @click="openEvaluation(emp, 'manager')" class="btn btn-sm btn-primary">
+                Aggiungi valutazione
+              </button>
+              <button v-else @click="openEvaluation(emp, 'manager')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                ✎ Modifica
+              </button>
+            </div>
 
-            <div class="relative flex justify-between">
-              <!-- FU1 -->
-              <div class="text-center">
-                <div :class="['w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-white text-sm', emp.statoFU1 === 'Fatto' ? 'bg-emerald-500' : 'bg-gray-400']">
-                  ✓
-                </div>
-                <div class="text-xs font-medium text-gray-700">FU1</div>
-                <div class="text-xs text-gray-500">30gg</div>
-                <div class="text-xs text-gray-400 mt-1">{{ fmtDateShort(emp.scadenzaFU1) }}</div>
+            <div v-if="!getManagerEvaluation(emp.id)" class="text-sm text-blue-700">
+              Valutazione non ancora compilata
+            </div>
+            <div v-else class="space-y-3">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(emp.id).competenze }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(emp.id).qualita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(emp.id).problemSolving }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(emp.id).velocita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(emp.id).collaborazione }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(emp.id).comunicazione }}/5</div>
+                <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(emp.id).attitudine }}/5</div>
               </div>
-
-              <!-- FU2Manager -->
-              <div class="text-center">
-                <div :class="['w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-white text-sm', emp.statoFU2Manager === 'Fatto' ? 'bg-emerald-500' : 'bg-gray-400']">
-                  ✓
-                </div>
-                <div class="text-xs font-medium text-gray-700">FU2M</div>
-                <div class="text-xs text-gray-500">45gg</div>
-                <div class="text-xs text-gray-400 mt-1">{{ fmtDateShort(emp.scadenzaFU2Manager) }}</div>
-              </div>
-
-              <!-- FU2Dip -->
-              <div class="text-center">
-                <div :class="['w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-white text-sm', emp.statoFU2Dip === 'Fatto' ? 'bg-emerald-500' : 'bg-gray-400']">
-                  ✓
-                </div>
-                <div class="text-xs font-medium text-gray-700">FU2D</div>
-                <div class="text-xs text-gray-500">30d prima fine</div>
-                <div class="text-xs text-gray-400 mt-1">{{ fmtDateShort(emp.scadenzaFU2) }}</div>
-              </div>
-
-              <!-- Fine prova -->
-              <div class="text-center">
-                <div :class="['w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-white text-sm', emp.esitoProva ? 'bg-blue-500' : 'bg-gray-400']">
-                  🏁
-                </div>
-                <div class="text-xs font-medium text-gray-700">Fine Prova</div>
-                <div class="text-xs text-gray-500">{{ emp.durataProva }}</div>
-                <div class="text-xs text-gray-400 mt-1">{{ fmtDateShort(emp.fineProva) }}</div>
-              </div>
-
-              <!-- Decisione CEO -->
-              <div class="text-center">
-                <div :class="['w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-white text-sm', getValutazioneCEO(emp.id) ? 'bg-emerald-500' : 'bg-gray-400']">
-                  👔
-                </div>
-                <div class="text-xs font-medium text-gray-700">Decision CEO</div>
-                <div class="text-xs text-gray-500">Rinnovo/No</div>
-                <div v-if="getValutazioneCEO(emp.id)" class="text-xs font-bold mt-1" :class="{'text-emerald-600': getValutazioneCEO(emp.id).decisione === 'Rinnovo', 'text-red-600': getValutazioneCEO(emp.id).decisione === 'Non Rinnovo'}">
-                  {{ getValutazioneCEO(emp.id).decisione }}
-                </div>
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Raccomandazione:</strong> {{ getManagerEvaluation(emp.id).raccomandazione }}
               </div>
             </div>
           </div>
 
-          <!-- Valutazioni -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-6 border-t border-gray-200">
-            <!-- Valutazione Manager -->
-            <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
-              <h4 class="font-semibold text-blue-900 text-sm mb-3">👨‍💼 Valutazione Manager</h4>
-              <button v-if="!getValutazioneManager(emp.id)" @click="openValutazione(emp, 'manager')" class="btn btn-sm btn-primary w-full mb-2">
-                Aggiungi valutazione
+          <!-- HR Evaluation -->
+          <div class="bg-purple-50 rounded-lg p-5 border border-purple-200">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-semibold text-purple-900">👩‍💼 Validazione HR</h4>
+              <button v-if="!getHRValidation(emp.id)" @click="openEvaluation(emp, 'hr')" class="btn btn-sm btn-primary" :disabled="!getManagerEvaluation(emp.id)">
+                Valida
               </button>
-              <div v-else class="space-y-2">
-                <p class="text-xs text-blue-700"><strong>Data:</strong> {{ fmtDateShort(getValutazioneManager(emp.id).data) }}</p>
-                <p class="text-xs text-blue-700"><strong>Voto:</strong> {{ getValutazioneManager(emp.id).voto }}/10</p>
-                <p class="text-xs text-blue-700"><strong>Note:</strong> {{ getValutazioneManager(emp.id).note }}</p>
-                <button @click="openValutazione(emp, 'manager')" class="text-xs text-blue-600 hover:text-blue-800 font-medium mt-2">
-                  ✎ Modifica
-                </button>
-              </div>
+              <button v-else @click="openEvaluation(emp, 'hr')" class="text-xs text-purple-600 hover:text-purple-800 font-medium">
+                ✎ Modifica
+              </button>
             </div>
 
-            <!-- Valutazione HR -->
-            <div class="bg-purple-50 rounded-lg p-4 border border-purple-200">
-              <h4 class="font-semibold text-purple-900 text-sm mb-3">👩‍💼 Valutazione HR</h4>
-              <button v-if="!getValutazioneHR(emp.id)" @click="openValutazione(emp, 'hr')" class="btn btn-sm btn-primary w-full mb-2">
-                Aggiungi valutazione
-              </button>
-              <div v-else class="space-y-2">
-                <p class="text-xs text-purple-700"><strong>Data:</strong> {{ fmtDateShort(getValutazioneHR(emp.id).data) }}</p>
-                <p class="text-xs text-purple-700"><strong>Voto:</strong> {{ getValutazioneHR(emp.id).voto }}/10</p>
-                <p class="text-xs text-purple-700"><strong>Note:</strong> {{ getValutazioneHR(emp.id).note }}</p>
-                <button @click="openValutazione(emp, 'hr')" class="text-xs text-purple-600 hover:text-purple-800 font-medium mt-2">
-                  ✎ Modifica
-                </button>
+            <div v-if="!getManagerEvaluation(emp.id)" class="text-sm text-purple-700 bg-purple-100 p-2 rounded">
+              ⚠️ Completare prima la valutazione del Manager
+            </div>
+            <div v-else-if="!getHRValidation(emp.id)" class="text-sm text-purple-700">
+              In attesa di validazione HR
+            </div>
+            <div v-else class="space-y-2">
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Data validazione:</strong> {{ fmtDateShort(getHRValidation(emp.id).data) }}
+              </div>
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Voto HR (1-10):</strong> {{ getHRValidation(emp.id).voto }}
+              </div>
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Commento HR:</strong> {{ getHRValidation(emp.id).commento }}
               </div>
             </div>
+          </div>
 
-            <!-- Decisione CEO -->
-            <div class="bg-amber-50 rounded-lg p-4 border border-amber-200">
-              <h4 class="font-semibold text-amber-900 text-sm mb-3">👑 Decisione CEO</h4>
-              <button v-if="!getValutazioneCEO(emp.id)" @click="openValutazione(emp, 'ceo')" class="btn btn-sm btn-primary w-full mb-2">
+          <!-- CEO Decision -->
+          <div class="bg-amber-50 rounded-lg p-5 border border-amber-200">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-semibold text-amber-900">👑 Decisione CEO</h4>
+              <button v-if="!getCEODecision(emp.id)" @click="openEvaluation(emp, 'ceo')" class="btn btn-sm btn-primary" :disabled="!getHRValidation(emp.id)">
                 Registra decisione
               </button>
-              <div v-else class="space-y-2">
-                <p class="text-xs text-amber-700"><strong>Data:</strong> {{ fmtDateShort(getValutazioneCEO(emp.id).data) }}</p>
-                <p :class="['text-xs font-bold', getValutazioneCEO(emp.id).decisione === 'Rinnovo' ? 'text-emerald-700' : 'text-red-700']">
-                  <strong>Decisione:</strong> {{ getValutazioneCEO(emp.id).decisione }}
-                </p>
-                <p class="text-xs text-amber-700"><strong>Note:</strong> {{ getValutazioneCEO(emp.id).note }}</p>
-                <button @click="openValutazione(emp, 'ceo')" class="text-xs text-amber-600 hover:text-amber-800 font-medium mt-2">
-                  ✎ Modifica
-                </button>
+              <button v-else @click="openEvaluation(emp, 'ceo')" class="text-xs text-amber-600 hover:text-amber-800 font-medium">
+                ✎ Modifica
+              </button>
+            </div>
+
+            <div v-if="!getHRValidation(emp.id)" class="text-sm text-amber-700 bg-amber-100 p-2 rounded">
+              ⚠️ Completare prima la validazione HR
+            </div>
+            <div v-else-if="!getCEODecision(emp.id)" class="text-sm text-amber-700">
+              In attesa di decisione CEO
+            </div>
+            <div v-else class="space-y-2">
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Data decisione:</strong> {{ fmtDateShort(getCEODecision(emp.id).data) }}
+              </div>
+              <div :class="['bg-white p-3 rounded text-sm font-bold', getCEODecision(emp.id).decisione === 'Confermare' ? 'text-emerald-700' : getCEODecision(emp.id).decisione === 'Proroga temporanea' ? 'text-yellow-700' : 'text-red-700']">
+                <strong>Decisione:</strong> {{ getCEODecision(emp.id).decisione }}
+              </div>
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Motivazione:</strong> {{ getCEODecision(emp.id).motivazione }}
               </div>
             </div>
           </div>
@@ -210,58 +190,172 @@
         <div>
           <h4 class="font-semibold text-blue-900 mb-1">Processo di Valutazione della Prova</h4>
           <ul class="text-sm text-blue-800 space-y-1">
-            <li>🔵 <strong>FU1 (30gg):</strong> Colloquio dipendente + Manager Assessment</li>
-            <li>🔵 <strong>FU2 Manager (45gg):</strong> Valutazione formale del Manager</li>
-            <li>🔵 <strong>FU2 Dipendente (30d prima fine):</strong> Autovalutazione dipendente</li>
-            <li>🔵 <strong>Fine Prova:</strong> Data di scadenza del periodo di prova</li>
-            <li>👑 <strong>Decisione CEO:</strong> Rinnovo del contratto o conclusione</li>
+            <li>🔵 <strong>Manager/Responsabile Tecnico:</strong> Compila scala 7 criteri (1-5) + raccomandazione (Confermare / Proroga / Non Confermare)</li>
+            <li>🔵 <strong>HR:</strong> Valida con voto 1-10 + commento + approvazione finale</li>
+            <li>👑 <strong>CEO:</strong> Decisione finale con motivazione (Rinnovo / Proroga / Conclusione)</li>
+            <li>📋 <strong>Freelance:</strong> Esclusi da questo processo - gestiti solo in "Contratti a Termine"</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL VALUTAZIONE -->
-  <Modal :open="modal.open" @close="modal.open = false" width="max-w-2xl">
+  <!-- MODAL EVALUATION -->
+  <Modal :open="modal.open" @close="modal.open = false" width="max-w-4xl">
     <template #header>{{ getModalTitle() }}</template>
-    <div class="space-y-4 py-4">
+    <div class="space-y-4 py-4 max-h-96 overflow-y-auto">
       <!-- Dipendente info -->
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
         <p class="text-sm font-medium text-gray-900">{{ modal.emp?.nome }} {{ modal.emp?.cognome }}</p>
-        <p class="text-xs text-gray-600">{{ modal.emp?.team }}</p>
+        <p class="text-xs text-gray-600">{{ modal.emp?.team }} · {{ modal.emp?.livelloCCNL }}</p>
       </div>
 
-      <!-- Data -->
-      <div>
-        <label class="form-label">Data valutazione</label>
-        <input v-model="valutazioneForm.data" type="date" class="form-input">
+      <!-- Manager Evaluation Form -->
+      <div v-if="modal.tipo === 'manager'" class="space-y-4">
+        <h4 class="font-semibold text-gray-900">Scala di Valutazione (1-5)</h4>
+
+        <!-- Competenze Tecniche -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">1. Competenze Tecniche</label>
+          <input v-model.number="evalForm.competenze" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.competenze }}/5</div>
+          <textarea v-model="evalForm.competenzeNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Qualità del Lavoro -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">2. Qualità del Lavoro (precisione, autonomia, affidabilità)</label>
+          <input v-model.number="evalForm.qualita" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.qualita }}/5</div>
+          <textarea v-model="evalForm.qualitaNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Problem Solving -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">3. Capacità di Problem-Solving</label>
+          <input v-model.number="evalForm.problemSolving" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.problemSolving }}/5</div>
+          <textarea v-model="evalForm.problemSolvingNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Velocità di Apprendimento -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">4. Velocità di Apprendimento</label>
+          <input v-model.number="evalForm.velocita" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.velocita }}/5</div>
+          <textarea v-model="evalForm.velocitaNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Collaborazione -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">5. Collaborazione e Teamwork</label>
+          <input v-model.number="evalForm.collaborazione" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.collaborazione }}/5</div>
+          <textarea v-model="evalForm.collaborazioneNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Comunicazione -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">6. Comunicazione (chiarezza, proattività, disponibilità)</label>
+          <input v-model.number="evalForm.comunicazione" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.comunicazione }}/5</div>
+          <textarea v-model="evalForm.comunicazioneNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Attitudine -->
+        <div class="border border-gray-200 p-3 rounded">
+          <label class="block text-sm font-medium text-gray-700 mb-1">7. Attitudine e Cultura Aziendale (allineamento valori, atteggiamento, spirito iniziativa)</label>
+          <input v-model.number="evalForm.attitudine" type="range" min="1" max="5" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">Voto: {{ evalForm.attitudine }}/5</div>
+          <textarea v-model="evalForm.attitudineNote" class="form-textarea mt-2" rows="2" placeholder="Commento qualitativo..."></textarea>
+        </div>
+
+        <!-- Osservazioni Generali -->
+        <div>
+          <label class="form-label">Osservazioni Generali (performance, atteggiamento, collaborazione, punti di forza, aree attenzione)</label>
+          <textarea v-model="evalForm.osservazioni" class="form-textarea" rows="3" placeholder="Valutazione discorsiva..."></textarea>
+        </div>
+
+        <!-- Raccomandazione -->
+        <div>
+          <label class="form-label">Raccomandazione del Responsabile Tecnico</label>
+          <select v-model="evalForm.raccomandazione" class="form-select">
+            <option>Confermare il dipendente</option>
+            <option>Proroga temporanea</option>
+            <option>Non confermare</option>
+          </select>
+          <textarea v-model="evalForm.motivazioneRaccomandazione" class="form-textarea mt-2" rows="2" placeholder="Motivazione dettagliata..."></textarea>
+        </div>
+
+        <!-- Suggerimenti -->
+        <div>
+          <label class="form-label">Suggerimenti o Necessità (formazione, supporto, cambi ruolo, affiancamento, ecc.)</label>
+          <textarea v-model="evalForm.suggerimenti" class="form-textarea" rows="2" placeholder="Suggerimenti..."></textarea>
+        </div>
+
+        <!-- Aree di Miglioramento -->
+        <div>
+          <label class="form-label">Aree di Miglioramento e Punti di Forza</label>
+          <textarea v-model="evalForm.areaeMiglioramento" class="form-textarea" rows="2" placeholder="Analisi..."></textarea>
+        </div>
       </div>
 
-      <!-- Voto (per manager e HR) -->
-      <div v-if="modal.tipo !== 'ceo'">
-        <label class="form-label">Voto (1-10)</label>
-        <input v-model.number="valutazioneForm.voto" type="range" min="1" max="10" class="w-full">
-        <div class="text-sm text-gray-600 mt-1">{{ valutazioneForm.voto }}/10</div>
+      <!-- HR Validation Form -->
+      <div v-else-if="modal.tipo === 'hr'" class="space-y-4">
+        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-3 rounded border border-blue-200 text-sm">
+          <strong>Raccomandazione Manager:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}
+        </div>
+
+        <div>
+          <label class="form-label">Data validazione</label>
+          <input v-model="evalForm.hrData" type="date" class="form-input">
+        </div>
+
+        <div>
+          <label class="form-label">Voto HR (1-10)</label>
+          <input v-model.number="evalForm.hrVoto" type="range" min="1" max="10" class="w-full">
+          <div class="text-sm text-gray-600 mt-1">{{ evalForm.hrVoto }}/10</div>
+        </div>
+
+        <div>
+          <label class="form-label">Commento di Validazione HR</label>
+          <textarea v-model="evalForm.hrCommento" class="form-textarea" rows="4" placeholder="Valutazione e parere HR..."></textarea>
+        </div>
       </div>
 
-      <!-- Decisione (per CEO) -->
-      <div v-else>
-        <label class="form-label">Decisione</label>
-        <select v-model="valutazioneForm.decisione" class="form-select">
-          <option>Rinnovo</option>
-          <option>Non Rinnovo</option>
-        </select>
-      </div>
+      <!-- CEO Decision Form -->
+      <div v-else-if="modal.tipo === 'ceo'" class="space-y-4">
+        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-3 rounded border border-blue-200 text-xs space-y-1">
+          <p><strong>Manager:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
+        </div>
+        <div v-if="getHRValidation(modal.emp?.id)" class="bg-purple-50 p-3 rounded border border-purple-200 text-xs space-y-1">
+          <p><strong>HR Voto:</strong> {{ getHRValidation(modal.emp?.id).voto }}/10</p>
+        </div>
 
-      <!-- Note -->
-      <div>
-        <label class="form-label">Note valutazione</label>
-        <textarea v-model="valutazioneForm.note" class="form-textarea" rows="4" placeholder="Osservazioni, feedback, motivazioni..."></textarea>
+        <div>
+          <label class="form-label">Data decisione</label>
+          <input v-model="evalForm.ceoData" type="date" class="form-input">
+        </div>
+
+        <div>
+          <label class="form-label">Decisione CEO</label>
+          <select v-model="evalForm.ceoDecisione" class="form-select">
+            <option>Confermare il dipendente</option>
+            <option>Proroga temporanea</option>
+            <option>Non confermare</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Motivazione della Decisione</label>
+          <textarea v-model="evalForm.ceoMotivazione" class="form-textarea" rows="3" placeholder="Motivazione dettagliata..."></textarea>
+        </div>
       </div>
     </div>
+
     <template #footer>
       <button @click="modal.open = false" class="btn btn-ghost">Annulla</button>
-      <button @click="saveValutazione" class="btn btn-primary">💾 Salva valutazione</button>
+      <button @click="saveEvaluation" class="btn btn-primary">💾 Salva</button>
     </template>
   </Modal>
 </template>
@@ -280,41 +374,72 @@ const filterTeam = ref('')
 const filterStatus = ref('')
 const expanded = ref([])
 
-// Valutazioni stored in local state (in future in store)
 const valutazioni = reactive({
-  manager: {}, // { empId: { data, voto, note } }
-  hr: {},      // { empId: { data, voto, note } }
-  ceo: {}      // { empId: { data, decisione, note } }
+  manager: {},
+  hr: {},
+  ceo: {}
 })
 
 const modal = reactive({ open: false, emp: null, tipo: null })
-const valutazioneForm = reactive({ data: '', voto: 5, decisione: 'Rinnovo', note: '' })
+const evalForm = reactive({
+  // Manager
+  competenze: 3, competenzeNote: '',
+  qualita: 3, qualitaNote: '',
+  problemSolving: 3, problemSolvingNote: '',
+  velocita: 3, velocitaNote: '',
+  collaborazione: 3, collaborazioneNote: '',
+  comunicazione: 3, comunicazioneNote: '',
+  attitudine: 3, attitudineNote: '',
+  osservazioni: '',
+  raccomandazione: 'Confermare il dipendente',
+  motivazioneRaccomandazione: '',
+  suggerimenti: '',
+  areaeMiglioramento: '',
+  // HR
+  hrData: '', hrVoto: 5, hrCommento: '',
+  // CEO
+  ceoData: '', ceoDecisione: 'Confermare il dipendente', ceoMotivazione: ''
+})
 
-const inCorso = computed(() => store.employees.filter(e => e.stato === 'Attivo' && e.esitoProva === 'In Corso'))
+const getTeamsExcludingFreelance = computed(() => {
+  return store.teams.filter(t => !t.toLowerCase().includes('freelance'))
+})
+
+const inCorso = computed(() => {
+  return store.employees.filter(e =>
+    e.stato === 'Attivo' &&
+    e.esitoProva === 'In Corso' &&
+    !e.team.toLowerCase().includes('freelance')
+  )
+})
+
 const scaduti = computed(() => {
   const today = new Date()
-  return inCorso.value.filter(e => {
-    const fine = new Date(e.fineProva)
-    return fine < today
-  })
+  return inCorso.value.filter(e => new Date(e.fineProva) < today)
 })
+
 const entro7gg = computed(() => {
   const today = new Date()
   return inCorso.value.filter(e => {
-    const fine = new Date(e.fineProva)
-    const days = Math.round((fine - today) / 86400000)
+    const days = Math.round((new Date(e.fineProva) - today) / 86400000)
     return days > 0 && days <= 7
   })
 })
+
 const entro30gg = computed(() => {
   const today = new Date()
   return inCorso.value.filter(e => {
-    const fine = new Date(e.fineProva)
-    const days = Math.round((fine - today) / 86400000)
+    const days = Math.round((new Date(e.fineProva) - today) / 86400000)
     return days > 7 && days <= 30
   })
 })
-const completate = computed(() => store.employees.filter(e => e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato'))
+
+const completate = computed(() => {
+  return store.employees.filter(e =>
+    (e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') &&
+    !e.team.toLowerCase().includes('freelance')
+  )
+})
 
 const filtered = computed(() => {
   const s = search.value.toLowerCase()
@@ -336,61 +461,70 @@ function initials(nome) {
   return nome.split(' ').map(w => w[0]).join('').toUpperCase()
 }
 
-function progressPct(emp) {
-  let pct = 0
-  if (emp.statoFU1 === 'Fatto') pct += 20
-  if (emp.statoFU2Manager === 'Fatto') pct += 20
-  if (emp.statoFU2Dip === 'Fatto') pct += 20
-  if (emp.esitoProva && emp.esitoProva !== 'In Corso') pct += 20
-  if (getValutazioneCEO(emp.id)) pct += 20
-  return pct
-}
-
-function progressColor(emp) {
-  const pct = progressPct(emp)
-  if (pct === 100) return '#10b981' // emerald
-  if (pct >= 60) return '#f59e0b'   // amber
-  if (pct >= 20) return '#3b82f6'   // blue
-  return '#ef4444'                   // red
-}
-
 function toggleExpanded(empId) {
   const idx = expanded.value.indexOf(empId)
   if (idx > -1) expanded.value.splice(idx, 1)
   else expanded.value.push(empId)
 }
 
-function getValutazioneManager(empId) {
+function getManagerEvaluation(empId) {
   return valutazioni.manager[empId]
 }
 
-function getValutazioneHR(empId) {
+function getHRValidation(empId) {
   return valutazioni.hr[empId]
 }
 
-function getValutazioneCEO(empId) {
+function getCEODecision(empId) {
   return valutazioni.ceo[empId]
 }
 
-function openValutazione(emp, tipo) {
+function openEvaluation(emp, tipo) {
   modal.emp = emp
   modal.tipo = tipo
-  const existing =
-    tipo === 'manager' ? valutazioni.manager[emp.id] :
-    tipo === 'hr' ? valutazioni.hr[emp.id] :
-    valutazioni.ceo[emp.id]
 
-  if (existing) {
-    valutazioneForm.data = existing.data || ''
-    valutazioneForm.voto = existing.voto || 5
-    valutazioneForm.decisione = existing.decisione || 'Rinnovo'
-    valutazioneForm.note = existing.note || ''
-  } else {
-    valutazioneForm.data = ''
-    valutazioneForm.voto = 5
-    valutazioneForm.decisione = 'Rinnovo'
-    valutazioneForm.note = ''
+  if (tipo === 'manager') {
+    const existing = valutazioni.manager[emp.id]
+    if (existing) {
+      Object.assign(evalForm, existing)
+    } else {
+      evalForm.competenze = 3
+      evalForm.qualita = 3
+      evalForm.problemSolving = 3
+      evalForm.velocita = 3
+      evalForm.collaborazione = 3
+      evalForm.comunicazione = 3
+      evalForm.attitudine = 3
+      evalForm.osservazioni = ''
+      evalForm.raccomandazione = 'Confermare il dipendente'
+      evalForm.motivazioneRaccomandazione = ''
+      evalForm.suggerimenti = ''
+      evalForm.areaeMiglioramento = ''
+    }
+  } else if (tipo === 'hr') {
+    const existing = valutazioni.hr[emp.id]
+    if (existing) {
+      evalForm.hrData = existing.data
+      evalForm.hrVoto = existing.voto
+      evalForm.hrCommento = existing.commento
+    } else {
+      evalForm.hrData = ''
+      evalForm.hrVoto = 5
+      evalForm.hrCommento = ''
+    }
+  } else if (tipo === 'ceo') {
+    const existing = valutazioni.ceo[emp.id]
+    if (existing) {
+      evalForm.ceoData = existing.data
+      evalForm.ceoDecisione = existing.decisione
+      evalForm.ceoMotivazione = existing.motivazione
+    } else {
+      evalForm.ceoData = ''
+      evalForm.ceoDecisione = 'Confermare il dipendente'
+      evalForm.ceoMotivazione = ''
+    }
   }
+
   modal.open = true
 }
 
@@ -400,24 +534,36 @@ function getModalTitle() {
   return `Valutazione ${tipo} — ${modal.emp.nome} ${modal.emp.cognome}`
 }
 
-function saveValutazione() {
+function saveEvaluation() {
   if (!modal.emp) return
-  const data = {
-    data: valutazioneForm.data,
-    note: valutazioneForm.note
-  }
-  if (modal.tipo !== 'ceo') {
-    data.voto = valutazioneForm.voto
-  } else {
-    data.decisione = valutazioneForm.decisione
-  }
 
   if (modal.tipo === 'manager') {
-    valutazioni.manager[modal.emp.id] = data
+    valutazioni.manager[modal.emp.id] = {
+      competenze: evalForm.competenze, competenzeNote: evalForm.competenzeNote,
+      qualita: evalForm.qualita, qualitaNote: evalForm.qualitaNote,
+      problemSolving: evalForm.problemSolving, problemSolvingNote: evalForm.problemSolvingNote,
+      velocita: evalForm.velocita, velocitaNote: evalForm.velocitaNote,
+      collaborazione: evalForm.collaborazione, collaborazioneNote: evalForm.collaborazioneNote,
+      comunicazione: evalForm.comunicazione, comunicazioneNote: evalForm.comunicazioneNote,
+      attitudine: evalForm.attitudine, attitudineNote: evalForm.attitudineNote,
+      osservazioni: evalForm.osservazioni,
+      raccomandazione: evalForm.raccomandazione,
+      motivazioneRaccomandazione: evalForm.motivazioneRaccomandazione,
+      suggerimenti: evalForm.suggerimenti,
+      areaeMiglioramento: evalForm.areaeMiglioramento
+    }
   } else if (modal.tipo === 'hr') {
-    valutazioni.hr[modal.emp.id] = data
+    valutazioni.hr[modal.emp.id] = {
+      data: evalForm.hrData,
+      voto: evalForm.hrVoto,
+      commento: evalForm.hrCommento
+    }
   } else if (modal.tipo === 'ceo') {
-    valutazioni.ceo[modal.emp.id] = data
+    valutazioni.ceo[modal.emp.id] = {
+      data: evalForm.ceoData,
+      decisione: evalForm.ceoDecisione,
+      motivazione: evalForm.ceoMotivazione
+    }
   }
 
   modal.open = false
