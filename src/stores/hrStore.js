@@ -8,7 +8,57 @@ import { useDataMigration } from '@/composables/useDataMigration.js'
 
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
-  const employees  = ref(SEED_EMPLOYEES.map((e, i) => ({ ...e, id: i + 1 })))
+
+  // Normalizza schema dipendente: aggiunge campi mancanti
+  function normalizeEmployeeSchema(emp) {
+    return {
+      ...emp,
+      // Onboarding scadenze
+      statoFU1: emp.statoFU1 || 'Da Fare',
+      noteFU1: emp.noteFU1 || '',
+      statoFU2Dip: emp.statoFU2Dip || 'Da Fare',
+      noteFU2Dip: emp.noteFU2Dip || '',
+      statoFU2Manager: emp.statoFU2Manager || 'Da Fare',
+      noteFU2Manager: emp.noteFU2Manager || '',
+      // Dimissioni
+      dataUscita: emp.dataUscita || null,
+      motivoUscita: emp.motivoUscita || '',
+      noteUscita: emp.noteUscita || '',
+      // Contract renewal (determinati)
+      scadenzaRinnovo: emp.scadenzaRinnovo || null,
+      statoRinnovo: emp.statoRinnovo || 'Da Fare',
+      scadenzaDossierContratto: emp.scadenzaDossierContratto || null,
+      statoDossierContratto: emp.statoDossierContratto || 'Da Fare',
+      // Valutazione periodo di prova
+      valutazionePeriodoProva: emp.valutazionePeriodoProva ? {
+        faseCorrente: emp.valutazionePeriodoProva.faseCorrente || 'manager-pending',
+        dataValutazioneManager: emp.valutazionePeriodoProva.dataValutazioneManager || null,
+        dataValutazioneHR: emp.valutazionePeriodoProva.dataValutazioneHR || null,
+        manager: emp.valutazionePeriodoProva.manager || null,
+        hr: emp.valutazionePeriodoProva.hr || null
+      } : {
+        faseCorrente: 'manager-pending',
+        dataValutazioneManager: null,
+        dataValutazioneHR: null,
+        manager: null,
+        hr: null
+      },
+      // Metadata
+      valutazioneMetadata: emp.valutazioneMetadata ? {
+        anno: emp.valutazioneMetadata.anno || 2026,
+        dataCreazione: emp.valutazioneMetadata.dataCreazione || null,
+        dataUltimaModifica: emp.valutazioneMetadata.dataUltimaModifica || null,
+        datiPre2026Eliminati: emp.valutazioneMetadata.datiPre2026Eliminati || false
+      } : {
+        anno: 2026,
+        dataCreazione: null,
+        dataUltimaModifica: null,
+        datiPre2026Eliminati: false
+      }
+    }
+  }
+
+  const employees  = ref(SEED_EMPLOYEES.map((e, i) => normalizeEmployeeSchema({ ...e, id: i + 1 })))
   const colloqui   = ref(SEED_COLLOQUI)
   const ferie      = ref(SEED_FERIE)
   const colloquiPC = ref(SEED_COLLOQUI_PC)
@@ -108,6 +158,40 @@ export const useHrStore = defineStore('hr', () => {
       const team = employees.value.find(e => e.nome === nome)?.team
       colloquiPC.value.push({ nome, team, nextReviewDate })
     }
+  }
+
+  function saveValutazioneManager(employeeId, managerReviewData) {
+    const idx = employees.value.findIndex(e => e.id === employeeId)
+    if (idx === -1) return
+    const emp = employees.value[idx]
+    emp.valutazionePeriodoProva = emp.valutazionePeriodoProva || { faseCorrente: 'manager-pending', dataValutazioneManager: null, dataValutazioneHR: null, manager: null, hr: null }
+    emp.valutazionePeriodoProva.manager = managerReviewData
+    emp.valutazionePeriodoProva.dataValutazioneManager = new Date().toISOString().split('T')[0]
+    emp.valutazionePeriodoProva.faseCorrente = 'manager-complete'
+    emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
+    emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
+    notify('Valutazione Manager salvata ✓')
+  }
+
+  function saveValutazioneHR(employeeId, hrReviewData) {
+    const idx = employees.value.findIndex(e => e.id === employeeId)
+    if (idx === -1) return
+    const emp = employees.value[idx]
+    emp.valutazionePeriodoProva = emp.valutazionePeriodoProva || { faseCorrente: 'manager-pending', dataValutazioneManager: null, dataValutazioneHR: null, manager: null, hr: null }
+    emp.valutazionePeriodoProva.hr = hrReviewData
+    emp.valutazionePeriodoProva.dataValutazioneHR = new Date().toISOString().split('T')[0]
+    emp.valutazionePeriodoProva.faseCorrente = 'hr-complete'
+    emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
+    emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
+    notify('Valutazione HR salvata ✓')
+  }
+
+  function updateContractRenewal(employeeId, renewalData) {
+    const idx = employees.value.findIndex(e => e.id === employeeId)
+    if (idx === -1) return
+    const emp = employees.value[idx]
+    Object.assign(emp, renewalData)
+    notify('Scadenza contratto aggiornata ✓')
   }
 
   function saveFile() {
@@ -362,6 +446,152 @@ export const useHrStore = defineStore('hr', () => {
     })
   })
 
+  // Computed per onboarding urgencies (FU1, FU2Manager, FU2Dip)
+  const onboardingUrgenze = computed(() => {
+    const today = new Date()
+    const items = []
+
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato !== 'Attivo') return
+
+      // FU1 scaduti o urgenti
+      if (e.scadenzaFU1) {
+        const fu1Date = new Date(e.scadenzaFU1)
+        const daysUntil = Math.floor((fu1Date - today) / 86400000)
+        if (daysUntil <= 0 && e.statoFU1 !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU1 })
+        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU1 !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU1 })
+        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU1 !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU1 })
+        }
+      }
+
+      // FU2Manager scaduti o urgenti
+      if (e.scadenzaFU2Manager) {
+        const fu2mDate = new Date(e.scadenzaFU2Manager)
+        const daysUntil = Math.floor((fu2mDate - today) / 86400000)
+        if (daysUntil <= 0 && e.statoFU2Manager !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Manager })
+        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU2Manager !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Manager })
+        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU2Manager !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Manager })
+        }
+      }
+
+      // FU2 Dipendente scaduti o urgenti
+      if (e.scadenzaFU2) {
+        const fu2Date = new Date(e.scadenzaFU2)
+        const daysUntil = Math.floor((fu2Date - today) / 86400000)
+        if (daysUntil <= 0 && e.statoFU2Dip !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Dip })
+        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU2Dip !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Dip })
+        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU2Dip !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Dip })
+        }
+      }
+
+      // Employee Review Manager (if trial period, no review yet)
+      if (e.inProva && (!e.valutazionePeriodoProva || !e.valutazionePeriodoProva.manager) && e.daysToProva && e.daysToProva <= 45 && e.daysToProva >= 0) {
+        items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, team: e.team, scadenza: e.fineProva, urgenza: e.daysToProva <= 7 ? 'ALTA' : 'MEDIA', color: e.daysToProva <= 7 ? 'orange' : 'yellow', giorni: e.daysToProva, stato: 'Da Fare' })
+      }
+    })
+
+    return items.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      if (urgencyOrder[a.urgenza] !== urgencyOrder[b.urgenza]) {
+        return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+      }
+      return (a.giorni ?? 999) - (b.giorni ?? 999)
+    })
+  })
+
+  // Computed per contract renewal urgencies (determinati)
+  const contractUrgenze = computed(() => {
+    const today = new Date()
+    const items = []
+
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato !== 'Attivo' || e.tipoContratto !== 'determinato') return
+
+      // Rinnovo contratto scaditure
+      if (e.scadenzaRinnovo) {
+        const rinnDate = new Date(e.scadenzaRinnovo)
+        const daysUntil = Math.floor((rinnDate - today) / 86400000)
+        if (daysUntil <= 0 && e.statoRinnovo !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoRinnovo })
+        } else if (daysUntil >= 0 && daysUntil <= 30 && e.statoRinnovo !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoRinnovo })
+        }
+      }
+
+      // Dossier contratto scaditure
+      if (e.scadenzaDossierContratto) {
+        const dosDate = new Date(e.scadenzaDossierContratto)
+        const daysUntil = Math.floor((dosDate - today) / 86400000)
+        if (daysUntil <= 0 && e.statoDossierContratto !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoDossierContratto })
+        } else if (daysUntil >= 0 && daysUntil <= 30 && e.statoDossierContratto !== 'Fatto') {
+          items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoDossierContratto })
+        }
+      }
+    })
+
+    return items.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      if (urgencyOrder[a.urgenza] !== urgencyOrder[b.urgenza]) {
+        return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+      }
+      return (a.giorni ?? 999) - (b.giorni ?? 999)
+    })
+  })
+
+  // Merged list of all urgencies for Kanban
+  const allUrgenze = computed(() => {
+    const merged = [...onboardingUrgenze.value, ...contractUrgenze.value]
+    return merged.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      if (urgencyOrder[a.urgenza] !== urgencyOrder[b.urgenza]) {
+        return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+      }
+      return (a.giorni ?? 999) - (b.giorni ?? 999)
+    })
+  })
+
+  // KPI for onboarding
+  const kpiOnboarding = computed(() => {
+    let inCorso = 0, fu1Scaduti = 0, fu1Entro7 = 0, fu2ManagerScaduti = 0, provaScadenza = 0
+    onboardingUrgenze.value.forEach(item => {
+      if (item.tipo === 'FU1' && item.urgenza === 'CRITICA') fu1Scaduti++
+      else if (item.tipo === 'FU1' && item.urgenza === 'ALTA') fu1Entro7++
+      else if (item.tipo === 'FU2_MANAGER' && (item.urgenza === 'CRITICA' || item.urgenza === 'ALTA')) fu2ManagerScaduti++
+      else if (item.tipo === 'REVIEW_MANAGER') provaScadenza++
+    })
+    enrichedEmployees.value.forEach(e => {
+      if (e.inProva) inCorso++
+    })
+    return { inCorso, fu1Scaduti, fu1Entro7, fu2ManagerScaduti, provaScadenza }
+  })
+
+  // KPI for contracts
+  const kpiContratti = computed(() => {
+    let rinnoveScadute = 0, rinnoveEntro30 = 0, dossieriScaduti = 0, determinatiInScadenza = 0
+    contractUrgenze.value.forEach(item => {
+      if (item.tipo === 'RINNOVO') {
+        if (item.urgenza === 'CRITICA') rinnoveScadute++
+        else if (item.urgenza === 'MEDIA' || item.urgenza === 'ALTA') rinnoveEntro30++
+      } else if (item.tipo === 'DOSSIER') {
+        if (item.urgenza === 'CRITICA') dossieriScaduti++
+      }
+    })
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato === 'Attivo' && e.tipoContratto === 'determinato') determinatiInScadenza++
+    })
+    return { rinnoveScadute, rinnoveEntro30, dossieriScaduti, determinatiInScadenza }
+  })
+
   function notify(msg, type = 'success') {
     toast.value = { show: true, msg, type }
     setTimeout(() => toast.value.show = false, 3200)
@@ -371,7 +601,10 @@ export const useHrStore = defineStore('hr', () => {
     toast, employees, colloqui, ferie, colloquiPC, dimissioni,
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
     burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, urgentiAlert,
+    onboardingUrgenze, contractUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
     addEmployee, updateEmployee, deleteEmployee,
-    saveColloquio, saveFerie, saveColloquioPC, saveDimissione, scheduleNextPC, saveFile, notify
+    saveColloquio, saveFerie, saveColloquioPC, saveDimissione, scheduleNextPC,
+    saveValutazioneManager, saveValutazioneHR, updateContractRenewal,
+    saveFile, notify
   }
 })

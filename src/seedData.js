@@ -47,37 +47,20 @@ export const SEED_EMPLOYEES = [
     "motivoUscita": "",
     "noteUscita": "",
 
-    // ===== VALUTAZIONE MANAGER (45gg) =====
-    "valutazioneManager": null,
+    // ===== CONTRACT RENEWAL DEADLINES (Determinati) =====
+    "scadenzaRinnovo": null,
+    "statoRinnovo": "Da Fare",
+    "scadenzaDossierContratto": null,
+    "statoDossierContratto": "Da Fare",
 
-    // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
-    "valutazioneMetadata": {
-      "anno": 2026,
-      "dataCreazione": null,
-      "dataUltimaModifica": null,
-      "datiPre2026Eliminati": false
+    // ===== EMPLOYEE REVIEW - PERIODO DI PROVA =====
+    "valutazionePeriodoProva": {
+      "faseCorrente": "manager-pending",
+      "dataValutazioneManager": null,
+      "dataValutazioneHR": null,
+      "manager": null,
+      "hr": null
     },
-
-    // ===== VALUTAZIONE MANAGER (45gg) =====
-    "valutazioneManager": null,
-
-    // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
 
     // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
