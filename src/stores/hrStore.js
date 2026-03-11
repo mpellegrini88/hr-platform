@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import * as XLSX from 'xlsx'
-import { SEED_EMPLOYEES, SEED_COLLOQUI, SEED_FERIE, SEED_COLLOQUI_PC, SEED_DIMISSIONI } from '@/seedData.js'
+import { SEED_EMPLOYEES, SEED_COLLOQUI, SEED_FERIE, SEED_COLLOQUI_PC, SEED_DIMISSIONI, SEED_VALUTAZIONI_COMPLETE, TIPI_CONTRATTO_EXPANDED } from '@/seedData.js'
 import { calcProvatione } from '@/composables/useCCNL.js'
+import { usePersistence } from '@/composables/usePersistence.js'
+import { useDataMigration } from '@/composables/useDataMigration.js'
 
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
@@ -11,6 +13,11 @@ export const useHrStore = defineStore('hr', () => {
   const ferie      = ref(SEED_FERIE)
   const colloquiPC = ref(SEED_COLLOQUI_PC)
   const dimissioni = ref(SEED_DIMISSIONI)
+  const valutazioni360 = ref(SEED_VALUTAZIONI_COMPLETE)
+
+  // Composables per persistenza e migrazione
+  const persistence = usePersistence()
+  const migration = useDataMigration()
 
   function recalcProva(emp) {
     if (!emp.dataAssunzione || !emp.livelloCCNL) return emp

@@ -1,3 +1,17 @@
+export const TIPI_CONTRATTO_EXPANDED = [
+  // Indeterminati
+  { value: 'ind-full', label: 'Indeterminato Full-time', group: 'indeterminato' },
+  { value: 'ind-part', label: 'Indeterminato Part-time', group: 'indeterminato' },
+  // Determinati (con durata)
+  { value: 'det-6m', label: 'Determinato 6 mesi', group: 'determinato', durata: 6 },
+  { value: 'det-12m', label: 'Determinato 12 mesi', group: 'determinato', durata: 12 },
+  { value: 'det-24m', label: 'Determinato 24 mesi', group: 'determinato', durata: 24 },
+  // Altro
+  { value: 'apprendistato', label: 'Apprendistato', group: 'altro' },
+  { value: 'stage', label: 'Stage/Tirocinio', group: 'altro' },
+  { value: 'consulenza', label: 'Consulenza/P.IVA', group: 'altro' }
+]
+
 export const SEED_EMPLOYEES = [
   {
     "id": 1,
@@ -31,7 +45,47 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    },
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 2,
@@ -65,7 +119,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 3,
@@ -99,7 +173,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 4,
@@ -133,7 +227,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 5,
@@ -167,7 +281,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 6,
@@ -201,7 +335,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 7,
@@ -235,7 +389,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 8,
@@ -269,7 +443,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 9,
@@ -303,7 +497,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 10,
@@ -337,7 +551,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 11,
@@ -371,7 +605,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 12,
@@ -433,7 +687,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 14,
@@ -467,7 +741,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 15,
@@ -501,7 +795,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 16,
@@ -535,7 +849,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 17,
@@ -569,7 +903,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 18,
@@ -603,7 +957,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 19,
@@ -637,7 +1011,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 20,
@@ -671,7 +1065,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 21,
@@ -705,7 +1119,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 22,
@@ -739,7 +1173,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 23,
@@ -773,7 +1227,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 24,
@@ -807,7 +1281,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 25,
@@ -841,7 +1335,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 26,
@@ -875,7 +1389,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 27,
@@ -909,7 +1443,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 28,
@@ -943,7 +1497,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 29,
@@ -977,7 +1551,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 30,
@@ -1011,7 +1605,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 31,
@@ -1045,7 +1659,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 32,
@@ -1107,7 +1741,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 34,
@@ -1141,7 +1795,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 35,
@@ -1175,7 +1849,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 36,
@@ -1209,7 +1903,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 37,
@@ -1243,7 +1957,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 38,
@@ -1277,7 +2011,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 39,
@@ -1311,7 +2065,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 40,
@@ -1345,7 +2119,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 41,
@@ -1379,7 +2173,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 42,
@@ -1413,7 +2227,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 43,
@@ -1447,7 +2281,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 44,
@@ -1481,7 +2335,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 45,
@@ -1515,7 +2389,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 46,
@@ -1577,7 +2471,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 48,
@@ -1611,7 +2525,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 49,
@@ -1645,7 +2579,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 50,
@@ -1679,7 +2633,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 51,
@@ -1713,7 +2687,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 52,
@@ -1747,7 +2741,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 53,
@@ -1781,7 +2795,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 54,
@@ -1815,7 +2849,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 55,
@@ -1849,7 +2903,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 56,
@@ -1883,7 +2957,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 57,
@@ -1917,7 +3011,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 58,
@@ -1951,7 +3065,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 59,
@@ -1985,7 +3119,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 60,
@@ -2019,7 +3173,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 61,
@@ -2053,7 +3227,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 62,
@@ -2087,7 +3281,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 63,
@@ -2121,7 +3335,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 64,
@@ -2183,7 +3417,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 66,
@@ -2245,7 +3499,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 68,
@@ -2307,7 +3581,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 70,
@@ -2341,7 +3635,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 71,
@@ -2375,7 +3689,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 72,
@@ -2409,7 +3743,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 73,
@@ -2443,7 +3797,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 74,
@@ -2477,7 +3851,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 75,
@@ -2539,7 +3933,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 77,
@@ -2573,7 +3987,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 78,
@@ -2607,7 +4041,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 79,
@@ -2641,7 +4095,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 80,
@@ -2675,7 +4149,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 81,
@@ -2709,7 +4203,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 82,
@@ -2743,7 +4257,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 83,
@@ -2777,7 +4311,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 84,
@@ -2811,7 +4365,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 85,
@@ -2845,7 +4419,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 86,
@@ -2879,7 +4473,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 87,
@@ -2913,7 +4527,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 88,
@@ -2947,7 +4581,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 89,
@@ -2981,7 +4635,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 90,
@@ -3015,7 +4689,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   },
   {
     "id": 91,
@@ -3049,7 +4743,27 @@ export const SEED_EMPLOYEES = [
     "noteFU2Manager": "",
     "dataUscita": null,
     "motivoUscita": "",
-    "noteUscita": ""
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
   }
 ]
 
@@ -6075,6 +7789,37 @@ export const SEED_COLLOQUI_PC = [
     "pointsForAction": "",
     "followUpRequired": false,
     "nextReviewDate": "2026-05-15"
+  }
+]
+
+
+export const SEED_VALUTAZIONI_COMPLETE = [
+  {
+    "id": "val-001-2025",
+    "employeeId": 1,
+    "employeeName": "Alberto Del Bianco",
+    "anno": 2025,
+    "fase": "completata",
+    "manager": {
+      "data": "2025-04-15",
+      "scorePerformance": 4.2,
+      "scoreEngagement": 3.8,
+      "scoreComportamento": 4.5,
+      "note": "Ottimo adattamento, buona comunicazione con il team"
+    },
+    "hr": {
+      "data": "2025-06-02",
+      "schedaProva": "A+",
+      "note": "Completato periodo prova con successo. Profilo in linea con esigenze aziendali."
+    },
+    "dipendente": {
+      "benessereGlobale": 3.8,
+      "efficaciaOnboarding": 4.0,
+      "note": "Prima esperienza positiva, buona integrazione."
+    },
+    "dataCreazione": "2025-06-02T10:30:00Z",
+    "createdBy": "system",
+    "isArchiviato": false
   }
 ]
 
