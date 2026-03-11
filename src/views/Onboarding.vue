@@ -198,6 +198,46 @@
               </select>
             </div>
           </div>
+          <!-- Legenda scale scientifiche -->
+          <details class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <summary class="cursor-pointer text-sm font-semibold text-amber-800 select-none flex items-center gap-2">
+              📖 Legenda Scale Scientifiche
+              <span class="text-xs font-normal text-amber-600">(clicca per espandere)</span>
+            </summary>
+            <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-700">
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">😓 MBI-GS — Maslach Burnout Inventory</p>
+                <p>Misura il livello di <b>esaurimento emotivo</b> e depersonalizzazione. Gold standard per la valutazione del burnout.</p>
+                <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: alto = peggio</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">⚡ CBI — Copenhagen Burnout Inventory</p>
+                <p>Valuta il <b>carico di lavoro percepito</b> e lo stress organizzativo.</p>
+                <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: alto = peggio</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">💪 JD-R Motivazione (Bakker & Demerouti)</p>
+                <p>Misura <b>motivazione intrinseca e autonomia</b>. Risorse alte → engagement.</p>
+                <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">🤝 JD-R Supporto (Bakker & Demerouti)</p>
+                <p>Valuta <b>supporto organizzativo</b> e chiarezza del ruolo.</p>
+                <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">⚖️ WHO-5 — Well-Being Index (OMS)</p>
+                <p>Indice di <b>benessere e equilibrio vita-lavoro</b>. Validato in oltre 30 lingue.</p>
+                <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+              </div>
+              <div class="bg-white rounded-lg p-3 border border-amber-100">
+                <p class="font-semibold text-gray-900 mb-1">🏠 Mobley — Modello del Turnover (1977)</p>
+                <p>Misura l'<b>intenzione di restare</b> nell'organizzazione.</p>
+                <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+              </div>
+            </div>
+          </details>
+
           <!-- Scale FU1 - da behavioral wellness -->
           <div class="mt-4 space-y-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
             <p class="text-xs font-semibold text-blue-600 uppercase tracking-wide">Scale onboarding FU1 (Behavioral Wellness)</p>

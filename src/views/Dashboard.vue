@@ -192,8 +192,48 @@
         <InfoBlock label="Scadenza" :value="fmtDateShort(selectedUrgenza.data)" highlight />
       </div>
 
+      <!-- ─── Legenda scale scientifiche ─── -->
+      <details class="bg-amber-50 border border-amber-200 rounded-xl p-4 group">
+        <summary class="cursor-pointer text-sm font-semibold text-amber-800 select-none flex items-center gap-2">
+          📖 Legenda Scale Scientifiche
+          <span class="text-xs font-normal text-amber-600">(clicca per espandere)</span>
+        </summary>
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-700">
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">😓 MBI-GS — Maslach Burnout Inventory (General Survey)</p>
+            <p>Misura il livello di <b>esaurimento emotivo</b> e depersonalizzazione legato al lavoro. Sviluppata da Christina Maslach, è il gold standard per la valutazione del burnout.</p>
+            <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: punteggio alto = situazione peggiore</p>
+          </div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">⚡ CBI — Copenhagen Burnout Inventory</p>
+            <p>Valuta il <b>carico di lavoro percepito</b> e lo stress lavorativo. Complementare al MBI, si focalizza sulle cause organizzative del burnout (Kristensen et al.).</p>
+            <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: punteggio alto = situazione peggiore</p>
+          </div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">💪 JD-R Motivazione — Job Demands-Resources (Bakker & Demerouti)</p>
+            <p>Misura la <b>motivazione intrinseca e autonomia</b> lavorativa. Il modello JD-R bilancia domande lavorative e risorse disponibili: risorse alte → engagement, domande alte → stress.</p>
+            <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
+          </div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">🤝 JD-R Supporto — Job Demands-Resources (Bakker & Demerouti)</p>
+            <p>Valuta il <b>supporto organizzativo percepito</b> e la chiarezza del ruolo. Include supporto del manager, dei colleghi e chiarezza nelle aspettative lavorative.</p>
+            <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
+          </div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">⚖️ WHO-5 — World Health Organization Well-Being Index</p>
+            <p>Indice di <b>benessere e equilibrio vita-lavoro</b> dell'OMS. Cinque item che valutano umore positivo, vitalità e interesse nella vita quotidiana. Validato in oltre 30 lingue.</p>
+            <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
+          </div>
+          <div class="bg-white rounded-lg p-3 border border-amber-100">
+            <p class="font-semibold text-gray-900 mb-1">🏠 Mobley — Modello del Turnover (Mobley, 1977)</p>
+            <p>Misura l'<b>intenzione di restare</b> nell'organizzazione. Il modello di Mobley collega insoddisfazione → pensiero di lasciare → ricerca alternative → intenzione → turnover effettivo.</p>
+            <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
+          </div>
+        </div>
+      </details>
+
       <!-- ─── FU1 / FU2: Onboarding follow-up form ─── -->
-      <Section v-if="selectedUrgenza.tipo === 'FU1' || selectedUrgenza.tipo === 'FU2'" :title="selectedUrgenza.tipo === 'FU1' ? 'Follow-up 1 — Colloquio con dipendente (30gg)' : 'Follow-up 2 — Dipendente + Manager (fine prova -30gg)'">
+      <Section v-if="selectedUrgenza.tipo === 'FU1' || selectedUrgenza.tipo === 'FU2'" :title="selectedUrgenza.tipo === 'FU1' ? 'Follow-up 1 — Colloquio con dipendente (30gg)' : 'Follow-up 2 — Dipendente + Manager (fine prova -30gg)'">`
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div>
             <label class="form-label">Data colloquio</label>

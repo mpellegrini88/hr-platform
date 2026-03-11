@@ -157,6 +157,46 @@
               </div>
             </div>
 
+            <!-- Legenda scale -->
+            <details class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+              <summary class="cursor-pointer text-sm font-semibold text-amber-800 select-none flex items-center gap-2">
+                📖 Legenda Scale Scientifiche
+                <span class="text-xs font-normal text-amber-600">(clicca per espandere)</span>
+              </summary>
+              <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-700">
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">😓 MBI-GS — Maslach Burnout Inventory</p>
+                  <p>Misura il livello di <b>esaurimento emotivo</b> e depersonalizzazione. Gold standard per la valutazione del burnout (Maslach).</p>
+                  <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: alto = peggio</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">⚡ CBI — Copenhagen Burnout Inventory</p>
+                  <p>Valuta il <b>carico di lavoro percepito</b> e lo stress organizzativo (Kristensen et al.).</p>
+                  <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: alto = peggio</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">💪 JD-R Motivazione (Bakker & Demerouti)</p>
+                  <p>Misura <b>motivazione intrinseca e autonomia</b>. Risorse alte → engagement.</p>
+                  <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">🤝 JD-R Supporto (Bakker & Demerouti)</p>
+                  <p>Valuta <b>supporto organizzativo</b> e chiarezza del ruolo.</p>
+                  <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">⚖️ WHO-5 — Well-Being Index (OMS)</p>
+                  <p>Indice di <b>benessere e equilibrio vita-lavoro</b>. Validato in oltre 30 lingue.</p>
+                  <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border border-amber-100">
+                  <p class="font-semibold text-gray-900 mb-1">🏠 Mobley — Modello del Turnover (1977)</p>
+                  <p>Misura l'<b>intenzione di restare</b> nell'organizzazione.</p>
+                  <p class="mt-1 text-emerald-600 font-medium">✓ Alto = meglio</p>
+                </div>
+              </div>
+            </details>
+
             <!-- Le 6 scale scientifiche -->
             <div class="space-y-5">
               <ScaleInput label="😓 Esaurimento emotivo (MBI-GS, Maslach)" v-model="pcForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
