@@ -59,7 +59,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>P&C</th><th>Stato</th><th>Decisione</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd <= 0)" :key="c.id" class="bg-red-50">
@@ -74,14 +74,26 @@
                     <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
                   </div>
                 </td>
+                <td class="text-xs">
+                  <span v-if="c.pcStatus === 'Aggiornato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Aggiornato</span>
+                  <span v-else-if="c.pcStatus === 'Scaduto'" class="badge bg-orange-50 text-orange-700 border border-orange-200">⚠️ Scaduto</span>
+                  <span v-else class="badge bg-red-50 text-red-700 border border-red-200">❌ Nessuno</span>
+                </td>
                 <td><span class="badge badge-red">SCADUTO</span></td>
+                <td class="text-xs">
+                  <span v-if="c.decisione === 'Rinnovato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Rinnovato</span>
+                  <span v-else-if="c.decisione === 'Proroga'" class="badge bg-amber-50 text-amber-700 border border-amber-200">⏳ Proroga</span>
+                  <span v-else-if="c.decisione === 'Non Rinnovato'" class="badge bg-red-50 text-red-700 border border-red-200">✗ Non Rinnovato</span>
+                  <span v-else class="text-gray-400 text-xs">-</span>
+                </td>
                 <td class="space-x-1">
                   <button @click="openReminder(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">📧 CEO</button>
                   <button @click="viewValutazione(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">🎯 Valut</button>
+                  <button @click="openRenewalDecision(c)" class="text-red-700 hover:text-red-900 font-medium text-sm">⚡ Rinnova</button>
                 </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd <= 0).length === 0">
-                <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto scaduto</td>
+                <td colspan="10" class="text-center py-6 text-gray-400 text-sm">Nessun contratto scaduto</td>
               </tr>
             </tbody>
           </table>
@@ -236,6 +248,29 @@
       <button @click="sendReminder" class="btn btn-primary">📧 Invia Email</button>
     </template>
   </Modal>
+
+  <!-- CONTRACT RENEWAL DECISION MODAL -->
+  <ContractRenewalDecisionModal
+    :open="renewalModal.open"
+    :employee-id="renewalModal.contratto?.id"
+    :employee-name="`${renewalModal.contratto?.nome} ${renewalModal.contratto?.cognome}`"
+    :employee-team="renewalModal.contratto?.team"
+    :scadenza-contratto="renewalModal.contratto?.scadenzaContratto"
+    :esito-prova="renewalModal.contratto?.esitoProva"
+    @close="renewalModal.open = false"
+    @saved="handleRenewalSaved"
+  />
+
+  <!-- ADD P&C COLLOQUIO MODAL -->
+  <AddPCColloquioModal
+    :open="pcModal.open"
+    :employee-id="pcModal.contratto?.id"
+    :employee-name="`${pcModal.contratto?.nome} ${pcModal.contratto?.cognome}`"
+    :employee-team="pcModal.contratto?.team"
+    :last-colloquio-date="pcModal.contratto?.pcLastDate"
+    @close="pcModal.open = false"
+    @saved="handlePCColloquioSaved"
+  />
 </template>
 
 <script setup>
@@ -244,6 +279,8 @@ import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
+import ContractRenewalDecisionModal from '@/components/dashboard/ContractRenewalDecisionModal.vue'
+import AddPCColloquioModal from '@/components/dashboard/AddPCColloquioModal.vue'
 
 const router = useRouter()
 const store = useHrStore()
@@ -253,6 +290,10 @@ const search = ref('')
 const filterTeam = ref('')
 const filterStatus = ref('')
 
+// Modal states
+const renewalModal = reactive({ open: false, contratto: null })
+const pcModal = reactive({ open: false, contratto: null })
+
 const allContratti = computed(() => {
   const today = new Date()
   const list = []
@@ -260,6 +301,7 @@ const allContratti = computed(() => {
     if (e.tipoContratto !== 'determinato' || !e.scadenzaContratto || e.stato !== 'Attivo') return
     const scadenza = new Date(e.scadenzaContratto)
     const daysToEnd = Math.round((scadenza - today) / 86400000)
+    const pcStatus = store.pcColloquiStatus[e.id]
     list.push({
       id: e.id,
       nome: e.nome,
@@ -272,7 +314,13 @@ const allContratti = computed(() => {
       daysToEnd: daysToEnd,
       esitoProva: e.esitoProva,
       tipoContratto: e.tipoContratto,
-      stato: e.stato
+      stato: e.stato,
+      decisione: e.decisione,
+      dataDecisioneRinnovo: e.dataDecisioneRinnovo,
+      dataProrogaFino: e.dataProrogaFino,
+      pcStatus: pcStatus?.status || 'Non Fatto',
+      pcLastDate: pcStatus?.lastDate,
+      employee: e // Store full employee object for modal access
     })
   })
   return list
@@ -325,9 +373,29 @@ function sendReminder() {
 }
 
 function viewValutazione(contratto) {
-  // Navigate to ValutazioneProva page to see/edit evaluation for this employee
-  router.push('/valutazione-prova')
-  // In future: could use query parameter to jump directly to this employee
-  // router.push(`/valutazione-prova?emp=${contratto.id}`)
+  // Navigate to ValutazioneProva page with employee ID pre-selected
+  router.push(`/valutazione-prova?empId=${contratto.id}`)
+}
+
+function openRenewalDecision(contratto) {
+  renewalModal.contratto = contratto
+  renewalModal.open = true
+}
+
+function openPCColloquio(contratto) {
+  pcModal.contratto = contratto
+  pcModal.open = true
+}
+
+function handleRenewalSaved() {
+  renewalModal.open = false
+  renewalModal.contratto = null
+  // Data already saved to store via modal
+}
+
+function handlePCColloquioSaved() {
+  pcModal.open = false
+  pcModal.contratto = null
+  // Data already saved to store via modal
 }
 </script>

@@ -20,27 +20,28 @@ import Topbar  from '@/components/ui/Topbar.vue'
 import Toast   from '@/components/ui/Toast.vue'
 import ToastNotification from '@/components/ui/ToastNotification.vue'
 import { useHrStore } from '@/stores/hrStore.js'
+import { useIndexedDB } from '@/composables/useIndexedDB.js'
 import { usePersistence } from '@/composables/usePersistence.js'
 
 const store = useHrStore()
+const idb = useIndexedDB()
 const persistence = usePersistence()
 
-// Load data from localStorage on app boot
-onMounted(() => {
+// Load data from IndexedDB on app boot (persistent storage)
+onMounted(async () => {
   try {
-    const savedData = persistence.load('hrStore')
-    if (savedData && savedData.employees) {
+    const savedData = await idb.loadAll()
+    if (savedData && savedData.employees && savedData.employees.length > 0) {
       store.employees = savedData.employees
-      // Restore other collections
-      if (savedData.colloqui) store.colloqui = savedData.colloqui
-      if (savedData.ferie) store.ferie = savedData.ferie
-      if (savedData.colloquiPC) store.colloquiPC = savedData.colloquiPC
-      if (savedData.dimissioni) store.dimissioni = savedData.dimissioni
-      if (savedData.valutazioni360) store.valutazioni360 = savedData.valutazioni360
-      console.log('✅ Data restored from localStorage')
+      store.colloqui = savedData.colloqui || []
+      store.ferie = savedData.ferie || []
+      store.colloquiPC = savedData.colloquiPC || []
+      store.dimissioni = savedData.dimissioni || []
+      store.valutazioni360 = savedData.valutazioni360 || []
+      console.log('✅ Data restored from IndexedDB')
     }
   } catch (err) {
-    console.warn('Could not restore saved data:', err)
+    console.warn('Could not restore from IndexedDB, falling back to seed data:', err)
   }
 })
 </script>

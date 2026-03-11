@@ -6,6 +6,7 @@ import { calcProvatione } from '@/composables/useCCNL.js'
 import { usePersistence } from '@/composables/usePersistence.js'
 import { useDataMigration } from '@/composables/useDataMigration.js'
 import { useAutoSave } from '@/composables/useAutoSave.js'
+import { useIndexedDB } from '@/composables/useIndexedDB.js'
 
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
@@ -70,6 +71,13 @@ export const useHrStore = defineStore('hr', () => {
   const persistence = usePersistence()
   const migration = useDataMigration()
   const autoSave = useAutoSave()
+  const idb = useIndexedDB()
+
+  // Save to IndexedDB (persistent storage that survives session end)
+  async function saveToIndexedDB() {
+    const snapshot = getStoreSnapshot()
+    await idb.saveAll(snapshot)
+  }
 
   function recalcProva(emp) {
     if (!emp.dataAssunzione || !emp.livelloCCNL) return emp
@@ -95,6 +103,7 @@ export const useHrStore = defineStore('hr', () => {
     colloqui.value.push({ nome: e.nome, team: e.team })
     ferie.value.push({ nome: e.nome, team: e.team, citta: e.citta, ferieSpettanti: 0, ferieGodute: 0, ferieResidue: 0, percGodute: 0, ggMalattia: 0, episodiMalattia: 0, ggMalattia3m: 0, assenzeNonGiust: 0 })
     notify('Dipendente aggiunto ✓')
+    saveToIndexedDB()
     return e
   }
 
@@ -104,6 +113,7 @@ export const useHrStore = defineStore('hr', () => {
     employees.value[idx] = recalcProva({ ...employees.value[idx], ...data })
     notify('Salvato ✓')
     autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
   }
 
   function deleteEmployee(id) {
@@ -113,6 +123,7 @@ export const useHrStore = defineStore('hr', () => {
     colloqui.value  = colloqui.value.filter(c => c.nome !== emp.nome)
     ferie.value     = ferie.value.filter(f => f.nome !== emp.nome)
     notify('Eliminato')
+    saveToIndexedDB()
   }
 
   function saveColloquio(nome, data) {
@@ -120,12 +131,14 @@ export const useHrStore = defineStore('hr', () => {
     if (idx !== -1) colloqui.value[idx] = { ...colloqui.value[idx], ...data }
     else colloqui.value.push({ nome, ...data })
     notify('Colloquio salvato ✓')
+    saveToIndexedDB()
   }
 
   function saveFerie(nome, data) {
     const idx = ferie.value.findIndex(f => f.nome === nome)
     if (idx !== -1) ferie.value[idx] = { ...ferie.value[idx], ...data }
     notify('Ferie aggiornate ✓')
+    saveToIndexedDB()
   }
 
   function saveColloquioPC(nome, data) {
@@ -137,6 +150,7 @@ export const useHrStore = defineStore('hr', () => {
     }
     notify('Colloquio P&C salvato ✓')
     autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
   }
 
   function saveDimissione(id, data) {
@@ -149,6 +163,7 @@ export const useHrStore = defineStore('hr', () => {
       dimissioni.value.push({ nome: emp.nome, team: emp.team, dataAssunzione: emp.dataAssunzione, ...data })
     }
     notify('Dimissione registrata ✓')
+    saveToIndexedDB()
   }
 
   function scheduleNextPC(nome, daysFromNow = 180) {
@@ -162,6 +177,7 @@ export const useHrStore = defineStore('hr', () => {
       const team = employees.value.find(e => e.nome === nome)?.team
       colloquiPC.value.push({ nome, team, nextReviewDate })
     }
+    saveToIndexedDB()
   }
 
   function saveValutazioneManager(employeeId, managerReviewData) {
@@ -176,6 +192,7 @@ export const useHrStore = defineStore('hr', () => {
     emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
     notify('Valutazione Manager salvata ✓')
     autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
   }
 
   function saveValutazioneHR(employeeId, hrReviewData) {
@@ -190,6 +207,7 @@ export const useHrStore = defineStore('hr', () => {
     emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
     notify('Valutazione HR salvata ✓')
     autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
   }
 
   function updateContractRenewal(employeeId, renewalData) {
@@ -199,6 +217,7 @@ export const useHrStore = defineStore('hr', () => {
     Object.assign(emp, renewalData)
     notify('Scadenza contratto aggiornata ✓')
     autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
   }
 
   function saveFile() {
@@ -361,6 +380,56 @@ export const useHrStore = defineStore('hr', () => {
       atRisk: q.atRisk.length,
       burnedOut: q.burnedOut.length,
       disengaged: q.disengaged.length
+    }
+  })
+
+  // P&C Colloquio Status per employee
+  const pcColloquiStatus = computed(() => {
+    const map = {}
+    employees.value.forEach(e => {
+      if (e.stato !== 'Attivo') {
+        map[e.id] = { status: 'N/A', lastDate: null, daysSinceColloquio: null, nextReviewDate: null }
+        return
+      }
+
+      const coll = colloquiPCMap.value[e.nome]
+      const lastDate = coll?.date ? new Date(coll.date) : null
+      const today = new Date()
+      const daysSinceColloquio = lastDate ? Math.floor((today - lastDate) / 86400000) : null
+
+      let status = 'Non Fatto'
+      if (coll?.date && daysSinceColloquio <= 180) {
+        status = 'Aggiornato'
+      } else if (coll?.date && daysSinceColloquio > 180) {
+        status = 'Scaduto'
+      }
+
+      map[e.id] = {
+        status,
+        lastDate,
+        daysSinceColloquio,
+        nextReviewDate: coll?.nextReviewDate
+      }
+    })
+    return map
+  })
+
+  // Enhanced P&C Coverage KPI
+  const kpiPCCopertura = computed(() => {
+    let pcAggiornati = 0, pcScaduti = 0, pcNonFatti = 0
+    const attivi = enrichedEmployees.value.length
+    enrichedEmployees.value.forEach(e => {
+      const pc = pcColloquiStatus.value[e.id]
+      if (pc.status === 'Aggiornato') pcAggiornati++
+      else if (pc.status === 'Scaduto') pcScaduti++
+      else pcNonFatti++
+    })
+    return {
+      pcAggiornati,
+      pcScaduti,
+      pcNonFatti,
+      totaleAttivi: attivi,
+      percentualeCopertura: attivi > 0 ? Math.round((pcAggiornati / attivi) * 100) : 0
     }
   })
 
@@ -621,7 +690,7 @@ export const useHrStore = defineStore('hr', () => {
   return {
     toast, employees, colloqui, ferie, colloquiPC, dimissioni,
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
-    burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, urgentiAlert,
+    burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, kpiPCCopertura, pcColloquiStatus, urgentiAlert,
     onboardingUrgenze, contractUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
     addEmployee, updateEmployee, deleteEmployee,
     saveColloquio, saveFerie, saveColloquioPC, saveDimissione, scheduleNextPC,
