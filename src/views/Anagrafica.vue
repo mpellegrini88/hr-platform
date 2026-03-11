@@ -66,14 +66,16 @@
                 <span :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
               </td>
               <td>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU1) }}</span>
+                <span v-if="e.team === 'Freelance'" class="text-gray-300">—</span>
+                <div v-else class="flex flex-col gap-0.5">
+                  <span v-if="e.statoFU1 === 'Da Fare' && e.scadenzaFU1" class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU1) }}</span>
                   <span :class="['badge badge-sm', fu1Class(e)]">{{ e.statoFU1 || '—' }}</span>
                 </div>
               </td>
               <td>
-                <div class="flex flex-col gap-0.5">
-                  <span class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU2) }}</span>
+                <span v-if="e.team === 'Freelance'" class="text-gray-300">—</span>
+                <div v-else class="flex flex-col gap-0.5">
+                  <span v-if="e.statoFU2Dip === 'Da Fare' && e.scadenzaFU2" class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU2) }}</span>
                   <span :class="['badge badge-sm', fu2Class(e)]">{{ e.statoFU2Dip || '—' }}</span>
                 </div>
               </td>
@@ -288,10 +290,14 @@ function esitoClass(e) {
   return e==='Superato'?'badge-green':e==='Non Superato'?'badge-red':e==='In Corso'?'badge-blue':'badge-gray'
 }
 function fu1Class(e) {
-  return e.statoFU1==='Fatto'?'badge-green':e.fu1Scaduto?'badge-red':'badge-gray'
+  if (e.statoFU1 === 'Fatto') return 'badge-green'
+  if (e.statoFU1 === 'Da Fare') return 'badge-red'
+  return 'badge-gray'
 }
 function fu2Class(e) {
-  return e.statoFU2Dip==='Fatto'?'badge-green':'badge-gray'
+  if (e.statoFU2Dip === 'Fatto') return 'badge-green'
+  if (e.statoFU2Dip === 'Da Fare') return 'badge-red'
+  return 'badge-gray'
 }
 function provaUrgente(e) {
   if (!e.fineProva) return false

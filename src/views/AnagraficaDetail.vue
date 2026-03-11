@@ -62,7 +62,7 @@
           </div>
 
           <!-- FU1 (30gg) -->
-          <div class="flex gap-4">
+          <div v-if="emp?.team !== 'Freelance'" class="flex gap-4">
             <div class="flex flex-col items-center">
               <div :class="['w-10 h-10 rounded-full flex items-center justify-center text-white font-bold',
                 emp?.statoFU1 === 'Fatto' ? 'bg-emerald-500' : emp?.statoFU1 === 'In Corso' ? 'bg-amber-500' : 'bg-red-500']">
@@ -72,41 +72,47 @@
             </div>
             <div class="flex-1 pt-1">
               <div class="font-semibold text-gray-900">FU1 (30 giorni)</div>
-              <div class="text-sm text-gray-600">{{ emp?.scadenzaFU1 ? fmtDateShort(emp.scadenzaFU1) : 'N/A' }}</div>
-              <div class="text-xs text-gray-500 mt-1">Stato: <span :class="['font-medium', emp?.statoFU1 === 'Fatto' ? 'text-emerald-600' : 'text-gray-700']">{{ emp?.statoFU1 || 'Da Fare' }}</span></div>
+              <div v-if="emp?.statoFU1 === 'Da Fare' && emp?.scadenzaFU1" class="text-sm text-gray-600">{{ fmtDateShort(emp.scadenzaFU1) }}</div>
+              <div class="text-xs mt-1">
+                <span :class="['font-medium', emp?.statoFU1 === 'Fatto' ? 'text-emerald-600' : emp?.statoFU1 === 'Da Fare' ? 'text-red-600' : 'text-gray-700']">{{ emp?.statoFU1 || 'Da Fare' }}</span>
+              </div>
               <div v-if="emp?.noteFU1" class="text-xs text-gray-600 mt-1 italic">{{ emp.noteFU1 }}</div>
             </div>
           </div>
 
           <!-- FU2 Manager (45gg) -->
-          <div class="flex gap-4">
+          <div v-if="emp?.team !== 'Freelance'" class="flex gap-4">
             <div class="flex flex-col items-center">
               <div :class="['w-10 h-10 rounded-full flex items-center justify-center text-white font-bold',
-                emp?.statoFU2Manager === 'Fatto' ? 'bg-emerald-500' : emp?.statoFU2Manager === 'In Corso' ? 'bg-amber-500' : 'bg-gray-400']">
-                {{ emp?.statoFU2Manager === 'Fatto' ? '✓' : '—' }}
+                emp?.statoFU2Manager === 'Fatto' ? 'bg-emerald-500' : emp?.statoFU2Manager === 'In Corso' ? 'bg-amber-500' : emp?.statoFU2Manager === 'Da Fare' ? 'bg-red-500' : 'bg-gray-400']">
+                {{ emp?.statoFU2Manager === 'Fatto' ? '✓' : emp?.statoFU2Manager === 'Da Fare' ? '!' : '—' }}
               </div>
               <div class="w-0.5 h-12 bg-gray-200 my-2"></div>
             </div>
             <div class="flex-1 pt-1">
               <div class="font-semibold text-gray-900">FU2 Manager (45 giorni)</div>
-              <div class="text-sm text-gray-600">{{ emp?.scadenzaFU2Manager ? fmtDateShort(emp.scadenzaFU2Manager) : 'N/A' }}</div>
-              <div class="text-xs text-gray-500 mt-1">Stato: <span :class="['font-medium', emp?.statoFU2Manager === 'Fatto' ? 'text-emerald-600' : 'text-gray-700']">{{ emp?.statoFU2Manager || 'Da Fare' }}</span></div>
+              <div v-if="emp?.statoFU2Manager === 'Da Fare' && emp?.scadenzaFU2Manager" class="text-sm text-gray-600">{{ fmtDateShort(emp.scadenzaFU2Manager) }}</div>
+              <div class="text-xs mt-1">
+                <span :class="['font-medium', emp?.statoFU2Manager === 'Fatto' ? 'text-emerald-600' : emp?.statoFU2Manager === 'Da Fare' ? 'text-red-600' : 'text-gray-700']">{{ emp?.statoFU2Manager || 'Da Fare' }}</span>
+              </div>
             </div>
           </div>
 
           <!-- FU2 Dipendente (Fine prova - 30gg) -->
-          <div class="flex gap-4">
+          <div v-if="emp?.team !== 'Freelance'" class="flex gap-4">
             <div class="flex flex-col items-center">
               <div :class="['w-10 h-10 rounded-full flex items-center justify-center text-white font-bold',
-                emp?.statoFU2Dip === 'Fatto' ? 'bg-emerald-500' : emp?.statoFU2Dip === 'In Corso' ? 'bg-amber-500' : 'bg-gray-400']">
-                {{ emp?.statoFU2Dip === 'Fatto' ? '✓' : '—' }}
+                emp?.statoFU2Dip === 'Fatto' ? 'bg-emerald-500' : emp?.statoFU2Dip === 'In Corso' ? 'bg-amber-500' : emp?.statoFU2Dip === 'Da Fare' ? 'bg-red-500' : 'bg-gray-400']">
+                {{ emp?.statoFU2Dip === 'Fatto' ? '✓' : emp?.statoFU2Dip === 'Da Fare' ? '!' : '—' }}
               </div>
               <div class="w-0.5 h-12 bg-gray-200 my-2"></div>
             </div>
             <div class="flex-1 pt-1">
               <div class="font-semibold text-gray-900">FU2 Follow-up Dipendente</div>
-              <div class="text-sm text-gray-600">{{ emp?.scadenzaFU2 ? fmtDateShort(emp.scadenzaFU2) : 'N/A' }}</div>
-              <div class="text-xs text-gray-500 mt-1">Stato: <span :class="['font-medium', emp?.statoFU2Dip === 'Fatto' ? 'text-emerald-600' : 'text-gray-700']">{{ emp?.statoFU2Dip || 'Da Fare' }}</span></div>
+              <div v-if="emp?.statoFU2Dip === 'Da Fare' && emp?.scadenzaFU2" class="text-sm text-gray-600">{{ fmtDateShort(emp.scadenzaFU2) }}</div>
+              <div class="text-xs mt-1">
+                <span :class="['font-medium', emp?.statoFU2Dip === 'Fatto' ? 'text-emerald-600' : emp?.statoFU2Dip === 'Da Fare' ? 'text-red-600' : 'text-gray-700']">{{ emp?.statoFU2Dip || 'Da Fare' }}</span>
+              </div>
             </div>
           </div>
 

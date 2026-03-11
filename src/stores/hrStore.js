@@ -52,16 +52,22 @@ export const useHrStore = defineStore('hr', () => {
   function normalizeEmployeeSchema(emp) {
     // Assunti prima del 2026: FU già completati, non ha senso mostrare "Da Fare"
     const pre2026 = emp.dataAssunzione && new Date(emp.dataAssunzione) < new Date('2026-01-01')
-    const fuDefault = pre2026 ? 'Fatto' : 'Da Fare'
+    const isFreelance = emp.team === 'Freelance'
+    
+    // Freelance: nessun FU — metti 'N/A'
+    // Pre-2026: forza "Fatto" anche se il seed dice "Da Fare"
+    const statoFU1 = isFreelance ? 'N/A' : pre2026 && (!emp.statoFU1 || emp.statoFU1 === 'Da Fare') ? 'Fatto' : (emp.statoFU1 || 'Da Fare')
+    const statoFU2Dip = isFreelance ? 'N/A' : pre2026 && (!emp.statoFU2Dip || emp.statoFU2Dip === 'Da Fare') ? 'Fatto' : (emp.statoFU2Dip || 'Da Fare')
+    const statoFU2Manager = isFreelance ? 'N/A' : pre2026 && (!emp.statoFU2Manager || emp.statoFU2Manager === 'Da Fare') ? 'Fatto' : (emp.statoFU2Manager || 'Da Fare')
     
     return {
       ...emp,
       // Onboarding scadenze
-      statoFU1: emp.statoFU1 || fuDefault,
+      statoFU1,
       noteFU1: emp.noteFU1 || (pre2026 ? 'Completato (pre-2026)' : ''),
-      statoFU2Dip: emp.statoFU2Dip || fuDefault,
+      statoFU2Dip,
       noteFU2Dip: emp.noteFU2Dip || (pre2026 ? 'Completato (pre-2026)' : ''),
-      statoFU2Manager: emp.statoFU2Manager || fuDefault,
+      statoFU2Manager,
       noteFU2Manager: emp.noteFU2Manager || (pre2026 ? 'Completato (pre-2026)' : ''),
       // Dimissioni
       dataUscita: emp.dataUscita || null,
