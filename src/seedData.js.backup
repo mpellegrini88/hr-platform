@@ -1,0 +1,7769 @@
+export const TIPI_CONTRATTO_EXPANDED = [
+  // Indeterminati
+  { value: 'ind-full', label: 'Indeterminato Full-time', group: 'indeterminato' },
+  { value: 'ind-part', label: 'Indeterminato Part-time', group: 'indeterminato' },
+  // Determinati (con durata)
+  { value: 'det-6m', label: 'Determinato 6 mesi', group: 'determinato', durata: 6 },
+  { value: 'det-12m', label: 'Determinato 12 mesi', group: 'determinato', durata: 12 },
+  { value: 'det-24m', label: 'Determinato 24 mesi', group: 'determinato', durata: 24 },
+  // Altro
+  { value: 'apprendistato', label: 'Apprendistato', group: 'altro' },
+  { value: 'stage', label: 'Stage/Tirocinio', group: 'altro' },
+  { value: 'consulenza', label: 'Consulenza/P.IVA', group: 'altro' }
+]
+
+export const SEED_EMPLOYEES = [
+  {
+    "id": 1,
+    "n": 1,
+    "nome": "Alberto Del Bianco",
+    "cognome": "Del Bianco",
+    "nomeBreve": "Alberto",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "alberto.delbianco@move-x.it",
+    "dataAssunzione": "2022-05-23",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-06-22",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== CONTRACT RENEWAL DEADLINES (Determinati) =====
+    "scadenzaRinnovo": null,
+    "statoRinnovo": "Da Fare",
+    "scadenzaDossierContratto": null,
+    "statoDossierContratto": "Da Fare",
+
+    // ===== EMPLOYEE REVIEW - PERIODO DI PROVA =====
+    "valutazionePeriodoProva": {
+      "faseCorrente": "manager-pending",
+      "dataValutazioneManager": null,
+      "dataValutazioneHR": null,
+      "manager": null,
+      "hr": null
+    },
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 2,
+    "n": 2,
+    "nome": "Alessandro Nobili",
+    "cognome": "Nobili",
+    "nomeBreve": "Alessandro",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Presales",
+    "email": "alessandro.nobili@movesolutions.it",
+    "dataAssunzione": "2023-07-11",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-08-10",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 3,
+    "n": 3,
+    "nome": "Alessandro Manetti",
+    "cognome": "Manetti",
+    "nomeBreve": "Alessandro",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Marketing",
+    "email": "alessandro.manetti@movesolutions.it",
+    "dataAssunzione": "2024-02-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-03-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 4,
+    "n": 4,
+    "nome": "Alessandro Fava",
+    "cognome": "Fava",
+    "nomeBreve": "Alessandro",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "alessandro.fava@move-x.it",
+    "dataAssunzione": "2026-01-26",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-07-26",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-02-25",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-06-26",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 5,
+    "n": 5,
+    "nome": "Alessandro Porta",
+    "cognome": "Porta",
+    "nomeBreve": "Alessandro",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "alessandro.porta@move-x.it",
+    "dataAssunzione": "2026-03-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-05-25",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-04-01",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-04-25",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 6,
+    "n": 6,
+    "nome": "Alessio Moro",
+    "cognome": "Moro",
+    "nomeBreve": "Alessio",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Hardware",
+    "email": "alessio.moro@movesolutions.it",
+    "dataAssunzione": "2021-07-11",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2021-08-10",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 7,
+    "n": 7,
+    "nome": "Andrea Di Donato",
+    "cognome": "Di Donato",
+    "nomeBreve": "Andrea",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "andrea.didonato@movesolutions.it",
+    "dataAssunzione": "2021-01-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2021-02-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 8,
+    "n": 8,
+    "nome": "Andrea Ferrari",
+    "cognome": "Ferrari",
+    "nomeBreve": "Andrea",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Milano",
+    "email": "andrea.ferrari@movesolutions.it",
+    "dataAssunzione": "2024-01-24",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-23",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 9,
+    "n": 9,
+    "nome": "Andrea Gaburro",
+    "cognome": "Gaburro",
+    "nomeBreve": "Andrea",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "andrea.gaburro@move-x.it",
+    "dataAssunzione": "2022-12-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-01-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 10,
+    "n": 10,
+    "nome": "Andrea Trasacco",
+    "cognome": "Trasacco",
+    "nomeBreve": "Andrea",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "andrea.trasacco@movesolutions.it",
+    "dataAssunzione": "2025-09-15",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2025-12-08",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-10-15",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "fatto",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 11,
+    "n": 11,
+    "nome": "Antonio Luca",
+    "cognome": "Luca",
+    "nomeBreve": "Antonio",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "antonio.luca@move-x.it",
+    "dataAssunzione": "2022-04-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-05-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 12,
+    "n": 12,
+    "nome": "Amber Brown",
+    "cognome": "Brown",
+    "nomeBreve": "Amber",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "amber.brown@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 13,
+    "n": 13,
+    "nome": "Carmine Paolino",
+    "cognome": "Paolino",
+    "nomeBreve": "Carmine",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "carmine.paolino@move-x.it",
+    "dataAssunzione": "2024-01-08",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-07",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 14,
+    "n": 14,
+    "nome": "Chiara Tomei",
+    "cognome": "Tomei",
+    "nomeBreve": "Chiara",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Marketing",
+    "email": "chiara.tomei@movesolutions.it",
+    "dataAssunzione": "2025-05-26",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-06-25",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 15,
+    "n": 15,
+    "nome": "Daniel Meli",
+    "cognome": "Meli",
+    "nomeBreve": "Daniel",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "daniel.meli@move-x.it",
+    "dataAssunzione": "2024-01-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 16,
+    "n": 16,
+    "nome": "Dario Cioffi",
+    "cognome": "Cioffi",
+    "nomeBreve": "Dario",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Reception",
+    "email": "dario.cioffi@movesolutions.it",
+    "dataAssunzione": "2023-11-23",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-12-23",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 17,
+    "n": 17,
+    "nome": "Davide Romagnoli",
+    "cognome": "Romagnoli",
+    "nomeBreve": "Davide",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "davide.romagnoli@move-x.it",
+    "dataAssunzione": "2025-07-21",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-08-20",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 18,
+    "n": 18,
+    "nome": "Davide Vigni",
+    "cognome": "Vigni",
+    "nomeBreve": "Davide",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "davide.vigni@move-x.it",
+    "dataAssunzione": "2024-03-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-04-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 19,
+    "n": 19,
+    "nome": "Ahmad Ebabri",
+    "cognome": "Ebabri",
+    "nomeBreve": "Ahmad",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "ahmad.ebabdri@move-x.it",
+    "dataAssunzione": "2026-01-01",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-06-30",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-01-31",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-31",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-06-30",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 20,
+    "n": 20,
+    "nome": "Edoardo Fabbrica",
+    "cognome": "Fabbrica",
+    "nomeBreve": "Edoardo",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "edoardo.fabbrica@move-x.it",
+    "dataAssunzione": "2023-03-06",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-04-05",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 21,
+    "n": 21,
+    "nome": "Edoardo Barteselli",
+    "cognome": "Barteselli",
+    "nomeBreve": "Edoardo",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "edoardo.barteselli@move-x.it",
+    "dataAssunzione": "2025-10-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-10-31",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 22,
+    "n": 22,
+    "nome": "Elena Canciani",
+    "cognome": "Canciani",
+    "nomeBreve": "Elena",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "elena.canciani@move-x.it",
+    "dataAssunzione": "2025-11-03",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-03",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 23,
+    "n": 23,
+    "nome": "Eleonora Corti",
+    "cognome": "Corti",
+    "nomeBreve": "Eleonora",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Presales",
+    "email": "corti.eleonora@movesolutions.it",
+    "dataAssunzione": "2025-09-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2026-02-28",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 24,
+    "n": 24,
+    "nome": "Elisa Corona",
+    "cognome": "Corona",
+    "nomeBreve": "Elisa",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Amministrazione",
+    "email": "elisa.corona@movesolutions.it",
+    "dataAssunzione": "2025-12-01",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-05-31",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-31",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-06-01",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-05-31",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 25,
+    "n": 25,
+    "nome": "Emmanuele Pomiato",
+    "cognome": "Pomiato",
+    "nomeBreve": "Emmanuele",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "emmanuele.pomiato@move-x.it",
+    "dataAssunzione": "2024-01-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 26,
+    "n": 26,
+    "nome": "Eugenia Petrangeli",
+    "cognome": "Petrangeli",
+    "nomeBreve": "Eugenia",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "eugenia.petrangeli@move-x.it",
+    "dataAssunzione": "2024-01-13",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-12",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 27,
+    "n": 27,
+    "nome": "Federica Maresca",
+    "cognome": "Maresca",
+    "nomeBreve": "Federica",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "federica.maresca@move-x.it",
+    "dataAssunzione": "2025-03-31",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-04-30",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 28,
+    "n": 28,
+    "nome": "Federica Ciancio",
+    "cognome": "Ciancio",
+    "nomeBreve": "Federica",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "federica.ciancio@move-x.it",
+    "dataAssunzione": "2025-11-17",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-05-16",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-17",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-17",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-05-16",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 29,
+    "n": 29,
+    "nome": "Federico Bronte",
+    "cognome": "Bronte",
+    "nomeBreve": "Federico",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "federico.bronte@move-x.it",
+    "dataAssunzione": "2022-05-23",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-06-22",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 30,
+    "n": 30,
+    "nome": "Federico Torri",
+    "cognome": "Torri",
+    "nomeBreve": "Federico",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "federico.torri@move-x.it",
+    "dataAssunzione": "2024-11-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-12-04",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 31,
+    "n": 31,
+    "nome": "Filippo Bertelli",
+    "cognome": "Bertelli",
+    "nomeBreve": "Filippo",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "filippo.bertelli@move-x.it",
+    "dataAssunzione": "2023-09-25",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-10-25",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 32,
+    "n": 32,
+    "nome": "Mark Flo",
+    "cognome": "Flo",
+    "nomeBreve": "Mark",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "mark.flo@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 33,
+    "n": 33,
+    "nome": "Gabriele Salucci",
+    "cognome": "Salucci",
+    "nomeBreve": "Gabriele",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "gabriele.salucci@move-x.it",
+    "dataAssunzione": "2022-10-03",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-11-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 34,
+    "n": 34,
+    "nome": "Gabriele Tabarrani",
+    "cognome": "Tabarrani",
+    "nomeBreve": "Gabriele",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "gabriele.tabarrani@move-x.it",
+    "dataAssunzione": "2022-07-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-07-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 35,
+    "n": 35,
+    "nome": "Gabriele Ducci",
+    "cognome": "Ducci",
+    "nomeBreve": "Gabriele",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "gabriele.ducci@move-x.it",
+    "dataAssunzione": "2025-06-30",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-07-30",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 36,
+    "n": 36,
+    "nome": "Gabriele Bettini",
+    "cognome": "Bettini",
+    "nomeBreve": "Gabriele",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Hardware",
+    "email": "gabriele.bettini@movesolutions.it",
+    "dataAssunzione": "2025-09-08",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-10-08",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 37,
+    "n": 37,
+    "nome": "Gabriele Roselli",
+    "cognome": "Roselli",
+    "nomeBreve": "Gabriele",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "gabriele.roselli@move-x.it",
+    "dataAssunzione": "2025-12-09",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-03-03",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2026-06-09",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "fatto",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 38,
+    "n": 38,
+    "nome": "Giacomo Ferrero",
+    "cognome": "Ferrero",
+    "nomeBreve": "Giacomo",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "giacomo.ferrero@move-x.it",
+    "dataAssunzione": "2024-03-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-04-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 39,
+    "n": 39,
+    "nome": "Giacomo Frediani",
+    "cognome": "Frediani",
+    "nomeBreve": "Giacomo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Business Development",
+    "email": "giacomo.frediani@movesolutions.it",
+    "dataAssunzione": "2024-06-12",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-07-12",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 40,
+    "n": 40,
+    "nome": "Giulio Trovesi",
+    "cognome": "Trovesi",
+    "nomeBreve": "Giulio",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "giulio.trovesi@move-x.it",
+    "dataAssunzione": "2023-12-18",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-01-17",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 41,
+    "n": 41,
+    "nome": "Glauco Guercini",
+    "cognome": "Guercini",
+    "nomeBreve": "Glauco",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "glauco.guercini@move-x.it",
+    "dataAssunzione": "2022-05-25",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-06-24",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 42,
+    "n": 42,
+    "nome": "Ilaria Filippetto",
+    "cognome": "Filippetto",
+    "nomeBreve": "Ilaria",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "ilaria.filippetto@move-x.it",
+    "dataAssunzione": "2022-02-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-03-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 43,
+    "n": 43,
+    "nome": "Irene Petroni",
+    "cognome": "Petroni",
+    "nomeBreve": "Irene",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Amministrazione",
+    "email": "irene.petroni@movesolutions.it",
+    "dataAssunzione": "2023-05-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-06-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 44,
+    "n": 44,
+    "nome": "Sebastian Jagla",
+    "cognome": "Jagla",
+    "nomeBreve": "Sebastian",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "sebastian.jagla@movesolutions.it",
+    "dataAssunzione": "2025-02-17",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": "2026-02-16",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-03-19",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "fatto",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-02-16",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 45,
+    "n": 45,
+    "nome": "Kevin Boni",
+    "cognome": "Boni",
+    "nomeBreve": "Kevin",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "kevin.boni@movesolutions.it",
+    "dataAssunzione": "2023-07-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-07-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 46,
+    "n": 46,
+    "nome": "Kya Haas",
+    "cognome": "Haas",
+    "nomeBreve": "Kya",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "kya.haas@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 47,
+    "n": 47,
+    "nome": "Alessandro Lento",
+    "cognome": "Lento",
+    "nomeBreve": "Alessandro",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "alessandro.lento@move-x.it",
+    "dataAssunzione": "2026-01-07",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-04-01",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-02-06",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-03-02",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 48,
+    "n": 48,
+    "nome": "Lorenzo Bataloni",
+    "cognome": "Bataloni",
+    "nomeBreve": "Lorenzo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "lorenzo.bataloni@movesolutions.it",
+    "dataAssunzione": "2022-09-12",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-10-12",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 49,
+    "n": 49,
+    "nome": "Lorenzo Bordonaro",
+    "cognome": "Bordonaro",
+    "nomeBreve": "Lorenzo",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "lorenzo.bordonaro@move-x.it",
+    "dataAssunzione": "2024-11-11",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-12-11",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 50,
+    "n": 50,
+    "nome": "Lorenzo Tagliaferri",
+    "cognome": "Tagliaferri",
+    "nomeBreve": "Lorenzo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Support",
+    "email": "lorenzo.tagliaferri@movesolutions.it",
+    "dataAssunzione": "2023-02-13",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-03-15",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 51,
+    "n": 51,
+    "nome": "Lorenzo Tinacci",
+    "cognome": "Tinacci",
+    "nomeBreve": "Lorenzo",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "lorenzo.tinacci@move-x.it",
+    "dataAssunzione": "2024-02-05",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-03-06",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 52,
+    "n": 52,
+    "nome": "Lorenzo Tognarini",
+    "cognome": "Tognarini",
+    "nomeBreve": "Lorenzo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Marketing",
+    "email": "lorenzo.tognarini@movesolutions.it",
+    "dataAssunzione": "2020-01-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2020-02-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 53,
+    "n": 53,
+    "nome": "Luca Zorzato",
+    "cognome": "Zorzato",
+    "nomeBreve": "Luca",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "luca.zorzato@move-x.it",
+    "dataAssunzione": "2022-07-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-07-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 54,
+    "n": 54,
+    "nome": "Marco Galli",
+    "cognome": "Galli",
+    "nomeBreve": "Marco",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "marco.galli@movesolutions.it",
+    "dataAssunzione": "2020-05-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2020-05-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 55,
+    "n": 55,
+    "nome": "Marco Pellegrini",
+    "cognome": "Pellegrini",
+    "nomeBreve": "Marco",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "HR",
+    "email": "marco.pellegrini@movesolutions.it",
+    "dataAssunzione": "2023-09-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-10-04",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 56,
+    "n": 56,
+    "nome": "Marco Tanganelli",
+    "cognome": "Tanganelli",
+    "nomeBreve": "Marco",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "marco.tanganelli@move-x.it",
+    "dataAssunzione": "2023-03-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-03-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 57,
+    "n": 57,
+    "nome": "Marco Luca Dori",
+    "cognome": "Dori",
+    "nomeBreve": "Marco Luca",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Hardware",
+    "email": "marcoluca.dori@movesolutions.it",
+    "dataAssunzione": "2024-06-10",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-07-10",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 58,
+    "n": 58,
+    "nome": "Marina Campi",
+    "cognome": "Campi",
+    "nomeBreve": "Marina",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Business Development",
+    "email": "marina.campi@movesolutions.it",
+    "dataAssunzione": "2022-01-03",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-02-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 59,
+    "n": 59,
+    "nome": "Mario Sibilio",
+    "cognome": "Sibilio",
+    "nomeBreve": "Mario",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Magazzino",
+    "email": "mario.sibilio@movesolutions.it",
+    "dataAssunzione": "2021-04-06",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2021-05-06",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 60,
+    "n": 60,
+    "nome": "Martin Sadushi",
+    "cognome": "Sadushi",
+    "nomeBreve": "Martin",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "martin.sadushi@move-x.it",
+    "dataAssunzione": "2025-06-16",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-07-16",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 61,
+    "n": 61,
+    "nome": "Matteo Sciarra",
+    "cognome": "Sciarra",
+    "nomeBreve": "Matteo",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "matteo.sciarra@move-x.it",
+    "dataAssunzione": "2025-05-05",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-06-04",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 62,
+    "n": 62,
+    "nome": "Matteo Ciardelli",
+    "cognome": "Ciardelli",
+    "nomeBreve": "Matteo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Hardware",
+    "email": "matteo.ciardelli@movesolutions.it",
+    "dataAssunzione": "2025-09-29",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2025-12-22",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-10-29",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "fatto",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 63,
+    "n": 63,
+    "nome": "Matteo Cima",
+    "cognome": "Cima",
+    "nomeBreve": "Matteo",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "matteo.cima@move-x.it",
+    "dataAssunzione": "2025-11-10",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-02-02",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-10",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-10",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 64,
+    "n": 64,
+    "nome": "Matteo Lencioni",
+    "cognome": "Lencioni",
+    "nomeBreve": "Matteo",
+    "societa": "Freelance",
+    "citta": "US",
+    "team": "Freelance",
+    "email": "matteo.lencioni@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 65,
+    "n": 65,
+    "nome": "Mattia Reschiglian",
+    "cognome": "Reschiglian",
+    "nomeBreve": "Mattia",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Milano",
+    "email": "reschiglian.mattia@move-x.it",
+    "dataAssunzione": "2025-08-25",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-09-24",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 66,
+    "n": 66,
+    "nome": "Giulia Melone",
+    "cognome": "Melone",
+    "nomeBreve": "Giulia",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "giulia.melone@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 67,
+    "n": 67,
+    "nome": "Michele Saladino",
+    "cognome": "Saladino",
+    "nomeBreve": "Michele",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "michele.saladino@movesolutions.it",
+    "dataAssunzione": "2025-10-20",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-01-12",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-11-19",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-04-20",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 68,
+    "n": 68,
+    "nome": "Michele Borgia",
+    "cognome": "Borgia",
+    "nomeBreve": "Michele",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "michele.borgia@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 69,
+    "n": 69,
+    "nome": "Nicola Licheri",
+    "cognome": "Licheri",
+    "nomeBreve": "Nicola",
+    "societa": "Solutions",
+    "citta": "Milano",
+    "team": "Software Milano",
+    "email": "nicola.licheri@movesolutions.it",
+    "dataAssunzione": "2026-01-19",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-04-13",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-02-18",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-07-19",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 70,
+    "n": 70,
+    "nome": "Nicolo Salti",
+    "cognome": "Salti",
+    "nomeBreve": "Nicolo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "nicolo.salti@movesolutions.it",
+    "dataAssunzione": "2024-10-10",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-11-09",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 71,
+    "n": 71,
+    "nome": "Omar Sayari",
+    "cognome": "Sayari",
+    "nomeBreve": "Omar",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "omar.sayari@move-x.it",
+    "dataAssunzione": "2024-04-15",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-05-15",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 72,
+    "n": 72,
+    "nome": "Paolo De Lellis",
+    "cognome": "De Lellis",
+    "nomeBreve": "Paolo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Presales",
+    "email": "paolo.delellis@movesolutions.it",
+    "dataAssunzione": "2021-01-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2021-02-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 73,
+    "n": 73,
+    "nome": "Pietro Quattrini",
+    "cognome": "Quattrini",
+    "nomeBreve": "Pietro",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Magazzino",
+    "email": "pietro.quattrini@movesolutions.it",
+    "dataAssunzione": "2025-01-08",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-02-07",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 74,
+    "n": 74,
+    "nome": "Pietro Vanni",
+    "cognome": "Vanni",
+    "nomeBreve": "Pietro",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "pietro.vanni@move-x.it",
+    "dataAssunzione": "2025-05-19",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-06-18",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 75,
+    "n": 75,
+    "nome": "Matteo Pupa",
+    "cognome": "Pupa",
+    "nomeBreve": "Matteo",
+    "societa": "Freelance",
+    "citta": "Freelance",
+    "team": "Freelance",
+    "email": "matteo.pupa@movesolutions.it",
+    "dataAssunzione": null,
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "—",
+    "scadenzaFU1": null,
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Freelance",
+  },
+  {
+    "id": 76,
+    "n": 76,
+    "nome": "Riccardo Tappa",
+    "cognome": "Tappa",
+    "nomeBreve": "Riccardo",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "riccardo.tappa@move-x.it",
+    "dataAssunzione": "2022-06-06",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-07-06",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 77,
+    "n": 77,
+    "nome": "Riccardo Rigamonti",
+    "cognome": "Rigamonti",
+    "nomeBreve": "Riccardo",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "riccardo.rigamonti@move-x.it",
+    "dataAssunzione": "2026-01-19",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "II livello",
+    "durataProva": "prop. D.Lgs 104/2022",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-02-04",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-02-18",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-06-18",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-07-18",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 78,
+    "n": 78,
+    "nome": "Rosita Borelli",
+    "cognome": "Borelli",
+    "nomeBreve": "Rosita",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Amministrazione",
+    "email": "rosita.borelli@movesolutions.it",
+    "dataAssunzione": "2022-07-04",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-08-03",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 79,
+    "n": 79,
+    "nome": "Samuele Vannoni",
+    "cognome": "Vannoni",
+    "nomeBreve": "Samuele",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "samuele.vannoni@move-x.it",
+    "dataAssunzione": "2024-01-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-02-01",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 80,
+    "n": 80,
+    "nome": "Sara Cozzi",
+    "cognome": "Cozzi",
+    "nomeBreve": "Sara",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Milano",
+    "email": "sara.cozzi@move-x.it",
+    "dataAssunzione": "2023-07-11",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2023-08-10",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 81,
+    "n": 81,
+    "nome": "Simone Corbetta",
+    "cognome": "Corbetta",
+    "nomeBreve": "Simone",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Milano",
+    "email": "simone.corbetta@move-x.it",
+    "dataAssunzione": "2024-07-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2024-07-31",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 82,
+    "n": 82,
+    "nome": "Simone Di Ricco",
+    "cognome": "Di Ricco",
+    "nomeBreve": "Simone",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "simone.diricco@movesolutions.it",
+    "dataAssunzione": "2022-01-03",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-02-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 83,
+    "n": 83,
+    "nome": "Simone Lucia",
+    "cognome": "Lucia",
+    "nomeBreve": "Simone",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Presales",
+    "email": "simone.lucia@movesolutions.it",
+    "dataAssunzione": "2025-10-14",
+    "tipoContratto": "determinato",
+    "oreSettimana": null,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-04-13",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-11-13",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-04-14",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-04-13",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 84,
+    "n": 84,
+    "nome": "Simone Giacomelli",
+    "cognome": "Giacomelli",
+    "nomeBreve": "Simone",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "R & D",
+    "email": "simone.giacomelli@move-x.it",
+    "dataAssunzione": "2025-11-03",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-01-26",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-03",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-03",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 85,
+    "n": 85,
+    "nome": "Stefano Flores DArcais",
+    "cognome": "Flores DArcais",
+    "nomeBreve": "Stefano",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Business Development Milano",
+    "email": "stefano.flores@move-x.it",
+    "dataAssunzione": "2022-11-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-12-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 86,
+    "n": 86,
+    "nome": "Teo Basili",
+    "cognome": "Basili",
+    "nomeBreve": "Teo",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software Lucca",
+    "email": "teo.basili@movesolutions.it",
+    "dataAssunzione": "2025-11-23",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-02-13",
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-12-23",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-23",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 87,
+    "n": 87,
+    "nome": "Tommaso Pacini",
+    "cognome": "Pacini",
+    "nomeBreve": "Tommaso",
+    "societa": "Move-X",
+    "citta": "Lucca",
+    "team": "Silicon Lucca",
+    "email": "tommaso.pacini@move-x.it",
+    "dataAssunzione": "2025-09-01",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2025-10-01",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 88,
+    "n": 88,
+    "nome": "Valerio Di Malta",
+    "cognome": "Di Malta",
+    "nomeBreve": "Valerio",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "valerio.dimalta@move-x.it",
+    "dataAssunzione": "2026-01-12",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-04-06",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-02-11",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-07-12",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 89,
+    "n": 89,
+    "nome": "Joscha Weiss",
+    "cognome": "Weiss",
+    "nomeBreve": "Joscha",
+    "societa": "Solutions",
+    "citta": "Milano",
+    "team": "Software Milano",
+    "email": "joscha.weiss@movesolutions.it",
+    "dataAssunzione": "2022-11-02",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "",
+    "durataProva": "",
+    "metodoComputo": "",
+    "fineProva": null,
+    "esitoProva": "Superato",
+    "scadenzaFU1": "2022-12-02",
+    "statoFU1": "Fatto",
+    "noteFU1": "",
+    "scadenzaFU2": null,
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 90,
+    "n": 90,
+    "nome": "William Mancini",
+    "cognome": "Mancini",
+    "nomeBreve": "William",
+    "societa": "Move-X",
+    "citta": "Milano",
+    "team": "Silicon Milano",
+    "email": "william.mancini@move-x.it",
+    "dataAssunzione": "2026-02-09",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "Q/I Quadro",
+    "durataProva": "6 mesi",
+    "metodoComputo": "Giorni calendario",
+    "fineProva": "2026-08-09",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-03-11",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-07-10",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": "2026-03-09",
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  },
+  {
+    "id": 91,
+    "n": 91,
+    "nome": "Daniele Gagni",
+    "cognome": "Gagni",
+    "nomeBreve": "Daniele",
+    "societa": "Solutions",
+    "citta": "Lucca",
+    "team": "Software",
+    "email": "daniele.gagni@movesolutions.it",
+    "dataAssunzione": "2026-03-09",
+    "tipoContratto": "indeterminato",
+    "oreSettimana": 40,
+    "livelloCCNL": "III livello",
+    "durataProva": "60 gg lav. eff.",
+    "metodoComputo": "Lavoro effettivo",
+    "fineProva": "2026-06-01",
+    "esitoProva": "In Corso",
+    "scadenzaFU1": "2026-04-08",
+    "statoFU1": "Da Fare",
+    "noteFU1": "",
+    "scadenzaFU2": "2026-05-02",
+    "statoFU2Dip": "Da Fare",
+    "noteFU2Dip": "",
+    "statoFU2Manager": "Da Fare",
+    "scadenzaContratto": null,
+    "stato": "Attivo",
+    "scadenzaFU2Manager": null,
+    "statoFU2Manager": "Da Fare",
+    "noteFU2Manager": "",
+    "dataUscita": null,
+    "motivoUscita": "",
+    "noteUscita": "",
+
+    // ===== VALUTAZIONE MANAGER (45gg) =====
+    "valutazioneManager": null,
+
+    // ===== VALUTAZIONE HR (fine prova) =====
+    "valutazioneHR": null,
+
+    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
+    "sentimentProva": null,
+
+    // ===== VALUTAZIONE 360 AGGREGATA =====
+    "valutazione360": null,
+
+    // ===== METADATA VALUTAZIONE =====
+    "valutazioneMetadata": {
+      "anno": 2026,
+      "dataCreazione": null,
+      "dataUltimaModifica": null,
+      "datiPre2026Eliminati": false
+    }
+  }
+]
+
+export const SEED_COLLOQUI = [
+  {
+    "nome": "Alberto Del Bianco",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-06-27",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-01-04",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 2,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Alessandro Nobili",
+    "team": "Presales",
+    "c1_data": "2023-08-15",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-03-04",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Alessandro Manetti",
+    "team": "Marketing",
+    "c1_data": "2024-03-08",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-10-09",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Alessandro Fava",
+    "team": "Silicon Lucca"
+  },
+  {
+    "nome": "Alessandro Porta",
+    "team": "Silicon Lucca"
+  },
+  {
+    "nome": "Alessio Moro",
+    "team": "Hardware",
+    "c1_data": "2021-08-17",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2022-03-07",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Andrea Di Donato",
+    "team": "Software Lucca",
+    "c1_data": "2021-02-10",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2021-09-05",
+    "c2_esaur": 4,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Andrea Ferrari",
+    "team": "Software Milano",
+    "c1_data": "2024-03-12",
+    "c1_esaur": 1,
+    "c1_carico": 1,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 5,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-09-08",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 4,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Andrea Gaburro",
+    "team": "Silicon Milano",
+    "c1_data": "2023-01-09",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-07-17",
+    "c2_esaur": 4,
+    "c2_carico": 4,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 2,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Andrea Trasacco",
+    "team": "Software Lucca",
+    "c1_data": "2025-11-06",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Antonio Luca",
+    "team": "Silicon Milano",
+    "c1_data": "2022-05-06",
+    "c1_esaur": 2,
+    "c1_carico": 1,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2022-12-09",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Amber Brown",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Carmine Paolino",
+    "team": "R & D",
+    "c1_data": "2024-02-18",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-09-09",
+    "c2_esaur": 2,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 2,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Chiara Tomei",
+    "team": "Marketing",
+    "c1_data": "2025-07-02",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 5,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2026-02-04",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 5,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Daniel Meli",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-02-20",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-08-20",
+    "c2_esaur": 4,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Dario Cioffi",
+    "team": "Reception",
+    "c1_data": "2023-12-30",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 1,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-07-24",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 1,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Davide Romagnoli",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-09-03",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Davide Vigni",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-04-10",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 1,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-11-04",
+    "c2_esaur": 4,
+    "c2_carico": 5,
+    "c2_motiv": 1,
+    "c2_supp": 5,
+    "c2_equil": 3,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Ahmad Ebabri",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Edoardo Fabbrica",
+    "team": "Silicon Milano",
+    "c1_data": "2023-04-30",
+    "c1_esaur": 3,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 5,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-10-18",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Edoardo Barteselli",
+    "team": "Silicon Milano",
+    "c1_data": "2025-11-09",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Elena Canciani",
+    "team": "Silicon Milano",
+    "c1_data": "2025-12-19",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Eleonora Corti",
+    "team": "Presales",
+    "c1_data": "2025-10-16",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Elisa Corona",
+    "team": "Amministrazione",
+    "c1_data": "2026-01-19",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Emmanuele Pomiato",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-02-23",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-09-02",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Eugenia Petrangeli",
+    "team": "Software Lucca",
+    "c1_data": "2024-03-05",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-09-13",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 4,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Federica Maresca",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-05-17",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2025-11-24",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Federica Ciancio",
+    "team": "Silicon Milano",
+    "c1_data": "2025-12-29",
+    "c1_esaur": 2,
+    "c1_carico": 1,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Federico Bronte",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-07-09",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2023-01-16",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Federico Torri",
+    "team": "Silicon Milano",
+    "c1_data": "2024-12-23",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2025-07-02",
+    "c2_esaur": 4,
+    "c2_carico": 5,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Filippo Bertelli",
+    "team": "Silicon Lucca",
+    "c1_data": "2023-11-09",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-05-20",
+    "c2_esaur": 1,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Mark Flo",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Gabriele Salucci",
+    "team": "Silicon Milano",
+    "c1_data": "2022-11-16",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2023-05-23",
+    "c2_esaur": 4,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Gabriele Tabarrani",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-08-23",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2023-02-17",
+    "c2_esaur": 4,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Gabriele Ducci",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-08-15",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2026-03-01",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 2,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Gabriele Bettini",
+    "team": "Hardware",
+    "c1_data": "2025-10-13",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 5,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Gabriele Roselli",
+    "team": "Silicon Milano",
+    "c1_data": "2026-02-01",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Giacomo Ferrero",
+    "team": "Silicon Milano",
+    "c1_data": "2024-04-23",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-11-14",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Giacomo Frediani",
+    "team": "Business Development",
+    "c1_data": "2024-07-31",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2025-01-29",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Giulio Trovesi",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-01-29",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-08-08",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Glauco Guercini",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-07-05",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-01-23",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 4,
+    "c2_supp": 3,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Ilaria Filippetto",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-03-09",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 5,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2022-09-29",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Irene Petroni",
+    "team": "Amministrazione",
+    "c1_data": "2023-06-24",
+    "c1_esaur": 3,
+    "c1_carico": 1,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-01-06",
+    "c2_esaur": 3,
+    "c2_carico": 1,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Sebastian Jagla",
+    "team": "Freelance",
+    "c1_data": "2025-03-26",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2025-10-07",
+    "c2_esaur": 2,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 2,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Kevin Boni",
+    "team": "Software Lucca",
+    "c1_data": "2023-08-25",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-03-11",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Kya Haas",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Alessandro Lento",
+    "team": "R & D"
+  },
+  {
+    "nome": "Lorenzo Bataloni",
+    "team": "Software Lucca",
+    "c1_data": "2022-11-04",
+    "c1_esaur": 2,
+    "c1_carico": 1,
+    "c1_motiv": 4,
+    "c1_supp": 5,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-05-11",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 4,
+    "c2_supp": 5,
+    "c2_equil": 4,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Lorenzo Bordonaro",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-12-19",
+    "c1_esaur": 3,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 5,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2025-07-08",
+    "c2_esaur": 2,
+    "c2_carico": 2,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 5,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Lorenzo Tagliaferri",
+    "team": "Support",
+    "c1_data": "2023-03-31",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-10-24",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 4,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Lorenzo Tinacci",
+    "team": "R & D",
+    "c1_data": "2024-03-14",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-10-13",
+    "c2_esaur": 4,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 2,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Lorenzo Tognarini",
+    "team": "Marketing",
+    "c1_data": "2020-02-22",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2020-08-28",
+    "c2_esaur": 2,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Luca Zorzato",
+    "team": "Silicon Milano",
+    "c1_data": "2022-08-20",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 5,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-02-12",
+    "c2_esaur": 1,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Marco Galli",
+    "team": "R & D",
+    "c1_data": "2020-06-13",
+    "c1_esaur": 1,
+    "c1_carico": 2,
+    "c1_motiv": 4,
+    "c1_supp": 5,
+    "c1_equil": 5,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2020-12-22",
+    "c2_esaur": 1,
+    "c2_carico": 3,
+    "c2_motiv": 4,
+    "c2_supp": 5,
+    "c2_equil": 5,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Marco Pellegrini",
+    "team": "HR",
+    "c1_data": "2023-10-29",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 1,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-04-27",
+    "c2_esaur": 4,
+    "c2_carico": 2,
+    "c2_motiv": 1,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Marco Tanganelli",
+    "team": "Silicon Lucca",
+    "c1_data": "2023-04-23",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-11-02",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Marco Luca Dori",
+    "team": "Hardware",
+    "c1_data": "2024-07-30",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 1,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2025-02-02",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 1,
+    "c2_supp": 3,
+    "c2_equil": 3,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Marina Campi",
+    "team": "Business Development",
+    "c1_data": "2022-02-13",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2022-09-05",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Mario Sibilio",
+    "team": "Magazzino",
+    "c1_data": "2021-05-22",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2021-12-10",
+    "c2_esaur": 4,
+    "c2_carico": 5,
+    "c2_motiv": 2,
+    "c2_supp": 2,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Martin Sadushi",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-08-02",
+    "c1_esaur": 1,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2026-02-26",
+    "c2_esaur": 1,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Matteo Sciarra",
+    "team": "Silicon Milano",
+    "c1_data": "2025-06-18",
+    "c1_esaur": 4,
+    "c1_carico": 3,
+    "c1_motiv": 1,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2026-01-02",
+    "c2_esaur": 3,
+    "c2_carico": 3,
+    "c2_motiv": 1,
+    "c2_supp": 3,
+    "c2_equil": 5,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Matteo Ciardelli",
+    "team": "Hardware",
+    "c1_data": "2025-11-11",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Matteo Cima",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-12-21",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Matteo Lencioni",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Mattia Reschiglian",
+    "team": "Silicon Milano",
+    "c1_data": "2025-10-05",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 1,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Giulia Melone",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Michele Saladino",
+    "team": "Software Lucca",
+    "c1_data": "2025-12-11",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Michele Borgia",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Nicola Licheri",
+    "team": "Software Milano"
+  },
+  {
+    "nome": "Nicolo Salti",
+    "team": "Software Lucca",
+    "c1_data": "2024-11-29",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2025-06-21",
+    "c2_esaur": 4,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 2,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Omar Sayari",
+    "team": "Silicon Milano",
+    "c1_data": "2024-06-03",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-12-06",
+    "c2_esaur": 2,
+    "c2_carico": 3,
+    "c2_motiv": 2,
+    "c2_supp": 3,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Paolo De Lellis",
+    "team": "Presales",
+    "c1_data": "2021-02-21",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2021-08-21",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 1,
+    "c2_supp": 2,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Pietro Quattrini",
+    "team": "Magazzino",
+    "c1_data": "2025-02-25",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2025-09-01",
+    "c2_esaur": 2,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 5,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Pietro Vanni",
+    "team": "R & D",
+    "c1_data": "2025-07-10",
+    "c1_esaur": 4,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2026-01-07",
+    "c2_esaur": 3,
+    "c2_carico": 4,
+    "c2_motiv": 2,
+    "c2_supp": 5,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Matteo Pupa",
+    "team": "Freelance"
+  },
+  {
+    "nome": "Riccardo Tappa",
+    "team": "Silicon Lucca",
+    "c1_data": "2022-07-11",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2023-02-16",
+    "c2_esaur": 3,
+    "c2_carico": 2,
+    "c2_motiv": 1,
+    "c2_supp": 3,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Riccardo Rigamonti",
+    "team": "Silicon Milano"
+  },
+  {
+    "nome": "Rosita Borelli",
+    "team": "Amministrazione",
+    "c1_data": "2022-08-11",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-02-14",
+    "c2_esaur": 2,
+    "c2_carico": 4,
+    "c2_motiv": 3,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Samuele Vannoni",
+    "team": "Silicon Lucca",
+    "c1_data": "2024-02-13",
+    "c1_esaur": 3,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 3,
+    "c1_equil": 4,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2024-09-12",
+    "c2_esaur": 2,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 3,
+    "c2_equil": 4,
+    "c2_intent": 3,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Sara Cozzi",
+    "team": "Silicon Milano",
+    "c1_data": "2023-08-26",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 1,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2024-03-02",
+    "c2_esaur": 2,
+    "c2_carico": 4,
+    "c2_motiv": 1,
+    "c2_supp": 4,
+    "c2_equil": 4,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Simone Corbetta",
+    "team": "Silicon Milano",
+    "c1_data": "2024-08-09",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2025-02-25",
+    "c2_esaur": 2,
+    "c2_carico": 2,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 3,
+    "c2_intent": 5,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Simone Di Ricco",
+    "team": "Software Lucca",
+    "c1_data": "2022-02-21",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 4,
+    "c1_supp": 4,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2022-08-27",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 5,
+    "c2_supp": 5,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Simone Lucia",
+    "team": "Presales",
+    "c1_data": "2025-12-03",
+    "c1_esaur": 2,
+    "c1_carico": 3,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 4,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Simone Giacomelli",
+    "team": "R & D",
+    "c1_data": "2025-12-22",
+    "c1_esaur": 3,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 4,
+    "c1_equil": 5,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Stefano Flores DArcais",
+    "team": "Business Development Milano",
+    "c1_data": "2022-12-10",
+    "c1_esaur": 2,
+    "c1_carico": 2,
+    "c1_motiv": 3,
+    "c1_supp": 5,
+    "c1_equil": 5,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Positivo",
+    "c2_data": "2023-06-17",
+    "c2_esaur": 2,
+    "c2_carico": 1,
+    "c2_motiv": 3,
+    "c2_supp": 5,
+    "c2_equil": 5,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Positivo"
+  },
+  {
+    "nome": "Teo Basili",
+    "team": "Software Lucca",
+    "c1_data": "2026-01-13",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 5,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare"
+  },
+  {
+    "nome": "Tommaso Pacini",
+    "team": "Silicon Lucca",
+    "c1_data": "2025-10-15",
+    "c1_esaur": 2,
+    "c1_carico": 1,
+    "c1_motiv": 4,
+    "c1_supp": 5,
+    "c1_equil": 5,
+    "c1_intent": 3,
+    "c1_note": "",
+    "c1_esito": "Positivo"
+  },
+  {
+    "nome": "Valerio Di Malta",
+    "team": "Silicon Milano"
+  },
+  {
+    "nome": "Joscha Weiss",
+    "team": "Software Milano",
+    "c1_data": "2022-12-08",
+    "c1_esaur": 3,
+    "c1_carico": 4,
+    "c1_motiv": 2,
+    "c1_supp": 3,
+    "c1_equil": 3,
+    "c1_intent": 4,
+    "c1_note": "",
+    "c1_esito": "Da Monitorare",
+    "c2_data": "2023-07-02",
+    "c2_esaur": 3,
+    "c2_carico": 5,
+    "c2_motiv": 2,
+    "c2_supp": 4,
+    "c2_equil": 3,
+    "c2_intent": 4,
+    "c2_note": "",
+    "c2_esito": "Da Monitorare"
+  },
+  {
+    "nome": "William Mancini",
+    "team": "Silicon Milano"
+  },
+  {
+    "nome": "Daniele Gagni",
+    "team": "Software"
+  }
+]
+
+export const SEED_FERIE = [
+  {
+    "nome": "Alberto Del Bianco",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 17,
+    "ferieResidue": 9,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Alessandro Nobili",
+    "team": "Presales",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 12,
+    "ferieResidue": 14,
+    "percGodute": 46,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Alessandro Manetti",
+    "team": "Marketing",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 19,
+    "ferieResidue": 7,
+    "percGodute": 73,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Alessandro Fava",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 2,
+    "ferieGodute": 0,
+    "ferieResidue": 2,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Alessandro Porta",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Alessio Moro",
+    "team": "Hardware",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 18,
+    "ferieResidue": 8,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Andrea Di Donato",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 21,
+    "ferieResidue": 5,
+    "percGodute": 81,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Andrea Ferrari",
+    "team": "Software Milano",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 17,
+    "ferieResidue": 9,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Andrea Gaburro",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 17,
+    "ferieResidue": 9,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Andrea Trasacco",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 11,
+    "ferieGodute": 8,
+    "ferieResidue": 3,
+    "percGodute": 73,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Antonio Luca",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 18,
+    "ferieResidue": 8,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 3,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Amber Brown",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Carmine Paolino",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 14,
+    "ferieResidue": 12,
+    "percGodute": 54,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Chiara Tomei",
+    "team": "Marketing",
+    "citta": "Lucca",
+    "ferieSpettanti": 20,
+    "ferieGodute": 5,
+    "ferieResidue": 15,
+    "percGodute": 25,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Daniel Meli",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 16,
+    "ferieResidue": 10,
+    "percGodute": 62,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Dario Cioffi",
+    "team": "Reception",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 10,
+    "ferieResidue": 16,
+    "percGodute": 38,
+    "noteFerie": "",
+    "ggMalattia": 3,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Davide Romagnoli",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 15,
+    "ferieGodute": 1,
+    "ferieResidue": 14,
+    "percGodute": 7,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Davide Vigni",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 8,
+    "ferieResidue": 18,
+    "percGodute": 31,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Ahmad Ebabri",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 4,
+    "ferieGodute": 1,
+    "ferieResidue": 3,
+    "percGodute": 25,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Edoardo Fabbrica",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 13,
+    "ferieResidue": 13,
+    "percGodute": 50,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Edoardo Barteselli",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 11,
+    "ferieGodute": 0,
+    "ferieResidue": 11,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 5,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Elena Canciani",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 9,
+    "ferieGodute": 2,
+    "ferieResidue": 7,
+    "percGodute": 22,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Eleonora Corti",
+    "team": "Presales",
+    "citta": "Lucca",
+    "ferieSpettanti": 13,
+    "ferieGodute": 11,
+    "ferieResidue": 2,
+    "percGodute": 85,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Elisa Corona",
+    "team": "Amministrazione",
+    "citta": "Lucca",
+    "ferieSpettanti": 6,
+    "ferieGodute": 2,
+    "ferieResidue": 4,
+    "percGodute": 33,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Emmanuele Pomiato",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 18,
+    "ferieResidue": 8,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 3,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Eugenia Petrangeli",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 12,
+    "ferieResidue": 14,
+    "percGodute": 46,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Federica Maresca",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 24,
+    "ferieGodute": 5,
+    "ferieResidue": 19,
+    "percGodute": 21,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Federica Ciancio",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 6,
+    "ferieGodute": 0,
+    "ferieResidue": 6,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Federico Bronte",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 3,
+    "ferieResidue": 23,
+    "percGodute": 12,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Federico Torri",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 7,
+    "ferieResidue": 19,
+    "percGodute": 27,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Filippo Bertelli",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 22,
+    "ferieResidue": 4,
+    "percGodute": 85,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Mark Flo",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Gabriele Salucci",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 23,
+    "ferieResidue": 3,
+    "percGodute": 88,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Gabriele Tabarrani",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 2,
+    "ferieResidue": 24,
+    "percGodute": 8,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Gabriele Ducci",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 17,
+    "ferieGodute": 11,
+    "ferieResidue": 6,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Gabriele Bettini",
+    "team": "Hardware",
+    "citta": "Lucca",
+    "ferieSpettanti": 13,
+    "ferieGodute": 9,
+    "ferieResidue": 4,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Gabriele Roselli",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 6,
+    "ferieGodute": 0,
+    "ferieResidue": 6,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Giacomo Ferrero",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 18,
+    "ferieResidue": 8,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Giacomo Frediani",
+    "team": "Business Development",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 16,
+    "ferieResidue": 10,
+    "percGodute": 62,
+    "noteFerie": "",
+    "ggMalattia": 3,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Giulio Trovesi",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 11,
+    "ferieResidue": 15,
+    "percGodute": 42,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Glauco Guercini",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 5,
+    "ferieResidue": 21,
+    "percGodute": 19,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Ilaria Filippetto",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 2,
+    "ferieResidue": 24,
+    "percGodute": 8,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Irene Petroni",
+    "team": "Amministrazione",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 19,
+    "ferieResidue": 7,
+    "percGodute": 73,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Sebastian Jagla",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 26,
+    "ferieGodute": 20,
+    "ferieResidue": 6,
+    "percGodute": 77,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Kevin Boni",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 15,
+    "ferieResidue": 11,
+    "percGodute": 58,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Kya Haas",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Alessandro Lento",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 4,
+    "ferieGodute": 1,
+    "ferieResidue": 3,
+    "percGodute": 25,
+    "noteFerie": "",
+    "ggMalattia": 5,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Lorenzo Bataloni",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 2,
+    "ferieResidue": 24,
+    "percGodute": 8,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Lorenzo Bordonaro",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 0,
+    "ferieResidue": 26,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 3,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Lorenzo Tagliaferri",
+    "team": "Support",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 17,
+    "ferieResidue": 9,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Lorenzo Tinacci",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 23,
+    "ferieResidue": 3,
+    "percGodute": 88,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Lorenzo Tognarini",
+    "team": "Marketing",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 6,
+    "ferieResidue": 20,
+    "percGodute": 23,
+    "noteFerie": "",
+    "ggMalattia": 3,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Luca Zorzato",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 14,
+    "ferieResidue": 12,
+    "percGodute": 54,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Marco Galli",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 21,
+    "ferieResidue": 5,
+    "percGodute": 81,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Marco Pellegrini",
+    "team": "HR",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 2,
+    "ferieResidue": 24,
+    "percGodute": 8,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 3,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Marco Tanganelli",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 22,
+    "ferieResidue": 4,
+    "percGodute": 85,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Marco Luca Dori",
+    "team": "Hardware",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 15,
+    "ferieResidue": 11,
+    "percGodute": 58,
+    "noteFerie": "",
+    "ggMalattia": 4,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Marina Campi",
+    "team": "Business Development",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 10,
+    "ferieResidue": 16,
+    "percGodute": 38,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Mario Sibilio",
+    "team": "Magazzino",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 21,
+    "ferieResidue": 5,
+    "percGodute": 81,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 3,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Martin Sadushi",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 17,
+    "ferieGodute": 7,
+    "ferieResidue": 10,
+    "percGodute": 41,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Matteo Sciarra",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 22,
+    "ferieGodute": 4,
+    "ferieResidue": 18,
+    "percGodute": 18,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Matteo Ciardelli",
+    "team": "Hardware",
+    "citta": "Lucca",
+    "ferieSpettanti": 11,
+    "ferieGodute": 5,
+    "ferieResidue": 6,
+    "percGodute": 45,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Matteo Cima",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 9,
+    "ferieGodute": 0,
+    "ferieResidue": 9,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Matteo Lencioni",
+    "team": "Freelance",
+    "citta": "US",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Mattia Reschiglian",
+    "team": "Silicon Milano",
+    "citta": "Lucca",
+    "ferieSpettanti": 13,
+    "ferieGodute": 2,
+    "ferieResidue": 11,
+    "percGodute": 15,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Giulia Melone",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Michele Saladino",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 9,
+    "ferieGodute": 3,
+    "ferieResidue": 6,
+    "percGodute": 33,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Michele Borgia",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Nicola Licheri",
+    "team": "Software Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 2,
+    "ferieGodute": 0,
+    "ferieResidue": 2,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Nicolo Salti",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 12,
+    "ferieResidue": 14,
+    "percGodute": 46,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Omar Sayari",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 3,
+    "ferieResidue": 23,
+    "percGodute": 12,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Paolo De Lellis",
+    "team": "Presales",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 11,
+    "ferieResidue": 15,
+    "percGodute": 42,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Pietro Quattrini",
+    "team": "Magazzino",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 17,
+    "ferieResidue": 9,
+    "percGodute": 65,
+    "noteFerie": "",
+    "ggMalattia": 5,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Pietro Vanni",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 20,
+    "ferieGodute": 4,
+    "ferieResidue": 16,
+    "percGodute": 20,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 3,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Matteo Pupa",
+    "team": "Freelance",
+    "citta": "Freelance",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "ggMalattia": 0,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 0,
+    "assenzeNonGiust": 0
+  },
+  {
+    "nome": "Riccardo Tappa",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 8,
+    "ferieResidue": 18,
+    "percGodute": 31,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Riccardo Rigamonti",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 2,
+    "ferieGodute": 0,
+    "ferieResidue": 2,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Rosita Borelli",
+    "team": "Amministrazione",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 15,
+    "ferieResidue": 11,
+    "percGodute": 58,
+    "noteFerie": "",
+    "ggMalattia": 6,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Samuele Vannoni",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 12,
+    "ferieResidue": 14,
+    "percGodute": 46,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Sara Cozzi",
+    "team": "Silicon Milano",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 24,
+    "ferieResidue": 2,
+    "percGodute": 92,
+    "noteFerie": "",
+    "ggMalattia": 5,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Simone Corbetta",
+    "team": "Silicon Milano",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 19,
+    "ferieResidue": 7,
+    "percGodute": 73,
+    "noteFerie": "",
+    "ggMalattia": 5,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Simone Di Ricco",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 26,
+    "ferieGodute": 14,
+    "ferieResidue": 12,
+    "percGodute": 54,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 3,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Simone Lucia",
+    "team": "Presales",
+    "citta": "Lucca",
+    "ferieSpettanti": 9,
+    "ferieGodute": 1,
+    "ferieResidue": 8,
+    "percGodute": 11,
+    "noteFerie": "",
+    "ggMalattia": 8,
+    "episodiMalattia": 2,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Simone Giacomelli",
+    "team": "R & D",
+    "citta": "Lucca",
+    "ferieSpettanti": 9,
+    "ferieGodute": 5,
+    "ferieResidue": 4,
+    "percGodute": 56,
+    "noteFerie": "",
+    "ggMalattia": 10,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 5,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Stefano Flores DArcais",
+    "team": "Business Development Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 19,
+    "ferieResidue": 7,
+    "percGodute": 73,
+    "noteFerie": "",
+    "ggMalattia": 1,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Teo Basili",
+    "team": "Software Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 6,
+    "ferieGodute": 2,
+    "ferieResidue": 4,
+    "percGodute": 33,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 1,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Tommaso Pacini",
+    "team": "Silicon Lucca",
+    "citta": "Lucca",
+    "ferieSpettanti": 13,
+    "ferieGodute": 5,
+    "ferieResidue": 8,
+    "percGodute": 38,
+    "noteFerie": "",
+    "ggMalattia": 9,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 4,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Valerio Di Malta",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 2,
+    "ferieGodute": 0,
+    "ferieResidue": 2,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Joscha Weiss",
+    "team": "Software Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 26,
+    "ferieGodute": 18,
+    "ferieResidue": 8,
+    "percGodute": 69,
+    "noteFerie": "",
+    "ggMalattia": 7,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 1,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "William Mancini",
+    "team": "Silicon Milano",
+    "citta": "Milano",
+    "ferieSpettanti": 2,
+    "ferieGodute": 0,
+    "ferieResidue": 2,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 2,
+    "episodiMalattia": 0,
+    "ggMalattia3m": 2,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  },
+  {
+    "nome": "Daniele Gagni",
+    "team": "Software",
+    "citta": "Lucca",
+    "ferieSpettanti": 0,
+    "ferieGodute": 0,
+    "ferieResidue": 0,
+    "percGodute": 0,
+    "noteFerie": "",
+    "ggMalattia": 0,
+    "episodiMalattia": 1,
+    "ggMalattia3m": 0,
+    "noteMalattia": "",
+    "assenzeNonGiust": 0,
+    "noteAssenze": ""
+  }
+]
+
+
+export const SEED_COLLOQUI_PC = [
+  // ZERO DATA: P&C colloqui start empty, accumulated over time
+  // Users add colloqui via UI, stored in localStorage
+]
+
+
+export const SEED_VALUTAZIONI_COMPLETE = [
+  // ZERO DATA: 360-feedback accumulates through time
+  // Managed via store actions: saveValutazione360, saveValutazioneManager, etc.
+]
+
+
+export const SEED_DIMISSIONI = [
+]

@@ -75,8 +75,12 @@
       <!-- Burnout per team -->
       <div class="col-span-12 md:col-span-6 card p-5">
         <h3 class="font-semibold text-gray-900 mb-1">🔴 Burnout risk per team</h3>
-        <p class="text-xs text-gray-400 mb-4">Basato su ultimo colloquio P&C (MBI-GS + CBI)</p>
-        <div class="space-y-3">
+        <p class="text-xs text-gray-400 mb-4">Basato su colloqui P&C (quando disponibili)</p>
+        <div v-if="store.colloquiPC.length === 0" class="py-12 text-center">
+          <p class="text-gray-500 text-sm">Nessun dato P&C disponibile</p>
+          <p class="text-gray-400 text-xs mt-1">I dati compariranno quando verranno compilati i colloqui</p>
+        </div>
+        <div v-else class="space-y-3">
           <div v-for="t in teamStatsFiltered" :key="t.team">
             <div class="flex items-center justify-between mb-1">
               <span class="text-xs font-medium text-gray-700">{{ t.team }}</span>
@@ -134,7 +138,11 @@
       <div class="col-span-12 md:col-span-6 card p-5">
         <h3 class="font-semibold text-gray-900 mb-1">💚 Benessere medio (ultimo colloquio)</h3>
         <p class="text-xs text-gray-400 mb-4">Scale validate: MBI-GS · Copenhagen BI · JD-R · WHO-5 · Mobley</p>
-        <div class="space-y-3">
+        <div v-if="store.colloquiPC.length === 0" class="py-12 text-center">
+          <p class="text-gray-500 text-sm">Nessun dato P&C disponibile</p>
+          <p class="text-gray-400 text-xs mt-1">I dati compariranno quando verranno compilati i colloqui</p>
+        </div>
+        <div v-else class="space-y-3">
           <DimBar label="Esaurimento emotivo (MBI)" :value="globalAvg.esaur" :inverted="true" />
           <DimBar label="Carico lavoro (CBI)" :value="globalAvg.carico" :inverted="true" />
           <DimBar label="Motivazione & Autonomia (JD-R)" :value="globalAvg.motiv" />
@@ -279,7 +287,8 @@ const urgenti = computed(() => {
     else if (e.fu1Urgente) list.push({ key: e.id+'fu1u', nome: e.nome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${e.daysToFU1}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow' })
     if (e.fu2Urgente) list.push({ key: e.id+'fu2u', nome: e.nome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${e.daysToFU2}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow' })
     if (e.provaUrgente) list.push({ key: e.id+'fp', nome: e.nome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${e.daysToProva}gg`, badgeClass: 'badge-indigo', urgClass: 'badge-orange' })
-    if (e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red' })
+    // Burnout risk: show only if P&C data exists
+    if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red' })
   })
   return list.sort((a, b) => (a.data || '9999') > (b.data || '9999') ? 1 : -1)
 })
