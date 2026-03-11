@@ -5,6 +5,7 @@ import { SEED_EMPLOYEES, SEED_COLLOQUI, SEED_FERIE, SEED_COLLOQUI_PC, SEED_DIMIS
 import { calcProvatione } from '@/composables/useCCNL.js'
 import { usePersistence } from '@/composables/usePersistence.js'
 import { useDataMigration } from '@/composables/useDataMigration.js'
+import { useAutoSave } from '@/composables/useAutoSave.js'
 
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
@@ -68,6 +69,7 @@ export const useHrStore = defineStore('hr', () => {
   // Composables per persistenza e migrazione
   const persistence = usePersistence()
   const migration = useDataMigration()
+  const autoSave = useAutoSave()
 
   function recalcProva(emp) {
     if (!emp.dataAssunzione || !emp.livelloCCNL) return emp
@@ -101,6 +103,7 @@ export const useHrStore = defineStore('hr', () => {
     if (idx === -1) return
     employees.value[idx] = recalcProva({ ...employees.value[idx], ...data })
     notify('Salvato ✓')
+    autoSave.trackChange(getStoreSnapshot())
   }
 
   function deleteEmployee(id) {
@@ -133,6 +136,7 @@ export const useHrStore = defineStore('hr', () => {
       colloquiPC.value.push({ nome, team: employees.value.find(e => e.nome === nome)?.team, ...data })
     }
     notify('Colloquio P&C salvato ✓')
+    autoSave.trackChange(getStoreSnapshot())
   }
 
   function saveDimissione(id, data) {
@@ -171,6 +175,7 @@ export const useHrStore = defineStore('hr', () => {
     emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
     emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
     notify('Valutazione Manager salvata ✓')
+    autoSave.trackChange(getStoreSnapshot())
   }
 
   function saveValutazioneHR(employeeId, hrReviewData) {
@@ -184,6 +189,7 @@ export const useHrStore = defineStore('hr', () => {
     emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
     emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
     notify('Valutazione HR salvata ✓')
+    autoSave.trackChange(getStoreSnapshot())
   }
 
   function updateContractRenewal(employeeId, renewalData) {
@@ -192,6 +198,7 @@ export const useHrStore = defineStore('hr', () => {
     const emp = employees.value[idx]
     Object.assign(emp, renewalData)
     notify('Scadenza contratto aggiornata ✓')
+    autoSave.trackChange(getStoreSnapshot())
   }
 
   function saveFile() {
@@ -595,6 +602,20 @@ export const useHrStore = defineStore('hr', () => {
   function notify(msg, type = 'success') {
     toast.value = { show: true, msg, type }
     setTimeout(() => toast.value.show = false, 3200)
+  }
+
+  // Helper: Create snapshot of current store data for persistence
+  function getStoreSnapshot() {
+    return {
+      employees: employees.value,
+      colloqui: colloqui.value,
+      ferie: ferie.value,
+      colloquiPC: colloquiPC.value,
+      dimissioni: dimissioni.value,
+      valutazioni360: valutazioni360.value,
+      allUrgenze: allUrgenze.value,
+      timestamp: Date.now()
+    }
   }
 
   return {

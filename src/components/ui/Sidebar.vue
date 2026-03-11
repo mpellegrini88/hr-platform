@@ -32,22 +32,64 @@
       <NavItem to="/analytics"      :icon="PresentationChartLineIcon" label="Analytics & Report" />
     </nav>
 
-    <!-- Footer -->
-    <div class="p-3 border-t border-gray-100">
-      <button @click="store.saveFile()" class="btn btn-secondary btn-sm w-full justify-center gap-2">
+    <!-- Footer: Auto-Save & Backup Section -->
+    <div class="p-3 border-t border-gray-100 space-y-2">
+      <button @click="downloadBackup"
+        class="btn btn-secondary btn-sm w-full justify-center gap-2">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
-        Esporta Excel
+        Scarica Backup Excel
       </button>
+
+      <button @click="triggerImport"
+        class="btn btn-secondary btn-sm w-full justify-center gap-2">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-5l-4-4m0 0l-4 4m4-4v12"/>
+        </svg>
+        Ripristina Backup
+      </button>
+
+      <input ref="fileInput" type="file" accept=".json" hidden @change="handleFileImport">
     </div>
   </aside>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
+import { useAutoSave } from '@/composables/useAutoSave.js'
 import NavItem from './NavItem.vue'
 import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon } from '@heroicons/vue/24/solid'
 
 const store = useHrStore()
+const autoSave = useAutoSave()
+const fileInput = ref(null)
+
+function downloadBackup() {
+  const storeData = {
+    employees: store.employees,
+    colloqui: store.colloqui,
+    ferie: store.ferie,
+    colloquiPC: store.colloquiPC,
+    dimissioni: store.dimissioni,
+    valutazioni360: [...store.valutazioni360],
+    allUrgenze: [...store.allUrgenze],
+    timestamp: Date.now()
+  }
+  autoSave.manualExportToExcel(storeData)
+}
+
+function triggerImport() {
+  fileInput.value?.click()
+}
+
+function handleFileImport(event) {
+  const file = event.target.files[0]
+  if (file) {
+    autoSave.manualImportFromJSON(file)
+  }
+  // Reset input so same file can be selected again
+  event.target.value = ''
+}
 </script>

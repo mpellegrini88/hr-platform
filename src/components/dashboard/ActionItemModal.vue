@@ -81,13 +81,12 @@
 <script setup>
 import { computed } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
-import EmployeeReviewManagerForm from './EmployeeReviewManagerForm.vue'
-import EmployeeReviewHRForm from './EmployeeReviewHRForm.vue'
-// Import placeholder components (create stub versions)
-import FU1ColloquioForm from './FU1ColloquioForm.vue'
-import FU2DipendenteSentimentForm from './FU2DipendenteSentimentForm.vue'
-import ContractRenewalForm from './ContractRenewalForm.vue'
-import ContractDossierChecklist from './ContractDossierChecklist.vue'
+import EmployeeReviewManagerForm from '@/components/forms/EmployeeReviewManagerForm.vue'
+import EmployeeReviewHRForm from '@/components/forms/EmployeeReviewHRForm.vue'
+import FU1ColloquioForm from '@/components/forms/FU1ColloquioForm.vue'
+import FU2DipendenteSentimentForm from '@/components/forms/FU2DipendenteSentimentForm.vue'
+import ContractRenewalForm from '@/components/forms/ContractRenewalForm.vue'
+import ContractDossierChecklist from '@/components/forms/ContractDossierChecklist.vue'
 
 const props = defineProps({
   isOpen: Boolean,

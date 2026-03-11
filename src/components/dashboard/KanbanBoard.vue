@@ -47,9 +47,14 @@
               </span>
               <span class="text-xs text-gray-600">{{ item.giorni }} gg</span>
             </div>
-            <button @click.stop="openModal(item)" class="text-xs text-blue-600 hover:text-blue-800 mt-2 font-medium">
-              Apri →
-            </button>
+            <div class="flex gap-2 mt-2">
+              <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 font-medium flex-1 py-1 rounded bg-green-50 hover:bg-green-100">
+                ✓ Risolvi
+              </button>
+              <button @click.stop="archiveItem(item)" class="text-xs text-gray-600 hover:text-red-600 font-medium px-2 py-1">
+                ✕
+              </button>
+            </div>
           </div>
           <div v-if="daFareItems.length === 0" class="text-center py-8">
             <p class="text-gray-400 text-sm">Nessun item</p>
@@ -94,15 +99,22 @@
         </div>
         <div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
           <div v-for="item in completatoItems" :key="`${item.id}-${item.tipo}`"
-            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75">
-            <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }}</p>
-            <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
-            <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs px-2 py-1 rounded font-semibold bg-green-100 text-green-700">
-                ✓ FATTO
-              </span>
-              <span class="text-xs text-gray-600">{{ item.giorni }} gg fa</span>
+            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 group hover:opacity-100 transition">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }}</p>
+                <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
+                <div class="flex items-center justify-between mt-2">
+                  <span class="text-xs px-2 py-1 rounded font-semibold bg-green-100 text-green-700">
+                    ✓ FATTO
+                  </span>
+                  <span class="text-xs text-gray-600">{{ item.giorni }} gg fa</span>
+                </div>
+              </div>
+              <button @click.stop="deleteItem(item)" class="text-xs text-red-600 hover:text-red-800 font-medium ml-2 opacity-0 group-hover:opacity-100 transition">
+                🗑️
+              </button>
             </div>
           </div>
           <div v-if="completatoItems.length === 0" class="text-center py-8">
@@ -148,6 +160,8 @@ const filteredItems = computed(() => {
 // For now, we'll use a simple heuristic: newest items in DA FARE, some in IN CORSO, old stuff in COMPLETATO
 const daFareItems = computed(() => {
   return filteredItems.value.filter(item => {
+    // Exclude archived/eliminated items
+    if (item.stato === 'Scartato' || item.stato === 'Eliminato') return false
     // Items with CRITICA or ALTA urgenza go to DA FARE
     return ['CRITICA', 'ALTA'].includes(item.urgenza)
   })
@@ -155,6 +169,8 @@ const daFareItems = computed(() => {
 
 const inCorsoItems = computed(() => {
   return filteredItems.value.filter(item => {
+    // Exclude archived/eliminated items
+    if (item.stato === 'Scartato' || item.stato === 'Eliminato') return false
     // Items with MEDIA urgenza go to IN CORSO
     return item.urgenza === 'MEDIA'
   })
@@ -163,6 +179,8 @@ const inCorsoItems = computed(() => {
 const completatoItems = computed(() => {
   return filteredItems.value.filter(item => {
     // Items that are "Fatto" or very old go to COMPLETATO
+    // But exclude "Eliminato" and "Scartato" statuses
+    if (item.stato === 'Eliminato' || item.stato === 'Scartato') return false
     return item.stato === 'Fatto' || item.urgenza === 'BASSA'
   })
 })
@@ -201,6 +219,43 @@ function moveToCompleted(item) {
     store.updateEmployee(item.id, { statoDossierContratto: 'Fatto' })
   }
   closeModal()
+}
+
+function archiveItem(item) {
+  // Archive an item (remove from default view but keep in history)
+  // This can be used to delete tasks that are not needed
+  if (confirm(`Eliminare definitivamente: ${item.nome} - ${item.tipo}?`)) {
+    // Mark as archived or deleted by setting status to "Scartato"
+    if (item.tipo === 'FU1') {
+      store.updateEmployee(item.id, { statoFU1: 'Scartato' })
+    } else if (item.tipo === 'FU2_MANAGER') {
+      store.updateEmployee(item.id, { statoFU2Manager: 'Scartato' })
+    } else if (item.tipo === 'FU2_DIP') {
+      store.updateEmployee(item.id, { statoFU2Dip: 'Scartato' })
+    } else if (item.tipo === 'RINNOVO') {
+      store.updateEmployee(item.id, { statoRinnovo: 'Scartato' })
+    } else if (item.tipo === 'DOSSIER') {
+      store.updateEmployee(item.id, { statoDossierContratto: 'Scartato' })
+    }
+  }
+}
+
+function deleteItem(item) {
+  // Permanently delete a completed item from view
+  if (confirm(`Rimuovere definitivamente: ${item.nome}?`)) {
+    // Mark the status as 'Eliminato' so it doesn't appear in Kanban anymore
+    if (item.tipo === 'FU1') {
+      store.updateEmployee(item.id, { statoFU1: 'Eliminato' })
+    } else if (item.tipo === 'FU2_MANAGER') {
+      store.updateEmployee(item.id, { statoFU2Manager: 'Eliminato' })
+    } else if (item.tipo === 'FU2_DIP') {
+      store.updateEmployee(item.id, { statoFU2Dip: 'Eliminato' })
+    } else if (item.tipo === 'RINNOVO') {
+      store.updateEmployee(item.id, { statoRinnovo: 'Eliminato' })
+    } else if (item.tipo === 'DOSSIER') {
+      store.updateEmployee(item.id, { statoDossierContratto: 'Eliminato' })
+    }
+  }
 }
 
 function handleItemSaved() {

@@ -1,13 +1,31 @@
 <template>
   <div class="p-6 space-y-6">
-    <!-- KPI top row -->
-    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+    <!-- ONBOARDING SCADENZE KPI Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="In periodo di prova" :value="kpiOnboarding.inCorso" icon="🚀" color="blue" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 scaduti" :value="kpiOnboarding.fu1Scaduti" icon="⚠️" color="red" :alert="kpiOnboarding.fu1Scaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 entro 7gg" :value="kpiOnboarding.fu1Entro7gg" icon="⏰" color="amber" :alert="kpiOnboarding.fu1Entro7gg > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU2 Manager scaduti" :value="kpiOnboarding.fu2ManagerScaduti" icon="📋" color="orange" :alert="kpiOnboarding.fu2ManagerScaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="Fine prova 30gg" :value="kpiOnboarding.provaScadenza" icon="📅" color="indigo" :alert="kpiOnboarding.provaScadenza > 0" /></button>
+    </div>
+
+    <!-- CONTRACT SCADENZE KPI Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi scaduti" :value="kpiContratti.rinnoveScadute" icon="📌" color="red" :alert="kpiContratti.rinnoveScadute > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi entro 30gg" :value="kpiContratti.rinnoveEntro30gg" icon="⏳" color="amber" :alert="kpiContratti.rinnoveEntro30gg > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Dossier scaduti" :value="kpiContratti.dossieriScaduti" icon="📂" color="orange" :alert="kpiContratti.dossieriScaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Determinati attivi" :value="kpiContratti.determinatiInScadenza" icon="✍️" color="purple" /></button>
       <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/anagrafica')"><KpiCard label="Dipendenti attivi" :value="attivi" icon="👥" color="indigo" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="In periodo di prova" :value="kpi.ppInCorso" icon="🚀" color="blue" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 scaduti" :value="kpi.fu1Scaduti" icon="⚠️" color="red" :alert="kpi.fu1Scaduti > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 entro 7gg" :value="kpi.fu1In7" icon="⏰" color="amber" :alert="kpi.fu1In7 > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/people-culture-analytics')"><KpiCard label="Burned Out" :value="kpiPC.burnedOut" icon="🔴" color="red" :alert="kpiPC.burnedOut > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/people-culture-analytics')"><KpiCard label="P&C scaduti" :value="kpiPC.pcScaduti" icon="📋" color="orange" :alert="kpiPC.pcScaduti > 0" /></button>
+    </div>
+
+    <!-- KANBAN BOARD -->
+    <div class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-semibold text-gray-900">📋 Kanban - Monitoraggio Azioni</h3>
+      </div>
+      <div class="p-5">
+        <KanbanBoard />
+      </div>
     </div>
 
     <!-- Main grid -->
@@ -135,12 +153,15 @@ import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import KpiCard from '@/components/ui/KpiCard.vue'
 import DimBar  from '@/components/ui/DimBar.vue'
+import KanbanBoard from '@/components/dashboard/KanbanBoard.vue'
 
 const router = useRouter()
 const store = useHrStore()
 const { fmtDateShort, contractBadge } = useHelpers()
 const kpi = computed(() => store.kpiScadenze)
 const kpiPC = computed(() => store.kpiPC)
+const kpiOnboarding = computed(() => store.kpiOnboarding)
+const kpiContratti = computed(() => store.kpiContratti)
 const attivi = computed(() => store.employees.filter(e => e.stato === 'Attivo').length)
 const totale = computed(() => store.employees.length)
 
