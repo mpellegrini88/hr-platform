@@ -7771,56 +7771,14 @@ export const SEED_FERIE = [
 
 
 export const SEED_COLLOQUI_PC = [
-  {
-    "nome": "Alberto Del Bianco",
-    "team": "Silicon Lucca",
-    "date": "2025-11-15",
-    "tipo": "scheduled",
-    "supervisor": "Marco Rossi",
-    "esaur": 2,
-    "carico": 2,
-    "motiv": 4,
-    "supp": 4,
-    "equil": 4,
-    "intent": 4,
-    "performanceScore": 4,
-    "engagementScore": 4,
-    "noteColloquio": "Ottimo inserimento, buona motivazione",
-    "pointsForAction": "",
-    "followUpRequired": false,
-    "nextReviewDate": "2026-05-15"
-  }
+  // ZERO DATA: P&C colloqui start empty, accumulated over time
+  // Users add colloqui via UI, stored in localStorage
 ]
 
 
 export const SEED_VALUTAZIONI_COMPLETE = [
-  {
-    "id": "val-001-2025",
-    "employeeId": 1,
-    "employeeName": "Alberto Del Bianco",
-    "anno": 2025,
-    "fase": "completata",
-    "manager": {
-      "data": "2025-04-15",
-      "scorePerformance": 4.2,
-      "scoreEngagement": 3.8,
-      "scoreComportamento": 4.5,
-      "note": "Ottimo adattamento, buona comunicazione con il team"
-    },
-    "hr": {
-      "data": "2025-06-02",
-      "schedaProva": "A+",
-      "note": "Completato periodo prova con successo. Profilo in linea con esigenze aziendali."
-    },
-    "dipendente": {
-      "benessereGlobale": 3.8,
-      "efficaciaOnboarding": 4.0,
-      "note": "Prima esperienza positiva, buona integrazione."
-    },
-    "dataCreazione": "2025-06-02T10:30:00Z",
-    "createdBy": "system",
-    "isArchiviato": false
-  }
+  // ZERO DATA: 360-feedback accumulates through time
+  // Managed via store actions: saveValutazione360, saveValutazioneManager, etc.
 ]
 
 
