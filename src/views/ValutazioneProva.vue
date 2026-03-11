@@ -36,6 +36,43 @@
       </div>
     </div>
 
+    <!-- Context Banners (if employee pre-selected from ContrattiTermine) -->
+    <div v-if="selectedEmployee" class="space-y-3">
+      <!-- Contract Deadline Banner -->
+      <div v-if="hasContractDeadline" class="card bg-orange-50 border-l-4 border-orange-500 p-4">
+        <div class="flex items-start gap-3">
+          <div class="text-2xl">⚡</div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-orange-900 mb-1">Contratto a Termine in Scadenza</h4>
+            <p class="text-sm text-orange-800 mb-3">
+              {{ selectedEmployee.nome }} {{ selectedEmployee.cognome }} ha contratto che scade il {{ fmtDateShort(selectedEmployee.scadenzaContratto) }}.
+              La valutazione della prova influenzerà la decisione di rinnovo.
+            </p>
+            <button @click="goToContractRenewal" class="px-3 py-1 bg-orange-600 text-white text-sm rounded hover:bg-orange-700 transition">
+              → Vai al Rinnovo Contratto
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- P&C Colloquio Banner -->
+      <div v-if="hasMissingPCColloquio" class="card bg-yellow-50 border-l-4 border-yellow-500 p-4">
+        <div class="flex items-start gap-3">
+          <div class="text-2xl">📋</div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-yellow-900 mb-1">P&C Colloquio Scaduto o Mancante</h4>
+            <p class="text-sm text-yellow-800 mb-3">
+              {{ selectedEmployee.nome }} {{ selectedEmployee.cognome }} non ha colloquio P&C recente.
+              Consigliato: completa la valutazione e poi schedula il P&C.
+            </p>
+            <button @click="goToPCColloquio" class="px-3 py-1 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700 transition">
+              → Aggiungi P&C Colloquio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Filtri -->
     <div class="flex flex-wrap items-center gap-3">
       <input v-model="search" class="form-input max-w-xs" placeholder="🔍 Cerca dipendente...">
@@ -361,18 +398,22 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, watch, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
 
 const store = useHrStore()
+const route = useRoute()
+const router = useRouter()
 const { fmtDateShort } = useHelpers()
 
 const search = ref('')
 const filterTeam = ref('')
 const filterStatus = ref('')
 const expanded = ref([])
+const preSelectedEmpId = ref(null)
 
 const valutazioni = reactive({
   manager: {},
@@ -457,8 +498,58 @@ const filtered = computed(() => {
   })
 })
 
+// Contract context check
+const selectedEmployee = computed(() => {
+  if (!preSelectedEmpId.value) return null
+  return store.enrichedEmployees.find(e => e.id === preSelectedEmpId.value)
+})
+
+const hasContractDeadline = computed(() => {
+  if (!selectedEmployee.value) return false
+  if (selectedEmployee.value.tipoContratto !== 'determinato') return false
+  if (!selectedEmployee.value.scadenzaContratto) return false
+  const scadDate = new Date(selectedEmployee.value.scadenzaContratto)
+  const today = new Date()
+  const daysUntil = Math.floor((scadDate - today) / 86400000)
+  return daysUntil <= 90 && daysUntil > 0
+})
+
+// P&C colloquio check
+const hasMissingPCColloquio = computed(() => {
+  if (!selectedEmployee.value) return false
+  const pcStatus = store.pcColloquiStatus[selectedEmployee.value.id]
+  if (!pcStatus) return false
+  return pcStatus.status === 'Scaduto' || pcStatus.status === 'Non Fatto'
+})
+
 function initials(nome) {
   return nome.split(' ').map(w => w[0]).join('').toUpperCase()
+}
+
+// Lifecycle: Check route.query.empId on mount
+onMounted(() => {
+  if (route.query.empId) {
+    preSelectedEmpId.value = parseInt(route.query.empId)
+    // Auto-expand the pre-selected employee
+    if (preSelectedEmpId.value && !expanded.value.includes(preSelectedEmpId.value)) {
+      expanded.value.push(preSelectedEmpId.value)
+    }
+  }
+})
+
+// Navigation functions
+function goToContractRenewal() {
+  if (selectedEmployee.value) {
+    router.push(`/contratti-termine?emp=${selectedEmployee.value.id}`)
+  }
+}
+
+function goToPCColloquio() {
+  if (selectedEmployee.value) {
+    // Open P&C colloquio modal (delegated to parent or global event)
+    // For now, navigate to dashboard or trigger event
+    alert(`Aggiungi P&C Colloquio per ${selectedEmployee.value.nome} ${selectedEmployee.value.cognome}`)
+  }
 }
 
 function toggleExpanded(empId) {
