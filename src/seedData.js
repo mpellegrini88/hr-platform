@@ -21,7 +21,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alberto",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "alberto.delbianco@move-x.it",
     "dataAssunzione": "2022-05-23",
     "tipoContratto": "indeterminato",
@@ -78,7 +78,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessandro",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "email": "alessandro.nobili@movesolutions.it",
     "dataAssunzione": "2023-07-11",
     "tipoContratto": "indeterminato",
@@ -108,15 +108,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -132,7 +124,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessandro",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "email": "alessandro.manetti@movesolutions.it",
     "dataAssunzione": "2024-02-01",
     "tipoContratto": "indeterminato",
@@ -162,15 +154,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -186,7 +170,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessandro",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "alessandro.fava@move-x.it",
     "dataAssunzione": "2026-01-26",
     "tipoContratto": "indeterminato",
@@ -216,15 +200,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -240,7 +216,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessandro",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "alessandro.porta@move-x.it",
     "dataAssunzione": "2026-03-02",
     "tipoContratto": "indeterminato",
@@ -270,15 +246,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -294,7 +262,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessio",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "email": "alessio.moro@movesolutions.it",
     "dataAssunzione": "2021-07-11",
     "tipoContratto": "indeterminato",
@@ -324,15 +292,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -348,7 +308,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Andrea",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "andrea.didonato@movesolutions.it",
     "dataAssunzione": "2021-01-04",
     "tipoContratto": "indeterminato",
@@ -378,15 +338,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -402,7 +354,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Andrea",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "email": "andrea.ferrari@movesolutions.it",
     "dataAssunzione": "2024-01-24",
     "tipoContratto": "indeterminato",
@@ -432,15 +384,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -486,15 +430,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -510,7 +446,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Andrea",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "andrea.trasacco@movesolutions.it",
     "dataAssunzione": "2025-09-15",
     "tipoContratto": "indeterminato",
@@ -540,15 +476,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -594,15 +522,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -646,7 +566,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Carmine",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "carmine.paolino@move-x.it",
     "dataAssunzione": "2024-01-08",
     "tipoContratto": "indeterminato",
@@ -676,15 +596,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -700,7 +612,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Chiara",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "email": "chiara.tomei@movesolutions.it",
     "dataAssunzione": "2025-05-26",
     "tipoContratto": "indeterminato",
@@ -730,15 +642,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -754,7 +658,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Daniel",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "daniel.meli@move-x.it",
     "dataAssunzione": "2024-01-02",
     "tipoContratto": "indeterminato",
@@ -784,15 +688,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -808,7 +704,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Dario",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Reception",
+    "team": "Solutions > Reception",
     "email": "dario.cioffi@movesolutions.it",
     "dataAssunzione": "2023-11-23",
     "tipoContratto": "indeterminato",
@@ -838,15 +734,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -862,7 +750,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Davide",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "davide.romagnoli@move-x.it",
     "dataAssunzione": "2025-07-21",
     "tipoContratto": "indeterminato",
@@ -892,15 +780,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -916,7 +796,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Davide",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "davide.vigni@move-x.it",
     "dataAssunzione": "2024-03-04",
     "tipoContratto": "indeterminato",
@@ -946,15 +826,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1000,15 +872,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1054,15 +918,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1108,15 +964,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1162,15 +1010,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1186,7 +1026,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Eleonora",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "email": "corti.eleonora@movesolutions.it",
     "dataAssunzione": "2025-09-01",
     "tipoContratto": "indeterminato",
@@ -1216,15 +1056,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1240,7 +1072,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Elisa",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "email": "elisa.corona@movesolutions.it",
     "dataAssunzione": "2025-12-01",
     "tipoContratto": "determinato",
@@ -1270,15 +1102,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1294,7 +1118,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Emmanuele",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "emmanuele.pomiato@move-x.it",
     "dataAssunzione": "2024-01-02",
     "tipoContratto": "indeterminato",
@@ -1324,15 +1148,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1348,7 +1164,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Eugenia",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "eugenia.petrangeli@move-x.it",
     "dataAssunzione": "2024-01-13",
     "tipoContratto": "indeterminato",
@@ -1378,15 +1194,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1402,7 +1210,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Federica",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "federica.maresca@move-x.it",
     "dataAssunzione": "2025-03-31",
     "tipoContratto": "indeterminato",
@@ -1432,15 +1240,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1486,15 +1286,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1510,7 +1302,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Federico",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "federico.bronte@move-x.it",
     "dataAssunzione": "2022-05-23",
     "tipoContratto": "indeterminato",
@@ -1540,15 +1332,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1594,15 +1378,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1618,7 +1394,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Filippo",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "filippo.bertelli@move-x.it",
     "dataAssunzione": "2023-09-25",
     "tipoContratto": "indeterminato",
@@ -1648,15 +1424,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1730,15 +1498,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1754,7 +1514,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Gabriele",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "gabriele.tabarrani@move-x.it",
     "dataAssunzione": "2022-07-01",
     "tipoContratto": "indeterminato",
@@ -1784,15 +1544,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1808,7 +1560,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Gabriele",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "gabriele.ducci@move-x.it",
     "dataAssunzione": "2025-06-30",
     "tipoContratto": "indeterminato",
@@ -1838,15 +1590,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1862,7 +1606,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Gabriele",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "email": "gabriele.bettini@movesolutions.it",
     "dataAssunzione": "2025-09-08",
     "tipoContratto": "indeterminato",
@@ -1892,15 +1636,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -1946,15 +1682,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2000,15 +1728,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2024,7 +1744,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Giacomo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "email": "giacomo.frediani@movesolutions.it",
     "dataAssunzione": "2024-06-12",
     "tipoContratto": "indeterminato",
@@ -2054,15 +1774,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2078,7 +1790,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Giulio",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "giulio.trovesi@move-x.it",
     "dataAssunzione": "2023-12-18",
     "tipoContratto": "indeterminato",
@@ -2108,15 +1820,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2132,7 +1836,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Glauco",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "glauco.guercini@move-x.it",
     "dataAssunzione": "2022-05-25",
     "tipoContratto": "indeterminato",
@@ -2162,15 +1866,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2186,7 +1882,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Ilaria",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "ilaria.filippetto@move-x.it",
     "dataAssunzione": "2022-02-01",
     "tipoContratto": "indeterminato",
@@ -2216,15 +1912,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2240,7 +1928,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Irene",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "email": "irene.petroni@movesolutions.it",
     "dataAssunzione": "2023-05-02",
     "tipoContratto": "indeterminato",
@@ -2270,15 +1958,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2324,15 +2004,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2348,7 +2020,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Kevin",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "kevin.boni@movesolutions.it",
     "dataAssunzione": "2023-07-01",
     "tipoContratto": "indeterminato",
@@ -2378,15 +2050,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2430,7 +2094,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Alessandro",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "alessandro.lento@move-x.it",
     "dataAssunzione": "2026-01-07",
     "tipoContratto": "indeterminato",
@@ -2460,15 +2124,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2484,7 +2140,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Lorenzo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "lorenzo.bataloni@movesolutions.it",
     "dataAssunzione": "2022-09-12",
     "tipoContratto": "indeterminato",
@@ -2514,15 +2170,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2538,7 +2186,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Lorenzo",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "lorenzo.bordonaro@move-x.it",
     "dataAssunzione": "2024-11-11",
     "tipoContratto": "indeterminato",
@@ -2568,15 +2216,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2592,7 +2232,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Lorenzo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Support",
+    "team": "Solutions > Support",
     "email": "lorenzo.tagliaferri@movesolutions.it",
     "dataAssunzione": "2023-02-13",
     "tipoContratto": "indeterminato",
@@ -2622,15 +2262,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2646,7 +2278,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Lorenzo",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "lorenzo.tinacci@move-x.it",
     "dataAssunzione": "2024-02-05",
     "tipoContratto": "indeterminato",
@@ -2676,15 +2308,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2700,7 +2324,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Lorenzo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "email": "lorenzo.tognarini@movesolutions.it",
     "dataAssunzione": "2020-01-02",
     "tipoContratto": "indeterminato",
@@ -2730,15 +2354,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2784,15 +2400,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2808,7 +2416,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Marco",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "marco.galli@movesolutions.it",
     "dataAssunzione": "2020-05-01",
     "tipoContratto": "indeterminato",
@@ -2838,15 +2446,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2862,7 +2462,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Marco",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "HR",
+    "team": "Solutions > HR",
     "email": "marco.pellegrini@movesolutions.it",
     "dataAssunzione": "2023-09-04",
     "tipoContratto": "indeterminato",
@@ -2892,15 +2492,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2916,7 +2508,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Marco",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "marco.tanganelli@move-x.it",
     "dataAssunzione": "2023-03-01",
     "tipoContratto": "indeterminato",
@@ -2946,15 +2538,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -2970,7 +2554,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Marco Luca",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "email": "marcoluca.dori@movesolutions.it",
     "dataAssunzione": "2024-06-10",
     "tipoContratto": "indeterminato",
@@ -3000,15 +2584,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3024,7 +2600,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Marina",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "email": "marina.campi@movesolutions.it",
     "dataAssunzione": "2022-01-03",
     "tipoContratto": "indeterminato",
@@ -3054,15 +2630,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3078,7 +2646,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Mario",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "email": "mario.sibilio@movesolutions.it",
     "dataAssunzione": "2021-04-06",
     "tipoContratto": "indeterminato",
@@ -3108,15 +2676,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3132,7 +2692,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Martin",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "martin.sadushi@move-x.it",
     "dataAssunzione": "2025-06-16",
     "tipoContratto": "indeterminato",
@@ -3162,15 +2722,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3216,15 +2768,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3240,7 +2784,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Matteo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "email": "matteo.ciardelli@movesolutions.it",
     "dataAssunzione": "2025-09-29",
     "tipoContratto": "indeterminato",
@@ -3270,15 +2814,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3294,7 +2830,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Matteo",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "matteo.cima@move-x.it",
     "dataAssunzione": "2025-11-10",
     "tipoContratto": "indeterminato",
@@ -3324,15 +2860,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3406,15 +2934,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3458,7 +2978,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Michele",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "michele.saladino@movesolutions.it",
     "dataAssunzione": "2025-10-20",
     "tipoContratto": "indeterminato",
@@ -3488,15 +3008,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3540,7 +3052,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Nicola",
     "societa": "Solutions",
     "citta": "Milano",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "email": "nicola.licheri@movesolutions.it",
     "dataAssunzione": "2026-01-19",
     "tipoContratto": "indeterminato",
@@ -3570,15 +3082,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3594,7 +3098,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Nicolo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "nicolo.salti@movesolutions.it",
     "dataAssunzione": "2024-10-10",
     "tipoContratto": "indeterminato",
@@ -3624,15 +3128,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3678,15 +3174,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3702,7 +3190,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Paolo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "email": "paolo.delellis@movesolutions.it",
     "dataAssunzione": "2021-01-04",
     "tipoContratto": "indeterminato",
@@ -3732,15 +3220,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3756,7 +3236,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Pietro",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "email": "pietro.quattrini@movesolutions.it",
     "dataAssunzione": "2025-01-08",
     "tipoContratto": "indeterminato",
@@ -3786,15 +3266,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3810,7 +3282,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Pietro",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "pietro.vanni@move-x.it",
     "dataAssunzione": "2025-05-19",
     "tipoContratto": "indeterminato",
@@ -3840,15 +3312,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3892,7 +3356,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Riccardo",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "riccardo.tappa@move-x.it",
     "dataAssunzione": "2022-06-06",
     "tipoContratto": "indeterminato",
@@ -3922,15 +3386,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -3976,15 +3432,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4000,7 +3448,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Rosita",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "email": "rosita.borelli@movesolutions.it",
     "dataAssunzione": "2022-07-04",
     "tipoContratto": "indeterminato",
@@ -4030,15 +3478,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4054,7 +3494,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Samuele",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "samuele.vannoni@move-x.it",
     "dataAssunzione": "2024-01-02",
     "tipoContratto": "indeterminato",
@@ -4084,15 +3524,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4138,15 +3570,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4192,15 +3616,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4216,7 +3632,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Simone",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "simone.diricco@movesolutions.it",
     "dataAssunzione": "2022-01-03",
     "tipoContratto": "indeterminato",
@@ -4246,15 +3662,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4270,7 +3678,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Simone",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "email": "simone.lucia@movesolutions.it",
     "dataAssunzione": "2025-10-14",
     "tipoContratto": "determinato",
@@ -4300,15 +3708,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4324,7 +3724,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Simone",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "email": "simone.giacomelli@move-x.it",
     "dataAssunzione": "2025-11-03",
     "tipoContratto": "indeterminato",
@@ -4354,15 +3754,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4408,15 +3800,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4432,7 +3816,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Teo",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "email": "teo.basili@movesolutions.it",
     "dataAssunzione": "2025-11-23",
     "tipoContratto": "indeterminato",
@@ -4462,15 +3846,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4486,7 +3862,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Tommaso",
     "societa": "Move-X",
     "citta": "Lucca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "email": "tommaso.pacini@move-x.it",
     "dataAssunzione": "2025-09-01",
     "tipoContratto": "indeterminato",
@@ -4516,15 +3892,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4570,15 +3938,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4594,7 +3954,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Joscha",
     "societa": "Solutions",
     "citta": "Milano",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "email": "joscha.weiss@movesolutions.it",
     "dataAssunzione": "2022-11-02",
     "tipoContratto": "indeterminato",
@@ -4624,15 +3984,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4678,15 +4030,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4702,7 +4046,7 @@ export const SEED_EMPLOYEES = [
     "nomeBreve": "Daniele",
     "societa": "Solutions",
     "citta": "Lucca",
-    "team": "Software",
+    "team": "Solutions > Software",
     "email": "daniele.gagni@movesolutions.it",
     "dataAssunzione": "2026-03-09",
     "tipoContratto": "indeterminato",
@@ -4732,15 +4076,7 @@ export const SEED_EMPLOYEES = [
     "valutazioneManager": null,
 
     // ===== VALUTAZIONE HR (fine prova) =====
-    "valutazioneHR": null,
-
-    // ===== SENTIMENT/WELLBEING DIPENDENTE =====
-    "sentimentProva": null,
-
-    // ===== VALUTAZIONE 360 AGGREGATA =====
-    "valutazione360": null,
-
-    // ===== METADATA VALUTAZIONE =====
+    "valutazioneHR": null,    // ===== METADATA VALUTAZIONE =====
     "valutazioneMetadata": {
       "anno": 2026,
       "dataCreazione": null,
@@ -4753,7 +4089,7 @@ export const SEED_EMPLOYEES = [
 export const SEED_COLLOQUI = [
   {
     "nome": "Alberto Del Bianco",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-06-27",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -4775,7 +4111,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Alessandro Nobili",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "c1_data": "2023-08-15",
     "c1_esaur": 4,
     "c1_carico": 3,
@@ -4797,7 +4133,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Alessandro Manetti",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "c1_data": "2024-03-08",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -4819,15 +4155,15 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Alessandro Fava",
-    "team": "Silicon Lucca"
+    "team": "Solutions > Silicon Lucca"
   },
   {
     "nome": "Alessandro Porta",
-    "team": "Silicon Lucca"
+    "team": "Solutions > Silicon Lucca"
   },
   {
     "nome": "Alessio Moro",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "c1_data": "2021-08-17",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -4849,7 +4185,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Andrea Di Donato",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2021-02-10",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -4871,7 +4207,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Andrea Ferrari",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "c1_data": "2024-03-12",
     "c1_esaur": 1,
     "c1_carico": 1,
@@ -4915,7 +4251,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Andrea Trasacco",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2025-11-06",
     "c1_esaur": 4,
     "c1_carico": 4,
@@ -4954,7 +4290,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Carmine Paolino",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "c1_data": "2024-02-18",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -4976,7 +4312,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Chiara Tomei",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "c1_data": "2025-07-02",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -4998,7 +4334,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Daniel Meli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-02-20",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -5020,7 +4356,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Dario Cioffi",
-    "team": "Reception",
+    "team": "Solutions > Reception",
     "c1_data": "2023-12-30",
     "c1_esaur": 4,
     "c1_carico": 4,
@@ -5042,7 +4378,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Davide Romagnoli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-09-03",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -5055,7 +4391,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Davide Vigni",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-04-10",
     "c1_esaur": 4,
     "c1_carico": 4,
@@ -5129,7 +4465,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Eleonora Corti",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "c1_data": "2025-10-16",
     "c1_esaur": 4,
     "c1_carico": 3,
@@ -5142,7 +4478,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Elisa Corona",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "c1_data": "2026-01-19",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5155,7 +4491,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Emmanuele Pomiato",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-02-23",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5177,7 +4513,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Eugenia Petrangeli",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2024-03-05",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5199,7 +4535,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Federica Maresca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-05-17",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -5234,7 +4570,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Federico Bronte",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-07-09",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5278,7 +4614,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Filippo Bertelli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2023-11-09",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5326,7 +4662,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Gabriele Tabarrani",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-08-23",
     "c1_esaur": 4,
     "c1_carico": 3,
@@ -5348,7 +4684,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Gabriele Ducci",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-08-15",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5370,7 +4706,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Gabriele Bettini",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "c1_data": "2025-10-13",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5418,7 +4754,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Giacomo Frediani",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "c1_data": "2024-07-31",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5440,7 +4776,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Giulio Trovesi",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-01-29",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5462,7 +4798,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Glauco Guercini",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-07-05",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5484,7 +4820,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Ilaria Filippetto",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-03-09",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5506,7 +4842,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Irene Petroni",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "c1_data": "2023-06-24",
     "c1_esaur": 3,
     "c1_carico": 1,
@@ -5550,7 +4886,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Kevin Boni",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2023-08-25",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5576,11 +4912,11 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Alessandro Lento",
-    "team": "R & D"
+    "team": "Solutions > R & D"
   },
   {
     "nome": "Lorenzo Bataloni",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2022-11-04",
     "c1_esaur": 2,
     "c1_carico": 1,
@@ -5602,7 +4938,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Lorenzo Bordonaro",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-12-19",
     "c1_esaur": 3,
     "c1_carico": 2,
@@ -5624,7 +4960,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Lorenzo Tagliaferri",
-    "team": "Support",
+    "team": "Solutions > Support",
     "c1_data": "2023-03-31",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5646,7 +4982,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Lorenzo Tinacci",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "c1_data": "2024-03-14",
     "c1_esaur": 4,
     "c1_carico": 3,
@@ -5668,7 +5004,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Lorenzo Tognarini",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "c1_data": "2020-02-22",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5712,7 +5048,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Marco Galli",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "c1_data": "2020-06-13",
     "c1_esaur": 1,
     "c1_carico": 2,
@@ -5734,7 +5070,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Marco Pellegrini",
-    "team": "HR",
+    "team": "Solutions > HR",
     "c1_data": "2023-10-29",
     "c1_esaur": 4,
     "c1_carico": 3,
@@ -5756,7 +5092,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Marco Tanganelli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2023-04-23",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5778,7 +5114,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Marco Luca Dori",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "c1_data": "2024-07-30",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -5800,7 +5136,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Marina Campi",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "c1_data": "2022-02-13",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -5822,7 +5158,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Mario Sibilio",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "c1_data": "2021-05-22",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -5844,7 +5180,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Martin Sadushi",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-08-02",
     "c1_esaur": 1,
     "c1_carico": 2,
@@ -5888,7 +5224,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Matteo Ciardelli",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "c1_data": "2025-11-11",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -5901,7 +5237,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Matteo Cima",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-12-21",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5935,7 +5271,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Michele Saladino",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2025-12-11",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -5952,11 +5288,11 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Nicola Licheri",
-    "team": "Software Milano"
+    "team": "Solutions > Software Milano"
   },
   {
     "nome": "Nicolo Salti",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2024-11-29",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -6000,7 +5336,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Paolo De Lellis",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "c1_data": "2021-02-21",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -6022,7 +5358,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Pietro Quattrini",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "c1_data": "2025-02-25",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -6044,7 +5380,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Pietro Vanni",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "c1_data": "2025-07-10",
     "c1_esaur": 4,
     "c1_carico": 4,
@@ -6070,7 +5406,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Riccardo Tappa",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2022-07-11",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -6096,7 +5432,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Rosita Borelli",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "c1_data": "2022-08-11",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -6118,7 +5454,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Samuele Vannoni",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2024-02-13",
     "c1_esaur": 3,
     "c1_carico": 3,
@@ -6184,7 +5520,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Simone Di Ricco",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2022-02-21",
     "c1_esaur": 2,
     "c1_carico": 2,
@@ -6206,7 +5542,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Simone Lucia",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "c1_data": "2025-12-03",
     "c1_esaur": 2,
     "c1_carico": 3,
@@ -6219,7 +5555,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Simone Giacomelli",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "c1_data": "2025-12-22",
     "c1_esaur": 3,
     "c1_carico": 2,
@@ -6254,7 +5590,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Teo Basili",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "c1_data": "2026-01-13",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -6267,7 +5603,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Tommaso Pacini",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "c1_data": "2025-10-15",
     "c1_esaur": 2,
     "c1_carico": 1,
@@ -6284,7 +5620,7 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Joscha Weiss",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "c1_data": "2022-12-08",
     "c1_esaur": 3,
     "c1_carico": 4,
@@ -6310,14 +5646,14 @@ export const SEED_COLLOQUI = [
   },
   {
     "nome": "Daniele Gagni",
-    "team": "Software"
+    "team": "Solutions > Software"
   }
 ]
 
 export const SEED_FERIE = [
   {
     "nome": "Alberto Del Bianco",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 17,
@@ -6333,7 +5669,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessandro Nobili",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 12,
@@ -6349,7 +5685,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessandro Manetti",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 19,
@@ -6365,7 +5701,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessandro Fava",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 2,
     "ferieGodute": 0,
@@ -6381,7 +5717,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessandro Porta",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 0,
     "ferieGodute": 0,
@@ -6397,7 +5733,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessio Moro",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 18,
@@ -6413,7 +5749,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Andrea Di Donato",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 21,
@@ -6429,7 +5765,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Andrea Ferrari",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 17,
@@ -6461,7 +5797,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Andrea Trasacco",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 11,
     "ferieGodute": 8,
@@ -6506,7 +5842,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Carmine Paolino",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 14,
@@ -6522,7 +5858,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Chiara Tomei",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "citta": "Lucca",
     "ferieSpettanti": 20,
     "ferieGodute": 5,
@@ -6538,7 +5874,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Daniel Meli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 16,
@@ -6554,7 +5890,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Dario Cioffi",
-    "team": "Reception",
+    "team": "Solutions > Reception",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 10,
@@ -6570,7 +5906,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Davide Romagnoli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 15,
     "ferieGodute": 1,
@@ -6586,7 +5922,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Davide Vigni",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 8,
@@ -6666,7 +6002,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Eleonora Corti",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "citta": "Lucca",
     "ferieSpettanti": 13,
     "ferieGodute": 11,
@@ -6682,7 +6018,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Elisa Corona",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "citta": "Lucca",
     "ferieSpettanti": 6,
     "ferieGodute": 2,
@@ -6698,7 +6034,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Emmanuele Pomiato",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 18,
@@ -6714,7 +6050,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Eugenia Petrangeli",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 12,
@@ -6730,7 +6066,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Federica Maresca",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 24,
     "ferieGodute": 5,
@@ -6762,7 +6098,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Federico Bronte",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 3,
@@ -6794,7 +6130,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Filippo Bertelli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 22,
@@ -6839,7 +6175,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Gabriele Tabarrani",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 2,
@@ -6855,7 +6191,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Gabriele Ducci",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 17,
     "ferieGodute": 11,
@@ -6871,7 +6207,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Gabriele Bettini",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "citta": "Lucca",
     "ferieSpettanti": 13,
     "ferieGodute": 9,
@@ -6919,7 +6255,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Giacomo Frediani",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 16,
@@ -6935,7 +6271,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Giulio Trovesi",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 11,
@@ -6951,7 +6287,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Glauco Guercini",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 5,
@@ -6967,7 +6303,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Ilaria Filippetto",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 2,
@@ -6983,7 +6319,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Irene Petroni",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 19,
@@ -7015,7 +6351,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Kevin Boni",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 15,
@@ -7044,7 +6380,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Alessandro Lento",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 4,
     "ferieGodute": 1,
@@ -7060,7 +6396,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Lorenzo Bataloni",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 2,
@@ -7076,7 +6412,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Lorenzo Bordonaro",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 0,
@@ -7092,7 +6428,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Lorenzo Tagliaferri",
-    "team": "Support",
+    "team": "Solutions > Support",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 17,
@@ -7108,7 +6444,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Lorenzo Tinacci",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 23,
@@ -7124,7 +6460,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Lorenzo Tognarini",
-    "team": "Marketing",
+    "team": "Solutions > Marketing",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 6,
@@ -7156,7 +6492,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Marco Galli",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 21,
@@ -7172,7 +6508,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Marco Pellegrini",
-    "team": "HR",
+    "team": "Solutions > HR",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 2,
@@ -7188,7 +6524,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Marco Tanganelli",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 22,
@@ -7204,7 +6540,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Marco Luca Dori",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 15,
@@ -7220,7 +6556,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Marina Campi",
-    "team": "Business Development",
+    "team": "Solutions > Business Development",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 10,
@@ -7236,7 +6572,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Mario Sibilio",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 21,
@@ -7252,7 +6588,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Martin Sadushi",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 17,
     "ferieGodute": 7,
@@ -7284,7 +6620,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Matteo Ciardelli",
-    "team": "Hardware",
+    "team": "Solutions > Hardware",
     "citta": "Lucca",
     "ferieSpettanti": 11,
     "ferieGodute": 5,
@@ -7300,7 +6636,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Matteo Cima",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 9,
     "ferieGodute": 0,
@@ -7358,7 +6694,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Michele Saladino",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 9,
     "ferieGodute": 3,
@@ -7387,7 +6723,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Nicola Licheri",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "citta": "Milano",
     "ferieSpettanti": 2,
     "ferieGodute": 0,
@@ -7403,7 +6739,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Nicolo Salti",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 12,
@@ -7435,7 +6771,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Paolo De Lellis",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 11,
@@ -7451,7 +6787,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Pietro Quattrini",
-    "team": "Magazzino",
+    "team": "Solutions > Magazzino",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 17,
@@ -7467,7 +6803,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Pietro Vanni",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 20,
     "ferieGodute": 4,
@@ -7496,7 +6832,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Riccardo Tappa",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 8,
@@ -7528,7 +6864,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Rosita Borelli",
-    "team": "Amministrazione",
+    "team": "Solutions > Amministrazione",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 15,
@@ -7544,7 +6880,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Samuele Vannoni",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 12,
@@ -7592,7 +6928,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Simone Di Ricco",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 26,
     "ferieGodute": 14,
@@ -7608,7 +6944,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Simone Lucia",
-    "team": "Presales",
+    "team": "Solutions > Presales",
     "citta": "Lucca",
     "ferieSpettanti": 9,
     "ferieGodute": 1,
@@ -7624,7 +6960,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Simone Giacomelli",
-    "team": "R & D",
+    "team": "Solutions > R & D",
     "citta": "Lucca",
     "ferieSpettanti": 9,
     "ferieGodute": 5,
@@ -7656,7 +6992,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Teo Basili",
-    "team": "Software Lucca",
+    "team": "Solutions > Software Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 6,
     "ferieGodute": 2,
@@ -7672,7 +7008,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Tommaso Pacini",
-    "team": "Silicon Lucca",
+    "team": "Solutions > Silicon Lucca",
     "citta": "Lucca",
     "ferieSpettanti": 13,
     "ferieGodute": 5,
@@ -7704,7 +7040,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Joscha Weiss",
-    "team": "Software Milano",
+    "team": "Solutions > Software Milano",
     "citta": "Milano",
     "ferieSpettanti": 26,
     "ferieGodute": 18,
@@ -7736,7 +7072,7 @@ export const SEED_FERIE = [
   },
   {
     "nome": "Daniele Gagni",
-    "team": "Software",
+    "team": "Solutions > Software",
     "citta": "Lucca",
     "ferieSpettanti": 0,
     "ferieGodute": 0,
