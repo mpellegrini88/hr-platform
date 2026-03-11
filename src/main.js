@@ -11,6 +11,7 @@ import Onboarding    from './views/Onboarding.vue'
 import PeopleCulture from './views/PeopleCulture.vue'
 import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
 import ValutazioneProva from './views/ValutazioneProva.vue'
+import VisualiMediche from './views/VisualiMediche.vue'
 import FerieMalattie from './views/FerieMalattie.vue'
 import Dimissioni    from './views/Dimissioni.vue'
 import Analytics     from './views/Analytics.vue'
@@ -27,6 +28,7 @@ const router = createRouter({
     { path: '/valutazione-prova', component: ValutazioneProva },
     { path: '/people-culture', component: PeopleCulture },
     { path: '/people-culture-analytics', component: PeopleCultureAnalytics },
+    { path: '/visite-mediche', component: VisualiMediche },
     { path: '/contratti-termine', component: ContrattiTermine },
     { path: '/ferie',          component: FerieMalattie },
     { path: '/dimissioni',     component: Dimissioni },
