@@ -25,6 +25,7 @@
       <div class="section-label px-2 mt-4 mb-2">People & Culture</div>
       <NavItem to="/people-culture" :icon="ChatBubbleLeftIcon" label="Colloqui P&C" />
       <NavItem to="/people-culture-analytics" :icon="ArrowTrendingUpIcon" label="P&C Analytics" />
+      <NavItem to="/valutazione-prova" :icon="CheckCircleIcon" label="Valutazione Prova" />
       <NavItem to="/contratti-termine" :icon="DocumentDuplicateIcon" label="Contratti a Termine" />
       <NavItem to="/dimissioni" :icon="ArrowRightOnRectangleIcon" label="Dimissioni" />
       <NavItem to="/ferie"          :icon="CalendarIcon" label="Ferie & Malattie" />
@@ -61,7 +62,7 @@ import { ref } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useAutoSave } from '@/composables/useAutoSave.js'
 import NavItem from './NavItem.vue'
-import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon, DocumentDuplicateIcon } from '@heroicons/vue/24/solid'
+import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon, DocumentDuplicateIcon, CheckCircleIcon } from '@heroicons/vue/24/solid'
 
 const store = useHrStore()
 const autoSave = useAutoSave()

@@ -9,6 +9,7 @@ import Anagrafica    from './views/Anagrafica.vue'
 import Onboarding    from './views/Onboarding.vue'
 import PeopleCulture from './views/PeopleCulture.vue'
 import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
+import ValutazioneProva from './views/ValutazioneProva.vue'
 import FerieMalattie from './views/FerieMalattie.vue'
 import Dimissioni    from './views/Dimissioni.vue'
 import Analytics     from './views/Analytics.vue'
@@ -21,6 +22,7 @@ const router = createRouter({
     { path: '/dashboard',      component: Dashboard },
     { path: '/anagrafica',     component: Anagrafica },
     { path: '/onboarding',     component: Onboarding },
+    { path: '/valutazione-prova', component: ValutazioneProva },
     { path: '/people-culture', component: PeopleCulture },
     { path: '/people-culture-analytics', component: PeopleCultureAnalytics },
     { path: '/contratti-termine', component: ContrattiTermine },
