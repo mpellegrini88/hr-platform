@@ -30,7 +30,7 @@
               {{ initials(e.nome) }}
             </div>
             <div class="flex-1 min-w-0">
-              <div class="font-semibold text-gray-900">{{ e.nome }}</div>
+              <div class="font-semibold text-gray-900">{{ e.nome }} {{ e.cognome }}</div>
               <div class="text-xs text-gray-400">{{ e.team }} · {{ e.citta }} · {{ e.tipoContratto }}{{ e.oreSettimana ? ' · ' + e.oreSettimana + 'h/sett' : '' }}</div>
             </div>
             <div class="flex items-center gap-3 shrink-0">
@@ -145,7 +145,7 @@
             </tr></thead>
             <tbody>
               <tr v-for="e in group" :key="e.id" class="tbl-clickable" @click="openDetail(e)">
-                <td><div class="font-medium">{{ e.nome }}</div><div class="text-xs text-gray-400">{{ e.citta }}</div></td>
+                <td><div class="font-medium">{{ e.nome }} {{ e.cognome }}</div><div class="text-xs text-gray-400">{{ e.citta }}</div></td>
                 <td><span class="badge badge-gray">{{ e.team }}</span></td>
                 <td>
                   <span :class="['badge', contractBadge(e.tipoContratto)]">{{ e.tipoContratto }}</span>

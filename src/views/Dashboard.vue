@@ -40,7 +40,7 @@
           </tr></thead>
           <tbody>
             <tr v-for="c in contratiInScadenza" :key="c.id" :class="{'bg-red-50': c.daysToEnd <= 0, 'bg-amber-50': c.daysToEnd <= 7}">
-              <td class="font-medium text-amber-900">{{ c.nome }}</td>
+              <td class="font-medium text-amber-900">{{ c.nome }} {{ c.cognome }}</td>
               <td><span class="badge badge-gray">{{ c.team }}</span></td>
               <td class="font-mono text-sm text-amber-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
               <td><span :class="['badge', c.daysToEnd <= 0 ? 'badge-red' : c.daysToEnd <= 7 ? 'badge-orange' : 'badge-yellow']">{{ c.daysToEnd }}gg</span></td>
@@ -70,7 +70,7 @@
             </tr></thead>
             <tbody>
               <tr v-for="u in urgenti.slice(0,10)" :key="u.key" class="tbl-clickable">
-                <td class="font-medium">{{ u.nome }}</td>
+                <td class="font-medium">{{ u.nome }} {{ u.cognome }}</td>
                 <td><span class="badge badge-gray">{{ u.team }}</span></td>
                 <td><span :class="['badge', u.badgeClass]">{{ u.tipo }}</span></td>
                 <td class="font-mono text-sm">{{ fmtDateShort(u.data) }}</td>
@@ -189,7 +189,7 @@
     <div class="space-y-4 py-4">
       <!-- Info dipendente -->
       <div class="bg-gray-50 p-3 rounded border border-gray-100">
-        <p class="text-sm font-medium text-gray-900">{{ selectedUrgenza.nome }}</p>
+        <p class="text-sm font-medium text-gray-900">{{ selectedUrgenza.nome }} {{ selectedUrgenza.cognome }}</p>
         <p class="text-xs text-gray-600">{{ selectedUrgenza.team }}</p>
         <p class="text-xs text-gray-500 mt-1">{{ selectedUrgenza.tipo }} • Scadenza: {{ fmtDateShort(selectedUrgenza.data) }}</p>
       </div>
@@ -310,12 +310,12 @@ const urgenti = computed(() => {
   const today = new Date()
   const list = []
   store.enrichedEmployees.forEach(e => {
-    if (e.fu1Scaduto) list.push({ key: e.id+'fu1s', nome: e.nome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: 'Scaduto!', badgeClass: 'badge-blue', urgClass: 'badge-red' })
-    else if (e.fu1Urgente) list.push({ key: e.id+'fu1u', nome: e.nome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${e.daysToFU1}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow' })
-    if (e.fu2Urgente) list.push({ key: e.id+'fu2u', nome: e.nome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${e.daysToFU2}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow' })
-    if (e.provaUrgente) list.push({ key: e.id+'fp', nome: e.nome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${e.daysToProva}gg`, badgeClass: 'badge-indigo', urgClass: 'badge-orange' })
+    if (e.fu1Scaduto) list.push({ key: e.id+'fu1s', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: 'Scaduto!', badgeClass: 'badge-blue', urgClass: 'badge-red' })
+    else if (e.fu1Urgente) list.push({ key: e.id+'fu1u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${e.daysToFU1}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow' })
+    if (e.fu2Urgente) list.push({ key: e.id+'fu2u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${e.daysToFU2}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow' })
+    if (e.provaUrgente) list.push({ key: e.id+'fp', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${e.daysToProva}gg`, badgeClass: 'badge-indigo', urgClass: 'badge-orange' })
     // Burnout risk: show only if P&C data exists
-    if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red' })
+    if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red' })
   })
   return list.sort((a, b) => (a.data || '9999') > (b.data || '9999') ? 1 : -1)
 })
@@ -337,6 +337,7 @@ const contratiInScadenza = computed(() => {
       list.push({
         id: e.id,
         nome: e.nome,
+        cognome: e.cognome,
         team: e.team,
         scadenzaContratto: e.scadenzaContratto,
         daysToEnd: daysToEnd,
@@ -352,7 +353,7 @@ const contratiInScadenza = computed(() => {
 const openReminderCEO = (contratto) => {
   const message = `
 REMINDER: Report Valutazione di Prova
-Dipendente: ${contratto.nome}
+Dipendente: ${contratto.nome} ${contratto.cognome}
 Team: ${contratto.team}
 Scadenza Contratto: ${fmtDateShort(contratto.scadenzaContratto)}
 Esito Prova: ${contratto.esitoProva}

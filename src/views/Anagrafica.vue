@@ -46,7 +46,7 @@
             <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openEdit(e)">
               <td class="text-gray-400 font-mono text-xs">{{ e.n }}</td>
               <td>
-                <div class="font-medium text-gray-900">{{ e.nome }}</div>
+                <div class="font-medium text-gray-900">{{ e.nome }} {{ e.cognome }}</div>
                 <div class="text-xs text-gray-400">{{ e.email }}</div>
               </td>
               <td><span class="badge badge-gray">{{ e.team }}</span></td>
@@ -89,7 +89,7 @@
     </div>
 
     <!-- MODAL ADD/EDIT -->
-    <Modal :open="modal.open" :title="modal.isNew ? 'Nuovo dipendente' : 'Modifica — ' + modal.data.nome" width="780px" @close="modal.open=false">
+    <Modal :open="modal.open" :title="modal.isNew ? 'Nuovo dipendente' : 'Modifica — ' + modal.data.nome + ' ' + modal.data.cognome" width="780px" @close="modal.open=false">
       <div class="space-y-5">
         <!-- Anagrafica -->
         <Section title="Anagrafica">
