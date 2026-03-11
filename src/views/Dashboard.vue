@@ -39,7 +39,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Tipo</th><th>Scadenza</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Tipo</th><th>Scadenza</th><th>Azione</th><th>Modifica</th>
             </tr></thead>
             <tbody>
               <tr v-for="u in urgenti.slice(0,10)" :key="u.key" class="tbl-clickable">
@@ -48,9 +48,10 @@
                 <td><span :class="['badge', u.badgeClass]">{{ u.tipo }}</span></td>
                 <td class="font-mono text-sm">{{ fmtDateShort(u.data) }}</td>
                 <td><span :class="['badge', u.urgClass]">{{ u.azione }}</span></td>
+                <td><button @click="openEditModal(u)" class="text-primary-600 hover:text-primary-800 font-medium text-sm">✎ Modifica</button></td>
               </tr>
               <tr v-if="urgenti.length === 0">
-                <td colspan="5" class="text-center py-8 text-gray-400">✅ Nessuna azione urgente</td>
+                <td colspan="6" class="text-center py-8 text-gray-400">✅ Nessuna azione urgente</td>
               </tr>
             </tbody>
           </table>
@@ -144,20 +145,125 @@
       </div>
     </div>
   </div>
+
+  <!-- MODAL INLINE EDIT URGENZA -->
+  <Modal v-if="selectedUrgenza" @close="selectedUrgenza = null" width="max-w-md">
+    <template #header>
+      ✎ Modifica Azione Urgente
+    </template>
+    <div class="space-y-4 py-4">
+      <!-- Info dipendente -->
+      <div class="bg-gray-50 p-3 rounded border border-gray-100">
+        <p class="text-sm font-medium text-gray-900">{{ selectedUrgenza.nome }}</p>
+        <p class="text-xs text-gray-600">{{ selectedUrgenza.team }}</p>
+        <p class="text-xs text-gray-500 mt-1">{{ selectedUrgenza.tipo }} • Scadenza: {{ fmtDateShort(selectedUrgenza.data) }}</p>
+      </div>
+
+      <!-- Tipo azione (readonly) -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo azione</label>
+        <input
+          type="text"
+          disabled
+          :value="selectedUrgenza.tipo"
+          class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-50 text-gray-600 text-sm"
+        />
+      </div>
+
+      <!-- Nuovo stato -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Stato</label>
+        <div class="flex gap-2">
+          <button
+            v-for="stato in ['Da Fare', 'In Corso', 'Fatto']"
+            :key="stato"
+            @click="selectedUrgenza.newStato = stato"
+            :class="[
+              'flex-1 px-3 py-2 rounded text-sm font-medium transition',
+              selectedUrgenza.newStato === stato
+                ? 'bg-primary-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            ]"
+          >
+            {{ stato }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Note</label>
+        <textarea
+          v-model="selectedUrgenza.newNote"
+          placeholder="Aggiungi note..."
+          class="w-full px-3 py-2 border border-gray-200 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          rows="3"
+        ></textarea>
+      </div>
+    </div>
+
+    <template #footer>
+      <button @click="selectedUrgenza = null" class="btn btn-ghost">Annulla</button>
+      <button @click="saveUrgenzaEdit" class="btn btn-primary">Salva</button>
+    </template>
+  </Modal>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import KpiCard from '@/components/ui/KpiCard.vue'
 import DimBar  from '@/components/ui/DimBar.vue'
 import KanbanBoard from '@/components/dashboard/KanbanBoard.vue'
+import Modal from '@/components/ui/Modal.vue'
 
 const router = useRouter()
 const store = useHrStore()
 const { fmtDateShort, contractBadge } = useHelpers()
+
+// Inline edit urgenza
+const selectedUrgenza = ref(null)
+
+const openEditModal = (urgenza) => {
+  selectedUrgenza.value = {
+    ...urgenza,
+    newStato: urgenza.azione.includes('Fatto') ? 'Fatto' : 'In Corso',
+    newNote: ''
+  }
+}
+
+const saveUrgenzaEdit = () => {
+  if (!selectedUrgenza.value) return
+
+  const u = selectedUrgenza.value
+  const emp = store.employees.find(e => e.id === parseInt(u.key.split('+')[0]))
+
+  if (emp) {
+    // Update stato based on tipo
+    if (u.tipo === 'FU1') {
+      emp.statoFU1 = u.newStato
+      emp.noteFU1 = u.newNote
+    } else if (u.tipo === 'FU2') {
+      emp.statoFU2Dip = u.newStato
+      emp.noteFU2Dip = u.newNote
+    } else if (u.tipo === 'Fine prova') {
+      emp.esitoProva = u.newStato === 'Fatto' ? 'Superato' : 'In Corso'
+    }
+
+    // Trigger auto-save
+    store.updateEmployee(emp.id, {
+      statoFU1: emp.statoFU1,
+      noteFU1: emp.noteFU1,
+      statoFU2Dip: emp.statoFU2Dip,
+      noteFU2Dip: emp.noteFU2Dip,
+      esitoProva: emp.esitoProva
+    })
+  }
+
+  selectedUrgenza.value = null
+}
 const kpi = computed(() => store.kpiScadenze)
 const kpiPC = computed(() => store.kpiPC)
 const kpiOnboarding = computed(() => store.kpiOnboarding)
