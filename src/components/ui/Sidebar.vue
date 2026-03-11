@@ -1,6 +1,6 @@
 <template>
   <aside class="w-60 shrink-0 bg-white border-r border-gray-100 flex flex-col">
-    <!-- Logo -->
+    <!-- Logo Staff -->
     <div class="h-16 flex items-center px-5 border-b border-gray-100">
       <div class="flex items-center gap-2.5">
         <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
@@ -18,18 +18,18 @@
     <!-- Nav -->
     <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto scroll-thin">
       <div class="section-label px-2 mb-2">Generale</div>
-      <NavItem to="/dashboard"      icon="📊" label="Dashboard" />
-      <NavItem to="/anagrafica"     icon="👥" label="Anagrafica" />
-      <NavItem to="/onboarding"     icon="🚀" label="Onboarding" :badge="store.kpiScadenze.ppInCorso" />
+      <NavItem to="/dashboard"      :icon="ChartBarIcon" label="Dashboard" />
+      <NavItem to="/anagrafica"     :icon="UsersIcon" label="Anagrafica" />
+      <NavItem to="/onboarding"     :icon="SparklesIcon" label="Onboarding" :badge="store.kpiScadenze.ppInCorso" />
 
       <div class="section-label px-2 mt-4 mb-2">People & Culture</div>
-      <NavItem to="/people-culture" icon="💬" label="Colloqui P&C" />
-      <NavItem to="/people-culture-analytics" icon="🎯" label="P&C Analytics" />
-      <NavItem to="/dimissioni" icon="👋" label="Dimissioni" />
-      <NavItem to="/ferie"          icon="🌴" label="Ferie & Malattie" />
+      <NavItem to="/people-culture" :icon="ChatBubbleLeftIcon" label="Colloqui P&C" />
+      <NavItem to="/people-culture-analytics" :icon="ArrowTrendingUpIcon" label="P&C Analytics" />
+      <NavItem to="/dimissioni" :icon="ArrowRightOnRectangleIcon" label="Dimissioni" />
+      <NavItem to="/ferie"          :icon="CalendarIcon" label="Ferie & Malattie" />
 
       <div class="section-label px-2 mt-4 mb-2">Analytics</div>
-      <NavItem to="/analytics"      icon="📈" label="Analytics & Report" />
+      <NavItem to="/analytics"      :icon="PresentationChartLineIcon" label="Analytics & Report" />
     </nav>
 
     <!-- Footer -->
@@ -47,5 +47,7 @@
 <script setup>
 import { useHrStore } from '@/stores/hrStore.js'
 import NavItem from './NavItem.vue'
+import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon } from '@heroicons/vue/24/solid'
+
 const store = useHrStore()
 </script>

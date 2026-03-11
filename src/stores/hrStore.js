@@ -273,6 +273,95 @@ export const useHrStore = defineStore('hr', () => {
     }
   })
 
+  const urgentiAlert = computed(() => {
+    const today = new Date()
+    const alerts = []
+
+    // FU1 scaduti (CRITICA - red)
+    enrichedEmployees.value.forEach(e => {
+      if (e.fu1Scaduto && e.stato === 'Attivo') {
+        alerts.push({
+          id: e.id,
+          tipo: 'FU1_SCADUTO',
+          nome: e.nome,
+          team: e.team,
+          scadenza: e.scadenzaFU1,
+          urgenza: 'CRITICA',
+          color: 'red',
+          giorni: Math.floor((new Date(e.scadenzaFU1) - today) / 86400000)
+        })
+      }
+    })
+
+    // FU2 Manager scaduti (ALTA - orange)
+    enrichedEmployees.value.forEach(e => {
+      if (e.scadenzaFU2Manager && e.stato === 'Attivo') {
+        const scadDate = new Date(e.scadenzaFU2Manager)
+        const daysUntil = Math.floor((scadDate - today) / 86400000)
+        if (daysUntil <= 0) {
+          // Already passed
+          alerts.push({
+            id: e.id,
+            tipo: 'FU2_MANAGER_SCADUTO',
+            nome: e.nome,
+            team: e.team,
+            scadenza: e.scadenzaFU2Manager,
+            urgenza: 'CRITICA',
+            color: 'red',
+            giorni: daysUntil
+          })
+        } else if (daysUntil <= 7) {
+          // Within 7 days
+          alerts.push({
+            id: e.id,
+            tipo: 'FU2_MANAGER_URGENTE',
+            nome: e.nome,
+            team: e.team,
+            scadenza: e.scadenzaFU2Manager,
+            urgenza: 'ALTA',
+            color: 'orange',
+            giorni: daysUntil
+          })
+        } else if (daysUntil <= 30) {
+          // Within 30 days
+          alerts.push({
+            id: e.id,
+            tipo: 'FU2_MANAGER_MEDIA',
+            nome: e.nome,
+            team: e.team,
+            scadenza: e.scadenzaFU2Manager,
+            urgenza: 'MEDIA',
+            color: 'yellow',
+            giorni: daysUntil
+          })
+        }
+      }
+    })
+
+    // P&C colloqui scaduti (ALTA - orange)
+    nextPC.value.forEach(e => {
+      alerts.push({
+        id: e.id,
+        tipo: 'PC_SCADUTO',
+        nome: e.nome,
+        team: e.team,
+        scadenza: e.lastDate,
+        urgenza: e.urgenza === 'Scaduto' ? 'ALTA' : 'MEDIA',
+        color: e.urgenza === 'Scaduto' ? 'orange' : 'yellow',
+        giorni: e.daysAgo
+      })
+    })
+
+    // Sort by urgency (CRITICA first, then ALTA, then MEDIA, then BASSA) and days until deadline
+    return alerts.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      if (urgencyOrder[a.urgenza] !== urgencyOrder[b.urgenza]) {
+        return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+      }
+      return (a.giorni ?? 999) - (b.giorni ?? 999)
+    })
+  })
+
   function notify(msg, type = 'success') {
     toast.value = { show: true, msg, type }
     setTimeout(() => toast.value.show = false, 3200)
@@ -281,7 +370,7 @@ export const useHrStore = defineStore('hr', () => {
   return {
     toast, employees, colloqui, ferie, colloquiPC, dimissioni,
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
-    burnoutRetentionQuadrants, pcStats, nextPC, kpiPC,
+    burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, urgentiAlert,
     addEmployee, updateEmployee, deleteEmployee,
     saveColloquio, saveFerie, saveColloquioPC, saveDimissione, scheduleNextPC, saveFile, notify
   }
