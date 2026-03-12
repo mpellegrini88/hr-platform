@@ -7,6 +7,7 @@ import { usePersistence } from '@/composables/usePersistence.js'
 import { useDataMigration } from '@/composables/useDataMigration.js'
 import { useAutoSave } from '@/composables/useAutoSave.js'
 import { useIndexedDB } from '@/composables/useIndexedDB.js'
+import { useBackendAPI } from '@/composables/useBackendAPI.js'
 
 export const useHrStore = defineStore('hr', () => {
   const toast = ref({ show: false, msg: '', type: 'success' })
@@ -36,15 +37,57 @@ export const useHrStore = defineStore('hr', () => {
     return 'proprio'
   }
 
-  function getFerieSpettanti(tipoContrattoFerie, oreSettimana) {
-    const ratio = (oreSettimana || 40) / 40
-    if (tipoContrattoFerie === 'proprio') {
-      return { ferie: Math.round(FERIE_CONTRATTO_PROPRIO * ratio * 100) / 100, permessiGg: 0, permessiOre: 0 }
+  /**
+   * Calcola mesi maturati nell'anno corrente (1-12)
+   * Regola: mese completato = maturato. Es. al 12 marzo → 3 mesi (gen, feb, mar in corso = 2 completati + marzo proporzionale)
+   * Usiamo mesi interi completati + mese corrente se >= 15° giorno
+   */
+  function getMesiMaturati(dataAssunzione) {
+    const now = new Date()
+    const annoCorrente = now.getFullYear()
+    const meseCorrente = now.getMonth() // 0-based
+    const giornoCorrente = now.getDate()
+
+    // Se il dipendente è stato assunto quest'anno, conta solo da mese assunzione
+    let meseInizio = 0 // gennaio
+    if (dataAssunzione) {
+      const da = new Date(dataAssunzione)
+      if (da.getFullYear() === annoCorrente) {
+        meseInizio = da.getMonth()
+      }
     }
+
+    // Mesi completati fino ad oggi
+    let mesi = meseCorrente - meseInizio
+    // Aggiungi mese corrente se siamo oltre il 15
+    if (giornoCorrente >= 15) mesi += 1
+
+    return Math.max(0, Math.min(12, mesi))
+  }
+
+  /**
+   * Calcola ferie: annuali (totale anno) e maturate (mesi trascorsi)
+   */
+  function getFerieSpettanti(tipoContrattoFerie, oreSettimana, dataAssunzione) {
+    const ratio = (oreSettimana || 40) / 40
+    const mesi = getMesiMaturati(dataAssunzione)
+
+    if (tipoContrattoFerie === 'proprio') {
+      const annuali = Math.round(FERIE_CONTRATTO_PROPRIO * ratio * 100) / 100
+      const maturate = Math.round(annuali / 12 * mesi * 100) / 100
+      return { annuali, maturate, permessiAnnualiGg: 0, permessiMaturatiGg: 0, permessiAnnualiOre: 0, permessiMaturatiOre: 0, rataMensile: Math.round(annuali / 12 * 100) / 100 }
+    }
+    const annuali = Math.round(FERIE_CCNL_COMMERCIO * ratio * 100) / 100
+    const maturate = Math.round(annuali / 12 * mesi * 100) / 100
+    const permAnnualiGg = Math.round(PERMESSI_TOTALI_GG * ratio * 100) / 100
+    const permMaturatiGg = Math.round(permAnnualiGg / 12 * mesi * 100) / 100
+    const permAnnualiOre = Math.round(PERMESSI_TOTALI_ORE * ratio * 100) / 100
+    const permMaturatiOre = Math.round(permAnnualiOre / 12 * mesi * 100) / 100
     return {
-      ferie: Math.round(FERIE_CCNL_COMMERCIO * ratio * 100) / 100,
-      permessiGg: Math.round(PERMESSI_TOTALI_GG * ratio * 100) / 100,
-      permessiOre: Math.round(PERMESSI_TOTALI_ORE * ratio * 100) / 100
+      annuali, maturate,
+      permessiAnnualiGg: permAnnualiGg, permessiMaturatiGg: permMaturatiGg,
+      permessiAnnualiOre: permAnnualiOre, permessiMaturatiOre: permMaturatiOre,
+      rataMensile: Math.round(annuali / 12 * 100) / 100
     }
   }
 
@@ -121,16 +164,20 @@ export const useHrStore = defineStore('hr', () => {
       if (!existing.has(e.id) && !existing.has(e.nome)) {
         const nomeCompleto = `${e.nome} ${e.cognome}`
         const tipoContrattoFerie = getDefaultContratto(e.team)
-        const spett = getFerieSpettanti(tipoContrattoFerie, e.oreSettimana)
+        const spett = getFerieSpettanti(tipoContrattoFerie, e.oreSettimana, e.dataAssunzione)
         ferie.value.push({
           empId: e.id, nome: nomeCompleto, team: e.team, citta: e.citta,
           tipoContrattoFerie,
           societa: getSocieta(e.team),
-          ferieSpettanti: spett.ferie,
-          ferieGodute: 0, ferieResidue: spett.ferie,
-          permessiSpettantiGg: spett.permessiGg,
-          permessiSpettantiOre: spett.permessiOre,
-          permessiGodutiGg: 0, permessiResiduiGg: spett.permessiGg,
+          ferieAnnuali: spett.annuali,
+          ferieSpettanti: spett.maturate,
+          rataMensile: spett.rataMensile,
+          residuiAnniPrecedenti: 0,
+          ferieGodute: 0, ferieResidue: spett.maturate,
+          permessiAnnualiGg: spett.permessiAnnualiGg,
+          permessiSpettantiGg: spett.permessiMaturatiGg,
+          permessiSpettantiOre: spett.permessiMaturatiOre,
+          permessiGodutiGg: 0, permessiResiduiGg: spett.permessiMaturatiGg,
           percGodute: 0, ggMalattia: 0, episodiMalattia: 0, ggMalattia3m: 0, assenzeNonGiust: 0,
           noteFerie: '', noteMalattia: '', noteAssenze: '',
           entries: []
@@ -140,16 +187,53 @@ export const useHrStore = defineStore('hr', () => {
   }
   ensureFerieForAll()
 
+  /**
+   * Ricalcola ferie maturate per tutti i dipendenti (chiamare periodicamente o al mount)
+   * Aggiorna ferieSpettanti e permessiSpettantiGg basandosi sui mesi trascorsi
+   */
+  function aggiornaFerieMaturate() {
+    ferie.value.forEach(rec => {
+      const emp = employees.value.find(e => e.id === rec.empId || `${e.nome} ${e.cognome}` === rec.nome)
+      const spett = getFerieSpettanti(rec.tipoContrattoFerie || 'proprio', emp?.oreSettimana, emp?.dataAssunzione)
+      rec.ferieAnnuali = spett.annuali
+      rec.rataMensile = spett.rataMensile
+      rec.ferieSpettanti = spett.maturate
+      rec.permessiAnnualiGg = spett.permessiAnnualiGg
+      rec.permessiSpettantiGg = spett.permessiMaturatiGg
+      rec.permessiSpettantiOre = spett.permessiMaturatiOre
+      // Residui = maturate + residui anni precedenti - godute
+      rec.ferieResidue = Math.round((spett.maturate + (rec.residuiAnniPrecedenti || 0) - (rec.ferieGodute || 0)) * 100) / 100
+      rec.permessiResiduiGg = Math.round((spett.permessiMaturatiGg - (rec.permessiGodutiGg || 0)) * 100) / 100
+      rec.percGodute = (spett.maturate + (rec.residuiAnniPrecedenti || 0)) > 0
+        ? Math.round(rec.ferieGodute / (spett.maturate + (rec.residuiAnniPrecedenti || 0)) * 100) : 0
+    })
+  }
+  // Ricalcola al boot
+  aggiornaFerieMaturate()
+
   // Composables per persistenza e migrazione
   const persistence = usePersistence()
   const migration = useDataMigration()
   const autoSave = useAutoSave()
   const idb = useIndexedDB()
+  const backend = useBackendAPI()
+  const backendAvailable = ref(false)
 
-  // Save to IndexedDB (persistent storage that survives session end)
+  // Save to IndexedDB + Backend (persistent storage)
+  let _backendSaveTimeout = null
   async function saveToIndexedDB() {
     const snapshot = getStoreSnapshot()
     await idb.saveAll(snapshot)
+    // Debounced save to backend (1.5s)
+    clearTimeout(_backendSaveTimeout)
+    _backendSaveTimeout = setTimeout(async () => {
+      if (!backendAvailable.value) return
+      try {
+        await backend.saveAll(snapshot)
+      } catch (err) {
+        console.warn('⚠ Backend save failed:', err.message)
+      }
+    }, 1500)
   }
 
   function recalcProva(emp) {
@@ -267,8 +351,10 @@ export const useHrStore = defineStore('hr', () => {
     })
     malEp = malEpSet.size
     rec.ferieGodute = godute
-    rec.ferieResidue = Math.round(((rec.ferieSpettanti || 0) - godute) * 100) / 100
-    rec.percGodute = rec.ferieSpettanti > 0 ? Math.round(godute / rec.ferieSpettanti * 100) : 0
+    // Residue = maturate + residui anni precedenti - godute
+    rec.ferieResidue = Math.round(((rec.ferieSpettanti || 0) + (rec.residuiAnniPrecedenti || 0) - godute) * 100) / 100
+    const totDisponibili = (rec.ferieSpettanti || 0) + (rec.residuiAnniPrecedenti || 0)
+    rec.percGodute = totDisponibili > 0 ? Math.round(godute / totDisponibili * 100) : 0
     rec.permessiGodutiGg = permGoduti
     rec.permessiResiduiGg = Math.round(((rec.permessiSpettantiGg || 0) - permGoduti) * 100) / 100
     rec.ggMalattia = malGg
@@ -283,12 +369,24 @@ export const useHrStore = defineStore('hr', () => {
     if (!rec) return
     rec.tipoContrattoFerie = tipoContrattoFerie
     const emp = employees.value.find(e => `${e.nome} ${e.cognome}` === nome)
-    const spett = getFerieSpettanti(tipoContrattoFerie, emp?.oreSettimana)
-    rec.ferieSpettanti = spett.ferie
-    rec.permessiSpettantiGg = spett.permessiGg
-    rec.permessiSpettantiOre = spett.permessiOre
+    const spett = getFerieSpettanti(tipoContrattoFerie, emp?.oreSettimana, emp?.dataAssunzione)
+    rec.ferieAnnuali = spett.annuali
+    rec.rataMensile = spett.rataMensile
+    rec.ferieSpettanti = spett.maturate
+    rec.permessiAnnualiGg = spett.permessiAnnualiGg
+    rec.permessiSpettantiGg = spett.permessiMaturatiGg
+    rec.permessiSpettantiOre = spett.permessiMaturatiOre
     recalcFerieSummary(rec)
     notify('Contratto ferie aggiornato ✓')
+    saveToIndexedDB()
+  }
+
+  function updateResiduiAnniPrecedenti(nome, residui) {
+    const rec = ferie.value.find(f => f.nome === nome)
+    if (!rec) return
+    rec.residuiAnniPrecedenti = residui
+    recalcFerieSummary(rec)
+    notify('Residui anni precedenti aggiornati ✓')
     saveToIndexedDB()
   }
 
@@ -422,6 +520,38 @@ export const useHrStore = defineStore('hr', () => {
     saveToIndexedDB()
   }
 
+  function saveCEODecision(employeeId, ceoData) {
+    const idx = employees.value.findIndex(e => e.id === employeeId)
+    if (idx === -1) return
+    const emp = employees.value[idx]
+    emp.valutazionePeriodoProva = emp.valutazionePeriodoProva || { faseCorrente: 'manager-pending', dataValutazioneManager: null, dataValutazioneHR: null, manager: null, hr: null }
+    emp.valutazionePeriodoProva.ceo = ceoData
+    emp.valutazionePeriodoProva.dataDecisioneCEO = new Date().toISOString().split('T')[0]
+    emp.valutazionePeriodoProva.faseCorrente = 'ceo-complete'
+    // Propagate CEO decision to contract decision for determinato
+    if (emp.tipoContratto === 'determinato') {
+      const mapDecisione = {
+        'Confermare il dipendente': 'Rinnovato',
+        'Proroga temporanea': 'Proroga',
+        'Non confermare': 'Non Rinnovato'
+      }
+      emp.decisione = mapDecisione[ceoData.decisione] || ceoData.decisione
+      emp.dataDecisioneRinnovo = new Date().toISOString().split('T')[0]
+      emp.noteDecisioneRinnovo = ceoData.motivazione || ''
+      if (ceoData.decisione === 'Proroga temporanea' && ceoData.dataProrogaFino) {
+        emp.dataProrogaFino = ceoData.dataProrogaFino
+      }
+    }
+    // Update esito prova based on CEO decision
+    if (ceoData.decisione === 'Confermare il dipendente') emp.esitoProva = 'Superato'
+    else if (ceoData.decisione === 'Non confermare') emp.esitoProva = 'Non Superato'
+    emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
+    emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
+    notify('Decisione CEO salvata ✓')
+    autoSave.trackChange(getStoreSnapshot())
+    saveToIndexedDB()
+  }
+
   function updateContractRenewal(employeeId, renewalData) {
     const idx = employees.value.findIndex(e => e.id === employeeId)
     if (idx === -1) return
@@ -535,7 +665,19 @@ export const useHrStore = defineStore('hr', () => {
       fu2ManagerUrgente: fu2m && daysDiff(fu2m) >= 0 && daysDiff(fu2m) <= 7,
       fu2ManagerScaduto: fu2m && fu2m < today && e.statoFU2Manager !== 'Fatto',
       fu2Urgente: fu2 && daysDiff(fu2) >= 0 && daysDiff(fu2) <= 7,
-      provaUrgente: fp && daysDiff(fp) >= 0 && daysDiff(fp) <= 30
+      provaUrgente: fp && daysDiff(fp) >= 0 && daysDiff(fp) <= 30,
+      // Valutazione status
+      valutazioneStatus: (() => {
+        const v = e.valutazionePeriodoProva
+        if (!v) return 'pending'
+        if (v.faseCorrente === 'ceo-complete') return 'complete'
+        if (v.faseCorrente === 'hr-complete') return 'ceo-pending'
+        if (v.faseCorrente === 'manager-complete') return 'hr-pending'
+        return 'pending'
+      })(),
+      valutazioneRaccomandazione: e.valutazionePeriodoProva?.manager?.raccomandazione || null,
+      valutazioneHRVoto: e.valutazionePeriodoProva?.hr?.voto || null,
+      valutazioneCEODecisione: e.valutazionePeriodoProva?.ceo?.decisione || null
     }
   }))
 
@@ -948,17 +1090,17 @@ export const useHrStore = defineStore('hr', () => {
   }
 
   return {
-    toast, employees, colloqui, ferie, colloquiPC, dimissioni,
+    toast, employees, colloqui, ferie, colloquiPC, dimissioni, valutazioni360, backendAvailable,
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
     burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, kpiPCCopertura, pcColloquiStatus, urgentiAlert,
     onboardingUrgenze, contractUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
-    ferieAnalytics, ensureFerieForAll, getSocieta, getFerieSpettanti, updateContrattoFerie,
+    ferieAnalytics, ensureFerieForAll, aggiornaFerieMaturate, getSocieta, getFerieSpettanti, updateContrattoFerie, updateResiduiAnniPrecedenti,
     FERIE_CONTRATTO_PROPRIO, FERIE_CCNL_COMMERCIO, PERMESSI_TOTALI_GG, PERMESSI_TOTALI_ORE,
     addEmployee, updateEmployee, deleteEmployee,
     saveColloquio, saveFerie, addFerieEntry, updateFerieEntry, deleteFerieEntry,
     saveColloquioPC, deletePCEntry, calcEngagementScore,
     saveDimissione, scheduleNextPC,
-    saveValutazioneManager, saveValutazioneHR, updateContractRenewal,
+    saveValutazioneManager, saveValutazioneHR, saveCEODecision, updateContractRenewal,
     saveFile, notify
   }
 })

@@ -67,7 +67,14 @@
                 <td><span class="badge badge-gray">{{ c.team }}</span></td>
                 <td class="font-mono text-sm text-red-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-red font-mono">{{ c.daysToEnd }} gg</span></td>
-                <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td>
+                  <div class="flex flex-col gap-0.5">
+                    <span :class="['badge badge-sm', c.esitoProva==='Superato'?'badge-green':c.esitoProva==='Non Superato'?'badge-red':'badge-blue']">{{ c.esitoProva }}</span>
+                    <button v-if="c.valutazioneStatus === 'complete'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 text-[10px]">✓ {{ c.valutazioneRaccomandazione || 'Valutata' }}</button>
+                    <button v-else-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 text-[10px] animate-pulse">🎯 {{ c.valutazioneStatus === 'hr-pending' ? 'HR Pending' : 'CEO Pending' }}</button>
+                    <button v-else @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Da valutare</button>
+                  </div>
+                </td>
                 <td class="text-xs">
                   <div class="flex flex-col gap-0.5">
                     <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
@@ -117,7 +124,14 @@
                 <td><span class="badge badge-gray">{{ c.team }}</span></td>
                 <td class="font-mono text-sm text-orange-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-orange font-mono">{{ c.daysToEnd }} gg</span></td>
-                <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td>
+                  <div class="flex flex-col gap-0.5">
+                    <span :class="['badge badge-sm', c.esitoProva==='Superato'?'badge-green':c.esitoProva==='Non Superato'?'badge-red':'badge-blue']">{{ c.esitoProva }}</span>
+                    <button v-if="c.valutazioneStatus === 'complete'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 text-[10px]">✓ {{ c.valutazioneRaccomandazione || 'Valutata' }}</button>
+                    <button v-else-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 text-[10px] animate-pulse">🎯 {{ c.valutazioneStatus === 'hr-pending' ? 'HR Pending' : 'CEO Pending' }}</button>
+                    <button v-else @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Da valutare</button>
+                  </div>
+                </td>
                 <td class="text-xs">
                   <div class="flex flex-col gap-0.5">
                     <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
@@ -155,7 +169,14 @@
                 <td><span class="badge badge-gray">{{ c.team }}</span></td>
                 <td class="font-mono text-sm text-yellow-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-yellow font-mono">{{ c.daysToEnd }} gg</span></td>
-                <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td>
+                  <div class="flex flex-col gap-0.5">
+                    <span :class="['badge badge-sm', c.esitoProva==='Superato'?'badge-green':c.esitoProva==='Non Superato'?'badge-red':'badge-blue']">{{ c.esitoProva }}</span>
+                    <button v-if="c.valutazioneStatus === 'complete'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 text-[10px]">✓ {{ c.valutazioneRaccomandazione || 'Valutata' }}</button>
+                    <button v-else-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 text-[10px] animate-pulse">🎯 {{ c.valutazioneStatus === 'hr-pending' ? 'HR Pending' : 'CEO Pending' }}</button>
+                    <button v-else @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Da valutare</button>
+                  </div>
+                </td>
                 <td class="text-xs">
                   <div class="flex flex-col gap-0.5">
                     <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
@@ -193,7 +214,12 @@
                 <td><span class="badge badge-gray">{{ c.team }}</span></td>
                 <td class="font-mono text-sm text-emerald-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
                 <td><span class="badge badge-emerald font-mono">{{ c.daysToEnd }} gg</span></td>
-                <td><span class="text-xs">{{ c.esitoProva }}</span></td>
+                <td>
+                  <div class="flex flex-col gap-0.5">
+                    <span :class="['badge badge-sm', c.esitoProva==='Superato'?'badge-green':c.esitoProva==='Non Superato'?'badge-red':'badge-blue']">{{ c.esitoProva }}</span>
+                    <button v-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Valutazione →</button>
+                  </div>
+                </td>
                 <td class="text-xs">
                   <div class="flex flex-col gap-0.5">
                     <span v-if="c.scadenzaFU1">FU1: {{ fmtDateShort(c.scadenzaFU1) }}</span>
@@ -320,7 +346,20 @@ const allContratti = computed(() => {
       dataProrogaFino: e.dataProrogaFino,
       pcStatus: pcStatus?.status || 'Non Fatto',
       pcLastDate: pcStatus?.lastDate,
-      employee: e // Store full employee object for modal access
+      employee: e, // Store full employee object for modal access
+      // Valutazione data
+      valutazionePeriodoProva: e.valutazionePeriodoProva,
+      valutazioneStatus: (() => {
+        const v = e.valutazionePeriodoProva
+        if (!v) return 'pending'
+        if (v.faseCorrente === 'ceo-complete') return 'complete'
+        if (v.faseCorrente === 'hr-complete') return 'ceo-pending'
+        if (v.faseCorrente === 'manager-complete') return 'hr-pending'
+        return 'pending'
+      })(),
+      valutazioneRaccomandazione: e.valutazionePeriodoProva?.manager?.raccomandazione || null,
+      valutazioneHRVoto: e.valutazionePeriodoProva?.hr?.voto || null,
+      valutazioneCEODecisione: e.valutazionePeriodoProva?.ceo?.decisione || null
     })
   })
   return list

@@ -18,7 +18,19 @@
         <option>Mancato Superamento Prova</option>
         <option>In Uscita Concordata</option>
       </select>
+      <button @click="filterAzioni = !filterAzioni" :class="['btn btn-sm', filterAzioni ? 'bg-amber-500 text-white hover:bg-amber-600' : 'btn-secondary']">
+        🔔 Azioni ({{ actionCount }})
+      </button>
       <button @click="openNew" class="btn btn-primary ml-auto">+ Nuovo dipendente</button>
+    </div>
+
+    <!-- Legenda colori -->
+    <div v-if="actionCount > 0" class="flex flex-wrap items-center gap-3 text-xs text-gray-500 bg-white rounded-xl px-4 py-2 border border-gray-100">
+      <span class="font-medium text-gray-700">Legenda:</span>
+      <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-red-100 border border-red-200"></span> Scaduto / Critico</span>
+      <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-amber-100 border border-amber-200"></span> Urgente (≤7gg)</span>
+      <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-yellow-50 border border-yellow-200"></span> In scadenza (≤30gg)</span>
+      <span class="ml-auto font-medium" :class="actionCount > 5 ? 'text-red-600' : 'text-amber-600'">{{ actionCount }} dipendenti richiedono attenzione</span>
     </div>
 
     <!-- Table -->
@@ -34,17 +46,18 @@
               <th>Assunzione</th>
               <th>Livello CCNL</th>
               <th>Fine prova</th>
-              <th>Durata prova</th>
               <th>Esito prova</th>
-              <th>FU1</th>
-              <th>FU2</th>
+              <th>Valutazione</th>
               <th>Stato</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="e in filtered" :key="e.id" class="tbl-clickable" @click="openDetail(e)">
-              <td class="text-gray-400 font-mono text-xs">{{ e.n }}</td>
+            <tr v-for="e in filtered" :key="e.id" :class="['tbl-clickable', rowHighlight(e)]" @click="openDetail(e)">
+              <td class="text-gray-400 font-mono text-xs pl-4 relative">
+                <span v-if="needsAction(e)" class="absolute left-0.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full" :class="hasCritical(e) ? 'bg-red-500 animate-pulse' : 'bg-amber-400'"></span>
+                {{ e.n }}
+              </td>
               <td>
                 <div class="font-medium text-gray-900">{{ e.nome }} {{ e.cognome }}</div>
                 <div class="text-xs text-gray-400">{{ e.email }}</div>
@@ -54,29 +67,42 @@
                 <div class="flex flex-col gap-0.5">
                   <span :class="['badge', contractBadge(e.tipoContratto)]">{{ e.tipoContratto }}</span>
                   <span v-if="e.oreSettimana" class="text-xs text-gray-400">{{ e.oreSettimana }}h/sett</span>
+                  <span v-if="e.tipoContratto === 'determinato' && e.scadenzaContratto" class="text-xs" :class="contractDaysLeft(e) <= 30 ? 'text-red-500 font-medium' : 'text-gray-400'">Scad. {{ fmtDateShort(e.scadenzaContratto) }}</span>
                 </div>
               </td>
               <td class="text-sm">{{ fmtDateShort(e.dataAssunzione) }}</td>
               <td class="text-sm text-gray-600">{{ e.livelloCCNL || '—' }}</td>
               <td class="text-sm">
-                <span :class="provaUrgente(e) ? 'text-red-600 font-semibold' : ''">{{ fmtDateShort(e.fineProva) }}</span>
+                <span :class="e.provaUrgente ? 'text-red-600 font-semibold' : ''">{{ fmtDateShort(e.fineProva) }}</span>
+                <div v-if="e.provaUrgente && e.esitoProva === 'In Corso'" class="text-xs text-red-500 font-medium mt-0.5">⚠ {{ e.daysToProva }}gg</div>
               </td>
-              <td class="text-xs text-gray-500">{{ e.durataProva || '—' }}</td>
               <td>
                 <span :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
               </td>
-              <td>
-                <span v-if="e.team === 'Freelance'" class="text-gray-300">—</span>
+              <td @click.stop>
+                <div v-if="e.team === 'Freelance'" class="text-gray-300">—</div>
                 <div v-else class="flex flex-col gap-0.5">
-                  <span v-if="e.statoFU1 === 'Da Fare' && e.scadenzaFU1" class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU1) }}</span>
-                  <span :class="['badge badge-sm', fu1Class(e)]">{{ e.statoFU1 || '—' }}</span>
-                </div>
-              </td>
-              <td>
-                <span v-if="e.team === 'Freelance'" class="text-gray-300">—</span>
-                <div v-else class="flex flex-col gap-0.5">
-                  <span v-if="e.statoFU2Dip === 'Da Fare' && e.scadenzaFU2" class="text-xs text-gray-500">{{ fmtDateShort(e.scadenzaFU2) }}</span>
-                  <span :class="['badge badge-sm', fu2Class(e)]">{{ e.statoFU2Dip || '—' }}</span>
+                  <!-- Valutazione status -->
+                  <button v-if="e.valutazioneStatus === 'complete'" class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition" @click="goToValutazione(e)">
+                    ✓ {{ e.valutazioneCEODecisione || 'Completata' }}
+                  </button>
+                  <button v-else-if="e.valutazioneStatus === 'ceo-pending'" class="badge badge-sm bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 transition animate-pulse" @click="goToValutazione(e)">
+                    👑 CEO Pending
+                  </button>
+                  <button v-else-if="e.valutazioneStatus === 'hr-pending'" class="badge badge-sm bg-purple-50 text-purple-700 border border-purple-200 cursor-pointer hover:bg-purple-100 transition" @click="goToValutazione(e)">
+                    👩‍💼 HR Pending
+                  </button>
+                  <button v-else-if="e.esitoProva === 'In Corso'" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 transition" @click="goToValutazione(e)">
+                    🎯 Da valutare
+                  </button>
+                  <span v-else class="text-gray-300 text-xs">—</span>
+                  <!-- Contract decision for determinato -->
+                  <button v-if="e.tipoContratto === 'determinato' && e.decisione" class="badge badge-sm cursor-pointer hover:opacity-80 transition" :class="e.decisione === 'Rinnovato' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : e.decisione === 'Proroga' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-red-50 text-red-700 border border-red-200'" @click="goToContratti(e)">
+                    {{ e.decisione === 'Rinnovato' ? '✓ Rinnovato' : e.decisione === 'Proroga' ? '⏳ Proroga' : '✗ Non Rinn.' }}
+                  </button>
+                  <button v-else-if="e.tipoContratto === 'determinato' && contractDaysLeft(e) <= 90" class="badge badge-sm bg-orange-50 text-orange-700 border border-orange-200 cursor-pointer hover:bg-orange-100 transition" @click="goToContratti(e)">
+                    📋 Rinnovo →
+                  </button>
                 </div>
               </td>
               <td><span :class="['badge', statoClass(e.stato)]">{{ e.stato }}</span></td>
@@ -239,15 +265,18 @@ const router = useRouter()
 const store = useHrStore()
 const { fmtDate, fmtDateShort, toInput, statoClass, contractBadge } = useHelpers()
 
-const search = ref(''), filterTeam = ref(''), filterContratto = ref(''), filterStato = ref('')
+const search = ref(''), filterTeam = ref(''), filterContratto = ref(''), filterStato = ref(''), filterAzioni = ref(false)
 
-const filtered = computed(() => store.employees.filter(e => {
+const filtered = computed(() => store.enrichedEmployees.filter(e => {
   const s = search.value.toLowerCase()
-  return (!s || (e.nome||'').toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
+  return (!s || (e.nome||'').toLowerCase().includes(s) || (e.cognome||'').toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
     && (!filterTeam.value || e.team === filterTeam.value)
     && (!filterContratto.value || e.tipoContratto === filterContratto.value)
     && (!filterStato.value || e.stato === filterStato.value)
+    && (!filterAzioni.value || needsAction(e))
 }))
+
+const actionCount = computed(() => store.enrichedEmployees.filter(e => needsAction(e)).length)
 
 const modal = reactive({ open: false, isNew: false, data: {} })
 
@@ -258,6 +287,12 @@ function openNew() {
 }
 function openDetail(e) {
   router.push(`/anagrafica/${e.id}`)
+}
+function goToValutazione(e) {
+  router.push(`/valutazione-prova?empId=${e.id}`)
+}
+function goToContratti(e) {
+  router.push(`/contratti-termine?emp=${e.id}`)
 }
 function save() {
   if (!modal.data.nome) { store.notify('Nome obbligatorio', 'error'); return }
@@ -289,19 +324,33 @@ watch(() => [modal.data.dataAssunzione, modal.data.livelloCCNL, modal.data.tipoC
 function esitoClass(e) {
   return e==='Superato'?'badge-green':e==='Non Superato'?'badge-red':e==='In Corso'?'badge-blue':'badge-gray'
 }
-function fu1Class(e) {
-  if (e.statoFU1 === 'Fatto') return 'badge-green'
-  if (e.statoFU1 === 'Da Fare') return 'badge-red'
-  return 'badge-gray'
+// ── Row highlighting logic ──
+function rowHighlight(e) {
+  if (!needsAction(e)) return ''
+  if (hasCritical(e)) return 'bg-red-100 border-l-4 border-l-red-400'
+  // Urgente (≤7gg)
+  if ((e.provaUrgente && e.esitoProva === 'In Corso' && e.daysToProva <= 7) ||
+      (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 7))
+    return 'bg-amber-100 border-l-4 border-l-amber-400'
+  // In scadenza (≤30gg)
+  return 'bg-yellow-50 border-l-4 border-l-yellow-400'
 }
-function fu2Class(e) {
-  if (e.statoFU2Dip === 'Fatto') return 'badge-green'
-  if (e.statoFU2Dip === 'Da Fare') return 'badge-red'
-  return 'badge-gray'
+
+function needsAction(e) {
+  if (e.stato !== 'Attivo') return false
+  return hasCritical(e) ||
+    (e.provaUrgente && e.esitoProva === 'In Corso') ||
+    (e.valutazioneStatus !== 'complete' && e.esitoProva === 'In Corso' && e.daysToProva !== null && e.daysToProva <= 45) ||
+    (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 90)
 }
-function provaUrgente(e) {
-  if (!e.fineProva) return false
-  const d = Math.round((new Date(e.fineProva)-new Date())/86400000)
-  return d >= 0 && d <= 30
+
+function hasCritical(e) {
+  return (e.daysToProva !== null && e.daysToProva <= 0 && e.esitoProva === 'In Corso') ||
+    (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 0)
+}
+
+function contractDaysLeft(e) {
+  if (!e.scadenzaContratto) return 999
+  return Math.round((new Date(e.scadenzaContratto) - new Date()) / 86400000)
 }
 </script>

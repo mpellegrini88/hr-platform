@@ -382,14 +382,17 @@
       <div v-else-if="modal.tipo === 'ceo'" class="space-y-4">
         <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-3 rounded border border-blue-200 text-xs space-y-1">
           <p><strong>Manager:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
+          <p class="text-gray-500">Media voti: {{ avgManagerScore(modal.emp?.id) }}/5</p>
         </div>
         <div v-if="getHRValidation(modal.emp?.id)" class="bg-purple-50 p-3 rounded border border-purple-200 text-xs space-y-1">
           <p><strong>HR Voto:</strong> {{ getHRValidation(modal.emp?.id).voto }}/10</p>
+          <p v-if="getHRValidation(modal.emp?.id).commento" class="text-gray-500">{{ getHRValidation(modal.emp?.id).commento }}</p>
         </div>
 
-        <div>
-          <label class="form-label">Data decisione</label>
-          <input v-model="evalForm.ceoData" type="date" class="form-input">
+        <!-- Contract impact banner for determinato -->
+        <div v-if="modal.emp?.tipoContratto === 'determinato'" class="bg-orange-50 border border-orange-300 rounded-lg p-3">
+          <p class="text-sm font-semibold text-orange-900">⚡ Contratto a Termine</p>
+          <p class="text-xs text-orange-700 mt-1">La decisione verrà propagata automaticamente al rinnovo contratto.<br>Scadenza: {{ modal.emp?.scadenzaContratto ? fmtDateShort(modal.emp.scadenzaContratto) : 'N/D' }}</p>
         </div>
 
         <div>
@@ -399,6 +402,12 @@
             <option>Proroga temporanea</option>
             <option>Non confermare</option>
           </select>
+        </div>
+
+        <!-- Proroga date (conditional) -->
+        <div v-if="evalForm.ceoDecisione === 'Proroga temporanea' && modal.emp?.tipoContratto === 'determinato'" class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+          <label class="text-sm font-semibold text-amber-900 block mb-1">Proroga fino a:</label>
+          <input v-model="evalForm.ceoDataProrogaFino" type="date" class="form-input">
         </div>
 
         <div>
@@ -433,12 +442,6 @@ const filterStatus = ref('')
 const expanded = ref([])
 const preSelectedEmpId = ref(null)
 
-const valutazioni = reactive({
-  manager: {},
-  hr: {},
-  ceo: {}
-})
-
 const modal = reactive({ open: false, emp: null, tipo: null })
 const evalForm = reactive({
   // Manager
@@ -457,7 +460,7 @@ const evalForm = reactive({
   // HR
   hrData: '', hrVoto: 5, hrCommento: '',
   // CEO
-  ceoData: '', ceoDecisione: 'Confermare il dipendente', ceoMotivazione: ''
+  ceoData: '', ceoDecisione: 'Confermare il dipendente', ceoMotivazione: '', ceoDataProrogaFino: ''
 })
 
 const getTeamsExcludingFreelance = computed(() => {
@@ -548,6 +551,11 @@ const filtered = computed(() => {
     const matchSearch = !s || e.nome.toLowerCase().includes(s) || e.cognome.toLowerCase().includes(s) || e.team.toLowerCase().includes(s)
     const matchTeam = !filterTeam.value || e.team === filterTeam.value
     return matchSearch && matchTeam
+  }).sort((a, b) => {
+    // Default: soonest expiring trial period first
+    const da = a.daysToProva ?? 9999
+    const db = b.daysToProva ?? 9999
+    return da - db
   })
 })
 
@@ -612,15 +620,22 @@ function toggleExpanded(empId) {
 }
 
 function getManagerEvaluation(empId) {
-  return valutazioni.manager[empId]
+  const emp = store.employees.find(e => e.id === empId)
+  return emp?.valutazionePeriodoProva?.manager || null
 }
 
 function getHRValidation(empId) {
-  return valutazioni.hr[empId]
+  const emp = store.employees.find(e => e.id === empId)
+  const hr = emp?.valutazionePeriodoProva?.hr
+  if (!hr) return null
+  return { data: emp.valutazionePeriodoProva.dataValutazioneHR, voto: hr.voto, commento: hr.commento }
 }
 
 function getCEODecision(empId) {
-  return valutazioni.ceo[empId]
+  const emp = store.employees.find(e => e.id === empId)
+  const ceo = emp?.valutazionePeriodoProva?.ceo
+  if (!ceo) return null
+  return { data: emp.valutazionePeriodoProva.dataDecisioneCEO, decisione: ceo.decisione, motivazione: ceo.motivazione }
 }
 
 function openEvaluation(emp, tipo) {
@@ -628,7 +643,7 @@ function openEvaluation(emp, tipo) {
   modal.tipo = tipo
 
   if (tipo === 'manager') {
-    const existing = valutazioni.manager[emp.id]
+    const existing = getManagerEvaluation(emp.id)
     if (existing) {
       Object.assign(evalForm, existing)
     } else {
@@ -646,7 +661,7 @@ function openEvaluation(emp, tipo) {
       evalForm.areaeMiglioramento = ''
     }
   } else if (tipo === 'hr') {
-    const existing = valutazioni.hr[emp.id]
+    const existing = getHRValidation(emp.id)
     if (existing) {
       evalForm.hrData = existing.data
       evalForm.hrVoto = existing.voto
@@ -657,7 +672,7 @@ function openEvaluation(emp, tipo) {
       evalForm.hrCommento = ''
     }
   } else if (tipo === 'ceo') {
-    const existing = valutazioni.ceo[emp.id]
+    const existing = getCEODecision(emp.id)
     if (existing) {
       evalForm.ceoData = existing.data
       evalForm.ceoDecisione = existing.decisione
@@ -678,11 +693,18 @@ function getModalTitle() {
   return `Valutazione ${tipo} — ${modal.emp.nome} ${modal.emp.cognome}`
 }
 
+function avgManagerScore(empId) {
+  const m = getManagerEvaluation(empId)
+  if (!m) return '—'
+  const vals = [m.competenze, m.qualita, m.problemSolving, m.velocita, m.collaborazione, m.comunicazione, m.attitudine]
+  return (vals.reduce((a, b) => a + (b || 0), 0) / vals.length).toFixed(1)
+}
+
 function saveEvaluation() {
   if (!modal.emp) return
 
   if (modal.tipo === 'manager') {
-    valutazioni.manager[modal.emp.id] = {
+    store.saveValutazioneManager(modal.emp.id, {
       competenze: evalForm.competenze, competenzeNote: evalForm.competenzeNote,
       qualita: evalForm.qualita, qualitaNote: evalForm.qualitaNote,
       problemSolving: evalForm.problemSolving, problemSolvingNote: evalForm.problemSolvingNote,
@@ -695,19 +717,18 @@ function saveEvaluation() {
       motivazioneRaccomandazione: evalForm.motivazioneRaccomandazione,
       suggerimenti: evalForm.suggerimenti,
       areaeMiglioramento: evalForm.areaeMiglioramento
-    }
+    })
   } else if (modal.tipo === 'hr') {
-    valutazioni.hr[modal.emp.id] = {
-      data: evalForm.hrData,
+    store.saveValutazioneHR(modal.emp.id, {
       voto: evalForm.hrVoto,
       commento: evalForm.hrCommento
-    }
+    })
   } else if (modal.tipo === 'ceo') {
-    valutazioni.ceo[modal.emp.id] = {
-      data: evalForm.ceoData,
+    store.saveCEODecision(modal.emp.id, {
       decisione: evalForm.ceoDecisione,
-      motivazione: evalForm.ceoMotivazione
-    }
+      motivazione: evalForm.ceoMotivazione,
+      dataProrogaFino: evalForm.ceoDataProrogaFino || null
+    })
   }
 
   modal.open = false

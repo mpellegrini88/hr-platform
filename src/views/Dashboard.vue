@@ -39,8 +39,11 @@
             <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni Rimanenti</th><th>Stato</th><th>Azione</th>
           </tr></thead>
           <tbody>
-            <tr v-for="c in contratiInScadenza" :key="c.id" :class="{'bg-red-50': c.daysToEnd <= 0, 'bg-amber-50': c.daysToEnd <= 7}">
-              <td class="font-medium text-amber-900">{{ c.nome }} {{ c.cognome }}</td>
+            <tr v-for="c in contratiInScadenza" :key="c.id" :class="['tbl-clickable', c.daysToEnd <= 0 ? 'bg-red-100 border-l-4 border-l-red-400' : c.daysToEnd <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : c.daysToEnd <= 30 ? 'bg-yellow-50 border-l-4 border-l-yellow-400' : '']">
+              <td class="font-medium text-amber-900 relative pl-6">
+                <span v-if="c.daysToEnd <= 7" class="absolute left-1.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full" :class="c.daysToEnd <= 0 ? 'bg-red-500 animate-pulse' : 'bg-amber-400'"></span>
+                {{ c.nome }} {{ c.cognome }}
+              </td>
               <td><span class="badge badge-gray">{{ c.team }}</span></td>
               <td class="font-mono text-sm text-amber-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
               <td><span :class="['badge', c.daysToEnd <= 0 ? 'badge-red' : c.daysToEnd <= 7 ? 'badge-orange' : 'badge-yellow']">{{ c.daysToEnd }}gg</span></td>
@@ -70,7 +73,10 @@
             </tr></thead>
             <tbody>
               <tr v-for="u in urgenti.slice(0,10)" :key="u.key" :class="['tbl-clickable', u.rowClass]">
-                <td class="font-medium">{{ u.nome }} {{ u.cognome }}</td>
+                <td class="font-medium relative pl-6">
+                  <span class="absolute left-1.5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full" :class="u.critical ? 'bg-red-500 animate-pulse' : 'bg-amber-400'"></span>
+                  {{ u.nome }} {{ u.cognome }}
+                </td>
                 <td><span class="badge badge-gray">{{ u.team }}</span></td>
                 <td><span :class="['badge', u.badgeClass]">{{ u.tipo }}</span></td>
                 <td class="font-mono text-sm">{{ fmtDateShort(u.data) }}</td>
@@ -555,21 +561,21 @@ const urgenti = computed(() => {
   store.enrichedEmployees.forEach(e => {
     if (e.fu1Scaduto) {
       const days = Math.round((new Date(e.scadenzaFU1) - today) / 86400000)
-      list.push({ key: e.id+'fu1s', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: 'Scaduto!', badgeClass: 'badge-blue', urgClass: 'badge-red', rowClass: 'bg-red-50', daysRemaining: days })
+      list.push({ key: e.id+'fu1s', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: 'Scaduto!', badgeClass: 'badge-blue', urgClass: 'badge-red', rowClass: 'bg-red-100 border-l-4 border-l-red-400', critical: true, daysRemaining: days })
     } else if (e.fu1Urgente) {
       const days = e.daysToFU1
-      list.push({ key: e.id+'fu1u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${days}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-orange-50' : 'bg-yellow-50', daysRemaining: days })
+      list.push({ key: e.id+'fu1u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${days}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
     }
     if (e.fu2Urgente) {
       const days = e.daysToFU2
-      list.push({ key: e.id+'fu2u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${days}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-orange-50' : 'bg-yellow-50', daysRemaining: days })
+      list.push({ key: e.id+'fu2u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${days}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
     }
     if (e.provaUrgente) {
       const days = e.daysToProva
-      list.push({ key: e.id+'fp', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${days}gg`, badgeClass: 'badge-indigo', urgClass: days <= 0 ? 'badge-red' : days <= 7 ? 'badge-orange' : 'badge-yellow', rowClass: days <= 0 ? 'bg-red-50' : days <= 7 ? 'bg-orange-50' : 'bg-yellow-50', daysRemaining: days })
+      list.push({ key: e.id+'fp', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${days}gg`, badgeClass: 'badge-indigo', urgClass: days <= 0 ? 'badge-red' : days <= 7 ? 'badge-orange' : 'badge-yellow', rowClass: days <= 0 ? 'bg-red-100 border-l-4 border-l-red-400' : days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: days <= 0, daysRemaining: days })
     }
     // Burnout risk: show only if P&C data exists
-    if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red', rowClass: 'bg-red-50', daysRemaining: 999 })
+    if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red', rowClass: 'bg-red-100 border-l-4 border-l-red-400', critical: true, daysRemaining: 999 })
   })
   return list.sort((a, b) => (a.daysRemaining || 999) - (b.daysRemaining || 999))
 })

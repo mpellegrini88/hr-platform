@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import Modal from '@/components/ui/Modal.vue'
 import PCColloquioForm from '@/components/forms/PCColloquioForm.vue'
 

@@ -24,12 +24,12 @@
 
     <!-- KPI -->
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
-      <KpiCard label="Ferie spettanti" :value="totals.spettanti" icon="📅" color="blue" />
-      <KpiCard label="Ferie godute" :value="totals.godute" icon="✅" color="emerald" />
-      <KpiCard label="Ferie residue" :value="totals.residue" icon="⏳" color="amber" :alert="totals.residue > totals.spettanti * 0.7" />
-      <KpiCard label="% Godute" :value="totals.percGodute + '%'" icon="📊" color="indigo" />
-      <KpiCard label="Permessi spett." :value="totals.permessiSpett" icon="📋" color="purple" />
-      <KpiCard label="Permessi goduti" :value="totals.permessiGoduti" icon="📋" color="violet" />
+      <KpiCard label="Ferie annuali" :value="r2(totals.annuali)" icon="📅" color="blue" />
+      <KpiCard label="Ferie maturate" :value="r2(totals.spettanti)" icon="📈" color="indigo" />
+      <KpiCard label="Ferie godute" :value="r2(totals.godute)" icon="✅" color="emerald" />
+      <KpiCard label="Ferie residue" :value="r2(totals.residue)" icon="⏳" color="amber" :alert="totals.residue > totals.spettanti * 0.7" />
+      <KpiCard label="% Godute" :value="totals.percGodute + '%'" icon="📊" color="purple" />
+      <KpiCard label="Permessi mat." :value="r2(totals.permessiSpett)" icon="📋" color="violet" />
       <KpiCard label="Gg Malattia" :value="totals.malattia" icon="🤒" color="red" />
       <KpiCard label="Assenze N.G." :value="totals.assenze" icon="⚠️" color="red" :alert="totals.assenze > 0" />
     </div>
@@ -72,14 +72,17 @@
               </th>
               <th>Team</th>
               <th class="text-center">Contratto</th>
+              <th class="text-center">Annuali</th>
+              <th class="text-center">€/mese</th>
               <th class="text-center cursor-pointer select-none" @click="toggleSort('ferieSpettanti')">
-                Ferie Sp. <span v-if="sortCol === 'ferieSpettanti'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                Maturate <span v-if="sortCol === 'ferieSpettanti'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
               </th>
+              <th class="text-center">Residui AP</th>
               <th class="text-center cursor-pointer select-none" @click="toggleSort('ferieGodute')">
-                Ferie God. <span v-if="sortCol === 'ferieGodute'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                Godute <span v-if="sortCol === 'ferieGodute'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
               </th>
               <th class="text-center cursor-pointer select-none" @click="toggleSort('ferieResidue')">
-                Ferie Res. <span v-if="sortCol === 'ferieResidue'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                Residue <span v-if="sortCol === 'ferieResidue'">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
               </th>
               <th class="text-center">%</th>
               <th class="text-center cursor-pointer select-none" @click="toggleSort('permessiSpettantiGg')">
@@ -111,11 +114,17 @@
                   {{ f.tipoContrattoFerie === 'proprio' ? 'Proprio' : 'CCNL' }}
                 </span>
               </td>
-              <td class="text-center">{{ Math.round(f.ferieSpettanti * 100) / 100 }}</td>
-              <td class="text-center">{{ Math.round(f.ferieGodute * 100) / 100 }}</td>
+              <td class="text-center">{{ r2(f.ferieAnnuali) }}</td>
+              <td class="text-center text-[10px] text-gray-400">{{ r2(f.rataMensile) }}</td>
+              <td class="text-center">{{ r2(f.ferieSpettanti) }}</td>
+              <td class="text-center">
+                <span v-if="f.residuiAnniPrecedenti > 0" class="text-purple-600 font-medium">{{ r2(f.residuiAnniPrecedenti) }}</span>
+                <span v-else class="text-gray-300">—</span>
+              </td>
+              <td class="text-center">{{ r2(f.ferieGodute) }}</td>
               <td class="text-center">
                 <span :class="['font-semibold', f.ferieResidue > 20 ? 'text-amber-600' : f.ferieResidue > 10 ? 'text-yellow-600' : 'text-gray-700']">
-                  {{ Math.round(f.ferieResidue * 100) / 100 }}
+                  {{ r2(f.ferieResidue) }}
                 </span>
               </td>
               <td class="text-center">
@@ -202,19 +211,41 @@
             </div>
           </Section>
 
-          <Section title="Ferie annuali">
+          <Section title="Ferie annuali — Maturazione mensile">
+            <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-4">
+              <div class="grid grid-cols-4 gap-4 text-center">
+                <div>
+                  <div class="text-xs text-blue-500 font-semibold uppercase">Annuali</div>
+                  <div class="text-lg font-bold text-blue-900">{{ r2(modal.data.ferieAnnuali) }}</div>
+                </div>
+                <div>
+                  <div class="text-xs text-blue-500 font-semibold uppercase">Rata/mese</div>
+                  <div class="text-lg font-bold text-blue-900">{{ r2(modal.data.rataMensile) }}</div>
+                </div>
+                <div>
+                  <div class="text-xs text-blue-500 font-semibold uppercase">Maturate</div>
+                  <div class="text-lg font-bold text-indigo-700">{{ r2(modal.data.ferieSpettanti) }}</div>
+                </div>
+                <div>
+                  <div class="text-xs text-blue-500 font-semibold uppercase">Da maturare</div>
+                  <div class="text-lg font-bold text-gray-500">{{ r2((modal.data.ferieAnnuali || 0) - (modal.data.ferieSpettanti || 0)) }}</div>
+                </div>
+              </div>
+            </div>
             <div class="grid grid-cols-3 gap-4">
               <div>
-                <label class="form-label">Spettanti (gg)</label>
-                <input class="form-input" type="number" v-model.number="modal.data.ferieSpettanti" @input="recalcModal">
+                <label class="form-label">Residui anni precedenti</label>
+                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.residuiAnniPrecedenti" @input="recalcModal">
+                <p class="text-[10px] text-gray-400 mt-1">Impostare manualmente i residui da anni passati</p>
               </div>
               <div>
                 <label class="form-label">Godute (calc.)</label>
-                <input class="form-input bg-gray-50" :value="modal.data.ferieGodute" readonly>
+                <input class="form-input bg-gray-50" :value="r2(modal.data.ferieGodute)" readonly>
               </div>
               <div>
                 <label class="form-label">Residue (calc.)</label>
-                <input class="form-input bg-gray-50" :value="modal.data.ferieResidue" readonly>
+                <input class="form-input bg-gray-50" :value="r2(modal.data.ferieResidue)" readonly>
+                <p class="text-[10px] text-gray-400 mt-1">Maturate + Residui AP - Godute</p>
               </div>
             </div>
             <div class="mt-3">
@@ -378,6 +409,8 @@ import KpiCard from '@/components/ui/KpiCard.vue'
 
 const store = useHrStore()
 
+function r2(v) { return v != null ? Number(v).toFixed(2) : '0.00' }
+
 // Ensure ferie records exist for all employees
 store.ensureFerieForAll()
 
@@ -431,15 +464,16 @@ const teamsFiltered = computed(() => {
 const totals = computed(() => {
   const a = store.ferieAnalytics
   const base = a ? a.totals : { spettanti: 0, godute: 0, residue: 0, malattia: 0, assenze: 0, percGodute: 0 }
-  // Permessi totals
-  let permessiSpett = 0, permessiGoduti = 0
+  // Annuali & permessi totals
+  let annuali = 0, permessiSpett = 0, permessiGoduti = 0
   ferie.value.forEach(f => {
+    annuali += f.ferieAnnuali || 0
     if (f.tipoContrattoFerie === 'ccnl_commercio') {
       permessiSpett += f.permessiSpettantiGg || 0
       permessiGoduti += f.permessiGodutiGg || 0
     }
   })
-  return { ...base, permessiSpett: Math.round(permessiSpett * 100) / 100, permessiGoduti: Math.round(permessiGoduti * 100) / 100 }
+  return { ...base, annuali: Math.round(annuali * 100) / 100, permessiSpett: Math.round(permessiSpett * 100) / 100, permessiGoduti: Math.round(permessiGoduti * 100) / 100 }
 })
 
 const filtered = computed(() => {
@@ -508,9 +542,13 @@ function changeContratto(tipo) {
 }
 
 function recalcModal() {
-  modal.data.ferieResidue = (modal.data.ferieSpettanti || 0) - (modal.data.ferieGodute || 0)
-  modal.data.percGodute = modal.data.ferieSpettanti > 0
-    ? Math.round(modal.data.ferieGodute / modal.data.ferieSpettanti * 100) : 0
+  const maturate = modal.data.ferieSpettanti || 0
+  const residuiAP = modal.data.residuiAnniPrecedenti || 0
+  const godute = modal.data.ferieGodute || 0
+  modal.data.ferieResidue = Math.round((maturate + residuiAP - godute) * 100) / 100
+  const totDisponibili = maturate + residuiAP
+  modal.data.percGodute = totDisponibili > 0
+    ? Math.round(godute / totDisponibili * 100) : 0
 }
 
 function resetEntryForm() {
@@ -584,8 +622,11 @@ function removeEntry(entryId) {
 }
 
 function saveAll() {
+  // Persist residui anni precedenti
+  if (modal.data.residuiAnniPrecedenti !== undefined) {
+    store.updateResiduiAnniPrecedenti(modal.data.nome, modal.data.residuiAnniPrecedenti)
+  }
   store.saveFerie(modal.data.nome, {
-    ferieSpettanti: modal.data.ferieSpettanti,
     noteFerie: modal.data.noteFerie,
     noteMalattia: modal.data.noteMalattia,
     noteAssenze: modal.data.noteAssenze

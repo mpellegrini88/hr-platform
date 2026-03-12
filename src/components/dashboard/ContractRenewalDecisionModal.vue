@@ -10,10 +10,31 @@
       </p>
       <p v-if="esitoProva" class="text-sm mt-1">
         <strong>Valutazione Prova:</strong>
-        <span :class="esitoProva === 'Superato' ? 'text-emerald-600 font-medium' : 'text-red-600 font-medium'">
+        <span :class="esitoProva === 'Superato' ? 'text-emerald-600 font-medium' : esitoProva === 'Non Superato' ? 'text-red-600 font-medium' : 'text-blue-600 font-medium'">
           {{ esitoProva }}
         </span>
       </p>
+    </div>
+
+    <!-- Valutazione Summary (if available) -->
+    <div v-if="valutazioneSummary" class="mb-4 space-y-2">
+      <div v-if="valutazioneSummary.manager" class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs">
+        <p class="font-semibold text-blue-900 mb-1">👨‍💼 Valutazione Manager</p>
+        <p><strong>Raccomandazione:</strong> {{ valutazioneSummary.manager.raccomandazione }}</p>
+        <p class="text-gray-500">Media voti: {{ valutazioneSummary.managerAvg }}/5</p>
+      </div>
+      <div v-if="valutazioneSummary.hr" class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-xs">
+        <p class="font-semibold text-purple-900 mb-1">👩‍💼 Validazione HR</p>
+        <p><strong>Voto:</strong> {{ valutazioneSummary.hr.voto }}/10</p>
+        <p v-if="valutazioneSummary.hr.commento" class="text-gray-500 mt-1">{{ valutazioneSummary.hr.commento }}</p>
+      </div>
+      <div v-if="valutazioneSummary.ceo" class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs">
+        <p class="font-semibold text-amber-900 mb-1">👑 Decisione CEO</p>
+        <p :class="valutazioneSummary.ceo.decisione === 'Confermare il dipendente' ? 'text-emerald-700 font-bold' : valutazioneSummary.ceo.decisione === 'Non confermare' ? 'text-red-700 font-bold' : 'text-amber-700 font-bold'">{{ valutazioneSummary.ceo.decisione }}</p>
+      </div>
+      <div v-if="!valutazioneSummary.manager" class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs">
+        <p class="text-yellow-800">⚠️ Nessuna valutazione del periodo di prova disponibile. <strong>Attenzione:</strong> si consiglia di completare la valutazione prima di decidere.</p>
+      </div>
     </div>
 
     <form @submit.prevent="saveDecision" class="space-y-4">
@@ -100,7 +121,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 import Modal from '@/components/ui/Modal.vue'
 
@@ -120,6 +141,21 @@ const form = ref({
   decisione: null,
   dataProrogaFino: null,
   noteDecisioneRinnovo: ''
+})
+
+// Get valutazione summary for the employee
+const valutazioneSummary = computed(() => {
+  if (!props.employeeId) return null
+  const emp = store.employees.find(e => e.id === props.employeeId)
+  if (!emp?.valutazionePeriodoProva) return { manager: null, hr: null, ceo: null }
+  const v = emp.valutazionePeriodoProva
+  const m = v.manager
+  let managerAvg = '—'
+  if (m) {
+    const vals = [m.competenze, m.qualita, m.problemSolving, m.velocita, m.collaborazione, m.comunicazione, m.attitudine]
+    managerAvg = (vals.reduce((a, b) => a + (b || 0), 0) / vals.length).toFixed(1)
+  }
+  return { manager: m || null, hr: v.hr || null, ceo: v.ceo || null, managerAvg }
 })
 
 // Reset form when modal opens

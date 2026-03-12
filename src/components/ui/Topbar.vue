@@ -9,7 +9,15 @@
       <div v-if="store.kpiScadenze.burnoutUrgenti > 0" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-lg text-xs font-medium text-amber-700">
         <span>🔴</span> {{ store.kpiScadenze.burnoutUrgenti }} burnout alto
       </div>
-      <div class="text-xs text-gray-400">{{ today }}</div>
+      <div class="flex items-center gap-2">
+        <span v-if="store.backendAvailable" class="flex items-center gap-1 px-2 py-1 bg-emerald-50 rounded-lg text-xs text-emerald-600" title="Backend connesso — dati salvati su server locale">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Server
+        </span>
+        <span v-else class="flex items-center gap-1 px-2 py-1 bg-gray-50 rounded-lg text-xs text-gray-400" title="Backend non connesso — dati salvati in IndexedDB">
+          <span class="w-2 h-2 rounded-full bg-gray-300"></span> Locale
+        </span>
+        <div class="text-xs text-gray-400">{{ today }}</div>
+      </div>
     </div>
   </header>
 </template>
