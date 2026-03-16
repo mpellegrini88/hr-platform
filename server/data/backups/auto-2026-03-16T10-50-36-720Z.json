@@ -1034,45 +1034,16 @@
       "motivoUscita": "",
       "noteUscita": "",
       "valutazionePeriodoProva": {
-        "faseCorrente": "hr-complete",
-        "dataValutazioneManager": "2026-03-16",
-        "dataValutazioneHR": "2026-03-16",
-        "manager": {
-          "competenze": 2,
-          "competenzeNote": "scarse conoscenze di base nel campo della microelettronica. Dopo alcuni mesi in cui il candidato è stato posto sulle simuilazioni e quindi diciamo a fare cose più semplici delle cose che si fanno normalmente, è stato messo a confrontarsi con progetti più seri e ha evidenziato gravi difficoltà",
-          "qualita": 2,
-          "qualitaNote": "Scarsa autonomia",
-          "problemSolving": 2,
-          "problemSolvingNote": "Scarsa proattività",
-          "velocita": 1,
-          "velocitaNote": "A questo ritmo purtroppo il divario è incolmabile",
-          "collaborazione": 3,
-          "collaborazioneNote": "Nessun problema evidente nello stare in team anche se problemi evidenti di comunicazione difficoltà ai responsabili per timidezza.",
-          "comunicazione": 2,
-          "comunicazioneNote": "poco comunicativo, soprattutto in fase di riporto problemi,",
-          "attitudine": 2,
-          "attitudineNote": "",
-          "osservazioni": "Il candidato che già in sede di assunzione aveva dimostrato alcuni problemi sull'elettronica di base ed era stato assunto perchpè c'era necessità reale, nel corso di questi sei mesi non è riuscito a colmare il gap raggiungendo il livello minimo di autonomia richiesto per questa posizione. Per tale motivo che va ad unirsi ad una comunicaszione poco efficiente che ha inficiato sicuramente anche la produttività. Il consiglio è quello di non confermare il dipendente.",
-          "raccomandazione": "Non confermare",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": ""
-        },
-        "hr": {
-          "voto": 2,
-          "commento": "Avendo parlato di recente con Edoardo mi sono reso conto della grande fatica che anbche lui ha ammesso di stare facendo in questa posizione. Non mi è parso che nei suoi piani futuri ci fosse il perseguire questo tipo di carriera e un po' questa cosa l'ha confermata lui stessso e gli studi che sta facendo ( master in BA) che poco c'entrano con un riallineanto su quanto richiesto dai manager per operare al meglio.\nPer tale motivo e per non generare problemi ulteriori nella gestione dei progetti e alla risorsa, mettendola in una situazione di lavoro assai complessa, mi trovo concorde nel non confermare.,",
-          "hrOnboarding": 2,
-          "hrEngagement": 3,
-          "hrWellbeing": 3,
-          "hrCulturalFit": 2,
-          "hrGrowthPotential": 2,
-          "hrRetention": 2
-        }
+        "faseCorrente": "manager-pending",
+        "dataValutazioneManager": null,
+        "dataValutazioneHR": null,
+        "manager": null,
+        "hr": null
       },
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T10:54:42.408Z",
+        "dataUltimaModifica": null,
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
@@ -7404,9 +7375,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773658482417,
+  "timestamp": 1773657745916,
   "_meta": {
-    "savedAt": "2026-03-16T10:54:43.941Z",
+    "savedAt": "2026-03-16T10:42:27.449Z",
     "version": "2.0"
   }
 }

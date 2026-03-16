@@ -20,6 +20,104 @@
       </div>
     </div>
 
+    <!-- PROSSIMI INGRESSI -->
+    <div v-if="activeTab === 'prossimiIngressi'">
+      <div v-if="prossimiIngressi.length === 0" class="card p-12 text-center text-gray-400">Nessun dipendente in arrivo</div>
+      <div v-else class="space-y-4">
+        <div v-for="e in prossimiIngressi" :key="e.id" class="card overflow-hidden">
+          <!-- Header -->
+          <div class="px-5 py-4 border-b border-gray-50 flex items-center gap-4 bg-gradient-to-r from-blue-50 to-blue-50">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm shrink-0">
+              {{ initials(e.nome) }}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-gray-900">{{ e.nome }} {{ e.cognome }}</div>
+              <div class="text-xs text-gray-500">{{ e.team }} · {{ e.citta }} · {{ e.livelloCCNL }}</div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-xs text-gray-500">Ingresso previsto</div>
+              <div class="text-lg font-bold text-blue-700">{{ fmtDateShort(e.dataAssunzione) }}</div>
+            </div>
+          </div>
+
+          <!-- Pre-Entry Checklist -->
+          <div class="px-5 py-4">
+            <div class="mb-4">
+              <h4 class="text-sm font-semibold text-gray-700 mb-3">📋 Checklist Pre-Ingresso</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.invioScritturaPrivata || false"
+                    @change="updatePreboardingChecklist(e.id, 'invioScritturaPrivata', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">📄 Invio scrittura privata allo studio</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.creazioneProfiliweb || false"
+                    @change="updatePreboardingChecklist(e.id, 'creazioneProfiliweb', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">💻 Creazione profili web/sistema</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.invioProcedure || false"
+                    @change="updatePreboardingChecklist(e.id, 'invioProcedure', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">📋 Invio procedure e documentazione</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.visitaMedica || false"
+                    @change="updatePreboardingChecklist(e.id, 'visitaMedica', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">🏥 Visita medica preventiva</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.corsoFormazione || false"
+                    @change="updatePreboardingChecklist(e.id, 'corsoFormazione', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">🎓 Corso di formazione/induction</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition">
+                  <input
+                    type="checkbox"
+                    :checked="e.preoboardingChecklist?.invioContratti || false"
+                    @change="updatePreboardingChecklist(e.id, 'invioContratti', $event.target.checked)"
+                    class="rounded"
+                  >
+                  <span class="text-sm">✍️ Invio contratti e firmamento</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="mt-4 pt-3 border-t border-gray-100">
+              <div class="text-xs font-semibold text-gray-600 mb-1">Completamento</div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div
+                  class="bg-blue-600 h-1.5 rounded-full transition-all"
+                  :style="{ width: ((getChecklistProgress(e.id) / 6) * 100) + '%' }"
+                ></div>
+              </div>
+              <div class="text-xs text-gray-500 mt-1">{{ getChecklistProgress(e.id) }} di 6 completate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- IN CORSO -->
     <div v-if="activeTab === 'inCorso'">
       <div v-if="inCorso.length === 0" class="card p-12 text-center text-gray-400">Nessun dipendente in periodo di prova</div>
@@ -464,11 +562,26 @@ const activeTab = ref('inCorso')
 const search = ref(''), filterYear = ref('')
 
 const tabs = [
+  { value: 'prossimiIngressi', label: '📥 Prossimi Ingressi' },
   { value: 'inCorso', label: '🚀 In corso' },
   { value: 'storico', label: '📚 Storico' },
 ]
 
 const allOnboarding = computed(() => store.enrichedEmployees.filter(e => e.fineProva || e.dataAssunzione))
+
+const prossimiIngressi = computed(() => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return store.enrichedEmployees
+    .filter(e => {
+      if (!e.dataAssunzione) return false
+      const dataAssunzione = new Date(e.dataAssunzione)
+      dataAssunzione.setHours(0, 0, 0, 0)
+      return dataAssunzione > today
+    })
+    .filter(e => !search.value || e.nome.toLowerCase().includes(search.value.toLowerCase()))
+    .sort((a, b) => new Date(a.dataAssunzione) - new Date(b.dataAssunzione))
+})
 
 const inCorso = computed(() => {
   return allOnboarding.value
@@ -586,4 +699,21 @@ function saveDetailFull() {
   
   detail.open = false
 }
+
+function updatePreboardingChecklist(empId, taskKey, isChecked) {
+  store.updateEmployee(empId, {
+    preoboardingChecklist: {
+      ...(store.employees.find(e => e.id === empId)?.preoboardingChecklist || {}),
+      [taskKey]: isChecked
+    }
+  })
+}
+
+function getChecklistProgress(empId) {
+  const emp = store.employees.find(e => e.id === empId)
+  const checklist = emp?.preoboardingChecklist || {}
+  const tasks = Object.values(checklist).filter(v => v === true)
+  return tasks.length
+}
+
 </script>

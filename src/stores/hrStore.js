@@ -297,7 +297,23 @@ export const useHrStore = defineStore('hr', () => {
   }
 
   function addEmployee(data) {
-    const e = recalcProva({ ...data, id: Date.now(), statoFU1: 'Da Fare', statoFU2Dip: 'Da Fare', statoFU2Manager: 'Da Fare', esitoProva: 'In Corso', stato: data.stato || 'Attivo' })
+    const e = recalcProva({
+      ...data,
+      id: Date.now(),
+      statoFU1: 'Da Fare',
+      statoFU2Dip: 'Da Fare',
+      statoFU2Manager: 'Da Fare',
+      esitoProva: 'In Corso',
+      stato: data.stato || 'Attivo',
+      preoboardingChecklist: {
+        invioScritturaPrivata: false,
+        creazioneProfiliweb: false,
+        invioProcedure: false,
+        visitaMedica: false,
+        corsoFormazione: false,
+        invioContratti: false
+      }
+    })
     employees.value.push(e)
     colloqui.value.push({ nome: e.nome, team: e.team })
     ferie.value.push({ nome: e.nome, team: e.team, citta: e.citta, ferieSpettanti: 0, ferieGodute: 0, ferieResidue: 0, percGodute: 0, ggMalattia: 0, episodiMalattia: 0, ggMalattia3m: 0, assenzeNonGiust: 0 })
