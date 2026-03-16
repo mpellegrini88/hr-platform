@@ -1,5 +1,8 @@
 <template>
   <div class="p-6 space-y-6">
+    <!-- DEBUG -->
+    <div v-if="false" class="text-red-600 text-sm">{{ prossimiIngressi.length }} dipendenti</div>
+
     <!-- Header -->
     <div class="flex items-center justify-between">
       <div>
@@ -273,13 +276,21 @@
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue'
+import { computed, reactive, onMounted, watch } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
 
 const store = useHrStore()
 const { fmtDateShort } = useHelpers()
+
+onMounted(() => {
+  console.log('✅ PreOnboarding montato. Store employees:', store.employees.length)
+})
+
+watch(() => store.employees.length, (newLen) => {
+  console.log('📊 Store employees update:', newLen)
+})
 
 const newEmployeeModal = reactive({
   open: false,
@@ -420,14 +431,16 @@ function getEmployeeCompletion(empId) {
 }
 
 const avgCompletion = computed(() => {
-  if (prossimiIngressi.length === 0) return 0
-  const total = prossimiIngressi.reduce((sum, emp) => sum + getEmployeeCompletion(emp.id), 0)
-  return Math.round((total / (prossimiIngressi.length * 5)) * 100)
+  const emps = prossimiIngressi.value
+  if (emps.length === 0) return 0
+  const total = emps.reduce((sum, emp) => sum + getEmployeeCompletion(emp.id), 0)
+  return Math.round((total / (emps.length * 5)) * 100)
 })
 
 function getUrgentTasks() {
   let count = 0
-  prossimiIngressi.forEach(emp => {
+  const emps = prossimiIngressi.value
+  emps.forEach(emp => {
     const tasks = ['invioScritturaPrivata', 'creazioneProfiliweb', 'invioProcedure', 'invioContratti', 'visitaMedica']
     tasks.forEach(task => {
       if (!emp.preoboardingChecklist?.[task]) {
@@ -459,7 +472,8 @@ function getUrgentTasks() {
 
 function getTaksOverdue(taskKey) {
   let count = 0
-  prossimiIngressi.forEach(emp => {
+  const emps = prossimiIngressi.value
+  emps.forEach(emp => {
     if (!emp.preoboardingChecklist?.[taskKey]) {
       const dataAssun = new Date(emp.dataAssunzione)
       const daysBeforeFromToday = taskKey === 'invioScritturaPrivata' ? 30 : 0
