@@ -392,24 +392,102 @@
 
       <!-- HR Validation Form -->
       <div v-else-if="modal.tipo === 'hr'" class="space-y-4">
-        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-3 rounded border border-blue-200 text-sm">
-          <strong>Raccomandazione Manager:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}
+        <!-- Manager Evaluation Summary -->
+        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-4 rounded border border-blue-200">
+          <p class="text-xs font-semibold text-blue-700 uppercase mb-2">Recap Valutazione Manager</p>
+          <div class="grid grid-cols-2 gap-2 text-xs mb-2">
+            <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id).competenze }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id).qualita }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id).problemSolving }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id).velocita }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id).collaborazione }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id).comunicazione }}/5</div>
+            <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id).attitudine }}/5</div>
+          </div>
+          <p class="text-xs text-blue-700"><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
         </div>
 
+        <div class="bg-purple-50 border border-purple-200 rounded p-4">
+          <p class="text-xs font-semibold text-purple-700 uppercase mb-4">🧠 Assessment Psicologico HR (Best Practice)</p>
+          
+          <!-- Onboarding Success -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">1. Successo Onboarding (integrazione e apprendimento iniziale)</label>
+            <input v-model.number="evalForm.hrOnboarding" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrOnboarding }}/5</span>
+              <span>1=Difficile, 5=Eccellente</span>
+            </div>
+          </div>
+
+          <!-- Engagement -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">2. Engagement (coinvolgimento, motivazione, dedizione)</label>
+            <input v-model.number="evalForm.hrEngagement" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrEngagement }}/5</span>
+              <span>1=Disimpegnato, 5=Molto coinvolto</span>
+            </div>
+          </div>
+
+          <!-- Wellbeing -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">3. Wellbeing (benessere psicologico, equilibrio vita-lavoro)</label>
+            <input v-model.number="evalForm.hrWellbeing" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrWellbeing }}/5</span>
+              <span>1=Sotto stress, 5=Equilibrato</span>
+            </div>
+          </div>
+
+          <!-- Cultural Fit -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">4. Cultural Fit (allineamento valori, integrazione cultura)</label>
+            <input v-model.number="evalForm.hrCulturalFit" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrCulturalFit }}/5</span>
+              <span>1=Non allineato, 5=Perfetto alignment</span>
+            </div>
+          </div>
+
+          <!-- Growth Potential -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">5. Growth Potential (potenziale di sviluppo, progressione futura)</label>
+            <input v-model.number="evalForm.hrGrowthPotential" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrGrowthPotential }}/5</span>
+              <span>1=Limitato, 5=Alto potenziale</span>
+            </div>
+          </div>
+
+          <!-- Retention Risk (Inverted) -->
+          <div class="space-y-1 mb-3">
+            <label class="text-sm font-medium text-gray-700">6. Retention Risk (fedeltà, rischio di turnover)</label>
+            <input v-model.number="evalForm.hrRetention" type="range" min="1" max="5" class="w-full">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>{{ evalForm.hrRetention }}/5</span>
+              <span>1=Alto rischio abbandono, 5=Molto fedele</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data validazione -->
         <div>
           <label class="form-label">Data validazione</label>
           <input v-model="evalForm.hrData" type="date" class="form-input">
         </div>
 
+        <!-- Voto HR Finale -->
         <div>
-          <label class="form-label">Voto HR (1-10)</label>
+          <label class="form-label">Voto HR Finale (1-10)</label>
           <input v-model.number="evalForm.hrVoto" type="range" min="1" max="10" class="w-full">
           <div class="text-sm text-gray-600 mt-1">{{ evalForm.hrVoto }}/10</div>
         </div>
 
+        <!-- Commento di Validazione -->
         <div>
-          <label class="form-label">Commento di Validazione HR</label>
-          <textarea v-model="evalForm.hrCommento" class="form-textarea" rows="4" placeholder="Valutazione e parere HR..."></textarea>
+          <label class="form-label">Commento di Validazione HR (Assessment e raccomandazioni)</label>
+          <textarea v-model="evalForm.hrCommento" class="form-textarea" rows="4" placeholder="Sintesi dell'assessment psicologico, feedback e raccomandazioni per lo sviluppo..."></textarea>
         </div>
       </div>
 
@@ -494,8 +572,10 @@ const evalForm = reactive({
   motivazioneRaccomandazione: '',
   suggerimenti: '',
   areaeMiglioramento: '',
-  // HR
+  // HR - Base
   hrData: '', hrVoto: 5, hrCommento: '',
+  // HR - Psychometric Assessment
+  hrOnboarding: 3, hrEngagement: 3, hrWellbeing: 3, hrCulturalFit: 3, hrGrowthPotential: 3, hrRetention: 3,
   // CEO
   ceoData: '', ceoDecisione: 'Confermare il dipendente', ceoMotivazione: '', ceoDataProrogaFino: ''
 })
@@ -690,7 +770,17 @@ function getHRValidation(empId) {
   const emp = store.employees.find(e => e.id === empId)
   const hr = emp?.valutazionePeriodoProva?.hr
   if (!hr) return null
-  return { data: emp.valutazionePeriodoProva.dataValutazioneHR, voto: hr.voto, commento: hr.commento }
+  return { 
+    data: emp.valutazionePeriodoProva.dataValutazioneHR, 
+    voto: hr.voto, 
+    commento: hr.commento,
+    hrOnboarding: hr.hrOnboarding,
+    hrEngagement: hr.hrEngagement,
+    hrWellbeing: hr.hrWellbeing,
+    hrCulturalFit: hr.hrCulturalFit,
+    hrGrowthPotential: hr.hrGrowthPotential,
+    hrRetention: hr.hrRetention
+  }
 }
 
 function getCEODecision(empId) {
@@ -728,10 +818,22 @@ function openEvaluation(emp, tipo) {
       evalForm.hrData = existing.data
       evalForm.hrVoto = existing.voto
       evalForm.hrCommento = existing.commento
+      evalForm.hrOnboarding = existing.hrOnboarding || 3
+      evalForm.hrEngagement = existing.hrEngagement || 3
+      evalForm.hrWellbeing = existing.hrWellbeing || 3
+      evalForm.hrCulturalFit = existing.hrCulturalFit || 3
+      evalForm.hrGrowthPotential = existing.hrGrowthPotential || 3
+      evalForm.hrRetention = existing.hrRetention || 3
     } else {
       evalForm.hrData = ''
       evalForm.hrVoto = 5
       evalForm.hrCommento = ''
+      evalForm.hrOnboarding = 3
+      evalForm.hrEngagement = 3
+      evalForm.hrWellbeing = 3
+      evalForm.hrCulturalFit = 3
+      evalForm.hrGrowthPotential = 3
+      evalForm.hrRetention = 3
     }
   } else if (tipo === 'ceo') {
     const existing = getCEODecision(emp.id)
@@ -783,7 +885,13 @@ function saveEvaluation() {
   } else if (modal.tipo === 'hr') {
     store.saveValutazioneHR(modal.emp.id, {
       voto: evalForm.hrVoto,
-      commento: evalForm.hrCommento
+      commento: evalForm.hrCommento,
+      hrOnboarding: evalForm.hrOnboarding,
+      hrEngagement: evalForm.hrEngagement,
+      hrWellbeing: evalForm.hrWellbeing,
+      hrCulturalFit: evalForm.hrCulturalFit,
+      hrGrowthPotential: evalForm.hrGrowthPotential,
+      hrRetention: evalForm.hrRetention
     })
   } else if (modal.tipo === 'ceo') {
     store.saveCEODecision(modal.emp.id, {

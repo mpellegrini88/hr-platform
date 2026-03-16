@@ -7303,30 +7303,6 @@
       "stato": "Fatto"
     },
     {
-      "id": 47,
-      "tipo": "REVIEW_MANAGER",
-      "nome": "Lento",
-      "cognome": "Alessandro",
-      "team": "Solutions > R & D",
-      "scadenza": "2026-04-01",
-      "urgenza": "BASSA",
-      "color": "gray",
-      "giorni": 16,
-      "stato": "Fatto"
-    },
-    {
-      "id": 88,
-      "tipo": "REVIEW_MANAGER",
-      "nome": "Valerio",
-      "cognome": "Di Malta",
-      "team": "Silicon Milano",
-      "scadenza": "2026-04-06",
-      "urgenza": "BASSA",
-      "color": "gray",
-      "giorni": 21,
-      "stato": "Fatto"
-    },
-    {
       "id": 28,
       "tipo": "PC_NON_FATTO",
       "nome": "Federica",
@@ -7375,9 +7351,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773657745916,
+  "timestamp": 1773656814562,
   "_meta": {
-    "savedAt": "2026-03-16T10:42:27.449Z",
+    "savedAt": "2026-03-16T10:26:56.084Z",
     "version": "2.0"
   }
 }
