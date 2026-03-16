@@ -11,10 +11,10 @@
 
     <!-- CONTRACT SCADENZE KPI Row -->
     <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi scaduti" :value="kpiContratti.rinnoveScadute" icon="⊘" color="red" :alert="kpiContratti.rinnoveScadute > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi entro 30gg" :value="kpiContratti.rinnoveEntro30gg" icon="⧖" color="amber" :alert="kpiContratti.rinnoveEntro30gg > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Dossier scaduti" :value="kpiContratti.dossieriScaduti" icon="☰" color="orange" :alert="kpiContratti.dossieriScaduti > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Determinati attivi" :value="kpiContratti.determinatiInScadenza" icon="✎" color="purple" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/contratti-termine')"><KpiCard label="Rinnovi scaduti" :value="kpiContratti.rinnoveScadute" icon="⊘" color="red" :alert="kpiContratti.rinnoveScadute > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/contratti-termine')"><KpiCard label="Rinnovi entro 30gg" :value="kpiContratti.rinnoveEntro30gg" icon="⧖" color="amber" :alert="kpiContratti.rinnoveEntro30gg > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/contratti-termine')"><KpiCard label="Dossier scaduti" :value="kpiContratti.dossieriScaduti" icon="☰" color="orange" :alert="kpiContratti.dossieriScaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/contratti-termine')"><KpiCard label="Determinati attivi" :value="kpiContratti.determinatiInScadenza" icon="✎" color="purple" /></button>
       <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/anagrafica')"><KpiCard label="Dipendenti attivi" :value="attivi" icon="⊙" color="indigo" /></button>
     </div>
 
@@ -47,7 +47,7 @@
       <div class="overflow-x-auto">
         <table class="tbl">
           <thead><tr>
-            <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni Rimanenti</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni Rimanenti</th><th>Stato</th><th>Azioni</th>
           </tr></thead>
           <tbody>
             <tr v-for="c in contratiInScadenza" :key="c.id" :class="['tbl-clickable', c.daysToEnd <= 0 ? 'bg-red-100 border-l-4 border-l-red-400' : c.daysToEnd <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : c.daysToEnd <= 30 ? 'bg-yellow-50 border-l-4 border-l-yellow-400' : '']">
@@ -59,7 +59,10 @@
               <td class="font-mono text-sm text-amber-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
               <td><span :class="['badge', c.daysToEnd <= 0 ? 'badge-red' : c.daysToEnd <= 7 ? 'badge-orange' : 'badge-yellow']">{{ c.daysToEnd }}gg</span></td>
               <td><span class="text-xs text-amber-800">{{ c.esitoProva }}</span></td>
-              <td><button @click="openReminderCEO(c)" class="text-amber-700 hover:text-amber-900 font-medium text-sm">Invia CEO</button></td>
+              <td class="flex gap-1.5">
+                <button @click="router.push('/contratti-termine')" class="text-primary-600 hover:text-primary-800 font-medium text-sm">Gestisci</button>
+                <button @click="openReminderCEO(c)" class="text-amber-600 hover:text-amber-800 font-medium text-sm">Remind CEO</button>
+              </td>
             </tr>
           </tbody>
         </table>
