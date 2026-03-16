@@ -34,6 +34,130 @@
       />
     </div>
 
+    <!-- ===== AGE ANALYTICS ===== -->
+    <div class="card p-5 border-t-4 border-indigo-500">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-gray-900">🎂 Age & Generational Analytics</h3>
+        <button @click="expandAgeAnalytics = !expandAgeAnalytics" class="text-xs font-medium text-indigo-600 hover:text-indigo-700 flex items-center gap-1 transition-transform" :style="{ transform: expandAgeAnalytics ? 'rotate(180deg)' : 'rotate(0deg)' }">
+          ▼ {{ expandAgeAnalytics ? 'Riduci' : 'Espandi' }}
+        </button>
+      </div>
+      
+      <div v-if="expandAgeAnalytics" class="space-y-5">
+      <!-- KPI Age -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div class="border border-gray-200 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500 font-medium">Età Media</div>
+          <div class="text-2xl font-bold text-indigo-600">{{ r2(avgAge) }}y</div>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500 font-medium">Più Giovane</div>
+          <div class="text-2xl font-bold text-emerald-600">{{ minAge }}y</div>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500 font-medium">Più Anziano</div>
+          <div class="text-2xl font-bold text-red-600">{{ maxAge }}y</div>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500 font-medium">Seniority Avg</div>
+          <div class="text-2xl font-bold text-blue-600">{{ r2(avgSeniority) }}y</div>
+        </div>
+        <div class="border border-gray-200 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500 font-medium">Risk Pensionamento</div>
+          <div class="text-2xl font-bold" :class="ageRiskRetirement > 10 ? 'text-red-600' : 'text-gray-600'">{{ ageRiskRetirement }}</div>
+        </div>
+      </div>
+
+      <!-- Age Distribution & Team Comparison -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Distribution by Age Band -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <h4 class="font-semibold text-gray-900 mb-3 text-sm">Distribuzione per Fascia d'Età</h4>
+          <div class="space-y-3">
+            <div v-for="band in ageBands" :key="band.label" class="flex items-center gap-3">
+              <span class="text-xs font-medium text-gray-600 w-16">{{ band.label }}</span>
+              <div class="flex-1 bg-gray-100 rounded-full h-6 overflow-hidden flex items-center">
+                <div :class="['h-full transition-all', band.color]" :style="{ width: (band.count / maxAgeBand * 100) + '%' }"></div>
+              </div>
+              <span class="text-sm font-bold text-gray-900 w-10 text-right">{{ band.count }}</span>
+              <span class="text-xs text-gray-500 w-12 text-right">{{ r2(band.percent) }}%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Age by Team -->
+        <div class="border border-gray-200 rounded-lg p-4">
+          <h4 class="font-semibold text-gray-900 mb-3 text-sm">Età Media per Team</h4>
+          <div class="space-y-2 max-h-64 overflow-y-auto">
+            <div v-for="team in ageByTeam" :key="team.team" class="flex items-center justify-between p-2 bg-gray-50 rounded">
+              <span class="text-xs font-medium text-gray-700 flex-1">{{ team.team }}</span>
+              <div class="flex items-center gap-2">
+                <div class="w-24 bg-gray-200 rounded-full h-3 overflow-hidden">
+                  <div class="bg-indigo-500 h-full rounded-full" :style="{ width: (team.avgAge / maxAge * 100) + '%' }"></div>
+                </div>
+                <span class="text-sm font-semibold text-gray-900 w-8 text-right">{{ r2(team.avgAge) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Age vs CCNL Level heatmap -->
+      <div class="mt-5 border border-gray-200 rounded-lg p-4">
+        <h4 class="font-semibold text-gray-900 mb-3 text-sm">📊 Correlazione: Età → Livello CCNL</h4>
+        <div class="overflow-x-auto">
+          <table class="tbl text-xs">
+            <thead>
+              <tr>
+                <th>Fascia d'Età</th>
+                <th v-for="level in allCcnlLevels" :key="level" class="text-center">{{ level || 'N/A' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="band in ageBands" :key="band.label">
+                <td class="font-medium">{{ band.label }}</td>
+                <td v-for="level in allCcnlLevels" :key="level" class="text-center">
+                  <span :class="['px-2 py-1 rounded text-white font-semibold', getHeatmapColor(getCcnlCountInAgeBand(band.min, band.max, level) / Math.max(band.count, 1))]">
+                    {{ getCcnlCountInAgeBand(band.min, band.max, level) }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Contract Type by Age Band -->
+      <div class="mt-5 border border-gray-200 rounded-lg p-4">
+        <h4 class="font-semibold text-gray-900 mb-3 text-sm">📋 Tipo Contratto per Fascia d'Età</h4>
+        <div class="overflow-x-auto">
+          <table class="tbl text-xs">
+            <thead>
+              <tr>
+                <th>Fascia d'Età</th>
+                <th class="text-center">Indeterminato</th>
+                <th class="text-center">Determinato</th>
+                <th class="text-center">% Indeter.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="band in ageBands" :key="band.label">
+                <td class="font-medium">{{ band.label }}</td>
+                <td class="text-center">{{ getContractCountInAgeBand(band.min, band.max, 'indeterminato') }}</td>
+                <td class="text-center">{{ getContractCountInAgeBand(band.min, band.max, 'determinato') }}</td>
+                <td class="text-center">
+                  <span :class="getContractCountInAgeBand(band.min, band.max, 'indeterminato') >= band.count * 0.7 ? 'text-emerald-600 font-semibold' : ''">
+                    {{ r2(getContractCountInAgeBand(band.min, band.max, 'indeterminato') / Math.max(band.count, 1) * 100) }}%
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </div>
+
     <!-- HIRING TREND BY DIVISION -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
       <!-- Silicon Trend -->
@@ -344,6 +468,7 @@ const { fmtDateShort } = useHelpers()
 const expandFerieTable = ref(false)
 const expandMalattiaTable = ref(false)
 const expandTeamStatsTable = ref(false)
+const expandAgeAnalytics = ref(false)
 
 function r2(v) { return v != null ? Math.round(Number(v) * 100) / 100 : 0 }
 
@@ -438,4 +563,122 @@ const maxTeam = computed(() => Math.max(...topTeams.value.map(t => t.total), 1))
 
 // Ferie analytics from store
 const fa = computed(() => store.ferieAnalytics || { totals: { spettanti: 0, godute: 0, residue: 0, malattia: 0, percGodute: 0 }, byTeam: [], topMalattia: [], topResidue: [] })
+
+// ===== AGE ANALYTICS =====
+function calculateAge(birthDate) {
+  if (!birthDate) return null
+  const today = new Date()
+  const birth = new Date(birthDate)
+  let age = today.getFullYear() - birth.getFullYear()
+  const monthDiff = today.getMonth() - birth.getMonth()
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) age--
+  return age
+}
+
+function calculateSeniority(hireDate) {
+  if (!hireDate) return null
+  const today = new Date()
+  const hire = new Date(hireDate)
+  return (today - hire) / (365 * 86400000)
+}
+
+const allEmployeesWithAge = computed(() => {
+  return store.employees
+    .filter(e => e.dataNascita && e.stato === 'Attivo' && e.team !== 'Freelance')
+    .map(e => ({
+      ...e,
+      age: calculateAge(e.dataNascita),
+      seniority: calculateSeniority(e.dataAssunzione)
+    }))
+    .filter(e => e.age !== null)
+})
+
+const avgAge = computed(() => {
+  if (allEmployeesWithAge.value.length === 0) return 0
+  const sum = allEmployeesWithAge.value.reduce((acc, e) => acc + e.age, 0)
+  return sum / allEmployeesWithAge.value.length
+})
+
+const minAge = computed(() => {
+  if (allEmployeesWithAge.value.length === 0) return 0
+  return Math.min(...allEmployeesWithAge.value.map(e => e.age))
+})
+
+const maxAge = computed(() => {
+  if (allEmployeesWithAge.value.length === 0) return 0
+  return Math.max(...allEmployeesWithAge.value.map(e => e.age))
+})
+
+const avgSeniority = computed(() => {
+  const withSeniority = allEmployeesWithAge.value.filter(e => e.seniority !== null)
+  if (withSeniority.length === 0) return 0
+  const sum = withSeniority.reduce((acc, e) => acc + e.seniority, 0)
+  return sum / withSeniority.length
+})
+
+const ageRiskRetirement = computed(() => {
+  // Persone che hanno 62+ anni (10 anni prima dei 72)
+  return allEmployeesWithAge.value.filter(e => e.age >= 62).length
+})
+
+const ageBands = computed(() => {
+  const bands = [
+    { min: 18, max: 30, label: '18-30', color: 'bg-blue-500' },
+    { min: 31, max: 40, label: '31-40', color: 'bg-indigo-500' },
+    { min: 41, max: 50, label: '41-50', color: 'bg-purple-500' },
+    { min: 51, max: 60, label: '51-60', color: 'bg-orange-500' },
+    { min: 61, max: 100, label: '60+', color: 'bg-red-500' }
+  ]
+  
+  return bands.map(band => {
+    const count = allEmployeesWithAge.value.filter(e => e.age >= band.min && e.age <= band.max).length
+    const percent = allEmployeesWithAge.value.length > 0 ? (count / allEmployeesWithAge.value.length) * 100 : 0
+    return { ...band, count, percent }
+  })
+})
+
+const maxAgeBand = computed(() => Math.max(...ageBands.value.map(b => b.count), 1))
+
+const ageByTeam = computed(() => {
+  const teams = {}
+  allEmployeesWithAge.value.forEach(emp => {
+    if (!teams[emp.team]) {
+      teams[emp.team] = { team: emp.team, ages: [], count: 0 }
+    }
+    teams[emp.team].ages.push(emp.age)
+    teams[emp.team].count++
+  })
+  
+  return Object.values(teams)
+    .map(t => ({
+      ...t,
+      avgAge: t.ages.length > 0 ? t.ages.reduce((a, b) => a + b) / t.ages.length : 0
+    }))
+    .sort((a, b) => b.avgAge - a.avgAge)
+})
+
+const allCcnlLevels = computed(() => {
+  const levels = new Set(store.employees.map(e => e.livelloCCNL).filter(l => l))
+  return Array.from(levels).sort()
+})
+
+function getCcnlCountInAgeBand(minAge, maxAge, ccnlLevel) {
+  return allEmployeesWithAge.value.filter(e => 
+    e.age >= minAge && e.age <= maxAge && e.livelloCCNL === ccnlLevel
+  ).length
+}
+
+function getContractCountInAgeBand(minAge, maxAge, contractType) {
+  return allEmployeesWithAge.value.filter(e => 
+    e.age >= minAge && e.age <= maxAge && e.tipoContratto === contractType
+  ).length
+}
+
+function getHeatmapColor(ratio) {
+  if (ratio >= 0.5) return 'bg-red-600'
+  if (ratio >= 0.3) return 'bg-orange-500'
+  if (ratio >= 0.1) return 'bg-yellow-500'
+  return 'bg-gray-300'
+}
+
 </script>

@@ -19,7 +19,11 @@
           </div>
 
           <!-- Quick stats -->
-          <div class="grid grid-cols-3 gap-4 mt-4">
+          <div class="grid grid-cols-4 gap-4 mt-4">
+            <div class="bg-gray-50 rounded p-2">
+              <div class="text-xs text-gray-500">Data di Nascita</div>
+              <div class="text-sm font-semibold text-gray-900">{{ emp?.dataNascita ? fmtDateShort(emp.dataNascita) : '—' }}</div>
+            </div>
             <div class="bg-gray-50 rounded p-2">
               <div class="text-xs text-gray-500">Assunto il</div>
               <div class="text-sm font-semibold text-gray-900">{{ emp?.dataAssunzione ? fmtDateShort(emp.dataAssunzione) : '—' }}</div>
@@ -133,6 +137,58 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESITO PERIODO DI PROVA Section -->
+    <div v-if="emp?.fineProva" class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-semibold text-gray-900">🎯 Esito Periodo di Prova</h3>
+      </div>
+      <div class="p-6 space-y-4">
+        <p class="text-sm text-gray-600">Fine periodo di prova: <strong>{{ fmtDateShort(emp.fineProva) }}</strong></p>
+        
+        <!-- Outcome selection -->
+        <div class="space-y-3">
+          <p class="text-sm font-medium text-gray-700">Seleziona l'esito:</p>
+          <div class="grid grid-cols-3 gap-3">
+            <button 
+              @click="updateEsitoProva('In Corso')"
+              :class="['px-4 py-3 rounded-lg font-medium transition text-sm border-2 transition', 
+                emp?.esitoProva === 'In Corso' 
+                  ? 'bg-blue-100 border-blue-400 text-blue-700' 
+                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-blue-50 hover:border-blue-300']">
+              ⏳ In Corso
+            </button>
+            <button 
+              @click="updateEsitoProva('Superato')"
+              :class="['px-4 py-3 rounded-lg font-medium transition text-sm border-2 transition', 
+                emp?.esitoProva === 'Superato' 
+                  ? 'bg-emerald-100 border-emerald-400 text-emerald-700' 
+                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-emerald-50 hover:border-emerald-300']">
+              ✓ Superato
+            </button>
+            <button 
+              @click="updateEsitoProva('Non Superato')"
+              :class="['px-4 py-3 rounded-lg font-medium transition text-sm border-2 transition', 
+                emp?.esitoProva === 'Non Superato' 
+                  ? 'bg-red-100 border-red-400 text-red-700' 
+                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-red-50 hover:border-red-300']">
+              ✗ Non Superato
+            </button>
+          </div>
+        </div>
+
+        <!-- Info message -->
+        <div v-if="emp?.esitoProva === 'In Corso'" class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p class="text-sm text-blue-700">La prova è ancora in corso. Seleziona l'esito quando sarà completata.</p>
+        </div>
+        <div v-else-if="emp?.esitoProva === 'Superato'" class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+          <p class="text-sm text-emerald-700">✓ Periodo di prova superato. Il dipendente può procedere alla valutazione HR.</p>
+        </div>
+        <div v-else-if="emp?.esitoProva === 'Non Superato'" class="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p class="text-sm text-red-700">✗ Periodo di prova non superato. Consultare il responsabile HR per i prossimi passi.</p>
         </div>
       </div>
     </div>
@@ -543,6 +599,21 @@ function startEditStato() {
     noteUscita: emp.value?.noteUscita || ''
   }
   editingStato.value = true
+}
+
+
+// Update esito prova
+function updateEsitoProva(nuovoEsito) {
+  if (!emp.value) return
+  const oldEsito = emp.value.esitoProva
+  emp.value.esitoProva = nuovoEsito
+  store.updateEmployee(emp.value.id, { esitoProva: nuovoEsito })
+  const msg = nuovoEsito === 'Superato' 
+    ? `✓ ${emp.value.nome} ha superato la prova`
+    : nuovoEsito === 'Non Superato'
+    ? `✗ ${emp.value.nome} non ha superato la prova`
+    : `⏳ Prova di ${emp.value.nome} in corso`
+  store.notify(msg, nuovoEsito === 'Superato' ? 'success' : nuovoEsito === 'Non Superato' ? 'warning' : 'info')
 }
 
 function saveEditStato() {

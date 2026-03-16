@@ -204,7 +204,7 @@
           <!-- Manager Final Evaluation -->
           <div class="bg-rose-50 rounded-lg p-5 border border-rose-200">
             <div class="flex items-center justify-between mb-4">
-              <h4 class="font-semibold text-rose-900">👨‍💼 Valutazione Finale Manager (45gg dopo)</h4>
+              <h4 class="font-semibold text-rose-900">👨‍💼 Valutazione Finale Manager (30gg prima)</h4>
               <div class="flex gap-2">
                 <button v-if="!getManagerEvaluation(emp.id, 'finale')" @click="openEvaluation(emp, 'valutazione-finale')" class="btn btn-sm btn-primary" :disabled="!getManagerEvaluation(emp.id, 'prima')">
                   Aggiungi valutazione
@@ -310,7 +310,7 @@
           <h4 class="font-semibold text-blue-900 mb-1">Processo di Valutazione della Prova</h4>
           <ul class="text-sm text-blue-800 space-y-1">
             <li>� <strong>Stima Preliminare Manager (45gg prima):</strong> Valutazione iniziale senza obbligo di conferma</li>
-            <li>📝 <strong>Valutazione Finale Manager (45gg dopo):</strong> Valutazione definitiva dopo fine prova per decisione conferma/proroga</li>
+            <li>📝 <strong>Valutazione Finale Manager (30gg prima):</strong> Valutazione definitiva prima della fine prova per decisione conferma/proroga</li>
             <li>🔵 <strong>HR:</strong> Valida con voto 1-10 + commento + approvazione finale</li>
             <li>👑 <strong>CEO:</strong> Decisione finale con motivazione (Rinnovo / Proroga / Conclusione)</li>
             <li>📋 <strong>Freelance:</strong> Esclusi da questo processo - gestiti solo in "Contratti a Termine"</li>
@@ -333,7 +333,7 @@
       <!-- Manager Evaluation Form -->
       <div v-if="modal.tipo === 'valutazione-prima' || modal.tipo === 'valutazione-finale'" class="space-y-4">
         <h4 class="font-semibold text-gray-900 mb-2">
-          {{ modal.tipo === 'valutazione-prima' ? '📋 Stima Preliminare (45gg prima fine prova)' : '📝 Valutazione Finale (45gg dopo fine prova)' }}
+          {{ modal.tipo === 'valutazione-prima' ? '📋 Stima Preliminare (45gg prima fine prova)' : '📝 Valutazione Finale (30gg prima fine prova)' }}
         </h4>
         <h5 class="font-semibold text-gray-900">Scala di Valutazione (1-5)</h5>
 
@@ -947,7 +947,7 @@ function getModalTitle() {
   if (!modal.emp) return ''
   let tipo = ''
   if (modal.tipo === 'valutazione-prima') tipo = 'Stima Preliminare Manager (45gg prima)'
-  else if (modal.tipo === 'valutazione-finale') tipo = 'Valutazione Finale Manager (45gg dopo)'
+  else if (modal.tipo === 'valutazione-finale') tipo = 'Valutazione Finale Manager (30gg prima)'
   else if (modal.tipo === 'hr') tipo = 'Validazione HR'
   else if (modal.tipo === 'ceo') tipo = 'Decisione CEO'
   return `${tipo} — ${modal.emp.nome} ${modal.emp.cognome}`

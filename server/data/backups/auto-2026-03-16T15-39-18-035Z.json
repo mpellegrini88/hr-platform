@@ -48,20 +48,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1988-07-29",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-30",
-          "data_prossima": "2030-07-30",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 2,
@@ -111,20 +98,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-02-14",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-18",
-          "data_prossima": "2028-07-18",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 3,
@@ -174,20 +148,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1992-10-21",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2027-07-29",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 4,
@@ -237,20 +198,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-10-10",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2030-01-27",
-          "periodicita_mesi": 48,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 5,
@@ -349,20 +297,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1989-04-21",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2028-01-27",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 7,
@@ -412,20 +347,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2027-07-29",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1996-03-20"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 8,
@@ -475,20 +397,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1997-09-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 9,
@@ -538,20 +447,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-03-01",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-23",
-          "data_prossima": "2029-04-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 10,
@@ -601,20 +497,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "2000-11-19",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-09-25",
-          "data_prossima": "2030-09-24",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 11,
@@ -664,20 +547,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-08-16",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 12,
@@ -777,20 +647,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-04-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2028-01-27",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 14,
@@ -840,20 +697,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1993-10-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-05-28",
-          "data_prossima": "2027-05-28",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 15,
@@ -953,20 +797,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1983-01-14",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-04-09",
-          "data_prossima": "2027-04-09",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 17,
@@ -1016,20 +847,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-07-06",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2027-07-29",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 18,
@@ -1079,20 +897,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1997-10-28",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-10-23",
-          "data_prossima": "2029-10-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 19,
@@ -1193,20 +998,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-08-21",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 21,
@@ -1275,48 +1067,19 @@
           "hrCulturalFit": 2,
           "hrGrowthPotential": 2,
           "hrRetention": 2
-        },
-        "managerPreliminary": {
-          "osservazioni": "",
-          "competenze": 3,
-          "qualita": 3,
-          "problemSolving": 3,
-          "velocita": 3,
-          "collaborazione": 3,
-          "comunicazione": 3,
-          "attitudine": 3,
-          "raccomandazione": "Proroga temporanea",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": ""
-        },
-        "dataValutazionePrimaManager": "2026-03-16"
+        }
       },
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T15:39:17.514Z",
+        "dataUltimaModifica": "2026-03-16T15:18:20.907Z",
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
       "statoDossierContratto": "Da Fare",
-      "statoValutazionePrimaManager": "Fatto",
-      "statoValutazioneFinalManager": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-10-16",
-          "data_prossima": "2030-10-15",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1994-09-19"
+      "statoValutazionePrimaManager": "Fatto"
     },
     {
       "id": 22,
@@ -1366,20 +1129,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-01-05",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-11-10",
-          "data_prossima": "2027-11-09",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 23,
@@ -1429,20 +1179,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1997-08-28",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-09-10",
-          "data_prossima": "2030-09-10",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 24,
@@ -1493,20 +1230,7 @@
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
       "statoDossierContratto": "Da Fare",
-      "statoPCKanban": "Eliminato",
-      "dataNascita": "1992-04-27",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-12-03",
-          "data_prossima": "2030-12-02",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoPCKanban": "Eliminato"
     },
     {
       "id": 25,
@@ -1556,20 +1280,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1987-12-11",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-28",
-          "data_prossima": "2028-01-27",
-          "periodicita_mesi": 23,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 26,
@@ -1619,20 +1330,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1992-03-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-03-19",
-          "data_prossima": "2027-03-19",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 27,
@@ -1682,20 +1380,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "2000-08-11",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-04-02",
-          "data_prossima": "2027-04-02",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 28,
@@ -1745,20 +1430,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-11-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-12-04",
-          "data_prossima": "2030-12-03",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 29,
@@ -1808,20 +1480,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-30",
-          "data_prossima": "2027-07-29",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1993-01-06"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 30,
@@ -1871,20 +1530,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-12-09",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-11-07",
-          "data_prossima": "2029-11-07",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 31,
@@ -1934,20 +1580,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2028-01-27",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1993-12-21"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 32,
@@ -2047,20 +1680,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1993-04-10",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 34,
@@ -2110,20 +1730,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1987-04-03",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-18",
-          "data_prossima": "2028-07-18",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 35,
@@ -2173,20 +1780,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-09-07",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-06-04",
-          "data_prossima": "2027-06-04",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 36,
@@ -2236,20 +1830,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-09-10",
-          "data_prossima": "2030-09-10",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1999-08-20"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 37,
@@ -2302,20 +1883,7 @@
       "statoDossierContratto": "Da Fare",
       "telefono": "",
       "manager": "",
-      "fineProvaManuale": false,
-      "dataNascita": "1999-05-26",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-12-16",
-          "data_prossima": "2030-12-14",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "fineProvaManuale": false
     },
     {
       "id": 38,
@@ -2365,20 +1933,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-06-15",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-23",
-          "data_prossima": "2029-04-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 39,
@@ -2428,20 +1983,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-03-06",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-11-27",
-          "data_prossima": "2029-11-27",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 40,
@@ -2491,20 +2033,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-06-09",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-02-13",
-          "data_prossima": "2029-02-13",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 41,
@@ -2554,20 +2083,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-03-25",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-18",
-          "data_prossima": "2028-07-18",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 42,
@@ -2617,20 +2133,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-07-26",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-19",
-          "data_prossima": "2028-07-19",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 43,
@@ -2680,20 +2183,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-05-22",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2026-07-19",
-          "periodicita_mesi": 12,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 44,
@@ -2722,7 +2212,7 @@
       "statoFU2Manager": "N/A",
       "scadenzaFU2Manager": null,
       "noteFU2Manager": "Completato (pre-2026)",
-      "scadenzaContratto": "2027-02-16",
+      "scadenzaContratto": null,
       "stato": "Attivo",
       "dataUscita": null,
       "motivoUscita": "",
@@ -2862,7 +2352,7 @@
       "durataProva": "5 giorni (lun-ven)",
       "metodoComputo": "",
       "fineProva": "2026-04-01",
-      "esitoProva": "Superato",
+      "esitoProva": "In Corso",
       "scadenzaFU1": "2026-02-06",
       "statoFU1": "Fatto",
       "noteFU1": "",
@@ -2878,86 +2368,23 @@
       "motivoUscita": "",
       "noteUscita": "",
       "valutazionePeriodoProva": {
-        "faseCorrente": "ceo-complete",
+        "faseCorrente": "manager-pending",
         "dataValutazioneManager": null,
-        "dataValutazioneHR": "2026-03-16",
+        "dataValutazioneHR": null,
         "manager": null,
-        "hr": {
-          "voto": 7,
-          "commento": "",
-          "hrOnboarding": 4,
-          "hrEngagement": 4,
-          "hrWellbeing": 4,
-          "hrCulturalFit": 4,
-          "hrGrowthPotential": 3,
-          "hrRetention": 4
-        },
-        "managerPreliminary": {
-          "competenze": 3,
-          "competenzeNote": "",
-          "qualita": 3,
-          "qualitaNote": "",
-          "problemSolving": 3,
-          "problemSolvingNote": "",
-          "velocita": 3,
-          "velocitaNote": "",
-          "collaborazione": 3,
-          "collaborazioneNote": "",
-          "comunicazione": 3,
-          "comunicazioneNote": "",
-          "attitudine": 3,
-          "attitudineNote": "",
-          "osservazioni": "",
-          "raccomandazione": "Confermare il dipendente",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": "",
-          "tipo": "preliminare"
-        },
-        "dataValutazionePrimaManager": "2026-03-16",
-        "managerFinal": {
-          "competenze": 4,
-          "competenzeNote": "",
-          "qualita": 4,
-          "qualitaNote": "",
-          "problemSolving": 3,
-          "problemSolvingNote": "",
-          "velocita": 4,
-          "velocitaNote": "",
-          "collaborazione": 5,
-          "collaborazioneNote": "",
-          "comunicazione": 4,
-          "comunicazioneNote": "",
-          "attitudine": 4,
-          "attitudineNote": "",
-          "osservazioni": "",
-          "raccomandazione": "Confermare il dipendente",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": "",
-          "tipo": "finale"
-        },
-        "dataValutazioneFinalManager": "2026-03-16",
-        "ceo": {
-          "decisione": "Confermare il dipendente",
-          "motivazione": "",
-          "dataProrogaFino": null
-        },
-        "dataDecisioneCEO": "2026-03-16"
+        "hr": null
       },
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T15:44:14.816Z",
+        "dataUltimaModifica": null,
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
       "statoDossierContratto": "Da Fare",
-      "statoReviewManager": "Fatto",
-      "statoValutazionePrimaManager": "Fatto",
-      "statoValutazioneFinalManager": "Fatto"
+      "statoReviewManager": "Fatto"
     },
     {
       "id": 48,
@@ -3007,20 +2434,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-12",
-          "data_prossima": "2028-07-12",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1999-12-16"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 49,
@@ -3070,20 +2484,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-11-20",
-          "data_prossima": "2029-11-20",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "2000-01-24"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 50,
@@ -3133,20 +2534,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-03-19",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2030-07-29",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 51,
@@ -3196,20 +2584,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1992-06-13",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-02-13",
-          "data_prossima": "2029-02-13",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 52,
@@ -3259,20 +2634,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1995-12-05",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-18",
-          "data_prossima": "2028-07-18",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 53,
@@ -3322,20 +2684,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1997-03-04",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 54,
@@ -3385,20 +2734,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1995-11-23",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-29",
-          "data_prossima": "2027-07-29",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 55,
@@ -3448,20 +2784,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1988-03-30",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-02-13",
-          "data_prossima": "2029-02-13",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 56,
@@ -3511,20 +2834,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1989-07-11",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-08-27",
-          "data_prossima": "2027-08-16",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 57,
@@ -3574,20 +2884,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1995-01-26",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-10-23",
-          "data_prossima": "2029-10-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 58,
@@ -3637,20 +2934,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-19",
-          "data_prossima": "2028-07-19",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1993-12-20"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 59,
@@ -3750,20 +3034,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "2000-02-01",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-07-02",
-          "data_prossima": "2027-07-02",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 61,
@@ -3813,20 +3084,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "2001-01-14",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-06-17",
-          "data_prossima": "2030-06-17",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 62,
@@ -3876,20 +3134,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1999-10-20",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-10-01",
-          "data_prossima": "2030-09-30",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 63,
@@ -3939,20 +3184,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1999-07-23",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-11-12",
-          "data_prossima": "2027-11-11",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 64,
@@ -4052,20 +3284,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1990-09-14",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-09-01",
-          "data_prossima": "2027-09-01",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 66,
@@ -4165,20 +3384,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1999-01-07",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-10-22",
-          "data_prossima": "2030-10-21",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 68,
@@ -4278,40 +3484,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1991-12-23",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-10",
-          "data_prossima": "2027-02-10",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        },
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-11",
-          "data_prossima": "2027-02-11",
-          "periodicita_mesi": 12,
-          "esito": "Normal",
-          "medico": "",
-          "struttura": "",
-          "note": ""
-        },
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-11",
-          "data_prossima": "2027-02-11",
-          "periodicita_mesi": 12,
-          "esito": "",
-          "medico": "",
-          "struttura": "",
-          "note": ""
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 70,
@@ -4411,20 +3584,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1999-06-18",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-23",
-          "data_prossima": "2029-04-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 72,
@@ -4474,20 +3634,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-03-05",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-19",
-          "data_prossima": "2028-07-19",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 73,
@@ -4537,20 +3684,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1993-02-03",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-03-18",
-          "data_prossima": "2027-03-19",
-          "periodicita_mesi": 12,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 74,
@@ -4600,20 +3734,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1996-01-15",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-06-04",
-          "data_prossima": "2030-06-04",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 75,
@@ -4713,20 +3834,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-07-14",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-10",
-          "data_prossima": "2028-02-10",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 77,
@@ -4779,20 +3887,7 @@
       "statoDossierContratto": "Da Fare",
       "telefono": "",
       "manager": "",
-      "fineProvaManuale": false,
-      "dataNascita": "1999-12-08",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2028-01-27",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "fineProvaManuale": false
     },
     {
       "id": 78,
@@ -4842,20 +3937,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-19",
-          "data_prossima": "2028-07-19",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1979-11-30"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 79,
@@ -4905,20 +3987,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-02-24",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-01-28",
-          "data_prossima": "2028-01-26",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 80,
@@ -4968,20 +4037,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1995-12-23",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-09",
-          "data_prossima": "2029-04-09",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 81,
@@ -5031,20 +4087,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1983-02-24",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-11-07",
-          "data_prossima": "2029-11-07",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 82,
@@ -5094,20 +4137,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1991-07-22",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2023-07-19",
-          "data_prossima": "2028-07-19",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 83,
@@ -5142,92 +4172,22 @@
       "motivoUscita": "",
       "noteUscita": "",
       "valutazionePeriodoProva": {
-        "faseCorrente": "hr-complete",
+        "faseCorrente": "manager-pending",
         "dataValutazioneManager": null,
-        "dataValutazioneHR": "2026-03-16",
+        "dataValutazioneHR": null,
         "manager": null,
-        "hr": {
-          "voto": 7,
-          "commento": "",
-          "hrOnboarding": 4,
-          "hrEngagement": 4,
-          "hrWellbeing": 4,
-          "hrCulturalFit": 4,
-          "hrGrowthPotential": 4,
-          "hrRetention": 4
-        },
-        "managerPreliminary": {
-          "competenze": 4,
-          "competenzeNote": "",
-          "qualita": 4,
-          "qualitaNote": "",
-          "problemSolving": 4,
-          "problemSolvingNote": "",
-          "velocita": 4,
-          "velocitaNote": "",
-          "collaborazione": 4,
-          "collaborazioneNote": "",
-          "comunicazione": 5,
-          "comunicazioneNote": "",
-          "attitudine": 4,
-          "attitudineNote": "",
-          "osservazioni": "",
-          "raccomandazione": "Confermare il dipendente",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": "",
-          "tipo": "preliminare"
-        },
-        "dataValutazionePrimaManager": "2026-03-16",
-        "managerFinal": {
-          "competenze": 4,
-          "competenzeNote": "",
-          "qualita": 4,
-          "qualitaNote": "",
-          "problemSolving": 4,
-          "problemSolvingNote": "",
-          "velocita": 4,
-          "velocitaNote": "",
-          "collaborazione": 4,
-          "collaborazioneNote": "",
-          "comunicazione": 4,
-          "comunicazioneNote": "",
-          "attitudine": 4,
-          "attitudineNote": "",
-          "osservazioni": "",
-          "raccomandazione": "Confermare il dipendente",
-          "motivazioneRaccomandazione": "",
-          "suggerimenti": "",
-          "areaeMiglioramento": "",
-          "tipo": "finale"
-        },
-        "dataValutazioneFinalManager": "2026-03-16"
+        "hr": null
       },
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T15:42:34.866Z",
+        "dataUltimaModifica": null,
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "statoValutazionePrimaManager": "Fatto",
-      "statoValutazioneFinalManager": "Fatto",
-      "dataNascita": "1995-10-31",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-10-14",
-          "data_prossima": "2027-10-15",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 84,
@@ -5277,20 +4237,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1985-06-30",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-11-05",
-          "data_prossima": "2029-11-04",
-          "periodicita_mesi": 48,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 85,
@@ -5340,20 +4287,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1998-12-12",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2024-04-23",
-          "data_prossima": "2029-04-23",
-          "periodicita_mesi": 60,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 86,
@@ -5403,20 +4337,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-11-26",
-          "data_prossima": "2027-11-25",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ],
-      "dataNascita": "1990-11-12"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 87,
@@ -5466,20 +4387,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1994-04-19",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2025-09-24",
-          "data_prossima": "2026-09-24",
-          "periodicita_mesi": 12,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 88,
@@ -5630,20 +4538,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "dataNascita": "1988-06-01",
-      "visite_mediche": [
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-10",
-          "data_prossima": "2028-02-11",
-          "periodicita_mesi": 24,
-          "esito": "Normal",
-          "medico": "Non specificato",
-          "struttura": "Non specificato",
-          "note": "Importato da CSV"
-        }
-      ]
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 91,
@@ -6572,7 +5467,7 @@
       "societa": "Silicon",
       "ferieSpettanti": 5.49,
       "ferieGodute": 0,
-      "ferieResidue": 3.73,
+      "ferieResidue": 5.49,
       "permessiSpettantiGg": 0,
       "permessiSpettantiOre": 0,
       "permessiGodutiGg": 0,
@@ -8657,9 +7552,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773679403538,
+  "timestamp": 1773675212750,
   "_meta": {
-    "savedAt": "2026-03-16T16:43:25.063Z",
+    "savedAt": "2026-03-16T15:33:34.286Z",
     "version": "2.0"
   }
 }

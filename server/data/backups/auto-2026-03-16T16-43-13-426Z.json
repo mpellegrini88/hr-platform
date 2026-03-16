@@ -6572,7 +6572,7 @@
       "societa": "Silicon",
       "ferieSpettanti": 5.49,
       "ferieGodute": 0,
-      "ferieResidue": 3.73,
+      "ferieResidue": 5.49,
       "permessiSpettantiGg": 0,
       "permessiSpettantiOre": 0,
       "permessiGodutiGg": 0,
@@ -8657,9 +8657,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773679403538,
+  "timestamp": 1773678508649,
   "_meta": {
-    "savedAt": "2026-03-16T16:43:25.063Z",
+    "savedAt": "2026-03-16T16:28:30.181Z",
     "version": "2.0"
   }
 }

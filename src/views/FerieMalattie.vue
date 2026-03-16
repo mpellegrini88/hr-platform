@@ -172,6 +172,17 @@
 
     <!-- ===== MODALE GESTIONE FERIE ===== -->
     <Modal :open="modal.open" :title="'Ferie & Assenze — ' + modal.data.nome" width="880px" @close="closeModal">
+      <!-- Banner modifiche non salvate -->
+      <div v-if="hasChanges" class="mb-4 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-lg flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">⚠️</span>
+          <div>
+            <p class="font-semibold text-amber-900">Modifiche non salvate</p>
+            <p class="text-sm text-amber-700">Hai cambiato dei valori. Clicca il bottone sotto per salvarli.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="space-y-5">
         <!-- Tab switch -->
         <div class="flex gap-1 bg-gray-100 p-1 rounded-lg">
@@ -235,22 +246,23 @@
             <div class="grid grid-cols-3 gap-4">
               <div>
                 <label class="form-label">Residui anni precedenti</label>
-                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.residuiAnniPrecedenti" @input="recalcModal">
+                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.residuiAnniPrecedenti" @input="recalcModal; trackChanges()">
                 <p class="text-[10px] text-gray-400 mt-1">Impostare manualmente i residui da anni passati</p>
               </div>
               <div>
-                <label class="form-label">Godute (calc.)</label>
-                <input class="form-input bg-gray-50" :value="r2(modal.data.ferieGodute)" readonly>
+                <label class="form-label">Godute</label>
+                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.ferieGodute" @input="calcResidueDaInizioAnno; trackChanges()">
+                <p class="text-[10px] text-gray-500 mt-1">Modifica manualmente - Residue calcolate automaticamente</p>
               </div>
               <div>
-                <label class="form-label">Residue (calc.)</label>
-                <input class="form-input bg-gray-50" :value="r2(modal.data.ferieResidue)" readonly>
-                <p class="text-[10px] text-gray-400 mt-1">Maturate + Residui AP - Godute</p>
+                <label class="form-label">Residue (auto)</label>
+                <input class="form-input bg-blue-50" type="number" step="0.01" :value="modal.data.ferieResidue" readonly>
+                <p class="text-[10px] text-blue-600 font-semibold mt-1">Calcolate: Maturate 2026 - Godute</p>
               </div>
             </div>
             <div class="mt-3">
               <label class="form-label">Note ferie</label>
-              <textarea class="form-textarea" rows="2" v-model="modal.data.noteFerie"></textarea>
+              <textarea class="form-textarea" rows="2" v-model="modal.data.noteFerie" @input="trackChanges()"></textarea>
             </div>
           </Section>
 
@@ -263,12 +275,14 @@
                 <div class="text-[10px] text-gray-400 mt-0.5">{{ modal.data.permessiSpettantiOre || 0 }}h totali</div>
               </div>
               <div>
-                <label class="form-label">Goduti (calc.)</label>
-                <input class="form-input bg-gray-50" :value="modal.data.permessiGodutiGg" readonly>
+                <label class="form-label">Goduti</label>
+                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.permessiGodutiGg" @input="trackChanges()">
+                <p class="text-[10px] text-gray-500 mt-1">Modifica manualmente</p>
               </div>
               <div>
-                <label class="form-label">Residui (calc.)</label>
-                <input class="form-input bg-gray-50" :value="modal.data.permessiResiduiGg" readonly>
+                <label class="form-label">Residui</label>
+                <input class="form-input" type="number" step="0.01" v-model.number="modal.data.permessiResiduiGg" @input="trackChanges()">
+                <p class="text-[10px] text-gray-500 mt-1">Modifica manualmente</p>
               </div>
             </div>
           </Section>
@@ -290,7 +304,7 @@
             </div>
             <div class="mt-3">
               <label class="form-label">Note malattia</label>
-              <textarea class="form-textarea" rows="2" v-model="modal.data.noteMalattia"></textarea>
+              <textarea class="form-textarea" rows="2" v-model="modal.data.noteMalattia" @input="trackChanges()"></textarea>
             </div>
           </Section>
 
@@ -303,7 +317,7 @@
             </div>
             <div class="mt-3">
               <label class="form-label">Note assenze</label>
-              <textarea class="form-textarea" rows="2" v-model="modal.data.noteAssenze"></textarea>
+              <textarea class="form-textarea" rows="2" v-model="modal.data.noteAssenze" @input="trackChanges()"></textarea>
             </div>
           </Section>
         </div>
@@ -394,7 +408,13 @@
 
       <template #footer>
         <button class="btn btn-secondary" @click="closeModal">Chiudi</button>
-        <button class="btn btn-primary" @click="saveAll">💾 Salva riepilogo</button>
+        <button 
+          class="btn" 
+          :class="hasChanges ? 'btn-primary animate-pulse' : 'btn-ghost'"
+          :disabled="!hasChanges"
+          @click="saveAll">
+          {{ hasChanges ? '💾 Salva modifiche' : 'Nessuna modifica' }}
+        </button>
       </template>
     </Modal>
   </div>
@@ -424,6 +444,8 @@ const sortDir = ref('asc')
 const activeTab = ref('riepilogo')
 const showEntryForm = ref(false)
 const editingEntry = ref(null)
+const hasChanges = ref(false)
+const originalData = ref({})
 
 const tabs = [
   { key: 'riepilogo', label: 'Riepilogo', icon: '📊' },
@@ -478,7 +500,7 @@ const totals = computed(() => {
 
 const filtered = computed(() => {
   const s = search.value.toLowerCase()
-  let list = [...ferie.value]
+  let list = [...ferie.value].filter(f => f.tipoContratto !== 'freelance' && f.team !== 'Freelance')
 
   if (s) list = list.filter(f => (f.nome || '').toLowerCase().includes(s) || (f.team || '').toLowerCase().includes(s))
   if (filterSocieta.value) list = list.filter(f => f.societa === filterSocieta.value)
@@ -520,10 +542,12 @@ const entryForm = reactive({
 
 function openModal(f) {
   modal.data = JSON.parse(JSON.stringify(f))
+  originalData.value = JSON.parse(JSON.stringify(f))
   if (!modal.data.entries) modal.data.entries = []
   activeTab.value = 'riepilogo'
   showEntryForm.value = false
   editingEntry.value = null
+  hasChanges.value = false
   modal.open = true
 }
 
@@ -531,6 +555,22 @@ function closeModal() {
   modal.open = false
   showEntryForm.value = false
   editingEntry.value = null
+  hasChanges.value = false
+}
+
+function trackChanges() {
+  hasChanges.value = true
+}
+
+function calcResidueDaInizioAnno() {
+  // Calcola residue solo da inizio 2026, senza toccare residui anni passati
+  const maturateDaInizioAnno = modal.data.ferieSpettanti || 0  // Questo è già maturato da inizio 2026
+  const godute = modal.data.ferieGodute || 0
+  modal.data.ferieResidue = Math.round((maturateDaInizioAnno - godute) * 100) / 100
+  
+  const totDisponibili = maturateDaInizioAnno
+  modal.data.percGodute = totDisponibili > 0
+    ? Math.round(godute / totDisponibili * 100) : 0
 }
 
 function changeContratto(tipo) {
@@ -626,11 +666,33 @@ function saveAll() {
   if (modal.data.residuiAnniPrecedenti !== undefined) {
     store.updateResiduiAnniPrecedenti(modal.data.nome, modal.data.residuiAnniPrecedenti)
   }
-  store.saveFerie(modal.data.nome, {
+  
+  // Prepare ferie data with manual overrides
+  const ferieData = {
     noteFerie: modal.data.noteFerie,
     noteMalattia: modal.data.noteMalattia,
     noteAssenze: modal.data.noteAssenze
-  })
+  }
+  
+  // Add manual ferie values
+  if (modal.data.ferieGodute !== undefined) {
+    ferieData.ferieGodute = modal.data.ferieGodute
+  }
+  if (modal.data.ferieResidue !== undefined) {
+    ferieData.ferieResidue = modal.data.ferieResidue
+  }
+  
+  // Add manual permessi values (for CCNL)
+  if (modal.data.tipoContrattoFerie === 'ccnl_commercio') {
+    if (modal.data.permessiGodutiGg !== undefined) {
+      ferieData.permessiGodutiGg = modal.data.permessiGodutiGg
+    }
+    if (modal.data.permessiResiduiGg !== undefined) {
+      ferieData.permessiResiduiGg = modal.data.permessiResiduiGg
+    }
+  }
+  
+  store.saveFerie(modal.data.nome, ferieData)
   closeModal()
 }
 

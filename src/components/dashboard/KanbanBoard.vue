@@ -4,7 +4,9 @@
     <div class="flex flex-wrap gap-3 items-center">
       <div class="flex gap-2">
         <label class="text-sm font-medium text-gray-700">📋 Mostra:</label>
-        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium">Periodi prova + Rinnovi + Dossier</span>
+        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium">
+          {{ visibleTypes.length }} settori attivi (entro 60 gg)
+        </span>
       </div>
 
       <div class="flex gap-2">
@@ -12,6 +14,18 @@
         <select v-model="filters.team" class="px-3 py-1 border rounded-lg text-sm">
           <option value="">-- Tutti --</option>
           <option v-for="team in store.teams" :key="team" :value="team">{{ team }}</option>
+        </select>
+      </div>
+
+      <div class="flex gap-2">
+        <label class="text-sm font-medium text-gray-700">Tipo:</label>
+        <select v-model="filters.tipo" class="px-3 py-1 border rounded-lg text-sm">
+          <option value="">-- Tutti i tipi --</option>
+          <option value="onboarding">🤝 Onboarding</option>
+          <option value="contratti">📋 Contratti</option>
+          <option value="valutazioni">📊 Valutazioni</option>
+          <option value="visite">🏥 Visite Mediche</option>
+          <option value="preonboarding">⏳ Pre-Onboarding</option>
         </select>
       </div>
 
@@ -42,9 +56,14 @@
             @dragstart="startDrag($event, item, 'scadenza')"
             @click="openModal(item)"
             class="bg-white border-l-4 border-amber-500 rounded p-3 cursor-move hover:shadow-md transition group active:opacity-75">
-            <p class="font-semibold text-sm text-gray-900 group-hover:text-amber-600">{{ item.nome }} {{ item.cognome }}</p>
-            <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
-            <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-gray-900 group-hover:text-amber-600">{{ item.nome }} {{ item.cognome }}</p>
+                <p class="text-xs text-gray-600 mt-1">{{ formatTipo(item.tipo) }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
+              </div>
+              <span class="text-lg">{{ getTypeIcon(item.tipo) }}</span>
+            </div>
             <div class="flex items-center justify-between mt-2">
               <span :class="['text-xs px-2 py-1 rounded font-semibold', urgencyBadgeClass(item.urgenza)]">
                 {{ item.urgenza }}
@@ -185,7 +204,8 @@ const deleteModalAction = ref('')  // 'elimina' or 'scarta'
 const isDeleting = ref(false)  // Loading state
 
 const filters = ref({
-  team: ''
+  team: '',
+  tipo: ''
 })
 
 // Drag & Drop state
@@ -215,8 +235,35 @@ const allItems = computed(() => store.allUrgenze.map(item => ({
 const filteredItems = computed(() => {
   return allItems.value.filter(item => {
     if (filters.value.team && item.team !== filters.value.team) return false
+    
+    // Apply type filter
+    if (filters.value.tipo) {
+      const tipoMap = {
+        'onboarding': ['FU1', 'FU2_MANAGER', 'FU2_DIP', 'REVIEW_MANAGER'],
+        'contratti': ['RINNOVO', 'DOSSIER', 'PC_SCADUTO', 'PC_NON_FATTO'],
+        'valutazioni': ['VAL_CEO', 'VAL_HR', 'VAL_MANAGER'],
+        'visite': ['VISITA_MEDICA'],
+        'preonboarding': ['PRE_ONBOARDING']
+      }
+      const allowedTypes = tipoMap[filters.value.tipo] || []
+      if (!allowedTypes.includes(item.tipo)) return false
+    }
+    
     return true
   })
+})
+
+const visibleTypes = computed(() => {
+  const types = new Set(allItems.value.map(item => {
+    if (['FU1', 'FU2_MANAGER', 'FU2_DIP', 'REVIEW_MANAGER'].includes(item.tipo)) return 'onboarding'
+    if (['RINNOVO', 'DOSSIER', 'PC_SCADUTO', 'PC_NON_FATTO'].includes(item.tipo)) return 'contratti'
+    if (['VAL_CEO', 'VAL_HR', 'VAL_MANAGER'].includes(item.tipo)) return 'valutazioni'
+    if (item.tipo === 'VISITA_MEDICA') return 'visite'
+    if (item.tipo === 'PRE_ONBOARDING') return 'preonboarding'
+    return null
+  }))
+  types.delete(null)
+  return Array.from(types)
 })
 
 // SCADENZA: tutti gli item non completati e non eliminati
@@ -243,6 +290,44 @@ function urgencyBadgeClass(urgenza) {
     'BASSA': 'bg-green-100 text-green-700'
   }
   return classes[urgenza] || 'bg-gray-100 text-gray-700'
+}
+
+function getTypeIcon(tipo) {
+  const icons = {
+    'FU1': '🤝',
+    'FU2_MANAGER': '👔',
+    'FU2_DIP': '👤',
+    'REVIEW_MANAGER': '📋',
+    'RINNOVO': '🔄',
+    'DOSSIER': '📁',
+    'PC_SCADUTO': '⏰',
+    'PC_NON_FATTO': '❌',
+    'VAL_CEO': '👨‍💼',
+    'VAL_HR': '📊',
+    'VAL_MANAGER': '📈',
+    'VISITA_MEDICA': '🏥',
+    'PRE_ONBOARDING': '⏳'
+  }
+  return icons[tipo] || '📌'
+}
+
+function formatTipo(tipo) {
+  const labels = {
+    'FU1': 'Follow-up 1',
+    'FU2_MANAGER': 'Follow-up 2 (Manager)',
+    'FU2_DIP': 'Follow-up 2 (Dipendente)',
+    'REVIEW_MANAGER': 'Valutazione Manager',
+    'RINNOVO': 'Rinnovo Contratto',
+    'DOSSIER': 'Dossier Contratto',
+    'PC_SCADUTO': 'P&C Scaduto',
+    'PC_NON_FATTO': 'P&C Non Fatto',
+    'VAL_CEO': 'Approvazione CEO',
+    'VAL_HR': 'Approvazione HR',
+    'VAL_MANAGER': 'Valutazione Manager',
+    'VISITA_MEDICA': 'Idoneità Medica',
+    'PRE_ONBOARDING': 'Pre-Onboarding'
+  }
+  return labels[tipo] || tipo
 }
 
 // Drag & Drop handlers
@@ -280,6 +365,19 @@ function handleDrop(toColumn) {
     store.updateEmployee(item.id, { statoReviewManager: newStato })
   } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
     store.updateEmployee(item.id, { statoPCKanban: newStato })
+  } else if (item.tipo === 'VAL_CEO' || item.tipo === 'VAL_HR' || item.tipo === 'VAL_MANAGER') {
+    store.updateEmployee(item.id, { statoValutazione: newStato })
+  } else if (item.tipo === 'VISITA_MEDICA') {
+    // For medical visits, mark completion but don't change the visit date
+    // (completion would be marked by changing the visit status in the medical visit tracker)
+    if (newStato === 'Fatto') {
+      store.updateEmployee(item.id, { statoVisitaMedica: 'Fatto' })
+    }
+  } else if (item.tipo === 'PRE_ONBOARDING') {
+    // Pre-onboarding just marks as Fatto when moved to completato (no state field to update)
+    if (newStato === 'Fatto') {
+      store.updateEmployee(item.id, { statoPreOnboarding: 'Fatto' })
+    }
   }
 
   draggedItem.value = null
@@ -309,6 +407,16 @@ function moveToCompleted(item) {
     store.updateEmployee(item.id, { statoRinnovo: 'Fatto' })
   } else if (item.tipo === 'DOSSIER') {
     store.updateEmployee(item.id, { statoDossierContratto: 'Fatto' })
+  } else if (item.tipo === 'REVIEW_MANAGER') {
+    store.updateEmployee(item.id, { statoReviewManager: 'Fatto' })
+  } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
+    store.updateEmployee(item.id, { statoPCKanban: 'Fatto' })
+  } else if (item.tipo === 'VAL_CEO' || item.tipo === 'VAL_HR' || item.tipo === 'VAL_MANAGER') {
+    store.updateEmployee(item.id, { statoValutazione: 'Fatto' })
+  } else if (item.tipo === 'VISITA_MEDICA') {
+    store.updateEmployee(item.id, { statoVisitaMedica: 'Fatto' })
+  } else if (item.tipo === 'PRE_ONBOARDING') {
+    store.updateEmployee(item.id, { statoPreOnboarding: 'Fatto' })
   }
   closeModal()
 }

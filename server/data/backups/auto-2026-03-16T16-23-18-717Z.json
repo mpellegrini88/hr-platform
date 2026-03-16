@@ -4284,32 +4284,12 @@
         {
           "tipo": "Idoneità Medica",
           "data_ultima": "2026-02-10",
-          "data_prossima": "2027-02-10",
+          "data_prossima": "2026-02-11",
           "periodicita_mesi": 24,
           "esito": "Normal",
           "medico": "Non specificato",
           "struttura": "Non specificato",
           "note": "Importato da CSV"
-        },
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-11",
-          "data_prossima": "2027-02-11",
-          "periodicita_mesi": 12,
-          "esito": "Normal",
-          "medico": "",
-          "struttura": "",
-          "note": ""
-        },
-        {
-          "tipo": "Idoneità Medica",
-          "data_ultima": "2026-02-11",
-          "data_prossima": "2027-02-11",
-          "periodicita_mesi": 12,
-          "esito": "",
-          "medico": "",
-          "struttura": "",
-          "note": ""
         }
       ]
     },
@@ -6572,7 +6552,7 @@
       "societa": "Silicon",
       "ferieSpettanti": 5.49,
       "ferieGodute": 0,
-      "ferieResidue": 3.73,
+      "ferieResidue": 5.49,
       "permessiSpettantiGg": 0,
       "permessiSpettantiOre": 0,
       "permessiGodutiGg": 0,
@@ -8657,9 +8637,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773679403538,
+  "timestamp": 1773675854827,
   "_meta": {
-    "savedAt": "2026-03-16T16:43:25.063Z",
+    "savedAt": "2026-03-16T15:44:16.353Z",
     "version": "2.0"
   }
 }

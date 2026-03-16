@@ -59,6 +59,7 @@
               <th>Nome</th>
               <th>Team</th>
               <th>Contratto</th>
+              <th>Data di Nascita</th>
               <th>Assunzione</th>
               <th>Livello CCNL</th>
               <th>Fine prova</th>
@@ -83,32 +84,24 @@
                 <div class="flex flex-col gap-0.5">
                   <span :class="['badge', contractBadge(e.tipoContratto)]">{{ e.tipoContratto }}</span>
                   <span v-if="e.oreSettimana" class="text-xs text-gray-400">{{ e.oreSettimana }}h/sett</span>
-                  <span v-if="e.tipoContratto === 'determinato' && e.scadenzaContratto" class="text-xs" :class="contractDaysLeft(e) <= 30 ? 'text-red-500 font-medium' : 'text-gray-400'">Scad. {{ fmtDateShort(e.scadenzaContratto) }}</span>
+                  <span v-if="e.tipoContratto === 'determinato' && e.scadenzaContratto" class="text-xs" :class="contractDaysLeft(e) > 0 && contractDaysLeft(e) <= 30 ? 'text-red-500 font-medium' : contractDaysLeft(e) <= 0 ? 'text-gray-600 line-through' : 'text-gray-400'">Scad. {{ fmtDateShort(e.scadenzaContratto) }}</span>
                 </div>
               </td>
+              <td class="text-sm">{{ e.dataNascita ? fmtDateShort(e.dataNascita) : '—' }}</td>
               <td class="text-sm">{{ fmtDateShort(e.dataAssunzione) }}</td>
               <td class="text-sm text-gray-600">{{ e.livelloCCNL || '—' }}</td>
               <td class="text-sm">
-                <span :class="(e.esitoProva === 'In Corso' && e.provaUrgente) || (dataPrincipale(e) && daysToDataPrincipale(e) <= 7) ? 'text-red-600 font-semibold' : ''">
+                <span :class="e.esitoProva === 'In Corso' && daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) >= 0 && daysToDataPrincipale(e) <= 30 ? 'text-red-600 font-semibold' : 'text-gray-900'">
                   {{ fmtDateShort(dataPrincipale(e)) }}
                   <span v-if="e.esitoProva === 'In Corso' && e.tipoContratto !== 'determinato'" class="text-xs text-gray-500">(prova)</span>
                   <span v-else-if="e.esitoProva !== 'In Corso' && e.tipoContratto === 'determinato'" class="text-xs text-orange-600">(contratto)</span>
                 </span>
                 <div v-if="daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) <= 7 && daysToDataPrincipale(e) >= 0" class="text-xs text-amber-600 font-medium mt-0.5">⚠ {{ daysToDataPrincipale(e) }}gg</div>
-                <div v-else-if="daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) < 0" class="text-xs text-red-600 font-bold mt-0.5">❌ SCADUTO</div>
+                <div v-else-if="e.esitoProva === 'In Corso' && daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) < 0" class="text-xs text-red-600 font-bold mt-0.5">❌ SCADUTO</div>
               </td>
-              <td>
-                <!-- Quick action buttons when trial is expired -->
-                <div v-if="e.esitoProva === 'In Corso' && hasCritical(e)" class="flex gap-1 flex-wrap">
-                  <button class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition font-medium" @click.stop="setQuickOutcome(e.id, 'Superato')">
-                    ✓ Superato
-                  </button>
-                  <button class="badge badge-sm bg-red-50 text-red-700 border border-red-200 cursor-pointer hover:bg-red-100 transition font-medium" @click.stop="setQuickOutcome(e.id, 'Non Superato')">
-                    ✗ Non Sup.
-                  </button>
-                </div>
-                <!-- Normal badge otherwise -->
-                <span v-else :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
+              <td @click.stop>
+                <!-- Simple badge - modification moved to detail panel -->
+                <span :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
               </td>
               <td @click.stop>
                 <div v-if="e.team === 'Freelance'" class="text-gray-300">—</div>
@@ -364,7 +357,7 @@ const activeEmployees = computed(() =>
 const exDipendenti = computed(() => store.enrichedEmployees.filter(e => STATI_ESCLUSI.includes(e.stato)))
 
 const needsEvaluationCount = computed(() => activeEmployees.value.filter(e => 
-  (e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') && e.valutazioneStatus !== 'complete'
+  e.esitoProva === 'In Corso' && e.valutazioneStatus !== 'complete'
 ).length)
 
 const filtered = computed(() => activeEmployees.value.filter(e => {
@@ -374,7 +367,7 @@ const filtered = computed(() => activeEmployees.value.filter(e => {
   const matchesContratto = !filterContratto.value || e.tipoContratto === filterContratto.value
   const matchesStato = !filterStato.value || e.stato === filterStato.value
   const matchesAzioni = !filterAzioni.value || needsAction(e)
-  const matchesValutare = !filterValutare.value || ((e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') && e.valutazioneStatus !== 'complete')
+  const matchesValutare = !filterValutare.value || (e.esitoProva === 'In Corso' && e.valutazioneStatus !== 'complete')
   
   return matchesSearch && matchesTeam && matchesContratto && matchesStato && matchesAzioni && matchesValutare
 }))
@@ -406,36 +399,6 @@ function save() {
 }
 function del(id) {
   if (confirm('Eliminare questo dipendente?')) store.deleteEmployee(id)
-}
-
-// Quick action: set trial outcome directly from table
-async function setQuickOutcome(empId, outcome) {
-  const emp = store.employees.find(e => e.id === empId)
-  if (!emp) return
-  
-  // Confirm action
-  const msg = outcome === 'Superato' 
-    ? `Conferma: ${emp.nome} ${emp.cognome} ha SUPERATO la prova?`
-    : `Conferma: ${emp.nome} ${emp.cognome} ha FALLITO la prova?`
-  
-  if (!confirm(msg)) return
-  
-  // Update locally and in store
-  emp.esitoProva = outcome
-  
-  // If "Non Superato", set appropriate stato
-  if (outcome === 'Non Superato') {
-    emp.stato = 'Mancato Superamento Prova'
-  }
-  
-  // Save to backend
-  store.updateEmployee(empId, emp)
-  
-  // Toast notification
-  const resultMsg = outcome === 'Superato' 
-    ? `✓ ${emp.nome} ha superato la prova`
-    : `✗ ${emp.nome} non ha superato la prova`
-  store.notify(resultMsg, outcome === 'Superato' ? 'success' : 'warning')
 }
 
 function recalc() {
@@ -503,13 +466,17 @@ function rowHighlight(e) {
 
 function needsAction(e) {
   if (e.stato !== 'Attivo') return false
+  // Se la prova è conclusa (Superato/Non Superato), non richiede azioni
+  if (e.esitoProva !== 'In Corso') return false
   const daysToMain = daysToDataPrincipale(e)
   return hasCritical(e) ||
     (daysToMain !== null && daysToMain <= 90) ||
-    (e.valutazioneStatus !== 'complete' && e.esitoProva === 'In Corso' && daysToMain !== null && daysToMain <= 45)
+    (e.valutazioneStatus !== 'complete' && daysToMain !== null && daysToMain <= 45)
 }
 
 function hasCritical(e) {
+  // Non è critico se lo stato è già concluso (Superato/Non Superato)
+  if (e.esitoProva !== 'In Corso') return false
   const daysToMain = daysToDataPrincipale(e)
   return daysToMain !== null && daysToMain <= 0
 }

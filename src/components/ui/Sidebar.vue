@@ -41,6 +41,7 @@
       <NavItem to="/people-culture-analytics" :icon="ArrowTrendingUpIcon" label="P&C Analytics" />
       <NavItem to="/valutazione-prova" :icon="CheckCircleIcon" label="Valutazione Prova" />
       <NavItem to="/contratti-termine" :icon="DocumentDuplicateIcon" label="Contratti a Termine" />
+      <NavItem to="/visite-mediche" :icon="CalendarIcon" label="Visite Mediche" />
       <NavItem to="/collaboratori" :icon="UsersIcon" label="Collaboratori" />
       <NavItem to="/uscite" :icon="ArrowRightOnRectangleIcon" label="Uscite" />
       <NavItem to="/ferie"          :icon="CalendarIcon" label="Ferie & Malattie" />

@@ -228,7 +228,7 @@
                   label="Valutazione Manager"
                   icon="📝"
                   color="rose"
-                  desc="Valutazione finale (45gg dopo)"
+                  desc="Valutazione finale (30gg prima)"
                   @click="goToValutazione(e)"
                   class="cursor-pointer"
                   :stato="e.statoValutazioneFinalManager"
@@ -578,7 +578,7 @@
           </div>
         </Section>
 
-        <Section title="Valutazione Manager Finale (45gg dopo fine prova)">
+        <Section title="Valutazione Manager Finale (30gg prima fine prova)">
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
               <label class="form-label">Scadenza Valutazione Finale</label>
@@ -656,8 +656,8 @@ const allOnboarding = computed(() => {
       const scadenzaValPrimaManager = dataRiferimento ? new Date(dataRiferimento.getTime() - 45 * 86400000) : null
       const daysToValManager = scadenzaValPrimaManager ? Math.round((scadenzaValPrimaManager - today) / 86400000) : null
       
-      // VALUTAZIONE 2: Valutazione finale - 45 giorni DOPO la fine prova/contratto
-      const scadenzaValFinalManager = dataRiferimento ? new Date(dataRiferimento.getTime() + 45 * 86400000) : null
+      // VALUTAZIONE 2: Valutazione finale - almeno 30 giorni PRIMA della fine prova/contratto
+      const scadenzaValFinalManager = dataRiferimento ? new Date(dataRiferimento.getTime() - 30 * 86400000) : null
       const daysToValFinalManager = scadenzaValFinalManager ? Math.round((scadenzaValFinalManager - today) / 86400000) : null
       
       return {

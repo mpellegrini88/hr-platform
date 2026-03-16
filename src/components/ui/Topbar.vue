@@ -19,7 +19,6 @@
               : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
           ]"
           :title="syncTooltip">
-          <span :class="['w-2 h-2 rounded-full', store.backendAvailable ? 'bg-emerald-400' : 'bg-amber-400']"></span>
           {{ store.backendAvailable ? 'Sincronizzato' : 'Locale' }}
         </button>
         <div class="text-xs text-gray-400">{{ today }}</div>

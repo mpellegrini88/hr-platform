@@ -1336,9 +1336,169 @@ export const useHrStore = defineStore('hr', () => {
     })
   })
 
+  // Valutazioni Periodo Prova urgencies
+  const valutazioniUrgenze = computed(() => {
+    const today = new Date()
+    const items = []
+    const maxDaysAhead = 60 // Limit to 60 days visibility
+
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato !== 'Attivo' || !e.inProva || !e.fineProva) return
+
+      const fineProvaDate = new Date(e.fineProva)
+      const daysUntil = Math.floor((fineProvaDate - today) / 86400000)
+
+      // Only include if within 60 days
+      if (daysUntil > maxDaysAhead) return
+
+      // Check valutazione status
+      const valStatus = e.valutazioneStatus || 'pending'
+      const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoValutazione)
+
+      if (!skipRemovals && valStatus !== 'complete') {
+        // Determine urgency based on days and phase
+        let urgenza = 'BASSA', color = 'gray'
+
+        if (daysUntil < 0) {
+          urgenza = 'CRITICA'
+          color = 'red'
+        } else if (daysUntil <= 7) {
+          urgenza = 'ALTA'
+          color = 'orange'
+        } else if (daysUntil <= 30) {
+          urgenza = 'MEDIA'
+          color = 'yellow'
+        }
+
+        // Add item for each pending phase
+        const tipo = valStatus === 'ceo-pending' ? 'VAL_CEO' : valStatus === 'hr-pending' ? 'VAL_HR' : 'VAL_MANAGER'
+
+        items.push({
+          id: e.id,
+          tipo: tipo,
+          nome: e.nome,
+          cognome: e.cognome,
+          team: e.team,
+          scadenza: e.fineProva,
+          urgenza: urgenza,
+          color: color,
+          giorni: daysUntil,
+          stato: e.statoValutazione || 'Da Fare'
+        })
+      }
+    })
+
+    return items.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+    })
+  })
+
+  // Visite Mediche urgencies
+  const visiteMedicheUrgenze = computed(() => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const items = []
+    const maxDaysAhead = 60 // Limit to 60 days visibility
+
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato !== 'Attivo' || !e.visite_mediche || e.visite_mediche.length === 0) return
+
+      e.visite_mediche.forEach((visita, idx) => {
+        if (!visita.data_prossima) return
+
+        const visitaDate = new Date(visita.data_prossima)
+        visitaDate.setHours(0, 0, 0, 0)
+        const daysUntil = Math.floor((visitaDate - today) / 86400000)
+
+        // Only include if within 60 days
+        if (daysUntil > maxDaysAhead) return
+
+        let urgenza = 'BASSA', color = 'gray'
+
+        if (daysUntil < 0) {
+          urgenza = 'CRITICA'
+          color = 'red'
+        } else if (daysUntil <= 7) {
+          urgenza = 'ALTA'
+          color = 'orange'
+        } else if (daysUntil <= 30) {
+          urgenza = 'MEDIA'
+          color = 'yellow'
+        }
+
+        items.push({
+          id: e.id,
+          visitaIdx: idx,
+          tipo: 'VISITA_MEDICA',
+          nome: e.nome,
+          cognome: e.cognome,
+          team: e.team,
+          scadenza: visita.data_prossima,
+          urgenza: urgenza,
+          color: color,
+          giorni: daysUntil,
+          stato: 'Da Fare'
+        })
+      })
+    })
+
+    return items.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+    })
+  })
+
+  // Pre-onboarding urgencies
+  const preonboardingUrgenze = computed(() => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const items = []
+    const maxDaysAhead = 60 // Limit to 60 days visibility
+
+    enrichedEmployees.value.forEach(e => {
+      if (e.stato !== 'Pre-Onboarding' || !e.dataAssunzione) return
+
+      const assunzioneDate = new Date(e.dataAssunzione)
+      assunzioneDate.setHours(0, 0, 0, 0)
+      const daysUntil = Math.floor((assunzioneDate - today) / 86400000)
+
+      // Only include if within 60 days
+      if (daysUntil < 0 || daysUntil > maxDaysAhead) return
+
+      let urgenza = 'BASSA', color = 'gray'
+
+      if (daysUntil <= 7) {
+        urgenza = 'ALTA'
+        color = 'orange'
+      } else if (daysUntil <= 30) {
+        urgenza = 'MEDIA'
+        color = 'yellow'
+      }
+
+      items.push({
+        id: e.id,
+        tipo: 'PRE_ONBOARDING',
+        nome: e.nome,
+        cognome: e.cognome,
+        team: e.team,
+        scadenza: e.dataAssunzione,
+        urgenza: urgenza,
+        color: color,
+        giorni: daysUntil,
+        stato: 'Da Fare'
+      })
+    })
+
+    return items.sort((a, b) => {
+      const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
+      return urgencyOrder[a.urgenza] - urgencyOrder[b.urgenza]
+    })
+  })
+
   // Merged list of all urgencies for Kanban
   const allUrgenze = computed(() => {
-    const merged = [...onboardingUrgenze.value, ...contractUrgenze.value]
+    const merged = [...onboardingUrgenze.value, ...contractUrgenze.value, ...valutazioniUrgenze.value, ...visiteMedicheUrgenze.value, ...preonboardingUrgenze.value]
     return merged.sort((a, b) => {
       const urgencyOrder = { CRITICA: 0, ALTA: 1, MEDIA: 2, BASSA: 3 }
       if (urgencyOrder[a.urgenza] !== urgencyOrder[b.urgenza]) {
@@ -1403,7 +1563,7 @@ export const useHrStore = defineStore('hr', () => {
     toast, employees, colloqui, ferie, colloquiPC, dimissioni, valutazioni360, backendAvailable,
     teams, enrichedEmployees, teamStats, kpiScadenze, colloquiMap, ferieMap, colloquiPCMap, dimissioniMap,
     burnoutRetentionQuadrants, pcStats, nextPC, kpiPC, kpiPCCopertura, pcColloquiStatus, urgentiAlert,
-    onboardingUrgenze, contractUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
+    onboardingUrgenze, contractUrgenze, valutazioniUrgenze, visiteMedicheUrgenze, preonboardingUrgenze, allUrgenze, kpiOnboarding, kpiContratti,
     ferieAnalytics, ensureFerieForAll, aggiornaFerieMaturate, getSocieta, getFerieSpettanti, updateContrattoFerie, updateResiduiAnniPrecedenti,
     FERIE_CONTRATTO_PROPRIO, FERIE_CCNL_COMMERCIO, PERMESSI_TOTALI_GG, PERMESSI_TOTALI_ORE,
     addEmployee, updateEmployee, deleteEmployee,
