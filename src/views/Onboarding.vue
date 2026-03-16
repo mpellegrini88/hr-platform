@@ -284,6 +284,41 @@
           </div>
         </Section>
 
+        <Section title="🎯 Valutazione Manager (nuova)">
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
+            <div class="flex items-start gap-3">
+              <div class="text-3xl flex-shrink-0">👨‍💼</div>
+              <div class="flex-1">
+                <h4 class="font-semibold text-blue-900 mb-2">Valutazione del Responsabile Tecnico</h4>
+                <p class="text-sm text-blue-800 mb-3">
+                  Prima di decidere il responso finale della prova, il responsabile tecnico deve compilare una valutazione dettagliata con voti (scala 1-5) su:
+                  competenze, qualità, problem solving, velocità, collaborazione, comunicazione e attitudine al ruolo.
+                </p>
+                
+                <div class="space-y-2 text-sm">
+                  <p class="font-medium text-blue-900">📋 Due opzioni:</p>
+                  
+                  <div class="bg-white p-3 rounded border-l-4 border-purple-400">
+                    <p class="font-semibold text-purple-900 mb-1">🤖 Opzione 1: Usa l'Assistente AI</p>
+                    <p class="text-xs text-purple-700 mb-2">Scrivi le osservazioni del dipendente e l'AI suggerirà automaticamente i voti.</p>
+                    <button @click="goToValutazioneWithAI" class="btn btn-sm text-xs px-3 bg-purple-600 hover:bg-purple-700 text-white">
+                      → Apri AI Chat Hub
+                    </button>
+                  </div>
+
+                  <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+                    <p class="font-semibold text-blue-900 mb-1">✍️ Opzione 2: Compila Manualmente</p>
+                    <p class="text-xs text-blue-700 mb-2">Accedi alla sezione valutazione prova e compila il form direttamente.</p>
+                    <button @click="goToValutazione" class="btn btn-sm text-xs px-3 bg-blue-600 hover:bg-blue-700 text-white">
+                      → Vai alla Valutazione Prova
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Section>
+
         <Section title="Valutazione periodo di prova">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -311,6 +346,7 @@
 
 <script setup>
 import { ref, computed, reactive, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
@@ -321,6 +357,7 @@ import ScorePill from '@/components/ui/ScorePill.vue'
 import InfoBlock from '@/components/ui/InfoBlock.vue'
 
 const store = useHrStore()
+const router = useRouter()
 const { fmtDate, fmtDateShort, contractBadge, scoreColor } = useHelpers()
 
 const activeTab = ref('inCorso')
@@ -397,5 +434,19 @@ function saveDetailFull() {
     c2_esaur: fu2Scores.esaur, c2_carico: fu2Scores.carico, c2_motiv: fu2Scores.motiv, c2_supp: fu2Scores.supp, c2_equil: fu2Scores.equil, c2_intent: fu2Scores.intent, c2_note: fu2Scores.note,
   })
   detail.open = false
+}
+
+// Navigation to Valutazione prova
+function goToValutazione() {
+  if (!detail.emp) return
+  detail.open = false
+  router.push(`/valutazione-prova?empId=${detail.emp.id}`)
+}
+
+function goToValutazioneWithAI() {
+  if (!detail.emp) return
+  detail.open = false
+  // Navigate to valutazione with AI focus (could pass a flag, but for now just navigate)
+  router.push(`/valutazione-prova?empId=${detail.emp.id}#ai-chat-hub`)
 }
 </script>
