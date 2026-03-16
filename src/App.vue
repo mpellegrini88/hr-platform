@@ -23,11 +23,13 @@ import { useHrStore } from '@/stores/hrStore.js'
 import { useIndexedDB } from '@/composables/useIndexedDB.js'
 import { useBackendAPI } from '@/composables/useBackendAPI.js'
 import { usePersistence } from '@/composables/usePersistence.js'
+import { useToastNotification } from '@/composables/useToastNotification.js'
 
 const store = useHrStore()
 const idb = useIndexedDB()
 const backend = useBackendAPI()
 const persistence = usePersistence()
+const toast = useToastNotification()
 
 // Load data: backend first, then IndexedDB fallback, then seed data
 onMounted(async () => {
@@ -48,6 +50,7 @@ onMounted(async () => {
         store.backendAvailable = true
         loaded = true
         console.log('✅ Data restored from backend server')
+        toast.showToast('☁️ Dati caricati da server', 'success', 2000)
       }
     }
   } catch (err) {
@@ -66,10 +69,18 @@ onMounted(async () => {
         store.dimissioni = savedData.dimissioni || []
         store.valutazioni360 = savedData.valutazioni360 || []
         console.log('✅ Data restored from IndexedDB')
+        toast.showToast('💾 Dati caricati dalla cache locale', 'info', 2000)
+        loaded = true
       }
     } catch (err) {
       console.warn('Could not restore from IndexedDB, using seed data:', err)
     }
+  }
+
+  // 3) Fallback: seed data (se non trovati altri dati)
+  if (!loaded) {
+    console.log('ℹ Using seed data')
+    toast.showToast('ℹ️ Nuova sessione - dati di esempio caricati', 'info', 2000)
   }
 
   // Aggiorna ferie maturate (ricalcolo mensile) dopo il caricamento dati

@@ -552,10 +552,11 @@ const filtered = computed(() => {
     const matchTeam = !filterTeam.value || e.team === filterTeam.value
     return matchSearch && matchTeam
   }).sort((a, b) => {
-    // Default: soonest expiring trial period first
-    const da = a.daysToProva ?? 9999
-    const db = b.daysToProva ?? 9999
-    return da - db
+    // Default: dalla valutazione più recente (fine prova più vicina a oggi) in alto
+    // a quella più lontana nel tempo (fine prova più vecchia)
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : 0
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : 0
+    return dateB - dateA
   })
 })
 

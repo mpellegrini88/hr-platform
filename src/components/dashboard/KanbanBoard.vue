@@ -23,7 +23,11 @@
         </select>
       </div>
 
-      <button @click="exportCSV" class="btn btn-secondary text-sm">Scarica CSV</button>
+      <div class="flex gap-2 ml-auto">
+        <button @click="handleExportExcel" class="btn btn-sm bg-green-50 text-green-700 hover:bg-green-100">📊 Excel</button>
+        <button @click="handleExportJSON" class="btn btn-sm bg-blue-50 text-blue-700 hover:bg-blue-100">📋 JSON</button>
+        <button @click="handleExportCSV" class="btn btn-sm bg-amber-50 text-amber-700 hover:bg-amber-100">📄 CSV</button>
+      </div>
     </div>
 
     <!-- Kanban Board -->
@@ -45,7 +49,10 @@
               <span :class="['text-xs px-2 py-1 rounded font-semibold', urgencyBadgeClass(item.urgenza)]">
                 {{ item.urgenza }}
               </span>
-              <span class="text-xs text-gray-600">{{ item.giorni }} gg</span>
+              <div class="text-right">
+                <span class="text-xs font-semibold" :class="item.giorni <= 0 ? 'text-red-600' : 'text-gray-700'">{{ item.giorni }} gg</span>
+                <div v-if="item.scadenza" class="text-[10px] text-gray-400">{{ fmtDateShort(item.scadenza) }}</div>
+              </div>
             </div>
             <div class="flex gap-2 mt-2">
               <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 font-medium flex-1 py-1 rounded bg-green-50 hover:bg-green-100">
@@ -79,7 +86,10 @@
               <span :class="['text-xs px-2 py-1 rounded font-semibold', urgencyBadgeClass(item.urgenza)]">
                 {{ item.urgenza }}
               </span>
-              <span class="text-xs text-gray-600">{{ item.giorni }} gg</span>
+              <div class="text-right">
+                <span class="text-xs font-semibold" :class="item.giorni <= 0 ? 'text-red-600' : 'text-gray-700'">{{ item.giorni }} gg</span>
+                <div v-if="item.scadenza" class="text-[10px] text-gray-400">{{ fmtDateShort(item.scadenza) }}</div>
+              </div>
             </div>
             <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 mt-2 font-medium">
               Completa ✓
@@ -99,7 +109,7 @@
         </div>
         <div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
           <div v-for="item in completatoItems" :key="`${item.id}-${item.tipo}`"
-            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 group hover:opacity-100 transition">
+            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 hover:opacity-100 transition">
             <div class="flex items-start justify-between">
               <div class="flex-1">
                 <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }} {{ item.cognome }}</p>
@@ -109,10 +119,13 @@
                   <span class="text-xs px-2 py-1 rounded font-semibold bg-green-100 text-green-700">
                     ✓ FATTO
                   </span>
-                  <span class="text-xs text-gray-600">{{ item.giorni }} gg fa</span>
+                  <div class="text-right">
+                    <span class="text-xs text-gray-600">{{ item.giorni }} gg fa</span>
+                    <div v-if="item.scadenza" class="text-[10px] text-gray-400">{{ fmtDateShort(item.scadenza) }}</div>
+                  </div>
                 </div>
               </div>
-              <button @click.stop="deleteItem(item)" class="text-xs text-red-600 hover:text-red-800 font-medium ml-2 opacity-0 group-hover:opacity-100 transition">
+              <button @click.stop="deleteItem(item)" class="text-xs text-red-500 hover:text-red-700 font-medium ml-2 p-1 rounded hover:bg-red-50" title="Elimina">
                 🗑️
               </button>
             </div>
@@ -127,17 +140,55 @@
     <!-- Modal -->
     <ActionItemModal :is-open="modalOpen && selectedItem" :item="selectedItem"
       @close="closeModal" @saved="handleItemSaved" />
+
+    <!-- Delete Confirmation Modal -->
+    <Teleport to="body">
+      <div v-if="deleteModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="fixed inset-0 bg-black/50" @click="closeDeleteModal"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 z-10">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">
+            {{ deleteModalAction === 'elimina' ? '🗑️ Eliminazione definitiva' : '✕ Scartare attività' }}
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">
+            {{ deleteModalAction === 'elimina'
+              ? 'Sei sicuro di voler eliminare definitivamente questa attività? L\'azione non è reversibile.'
+              : 'Sei sicuro di voler scartare questa attività? Verrà rimossa dalla Kanban.' }}
+          </p>
+          <div v-if="deleteModalItem" class="bg-gray-50 rounded-lg p-4 mb-5 border border-gray-200">
+            <p class="font-semibold text-gray-900">{{ deleteModalItem.nome }} {{ deleteModalItem.cognome }}</p>
+            <p class="text-sm text-gray-600 mt-1">Tipo: <strong>{{ deleteModalItem.tipo }}</strong></p>
+            <p class="text-sm text-gray-600">Team: {{ deleteModalItem.team }}</p>
+            <p v-if="deleteModalItem.scadenza" class="text-sm text-gray-600">Scadenza: {{ fmtDateShort(deleteModalItem.scadenza) }}</p>
+          </div>
+          <div class="flex gap-3 justify-end">
+            <button @click="closeDeleteModal" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 font-medium">Annulla</button>
+            <button @click="confirmDelete" class="px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 font-medium">
+              {{ deleteModalAction === 'elimina' ? '🗑️ Elimina' : '✕ Scarta' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
+import { useHelpers } from '@/composables/useHelpers.js'
+import { useExport } from '@/composables/useExport.js'
 import ActionItemModal from './ActionItemModal.vue'
 
 const store = useHrStore()
+const { fmtDateShort } = useHelpers()
+const { exportToExcel, exportToJSON, exportKanbanCSV } = useExport()
 const modalOpen = ref(false)
 const selectedItem = ref(null)
+
+// Delete modal state
+const deleteModalOpen = ref(false)
+const deleteModalItem = ref(null)
+const deleteModalAction = ref('')  // 'elimina' or 'scarta'
 
 const filters = ref({
   tipo: '',
@@ -222,40 +273,43 @@ function moveToCompleted(item) {
 }
 
 function archiveItem(item) {
-  // Archive an item (remove from default view but keep in history)
-  // This can be used to delete tasks that are not needed
-  if (confirm(`Eliminare definitivamente: ${item.nome} ${item.cognome} - ${item.tipo}?`)) {
-    // Mark as archived or deleted by setting status to "Scartato"
-    if (item.tipo === 'FU1') {
-      store.updateEmployee(item.id, { statoFU1: 'Scartato' })
-    } else if (item.tipo === 'FU2_MANAGER') {
-      store.updateEmployee(item.id, { statoFU2Manager: 'Scartato' })
-    } else if (item.tipo === 'FU2_DIP') {
-      store.updateEmployee(item.id, { statoFU2Dip: 'Scartato' })
-    } else if (item.tipo === 'RINNOVO') {
-      store.updateEmployee(item.id, { statoRinnovo: 'Scartato' })
-    } else if (item.tipo === 'DOSSIER') {
-      store.updateEmployee(item.id, { statoDossierContratto: 'Scartato' })
-    }
-  }
+  deleteModalItem.value = item
+  deleteModalAction.value = 'scarta'
+  deleteModalOpen.value = true
 }
 
 function deleteItem(item) {
-  // Permanently delete a completed item from view
-  if (confirm(`Rimuovere definitivamente: ${item.nome} ${item.cognome}?`)) {
-    // Mark the status as 'Eliminato' so it doesn't appear in Kanban anymore
-    if (item.tipo === 'FU1') {
-      store.updateEmployee(item.id, { statoFU1: 'Eliminato' })
-    } else if (item.tipo === 'FU2_MANAGER') {
-      store.updateEmployee(item.id, { statoFU2Manager: 'Eliminato' })
-    } else if (item.tipo === 'FU2_DIP') {
-      store.updateEmployee(item.id, { statoFU2Dip: 'Eliminato' })
-    } else if (item.tipo === 'RINNOVO') {
-      store.updateEmployee(item.id, { statoRinnovo: 'Eliminato' })
-    } else if (item.tipo === 'DOSSIER') {
-      store.updateEmployee(item.id, { statoDossierContratto: 'Eliminato' })
-    }
+  deleteModalItem.value = item
+  deleteModalAction.value = 'elimina'
+  deleteModalOpen.value = true
+}
+
+function closeDeleteModal() {
+  deleteModalOpen.value = false
+  deleteModalItem.value = null
+  deleteModalAction.value = ''
+}
+
+function confirmDelete() {
+  const item = deleteModalItem.value
+  if (!item) return
+  const stato = deleteModalAction.value === 'elimina' ? 'Eliminato' : 'Scartato'
+  if (item.tipo === 'FU1') {
+    store.updateEmployee(item.id, { statoFU1: stato })
+  } else if (item.tipo === 'FU2_MANAGER') {
+    store.updateEmployee(item.id, { statoFU2Manager: stato })
+  } else if (item.tipo === 'FU2_DIP') {
+    store.updateEmployee(item.id, { statoFU2Dip: stato })
+  } else if (item.tipo === 'RINNOVO') {
+    store.updateEmployee(item.id, { statoRinnovo: stato })
+  } else if (item.tipo === 'DOSSIER') {
+    store.updateEmployee(item.id, { statoDossierContratto: stato })
+  } else if (item.tipo === 'REVIEW_MANAGER') {
+    store.updateEmployee(item.id, { statoReviewManager: stato })
+  } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
+    store.updateEmployee(item.id, { statoPCKanban: stato })
   }
+  closeDeleteModal()
 }
 
 function handleItemSaved() {
@@ -263,25 +317,33 @@ function handleItemSaved() {
   // Re-render: allUrgenze computed property will update automatically
 }
 
-function exportCSV() {
-  const headers = ['Nome Completo', 'Team', 'Tipo', 'Scadenza', 'Urgenza', 'Stato']
-  const rows = filteredItems.value.map(item => [
-    `${item.nome} ${item.cognome}`,
-    item.team,
-    item.tipo,
-    item.scadenza,
-    item.urgenza,
-    item.stato || 'Da Fare'
-  ])
+function handleExportExcel() {
+  const storeSnapshot = {
+    employees: store.employees,
+    colloqui: store.colloqui,
+    ferie: store.ferie,
+    colloquiPC: store.colloquiPC,
+    dimissioni: store.dimissioni,
+    valutazioni360: store.valutazioni360,
+    allUrgenze: store.allUrgenze
+  }
+  exportToExcel(storeSnapshot)
+}
 
-  let csv = headers.join(',') + '\n'
-  rows.forEach(row => {
-    csv += row.map(cell => `"${cell}"`).join(',') + '\n'
-  })
+function handleExportJSON() {
+  const storeSnapshot = {
+    employees: store.employees,
+    colloqui: store.colloqui,
+    ferie: store.ferie,
+    colloquiPC: store.colloquiPC,
+    dimissioni: store.dimissioni,
+    valutazioni360: store.valutazioni360,
+    allUrgenze: store.allUrgenze
+  }
+  exportToJSON(storeSnapshot)
+}
 
-  const element = document.createElement('a')
-  element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv))
-  element.setAttribute('download', 'kanban-export.csv')
-  element.click()
+function handleExportCSV() {
+  exportKanbanCSV(store.allUrgenze)
 }
 </script>

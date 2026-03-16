@@ -17,11 +17,18 @@
         <option>Dimissioni Volontarie</option>
         <option>Mancato Superamento Prova</option>
         <option>In Uscita Concordata</option>
+        <option>Inattivo</option>
       </select>
       <button @click="filterAzioni = !filterAzioni" :class="['btn btn-sm', filterAzioni ? 'bg-amber-500 text-white hover:bg-amber-600' : 'btn-secondary']">
         🔔 Azioni ({{ actionCount }})
       </button>
       <button @click="openNew" class="btn btn-primary ml-auto">+ Nuovo dipendente</button>
+    </div>
+
+    <!-- Banner ex-dipendenti -->
+    <div v-if="exDipendenti.length > 0" class="flex items-center gap-3 text-sm bg-gray-50 rounded-xl px-4 py-2 border border-gray-200">
+      <span class="text-gray-500">👤 <strong>{{ exDipendenti.length }}</strong> ex-dipendenti (Uscita Concordata / Inattivo) esclusi dalla vista.</span>
+      <button @click="$router.push('/analytics')" class="text-primary-600 hover:text-primary-800 font-medium underline">Vedi in Analytics →</button>
     </div>
 
     <!-- Legenda colori -->
@@ -237,6 +244,7 @@
                 <option>Dimissioni Volontarie</option>
                 <option>Mancato Superamento Prova</option>
                 <option>In Uscita Concordata</option>
+                <option>Inattivo</option>
                 <option>Licenziato</option>
               </select>
             </div>
@@ -267,7 +275,12 @@ const { fmtDate, fmtDateShort, toInput, statoClass, contractBadge } = useHelpers
 
 const search = ref(''), filterTeam = ref(''), filterContratto = ref(''), filterStato = ref(''), filterAzioni = ref(false)
 
-const filtered = computed(() => store.enrichedEmployees.filter(e => {
+// Escludi dipendenti in uscita concordata o inattivi dal flusso standard
+const STATI_ESCLUSI = ['In Uscita Concordata', 'Inattivo']
+const activeEmployees = computed(() => store.enrichedEmployees.filter(e => !STATI_ESCLUSI.includes(e.stato)))
+const exDipendenti = computed(() => store.enrichedEmployees.filter(e => STATI_ESCLUSI.includes(e.stato)))
+
+const filtered = computed(() => activeEmployees.value.filter(e => {
   const s = search.value.toLowerCase()
   return (!s || (e.nome||'').toLowerCase().includes(s) || (e.cognome||'').toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
     && (!filterTeam.value || e.team === filterTeam.value)
@@ -276,7 +289,7 @@ const filtered = computed(() => store.enrichedEmployees.filter(e => {
     && (!filterAzioni.value || needsAction(e))
 }))
 
-const actionCount = computed(() => store.enrichedEmployees.filter(e => needsAction(e)).length)
+const actionCount = computed(() => activeEmployees.value.filter(e => needsAction(e)).length)
 
 const modal = reactive({ open: false, isNew: false, data: {} })
 

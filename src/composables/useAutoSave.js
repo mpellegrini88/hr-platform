@@ -1,29 +1,44 @@
 import { ref } from 'vue'
 import { usePersistence } from './usePersistence.js'
 import { useToastNotification } from './useToastNotification.js'
+import { useBackendAPI } from './useBackendAPI.js'
+import { useSyncStatus } from './useSyncStatus.js'
 
 export function useAutoSave() {
   const persistence = usePersistence()
   const toast = useToastNotification()
+  const backend = useBackendAPI()
+  const syncStatus = useSyncStatus()
 
   const changeCount = ref(0)
   const lastSaveTime = ref(Date.now())
+  const lastBackendSyncTime = ref(Date.now())
   const CHANGE_THRESHOLD = 10
   const EXPORT_INTERVAL_MS = 5 * 60 * 1000 // 5 minutes
+  const BACKEND_SYNC_INTERVAL_MS = 30 * 1000 // 30 seconds
   const DEBOUNCE_DELAY_MS = 500
 
   let exportTimeout = null
   let debounceTimeout = null
+  let syncTimeout = null
 
   /**
    * Call after every store mutation
-   * Increments counter, syncs localStorage, triggers debounced export
+   * Increments counter, syncs localStorage, triggers debounced backend sync & Excel export
    */
   function trackChange(storeData) {
     changeCount.value++
 
     // Immediate localStorage sync
     syncToLocalStorage(storeData)
+
+    // Debounced backend sync
+    clearTimeout(syncTimeout)
+    syncTimeout = setTimeout(() => {
+      if (Date.now() - lastBackendSyncTime.value >= BACKEND_SYNC_INTERVAL_MS) {
+        syncToBackend(storeData)
+      }
+    }, DEBOUNCE_DELAY_MS)
 
     // Debounced Excel export check
     clearTimeout(debounceTimeout)
@@ -41,6 +56,7 @@ export function useAutoSave() {
   function syncToLocalStorage(storeData) {
     try {
       persistence.save('hrStore', storeData)
+      syncStatus.recordLocalSync()
       toast.showToast('💾 Dati salvati in locale', 'success', 1500)
     } catch (err) {
       if (err.name === 'QuotaExceededError') {
@@ -48,6 +64,29 @@ export function useAutoSave() {
       } else {
         toast.showToast('❌ Errore salvataggio', 'error', 2000)
       }
+    }
+  }
+
+  /**
+   * Sync data to backend server
+   */
+  async function syncToBackend(storeData) {
+    try {
+      // Check backend health first
+      const isHealthy = await backend.checkHealth()
+      if (!isHealthy) {
+        console.warn('Backend not available, skipping sync')
+        return
+      }
+
+      await backend.saveAll(storeData)
+      lastBackendSyncTime.value = Date.now()
+      syncStatus.recordBackendSync()
+      toast.showToast('☁️ Sincronizzato con server', 'success', 1000)
+    } catch (err) {
+      console.error('Backend sync failed:', err)
+      syncStatus.recordSyncError(err.message)
+      toast.showToast('⚠️ Errore sincronizzazione server', 'warning', 2000)
     }
   }
 
@@ -156,6 +195,7 @@ export function useAutoSave() {
   return {
     trackChange,
     syncToLocalStorage,
+    syncToBackend,
     manualExportToExcel,
     manualImportFromJSON
   }

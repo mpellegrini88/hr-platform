@@ -2,26 +2,37 @@
   <div class="p-6 space-y-6">
     <!-- ONBOARDING SCADENZE KPI Row -->
     <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="In periodo di prova" :value="kpiOnboarding.inCorso" icon="🚀" color="blue" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 scaduti" :value="kpiOnboarding.fu1Scaduti" icon="⚠️" color="red" :alert="kpiOnboarding.fu1Scaduti > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 entro 7gg" :value="kpiOnboarding.fu1Entro7gg" icon="⏰" color="amber" :alert="kpiOnboarding.fu1Entro7gg > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU2 Manager scaduti" :value="kpiOnboarding.fu2ManagerScaduti" icon="📋" color="orange" :alert="kpiOnboarding.fu2ManagerScaduti > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="Fine prova 30gg" :value="kpiOnboarding.provaScadenza" icon="📅" color="indigo" :alert="kpiOnboarding.provaScadenza > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="In periodo di prova" :value="kpiOnboarding.inCorso" icon="▶" color="blue" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 scaduti" :value="kpiOnboarding.fu1Scaduti" icon="!" color="red" :alert="kpiOnboarding.fu1Scaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU1 entro 7gg" :value="kpiOnboarding.fu1Entro7gg" icon="⧖" color="amber" :alert="kpiOnboarding.fu1Entro7gg > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="FU2 Manager scaduti" :value="kpiOnboarding.fu2ManagerScaduti" icon="≡" color="orange" :alert="kpiOnboarding.fu2ManagerScaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/onboarding')"><KpiCard label="Fine prova 30gg" :value="kpiOnboarding.provaScadenza" icon="⊞" color="indigo" :alert="kpiOnboarding.provaScadenza > 0" /></button>
     </div>
 
     <!-- CONTRACT SCADENZE KPI Row -->
     <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4">
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi scaduti" :value="kpiContratti.rinnoveScadute" icon="📌" color="red" :alert="kpiContratti.rinnoveScadute > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi entro 30gg" :value="kpiContratti.rinnoveEntro30gg" icon="⏳" color="amber" :alert="kpiContratti.rinnoveEntro30gg > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Dossier scaduti" :value="kpiContratti.dossieriScaduti" icon="📂" color="orange" :alert="kpiContratti.dossieriScaduti > 0" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Determinati attivi" :value="kpiContratti.determinatiInScadenza" icon="✍️" color="purple" /></button>
-      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/anagrafica')"><KpiCard label="Dipendenti attivi" :value="attivi" icon="👥" color="indigo" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi scaduti" :value="kpiContratti.rinnoveScadute" icon="⊘" color="red" :alert="kpiContratti.rinnoveScadute > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Rinnovi entro 30gg" :value="kpiContratti.rinnoveEntro30gg" icon="⧖" color="amber" :alert="kpiContratti.rinnoveEntro30gg > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Dossier scaduti" :value="kpiContratti.dossieriScaduti" icon="☰" color="orange" :alert="kpiContratti.dossieriScaduti > 0" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80"><KpiCard label="Determinati attivi" :value="kpiContratti.determinatiInScadenza" icon="✎" color="purple" /></button>
+      <button class="cursor-pointer bg-transparent border-0 p-0 hover:opacity-80" @click="router.push('/anagrafica')"><KpiCard label="Dipendenti attivi" :value="attivi" icon="⊙" color="indigo" /></button>
     </div>
 
     <!-- KANBAN BOARD -->
     <div class="card">
-      <div class="px-5 py-4 border-b border-gray-100">
-        <h3 class="font-semibold text-gray-900">📋 Kanban - Monitoraggio Azioni</h3>
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h3 class="font-semibold text-gray-900">Kanban — Monitoraggio Azioni</h3>
+        <div class="flex gap-2">
+          <button @click="handleExportExcel" class="text-xs px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg font-medium transition">
+            📊 Excel
+          </button>
+          <button @click="handleExportJSON" class="text-xs px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg font-medium transition">
+            📋 JSON
+          </button>
+          <button @click="handleExportCSV" class="text-xs px-3 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg font-medium transition">
+            📄 CSV
+          </button>
+        </div>
       </div>
       <div class="p-5">
         <KanbanBoard />
@@ -31,7 +42,7 @@
     <!-- CONTRATTI IN SCADENZA - Reminder valutazione prova per CEO -->
     <div v-if="contratiInScadenza.length > 0" class="card border-l-4 border-amber-500 bg-amber-50">
       <div class="px-5 py-4 border-b border-amber-200">
-        <h3 class="font-semibold text-amber-900">📋 Contratti in scadenza - Reminder Valutazione Prova</h3>
+        <h3 class="font-semibold text-amber-900">Contratti in scadenza — Reminder Valutazione Prova</h3>
       </div>
       <div class="overflow-x-auto">
         <table class="tbl">
@@ -48,13 +59,13 @@
               <td class="font-mono text-sm text-amber-800">{{ fmtDateShort(c.scadenzaContratto) }}</td>
               <td><span :class="['badge', c.daysToEnd <= 0 ? 'badge-red' : c.daysToEnd <= 7 ? 'badge-orange' : 'badge-yellow']">{{ c.daysToEnd }}gg</span></td>
               <td><span class="text-xs text-amber-800">{{ c.esitoProva }}</span></td>
-              <td><button @click="openReminderCEO(c)" class="text-amber-700 hover:text-amber-900 font-medium text-sm">📧 Invia CEO</button></td>
+              <td><button @click="openReminderCEO(c)" class="text-amber-700 hover:text-amber-900 font-medium text-sm">Invia CEO</button></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="px-5 py-3 bg-amber-100 border-t border-amber-200 text-xs text-amber-900">
-        ℹ️ Reminder: Inviare report valutazione di prova al CEO <strong>1 mese prima</strong> della scadenza contratto
+        ℹ Reminder: Inviare report valutazione di prova al CEO <strong>1 mese prima</strong> della scadenza contratto
       </div>
     </div>
 
@@ -63,7 +74,7 @@
       <!-- Azioni urgenti -->
       <div class="col-span-12 xl:col-span-8 card">
         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h3 class="font-semibold text-gray-900">⚡ Azioni urgenti</h3>
+          <h3 class="font-semibold text-gray-900">Azioni urgenti</h3>
           <span class="text-xs text-gray-400">{{ urgenti.length }} elementi</span>
         </div>
         <div class="overflow-x-auto">
@@ -81,7 +92,7 @@
                 <td><span :class="['badge', u.badgeClass]">{{ u.tipo }}</span></td>
                 <td class="font-mono text-sm">{{ fmtDateShort(u.data) }}</td>
                 <td><span :class="['badge', u.urgClass]">{{ u.azione }}</span></td>
-                <td><button @click="openEditModal(u)" class="text-primary-600 hover:text-primary-800 font-medium text-sm">✎ Modifica</button></td>
+                <td><button @click="openEditModal(u)" class="text-primary-600 hover:text-primary-800 font-medium text-sm">Modifica</button></td>
               </tr>
               <tr v-if="urgenti.length === 0">
                 <td colspan="6" class="text-center py-8 text-gray-400">✅ Nessuna azione urgente</td>
@@ -93,7 +104,7 @@
 
       <!-- Distribuzione team -->
       <div class="col-span-12 xl:col-span-4 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-4">👥 Team distribution</h3>
+        <h3 class="font-semibold text-gray-900 mb-4">Team distribution</h3>
         <div class="space-y-2.5">
           <div v-for="t in topTeams" :key="t.team" class="flex items-center gap-3">
             <span class="text-xs text-gray-500 w-28 truncate">{{ t.team }}</span>
@@ -107,7 +118,7 @@
 
       <!-- Burnout per team -->
       <div class="col-span-12 md:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-1">🔴 Burnout risk per team</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Burnout risk per team</h3>
         <p class="text-xs text-gray-400 mb-4">Basato su colloqui P&C (quando disponibili)</p>
         <div v-if="store.colloquiPC.length === 0" class="py-12 text-center">
           <p class="text-gray-500 text-sm">Nessun dato P&C disponibile</p>
@@ -133,7 +144,7 @@
 
       <!-- Retention & stato -->
       <div class="col-span-12 md:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-4">📈 Retention & Stato</h3>
+        <h3 class="font-semibold text-gray-900 mb-4">Retention & Stato</h3>
         <div class="grid grid-cols-2 gap-3 mb-4">
           <div class="bg-emerald-50 rounded-xl p-3 text-center">
             <div class="text-2xl font-bold text-emerald-700">{{ retentionRate }}%</div>
@@ -155,7 +166,7 @@
 
       <!-- Contratti mix -->
       <div class="col-span-12 md:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-4">📋 Mix contrattuale</h3>
+        <h3 class="font-semibold text-gray-900 mb-4">Mix contrattuale</h3>
         <div class="space-y-2.5">
           <div v-for="c in contractMix" :key="c.tipo" class="flex items-center gap-3">
             <span :class="['badge', c.badge]">{{ c.label }}</span>
@@ -169,7 +180,7 @@
 
       <!-- Wellness radar summary -->
       <div class="col-span-12 md:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-1">💚 Benessere medio (ultimo colloquio)</h3>
+        <h3 class="font-semibold text-gray-900 mb-1">Benessere medio (ultimo colloquio)</h3>
         <p class="text-xs text-gray-400 mb-4">Scale validate: MBI-GS · Copenhagen BI · JD-R · WHO-5 · Mobley</p>
         <div v-if="store.colloquiPC.length === 0" class="py-12 text-center">
           <p class="text-gray-500 text-sm">Nessun dato P&C disponibile</p>
@@ -201,37 +212,37 @@
       <!-- ─── Legenda scale scientifiche ─── -->
       <details class="bg-amber-50 border border-amber-200 rounded-xl p-4 group">
         <summary class="cursor-pointer text-sm font-semibold text-amber-800 select-none flex items-center gap-2">
-          📖 Legenda Scale Scientifiche
+          Legenda Scale Scientifiche
           <span class="text-xs font-normal text-amber-600">(clicca per espandere)</span>
         </summary>
         <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-700">
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">😓 MBI-GS — Maslach Burnout Inventory (General Survey)</p>
+            <p class="font-semibold text-gray-900 mb-1">MBI-GS — Maslach Burnout Inventory (General Survey)</p>
             <p>Misura il livello di <b>esaurimento emotivo</b> e depersonalizzazione legato al lavoro. Sviluppata da Christina Maslach, è il gold standard per la valutazione del burnout.</p>
-            <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: punteggio alto = situazione peggiore</p>
+            <p class="mt-1 text-red-600 font-medium">! Scala invertita: punteggio alto = situazione peggiore</p>
           </div>
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">⚡ CBI — Copenhagen Burnout Inventory</p>
+            <p class="font-semibold text-gray-900 mb-1">CBI — Copenhagen Burnout Inventory</p>
             <p>Valuta il <b>carico di lavoro percepito</b> e lo stress lavorativo. Complementare al MBI, si focalizza sulle cause organizzative del burnout (Kristensen et al.).</p>
-            <p class="mt-1 text-red-600 font-medium">⚠ Scala invertita: punteggio alto = situazione peggiore</p>
+            <p class="mt-1 text-red-600 font-medium">! Scala invertita: punteggio alto = situazione peggiore</p>
           </div>
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">💪 JD-R Motivazione — Job Demands-Resources (Bakker & Demerouti)</p>
+            <p class="font-semibold text-gray-900 mb-1">JD-R Motivazione — Job Demands-Resources (Bakker & Demerouti)</p>
             <p>Misura la <b>motivazione intrinseca e autonomia</b> lavorativa. Il modello JD-R bilancia domande lavorative e risorse disponibili: risorse alte → engagement, domande alte → stress.</p>
             <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
           </div>
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">🤝 JD-R Supporto — Job Demands-Resources (Bakker & Demerouti)</p>
+            <p class="font-semibold text-gray-900 mb-1">JD-R Supporto — Job Demands-Resources (Bakker & Demerouti)</p>
             <p>Valuta il <b>supporto organizzativo percepito</b> e la chiarezza del ruolo. Include supporto del manager, dei colleghi e chiarezza nelle aspettative lavorative.</p>
             <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
           </div>
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">⚖️ WHO-5 — World Health Organization Well-Being Index</p>
+            <p class="font-semibold text-gray-900 mb-1">WHO-5 — World Health Organization Well-Being Index</p>
             <p>Indice di <b>benessere e equilibrio vita-lavoro</b> dell'OMS. Cinque item che valutano umore positivo, vitalità e interesse nella vita quotidiana. Validato in oltre 30 lingue.</p>
             <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
           </div>
           <div class="bg-white rounded-lg p-3 border border-amber-100">
-            <p class="font-semibold text-gray-900 mb-1">🏠 Mobley — Modello del Turnover (Mobley, 1977)</p>
+            <p class="font-semibold text-gray-900 mb-1">Mobley — Modello del Turnover (Mobley, 1977)</p>
             <p>Misura l'<b>intenzione di restare</b> nell'organizzazione. Il modello di Mobley collega insoddisfazione → pensiero di lasciare → ricerca alternative → intenzione → turnover effettivo.</p>
             <p class="mt-1 text-emerald-600 font-medium">✓ Punteggio alto = situazione migliore</p>
           </div>
@@ -257,12 +268,12 @@
         <div class="bg-blue-50 rounded-xl p-5 border border-blue-100 space-y-5">
           <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest">Scale Behavioral Wellness ({{ selectedUrgenza.tipo }})</p>
           <div class="grid grid-cols-2 gap-5">
-            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
-            <ScaleInput label="⚡ Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
-            <ScaleInput label="💪 Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
-            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
-            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
-            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
           </div>
           <div>
             <label class="form-label">Note colloquio</label>
@@ -296,12 +307,12 @@
         <div class="bg-purple-50 rounded-xl p-5 border border-purple-100 space-y-5">
           <p class="text-xs font-semibold text-purple-600 uppercase tracking-widest">Scale Behavioral Wellness (Valutazione finale)</p>
           <div class="grid grid-cols-2 gap-5">
-            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
-            <ScaleInput label="⚡ Carico di lavoro (CBI)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
-            <ScaleInput label="💪 Motivazione & Autonomia (JD-R)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
-            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
-            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
-            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Esaurimento emotivo (MBI-GS)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="Carico di lavoro (CBI)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="Motivazione & Autonomia (JD-R)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Supporto & Chiarezza (JD-R)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
           </div>
           <div>
             <label class="form-label">Note valutazione</label>
@@ -328,12 +339,12 @@
         <div class="bg-red-50 rounded-xl p-5 border border-red-100 space-y-5">
           <p class="text-xs font-semibold text-red-600 uppercase tracking-widest">Scale scientifiche 1–5 (Colloquio P&C)</p>
           <div class="grid grid-cols-2 gap-5">
-            <ScaleInput label="😓 Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
-            <ScaleInput label="⚡ Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
-            <ScaleInput label="💪 Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
-            <ScaleInput label="🤝 Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
-            <ScaleInput label="⚖️ Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
-            <ScaleInput label="🏠 Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Esaurimento emotivo (MBI-GS, Maslach)" v-model="editForm.esaur" :inverted="true" hint="↑ = peggio" minLabel="1 = mai" maxLabel="5 = ogni giorno" />
+            <ScaleInput label="Carico di lavoro (CBI, Copenhagen)" v-model="editForm.carico" :inverted="true" hint="↑ = peggio" minLabel="1 = basso" maxLabel="5 = insostenibile" />
+            <ScaleInput label="Motivazione & Autonomia (JD-R, Bakker)" v-model="editForm.motiv" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
+            <ScaleInput label="Supporto & Chiarezza (JD-R, Bakker)" v-model="editForm.supp" hint="↑ = meglio" minLabel="1 = assente" maxLabel="5 = eccellente" />
+            <ScaleInput label="Equilibrio vita-lavoro (WHO-5)" v-model="editForm.equil" hint="↑ = meglio" minLabel="1 = mai" maxLabel="5 = sempre" />
+            <ScaleInput label="Intenzione di restare (Mobley)" v-model="editForm.intent" hint="↑ = meglio" minLabel="1 = molto bassa" maxLabel="5 = molto alta" />
           </div>
           <div>
             <label class="form-label">Note colloquio</label>
@@ -377,6 +388,7 @@ import { computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
+import { useExport } from '@/composables/useExport.js'
 import KpiCard from '@/components/ui/KpiCard.vue'
 import DimBar  from '@/components/ui/DimBar.vue'
 import KanbanBoard from '@/components/dashboard/KanbanBoard.vue'
@@ -388,6 +400,7 @@ import InfoBlock from '@/components/ui/InfoBlock.vue'
 const router = useRouter()
 const store = useHrStore()
 const { fmtDateShort, contractBadge } = useHelpers()
+const { exportToExcel, exportToJSON, exportKanbanCSV } = useExport()
 
 // ─── Edit modal state ───
 const selectedUrgenza = ref(null)
@@ -653,4 +666,35 @@ const globalAvg = computed(() => {
   const avg = arr => arr.length ? Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10 : null
   return { esaur:avg(dims.esaur), carico:avg(dims.carico), motiv:avg(dims.motiv), supp:avg(dims.supp), equil:avg(dims.equil), intent:avg(dims.intent) }
 })
+
+// ─── Export functions ───
+const handleExportExcel = () => {
+  const storeSnapshot = {
+    employees: store.employees,
+    colloqui: store.colloqui,
+    ferie: store.ferie,
+    colloquiPC: store.colloquiPC,
+    dimissioni: store.dimissioni,
+    valutazioni360: store.valutazioni360,
+    allUrgenze: store.allUrgenze
+  }
+  exportToExcel(storeSnapshot)
+}
+
+const handleExportJSON = () => {
+  const storeSnapshot = {
+    employees: store.employees,
+    colloqui: store.colloqui,
+    ferie: store.ferie,
+    colloquiPC: store.colloquiPC,
+    dimissioni: store.dimissioni,
+    valutazioni360: store.valutazioni360,
+    allUrgenze: store.allUrgenze
+  }
+  exportToJSON(storeSnapshot)
+}
+
+const handleExportCSV = () => {
+  exportKanbanCSV(store.allUrgenze)
+}
 </script>

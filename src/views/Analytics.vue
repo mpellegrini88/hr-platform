@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 space-y-6">
     <!-- KPI CONTRATTI -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
       <KpiCard 
         label="Indeterminati" 
         :value="countByContractType('indeterminato')" 
@@ -26,6 +26,67 @@
         icon="⏳"
         color="amber" 
       />
+      <KpiCard 
+        label="Ex-dipendenti" 
+        :value="exDipendenti.length" 
+        icon="👤"
+        color="gray" 
+      />
+    </div>
+
+    <!-- EX-DIPENDENTI (Uscita Concordata / Inattivo) -->
+    <div v-if="exDipendenti.length > 0" class="card p-5 border-l-4 border-gray-400">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-gray-900">👤 Ex-dipendenti — Uscita Concordata / Inattivo</h3>
+        <span class="text-sm text-gray-500">{{ exDipendenti.length }} persone</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="tbl text-sm">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Team</th>
+              <th>Contratto</th>
+              <th>Data Assunzione</th>
+              <th>Livello CCNL</th>
+              <th>Stato</th>
+              <th>Data Uscita</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="e in exDipendenti" :key="e.id">
+              <td class="font-medium">{{ e.nome }} {{ e.cognome }}</td>
+              <td><span class="badge badge-gray">{{ e.team }}</span></td>
+              <td><span class="badge badge-sm" :class="e.tipoContratto === 'determinato' ? 'badge-amber' : 'badge-blue'">{{ e.tipoContratto }}</span></td>
+              <td class="text-sm">{{ fmtDateShort(e.dataAssunzione) }}</td>
+              <td class="text-sm text-gray-600">{{ e.livelloCCNL || '—' }}</td>
+              <td><span class="badge badge-sm" :class="e.stato === 'Inattivo' ? 'bg-gray-100 text-gray-600' : 'bg-orange-100 text-orange-700'">{{ e.stato }}</span></td>
+              <td class="text-sm">{{ fmtDateShort(e.dataUscita) || '—' }}</td>
+              <td class="text-sm text-gray-500">{{ e.motivoUscita || '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Stats summary -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+        <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500">Uscita Concordata</div>
+          <div class="text-xl font-bold text-gray-700">{{ exDipendenti.filter(e => e.stato === 'In Uscita Concordata').length }}</div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500">Inattivi</div>
+          <div class="text-xl font-bold text-gray-700">{{ exDipendenti.filter(e => e.stato === 'Inattivo').length }}</div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500">Team coinvolti</div>
+          <div class="text-xl font-bold text-gray-700">{{ new Set(exDipendenti.map(e => e.team)).size }}</div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-3 text-center">
+          <div class="text-xs text-gray-500">Avg. permanenza</div>
+          <div class="text-xl font-bold text-gray-700">{{ avgPermanenzaEx }} mesi</div>
+        </div>
+      </div>
     </div>
 
     <!-- ROW 1: Contratti + Headcount -->
@@ -85,10 +146,10 @@
 
     <!-- ===== FERIE & MALATTIE ANALYTICS ===== -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <KpiCard label="Ferie spettanti" :value="fa.totals.spettanti" icon="📅" color="blue" />
-      <KpiCard label="Ferie godute" :value="fa.totals.godute" icon="✅" color="emerald" />
-      <KpiCard label="% Godute" :value="fa.totals.percGodute + '%'" icon="📊" color="indigo" />
-      <KpiCard label="Gg Malattia" :value="fa.totals.malattia" icon="🤒" color="red" />
+      <KpiCard label="Ferie spettanti" :value="r2(fa.totals.spettanti)" icon="📅" color="blue" />
+      <KpiCard label="Ferie godute" :value="r2(fa.totals.godute)" icon="✅" color="emerald" />
+      <KpiCard label="% Godute" :value="r2(fa.totals.percGodute) + '%'" icon="📊" color="indigo" />
+      <KpiCard label="Gg Malattia" :value="r2(fa.totals.malattia)" icon="🤒" color="red" />
     </div>
 
     <div class="grid grid-cols-12 gap-5">
@@ -111,17 +172,17 @@
               <tr v-for="t in fa.byTeam" :key="t.team">
                 <td class="font-medium text-xs">{{ t.team }}</td>
                 <td class="text-center">{{ t.n }}</td>
-                <td class="text-center">{{ t.spettanti }}</td>
-                <td class="text-center">{{ t.godute }}</td>
+                <td class="text-center">{{ r2(t.spettanti) }}</td>
+                <td class="text-center">{{ r2(t.godute) }}</td>
                 <td class="text-center">
-                  <span :class="['font-semibold', t.residue > t.spettanti * 0.8 ? 'text-amber-600' : '']">{{ t.residue }}</span>
+                  <span :class="['font-semibold', t.residue > t.spettanti * 0.8 ? 'text-amber-600' : '']">{{ r2(t.residue) }}</span>
                 </td>
                 <td class="text-center">
                   <div class="flex items-center gap-1 justify-center">
                     <div class="w-12 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div class="h-full bg-primary-400 rounded-full" :style="{ width: t.percGodute + '%' }"></div>
                     </div>
-                    <span class="text-xs">{{ t.percGodute }}%</span>
+                    <span class="text-xs">{{ r2(t.percGodute) }}%</span>
                   </div>
                 </td>
               </tr>
@@ -150,11 +211,11 @@
                 <td class="font-medium text-xs">{{ t.team }}</td>
                 <td class="text-center">{{ t.n }}</td>
                 <td class="text-center">
-                  <span :class="t.malattia > 20 ? 'text-red-600 font-semibold' : ''">{{ t.malattia }}</span>
+                  <span :class="t.malattia > 20 ? 'text-red-600 font-semibold' : ''">{{ r2(t.malattia) }}</span>
                 </td>
-                <td class="text-center">{{ t.avgMal }}</td>
+                <td class="text-center">{{ r2(t.avgMal) }}</td>
                 <td class="text-center">
-                  <span :class="t.mal3m > 10 ? 'text-amber-600 font-semibold' : ''">{{ t.mal3m }}</span>
+                  <span :class="t.mal3m > 10 ? 'text-amber-600 font-semibold' : ''">{{ r2(t.mal3m) }}</span>
                 </td>
                 <td class="text-center">{{ t.episodi }}</td>
               </tr>
@@ -175,7 +236,7 @@
               <span class="text-sm font-medium text-gray-800">{{ f.nome }}</span>
               <span class="text-xs text-gray-400">{{ f.team }}</span>
             </div>
-            <span class="font-bold text-amber-700">{{ f.ferieResidue }}gg</span>
+            <span class="font-bold text-amber-700">{{ r2(f.ferieResidue) }}gg</span>
           </div>
           <div v-if="fa.topResidue.length === 0" class="text-sm text-gray-400 text-center py-4">Nessun dato</div>
         </div>
@@ -190,7 +251,7 @@
               <span class="text-sm font-medium text-gray-800">{{ f.nome }}</span>
               <span class="text-xs text-gray-400">{{ f.team }}</span>
             </div>
-            <span class="font-bold text-red-700">{{ f.ggMalattia }}gg</span>
+            <span class="font-bold text-red-700">{{ r2(f.ggMalattia) }}gg</span>
           </div>
           <div v-if="fa.topMalattia.length === 0" class="text-sm text-gray-400 text-center py-4">Nessun dato</div>
         </div>
@@ -211,9 +272,27 @@
 <script setup>
 import { computed } from 'vue'
 import { useHrStore } from '@/stores/hrStore'
+import { useHelpers } from '@/composables/useHelpers.js'
 import KpiCard from '@/components/ui/KpiCard.vue'
 
 const store = useHrStore()
+const { fmtDateShort } = useHelpers()
+
+function r2(v) { return v != null ? Math.round(Number(v) * 100) / 100 : 0 }
+
+const STATI_ESCLUSI = ['In Uscita Concordata', 'Inattivo']
+const exDipendenti = computed(() => store.enrichedEmployees.filter(e => STATI_ESCLUSI.includes(e.stato)))
+
+const avgPermanenzaEx = computed(() => {
+  if (exDipendenti.value.length === 0) return 0
+  const now = new Date()
+  const sum = exDipendenti.value.reduce((acc, e) => {
+    const start = e.dataAssunzione ? new Date(e.dataAssunzione) : now
+    const end = e.dataUscita ? new Date(e.dataUscita) : now
+    return acc + Math.round((end - start) / (30.44 * 86400000))
+  }, 0)
+  return Math.round(sum / exDipendenti.value.length)
+})
 
 const contractTypes = ['indeterminato', 'determinato']
 

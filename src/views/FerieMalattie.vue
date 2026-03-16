@@ -136,27 +136,27 @@
                 </div>
               </td>
               <td class="text-center">
-                <template v-if="f.tipoContrattoFerie === 'ccnl_commercio'">{{ f.permessiSpettantiGg || 0 }}</template>
+                <template v-if="f.tipoContrattoFerie === 'ccnl_commercio'">{{ r2(f.permessiSpettantiGg || 0) }}</template>
                 <span v-else class="text-gray-300">—</span>
               </td>
               <td class="text-center">
-                <template v-if="f.tipoContrattoFerie === 'ccnl_commercio'">{{ f.permessiGodutiGg || 0 }}</template>
+                <template v-if="f.tipoContrattoFerie === 'ccnl_commercio'">{{ r2(f.permessiGodutiGg || 0) }}</template>
                 <span v-else class="text-gray-300">—</span>
               </td>
               <td class="text-center">
                 <template v-if="f.tipoContrattoFerie === 'ccnl_commercio'">
                   <span :class="['font-semibold', (f.permessiResiduiGg || 0) > 8 ? 'text-purple-600' : 'text-gray-700']">
-                    {{ f.permessiResiduiGg || 0 }}
+                    {{ r2(f.permessiResiduiGg || 0) }}
                   </span>
                 </template>
                 <span v-else class="text-gray-300">—</span>
               </td>
               <td class="text-center">
-                <span :class="(f.ggMalattia || 0) > 10 ? 'text-red-600 font-semibold' : ''">{{ f.ggMalattia || 0 }}</span>
+                <span :class="(f.ggMalattia || 0) > 10 ? 'text-red-600 font-semibold' : ''">{{ r2(f.ggMalattia || 0) }}</span>
               </td>
               <td class="text-center text-gray-600">{{ f.episodiMalattia || 0 }}</td>
               <td class="text-center">
-                <span :class="(f.assenzeNonGiust || 0) > 0 ? 'text-red-500 font-semibold' : ''">{{ f.assenzeNonGiust || 0 }}</span>
+                <span :class="(f.assenzeNonGiust || 0) > 0 ? 'text-red-500 font-semibold' : ''">{{ r2(f.assenzeNonGiust || 0) }}</span>
               </td>
               <td class="text-center">
                 <span class="badge badge-blue text-[10px]">{{ (f.entries || []).length }}</span>

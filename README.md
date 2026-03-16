@@ -12,12 +12,23 @@ Piattaforma gestionale HR interna per **MOVE / Silicon**, costruita con Vue 3, P
 | Styling | Tailwind CSS 3.4 |
 | Build | Vite 5 |
 | Linguaggio | TypeScript (migrazione graduale, `allowJs: true`) |
-| Persistenza | IndexedDB (locale, offline-first) |
+| **Persistenza** | **IndexedDB (offline) + Express backend (server locale)** |
+| Sincronizzazione | Auto-sync backend ogni 30 secondi |
+| Auto-backup | Server (ogni 5 minuti, max 20 backup) |
+| Export | xlsx (Excel/JSON/CSV) |
 | Grafici | Chart.js + vue-chartjs |
-| Export | xlsx (export Excel) |
 | Date | date-fns |
 
 ## Funzionalità principali
+
+### 0. Persistenza & Sincronizzazione Automatica ⭐ **NEW**
+- 📱 **Three-layer persistence**: localStorage (istantaneo) → backend server (ogni 30s) → auto-backup (ogni 5min)
+- 🔄 **Auto-sync** di TUTTI i dati: dipendenti, contratti, uscite, ferie, colloqui, valutazioni, kanban
+- 📊 **Pannello sincronizzazione** nel Topbar: clicca per vedere stato server, ultimo sync, riepilogo dati
+- 💾 **Export manuale**: Excel/JSON/CSV con un click
+- 🏢 **Backend Express** locale: `/server/data/store.json` + auto-backup in `/server/data/backups/`
+- 🔌 **Offline-friendly**: app funziona offline, sincronizza quando torna online
+- ✅ **Nessuna perdita di dati**: riapri app → tutti i dati rimangono (contratti, uscite, nuovi ingressi, ferie)
 
 ### 1. Dashboard (`/dashboard`)
 - KPI onboarding: periodi di prova in corso, FU1/FU2 scaduti, urgenze entro 7gg
@@ -102,12 +113,22 @@ FU1 = assunzione + 30gg · FU2 = fine prova − 30gg
 ## Struttura progetto
 
 ```
-src/
+.
+├── server/                     # Backend Express (persistenza)
+│   ├── server.js               # Server + API routes
+│   ├── data/
+│   │   ├── store.json          # Dati principali
+│   │   └── backups/            # Auto-backup ogni 5min
+│   └── package.json
+│
+├── src/
 ├── main.ts                     # Entrypoint + router
 ├── seedData.js                 # 91 dipendenti seed
 ├── stores/hrStore.js           # Pinia store centrale
 ├── composables/                # Logica riutilizzabile
-│   ├── useAutoSave.js
+│   ├── useAutoSave.js          # Sincronizzazione backend + export Excel
+│   ├── useSyncStatus.js        # **NEW**: tracking timestamp sync
+│   ├── useExport.js            # **NEW**: export Excel/JSON/CSV
 │   ├── useCCNL.js              # Calcolo periodo di prova
 │   ├── useDataMigration.js
 │   ├── useHelpers.js
@@ -120,21 +141,60 @@ src/
 │   ├── forms/                  # Form colloqui, valutazioni, contratti
 │   └── charts/                 # Grafici
 └── views/                      # 12 pagine
+
+DOCS:
+├── README.md                   # Questo file
+├── PERSISTENCE_GUIDE.md        # Guida salvataggio base
+└── AUTOSAVE_COMPLETE_GUIDE.md  # **NEW**: Guida completa + test
 ```
 
 ## Comandi
 
+### Frontend
 ```bash
-npm install          # Installa dipendenze
-npm run dev          # Dev server (Vite)
+npm install          # Installa dipendenze (frontend)
+npm run dev          # Dev server (Vite) - http://localhost:5173
 npm run build        # Build produzione
 npm run type-check   # Type check TypeScript
 npm run preview      # Preview build
 ```
 
+### Backend (Persistenza)
+```bash
+cd server
+npm install          # Installa dipendenze (backend)
+npm start            # Backend server - http://localhost:3001
+npm run dev          # Dev mode (node --watch)
+```
+
+**Importante**: Il backend deve essere in esecuzione per la sincronizzazione dati. Se non disponibile, l'app funziona comunque in offline con fallback a localStorage/IndexedDB.
+
+### API Backend
+```bash
+GET  /api/health     # Health check
+GET  /api/data       # Carica tutti i dati
+POST /api/data       # Salva dati (bulk)
+POST /api/backup     # Crea backup manuale
+GET  /api/backups    # Lista backup disponibili
+POST /api/restore/:filename  # Ripristina da backup
+```
+
 ## Note tecniche
 
-- Persistenza offline via IndexedDB con auto-save
+### Persistenza & Sincronizzazione ⭐ **NEW**
+- **Three-layer persistence**:
+  1. **localStorage**: immediato (< 1s) - cache browser
+  2. **Backend API**: ogni 30s - server JSON file
+  3. **Auto-backup**: ogni 5 minuti - archivio server (max 20 file)
+  
+- **Cosa viene salvato**: TUTTI i dati (employees, contratti, uscite, ferie, colloqui, valutazioni, kanban)
+- **Boot sequence**: Backend → IndexedDB → seed data
+- **Offline**: app funziona normalmente, sincronizza quando server torna online
+- **Export**: Excel (3 sheet: Anagrafica, Onboarding, Kanban), JSON (backup completo), CSV (kanban quick)
+- **Monitoraggio**: Topbar mostra "Sincronizzato" o "Locale" - clicca per dettagli sincronizzazione
+
+### Altre note
 - 91 dipendenti pre-caricati da seed data
 - Follow-up pre-2026 auto-smarcati come completati
 - Migrazione graduale JS → TS (`allowJs: true`, `checkJs: false`)
+- **Documentazione**: leggi [PERSISTENCE_GUIDE.md](PERSISTENCE_GUIDE.md) o [AUTOSAVE_COMPLETE_GUIDE.md](AUTOSAVE_COMPLETE_GUIDE.md)

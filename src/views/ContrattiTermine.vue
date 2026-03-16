@@ -116,7 +116,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>P&C</th><th>Stato</th><th>Decisione</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 0 && x.daysToEnd <= 7)" :key="c.id" class="bg-orange-50">
@@ -138,14 +138,26 @@
                     <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
                   </div>
                 </td>
+                <td class="text-xs">
+                  <span v-if="c.pcStatus === 'Aggiornato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Aggiornato</span>
+                  <span v-else-if="c.pcStatus === 'Scaduto'" class="badge bg-orange-50 text-orange-700 border border-orange-200">⚠️ Scaduto</span>
+                  <span v-else class="badge bg-red-50 text-red-700 border border-red-200">❌ Nessuno</span>
+                </td>
                 <td><span class="badge badge-orange">URGENTE</span></td>
+                <td class="text-xs">
+                  <span v-if="c.decisione === 'Rinnovato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Rinnovato</span>
+                  <span v-else-if="c.decisione === 'Proroga'" class="badge bg-amber-50 text-amber-700 border border-amber-200">⏳ Proroga</span>
+                  <span v-else-if="c.decisione === 'Non Rinnovato'" class="badge bg-red-50 text-red-700 border border-red-200">✗ Non Rinnovato</span>
+                  <span v-else class="text-gray-400 text-xs">-</span>
+                </td>
                 <td class="space-x-1">
                   <button @click="openReminder(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">📧 CEO</button>
                   <button @click="viewValutazione(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">🎯 Valut</button>
+                  <button @click="openRenewalDecision(c)" class="text-orange-700 hover:text-orange-900 font-medium text-sm">⚡ Rinnova</button>
                 </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 0 && x.daysToEnd <= 7).length === 0">
-                <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
+                <td colspan="10" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
               </tr>
             </tbody>
           </table>
@@ -161,7 +173,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th><th>Azione</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>P&C</th><th>Stato</th><th>Decisione</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 7 && x.daysToEnd <= 30)" :key="c.id" class="bg-yellow-50">
@@ -183,14 +195,26 @@
                     <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
                   </div>
                 </td>
+                <td class="text-xs">
+                  <span v-if="c.pcStatus === 'Aggiornato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Aggiornato</span>
+                  <span v-else-if="c.pcStatus === 'Scaduto'" class="badge bg-orange-50 text-orange-700 border border-orange-200">⚠️ Scaduto</span>
+                  <span v-else class="badge bg-red-50 text-red-700 border border-red-200">❌ Nessuno</span>
+                </td>
                 <td><span class="badge badge-yellow">Attenzione</span></td>
+                <td class="text-xs">
+                  <span v-if="c.decisione === 'Rinnovato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Rinnovato</span>
+                  <span v-else-if="c.decisione === 'Proroga'" class="badge bg-amber-50 text-amber-700 border border-amber-200">⏳ Proroga</span>
+                  <span v-else-if="c.decisione === 'Non Rinnovato'" class="badge bg-red-50 text-red-700 border border-red-200">✗ Non Rinnovato</span>
+                  <span v-else class="text-gray-400 text-xs">-</span>
+                </td>
                 <td class="space-x-1">
                   <button @click="openReminder(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">📧 CEO</button>
                   <button @click="viewValutazione(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">🎯 Valut</button>
+                  <button @click="openRenewalDecision(c)" class="text-yellow-700 hover:text-yellow-900 font-medium text-sm">⚡ Rinnova</button>
                 </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 7 && x.daysToEnd <= 30).length === 0">
-                <td colspan="7" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
+                <td colspan="10" class="text-center py-6 text-gray-400 text-sm">Nessun contratto in scadenza</td>
               </tr>
             </tbody>
           </table>
@@ -206,7 +230,7 @@
         <div class="overflow-x-auto">
           <table class="tbl">
             <thead><tr>
-              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>Stato</th>
+              <th>Dipendente</th><th>Team</th><th>Data Scadenza</th><th>Giorni</th><th>Esito Prova</th><th>FU1/FU2</th><th>P&C</th><th>Stato</th><th>Decisione</th><th>Azione</th>
             </tr></thead>
             <tbody>
               <tr v-for="c in filtered.filter(x => x.daysToEnd > 30)" :key="c.id">
@@ -217,7 +241,9 @@
                 <td>
                   <div class="flex flex-col gap-0.5">
                     <span :class="['badge badge-sm', c.esitoProva==='Superato'?'badge-green':c.esitoProva==='Non Superato'?'badge-red':'badge-blue']">{{ c.esitoProva }}</span>
-                    <button v-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Valutazione →</button>
+                    <button v-if="c.valutazioneStatus === 'complete'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 text-[10px]">✓ {{ c.valutazioneRaccomandazione || 'Valutata' }}</button>
+                    <button v-else-if="c.valutazioneStatus !== 'pending'" @click.stop="viewValutazione(c)" class="badge badge-sm bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer hover:bg-amber-100 text-[10px]">🎯 {{ c.valutazioneStatus === 'hr-pending' ? 'HR Pending' : 'CEO Pending' }}</button>
+                    <button v-else @click.stop="viewValutazione(c)" class="badge badge-sm bg-blue-50 text-blue-700 border border-blue-200 cursor-pointer hover:bg-blue-100 text-[10px]">🎯 Da valutare</button>
                   </div>
                 </td>
                 <td class="text-xs">
@@ -226,10 +252,25 @@
                     <span v-if="c.scadenzaFU2" class="text-gray-700">FU2: {{ fmtDateShort(c.scadenzaFU2) }}</span>
                   </div>
                 </td>
+                <td class="text-xs">
+                  <span v-if="c.pcStatus === 'Aggiornato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Aggiornato</span>
+                  <span v-else-if="c.pcStatus === 'Scaduto'" class="badge bg-orange-50 text-orange-700 border border-orange-200">⚠️ Scaduto</span>
+                  <span v-else class="badge bg-red-50 text-red-700 border border-red-200">❌ Nessuno</span>
+                </td>
                 <td><span class="badge badge-emerald">OK</span></td>
+                <td class="text-xs">
+                  <span v-if="c.decisione === 'Rinnovato'" class="badge bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Rinnovato</span>
+                  <span v-else-if="c.decisione === 'Proroga'" class="badge bg-amber-50 text-amber-700 border border-amber-200">⏳ Proroga</span>
+                  <span v-else-if="c.decisione === 'Non Rinnovato'" class="badge bg-red-50 text-red-700 border border-red-200">✗ Non Rinnovato</span>
+                  <span v-else class="text-gray-400 text-xs">-</span>
+                </td>
+                <td class="space-x-1">
+                  <button @click="viewValutazione(c)" class="text-emerald-700 hover:text-emerald-900 font-medium text-sm">🎯 Valut</button>
+                  <button @click="openRenewalDecision(c)" class="text-emerald-700 hover:text-emerald-900 font-medium text-sm">⚡ Rinnova</button>
+                </td>
               </tr>
               <tr v-if="filtered.filter(x => x.daysToEnd > 30).length === 0">
-                <td colspan="6" class="text-center py-6 text-gray-400 text-sm">Nessun contratto attivo in questa categoria</td>
+                <td colspan="10" class="text-center py-6 text-gray-400 text-sm">Nessun contratto attivo in questa categoria</td>
               </tr>
             </tbody>
           </table>

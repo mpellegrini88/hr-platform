@@ -356,11 +356,13 @@
 
     <!-- PERSONAL DETAILS Section -->
     <div class="card">
-      <div class="px-5 py-4 border-b border-gray-100">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
         <h3 class="font-semibold text-gray-900">👤 Dati Anagrafici</h3>
+        <button v-if="!editingDati" @click="startEditDati" class="text-xs text-primary-600 hover:text-primary-800 font-medium px-3 py-1 rounded hover:bg-primary-50">✎ Modifica</button>
       </div>
       <div class="p-6">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Read-only mode -->
+        <div v-if="!editingDati" class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div>
             <div class="text-xs text-gray-500">Nome</div>
             <div class="font-semibold text-gray-900 mt-1">{{ emp?.nome || '—' }}</div>
@@ -385,6 +387,119 @@
             <div class="text-xs text-gray-500">Livello CCNL</div>
             <div class="font-semibold text-gray-900 mt-1">{{ emp?.livelloCCNL || '—' }}</div>
           </div>
+          <div>
+            <div class="text-xs text-gray-500">Manager</div>
+            <div class="font-semibold text-gray-900 mt-1">{{ emp?.manager || '—' }}</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500">Team</div>
+            <div class="font-semibold text-gray-900 mt-1">{{ emp?.team || '—' }}</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500">Ore Settimanali</div>
+            <div class="font-semibold text-gray-900 mt-1">{{ emp?.oreSettimana || '—' }}</div>
+          </div>
+        </div>
+
+        <!-- Edit mode -->
+        <div v-else class="space-y-5">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Nome</label>
+              <input v-model="editDatiForm.nome" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Cognome</label>
+              <input v-model="editDatiForm.cognome" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Città</label>
+              <input v-model="editDatiForm.citta" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Email</label>
+              <input v-model="editDatiForm.email" type="email" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Telefono</label>
+              <input v-model="editDatiForm.telefono" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Manager</label>
+              <input v-model="editDatiForm.manager" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Team</label>
+              <select v-model="editDatiForm.team" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                <option v-for="t in store.teams" :key="t" :value="t">{{ t }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">Ore Settimanali</label>
+              <input v-model.number="editDatiForm.oreSettimana" type="number" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+            </div>
+          </div>
+
+          <!-- Livello CCNL + Contratto + Periodo di Prova -->
+          <div class="border-t pt-4 mt-4">
+            <h4 class="text-sm font-semibold text-gray-800 mb-3">📋 CCNL & Periodo di Prova</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Livello CCNL</label>
+                <select v-model="editDatiForm.livelloCCNL" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                  <option value="">— Seleziona —</option>
+                  <option v-for="lv in ccnlLevels" :key="lv" :value="lv">{{ lv }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Tipo Contratto</label>
+                <select v-model="editDatiForm.tipoContratto" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                  <option value="indeterminato">Indeterminato</option>
+                  <option value="determinato">Determinato</option>
+                  <option value="apprendistato">Apprendistato</option>
+                  <option value="freelance">Freelance</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Data Assunzione</label>
+                <input v-model="editDatiForm.dataAssunzione" type="date" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+              </div>
+              <div v-if="editDatiForm.tipoContratto === 'determinato'">
+                <label class="block text-xs text-gray-500 mb-1">Scadenza Contratto</label>
+                <input v-model="editDatiForm.scadenzaContratto" type="date" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+              </div>
+            </div>
+
+            <!-- Periodo di Prova override -->
+            <div class="mt-4 bg-blue-50 p-4 rounded border border-blue-200">
+              <div class="flex items-center gap-3 mb-3">
+                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                  <input type="checkbox" v-model="editDatiForm.fineProvaManuale" class="rounded border-gray-300 text-primary-500 focus:ring-primary-500" />
+                  <span class="font-medium text-blue-900">Override manuale periodo di prova</span>
+                </label>
+              </div>
+              <p v-if="!editDatiForm.fineProvaManuale" class="text-xs text-blue-700 mb-2">
+                Valore calcolato automaticamente dal livello CCNL ({{ editDatiForm.livelloCCNL || '—' }})
+                → <strong>{{ calcProvaPreview }}</strong>
+              </p>
+              <div v-if="editDatiForm.fineProvaManuale" class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Fine Prova (data)</label>
+                  <input v-model="editDatiForm.fineProva" type="date" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">Durata Prova</label>
+                  <input v-model="editDatiForm.durataProva" type="text" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="es. 6 mesi calendario" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save / Cancel -->
+          <div class="flex gap-2 pt-2">
+            <button @click="saveEditDati" class="px-4 py-2 bg-primary-500 text-white text-sm rounded hover:bg-primary-600 font-medium">💾 Salva Modifiche</button>
+            <button @click="editingDati = false" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300">Annulla</button>
+          </div>
         </div>
       </div>
     </div>
@@ -397,6 +512,7 @@ import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
+import { calcProvatione } from '@/composables/useCCNL.js'
 
 const router = useRouter()
 const route = useRoute()
@@ -405,6 +521,9 @@ const { fmtDateShort } = useHelpers()
 
 const empId = parseInt(route.params.id)
 const emp = computed(() => store.employees.find(e => e.id === empId))
+
+// CCNL levels for dropdown
+const ccnlLevels = ['Q', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
 
 // Stato editing
 const statiDipendente = ['Attivo', 'Dimissioni Volontarie', 'Mancato Superamento Prova', 'In Uscita Concordata', 'Licenziato']
@@ -442,6 +561,70 @@ function saveEditStato() {
   }
   store.updateEmployee(emp.value.id, updates)
   editingStato.value = false
+}
+
+// Dati Anagrafici editing
+const editingDati = ref(false)
+const editDatiForm = ref({})
+
+function startEditDati() {
+  const e = emp.value
+  if (!e) return
+  editDatiForm.value = {
+    nome: e.nome || '',
+    cognome: e.cognome || '',
+    citta: e.citta || '',
+    email: e.email || '',
+    telefono: e.telefono || '',
+    manager: e.manager || '',
+    team: e.team || '',
+    oreSettimana: e.oreSettimana || 40,
+    livelloCCNL: e.livelloCCNL || '',
+    tipoContratto: e.tipoContratto || 'indeterminato',
+    dataAssunzione: e.dataAssunzione || '',
+    scadenzaContratto: e.scadenzaContratto || '',
+    fineProvaManuale: e.fineProvaManuale || false,
+    fineProva: e.fineProva || '',
+    durataProva: e.durataProva || ''
+  }
+  editingDati.value = true
+}
+
+// Preview of calculated prova when not in manual mode
+const calcProvaPreview = computed(() => {
+  const f = editDatiForm.value
+  if (!f.livelloCCNL || !f.dataAssunzione) return '—'
+  try {
+    const r = calcProvatione(f.livelloCCNL, f.tipoContratto, f.dataAssunzione, f.scadenzaContratto)
+    return `${r.durata} (${r.metodo}) → fine: ${r.fineProva ? fmtDateShort(r.fineProva) : '—'}`
+  } catch { return '—' }
+})
+
+function saveEditDati() {
+  if (!emp.value) return
+  const f = editDatiForm.value
+  const updates = {
+    nome: f.nome,
+    cognome: f.cognome,
+    citta: f.citta,
+    email: f.email,
+    telefono: f.telefono,
+    manager: f.manager,
+    team: f.team,
+    oreSettimana: f.oreSettimana,
+    livelloCCNL: f.livelloCCNL,
+    tipoContratto: f.tipoContratto,
+    dataAssunzione: f.dataAssunzione,
+    scadenzaContratto: f.scadenzaContratto,
+    fineProvaManuale: f.fineProvaManuale
+  }
+  // Se override manuale, passa direttamente fineProva e durataProva
+  if (f.fineProvaManuale) {
+    updates.fineProva = f.fineProva
+    updates.durataProva = f.durataProva
+  }
+  store.updateEmployee(emp.value.id, updates)
+  editingDati.value = false
 }
 
 // P&C Colloquio data

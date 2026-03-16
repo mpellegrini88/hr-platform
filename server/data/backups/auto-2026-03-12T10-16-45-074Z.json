@@ -169,7 +169,7 @@
       "fineProva": "2026-07-25",
       "esitoProva": "In Corso",
       "scadenzaFU1": "2026-02-25",
-      "statoFU1": "Fatto",
+      "statoFU1": "Da Fare",
       "noteFU1": "",
       "scadenzaFU2": "2026-01-02",
       "statoFU2Dip": "Da Fare",
@@ -948,8 +948,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "statoPCKanban": "Eliminato"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 20,
@@ -1131,8 +1130,8 @@
       "scadenzaContratto": null,
       "stato": "In Uscita Concordata",
       "dataUscita": "2026-02-28",
-      "motivoUscita": "Uscita Concordata",
-      "noteUscita": "ci ha comunicato che si è trovata molto bene nella nostra realtà e ha sentito però il bisogno di cambiare carriera e fare altro nella vita.\nHa piacere di spostarsi sul design di interni.",
+      "motivoUscita": "dopo sei mesi di questo lavoro si è resa conto che vuole fare altro e passare al design di interni",
+      "noteUscita": "",
       "valutazionePeriodoProva": {
         "faseCorrente": "manager-pending",
         "dataValutazioneManager": null,
@@ -4569,16 +4568,6 @@
       "c2_equil": 4,
       "c2_intent": null,
       "c2_note": ""
-    },
-    {
-      "nome": "Alessandro",
-      "c1_esaur": null,
-      "c1_carico": null,
-      "c1_motiv": null,
-      "c1_supp": null,
-      "c1_equil": null,
-      "c1_intent": null,
-      "c1_note": ""
     }
   ],
   "ferie": [
@@ -7177,6 +7166,18 @@
       "stato": "Da Fare"
     },
     {
+      "id": 4,
+      "tipo": "FU1",
+      "nome": "Alessandro",
+      "cognome": "Fava",
+      "team": "Silicon Lucca",
+      "scadenza": "2026-02-25",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -16,
+      "stato": "Da Fare"
+    },
+    {
       "id": 90,
       "tipo": "FU1",
       "nome": "William",
@@ -7357,9 +7358,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773313146944,
+  "timestamp": 1773306182803,
   "_meta": {
-    "savedAt": "2026-03-12T10:59:08.468Z",
+    "savedAt": "2026-03-12T09:03:04.331Z",
     "version": "2.0"
   }
 }

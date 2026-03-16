@@ -150,7 +150,17 @@ export const useHrStore = defineStore('hr', () => {
     }
   }
 
-  const employees  = ref(SEED_EMPLOYEES.map((e, i) => normalizeEmployeeSchema({ ...e, id: i + 1 })))
+  const employees  = ref(SEED_EMPLOYEES.map((e, i) => {
+    const emp = normalizeEmployeeSchema({ ...e, id: i + 1 })
+    // Recalc FU dates for all employees with fineProva to fix seed data inconsistencies
+    if (emp.dataAssunzione && emp.fineProva) {
+      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva)
+      if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
+      if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
+      if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
+    }
+    return emp
+  }))
   const colloqui   = ref(SEED_COLLOQUI)
   const ferie      = ref(SEED_FERIE)
   const colloquiPC = ref(SEED_COLLOQUI_PC)
@@ -236,21 +246,53 @@ export const useHrStore = defineStore('hr', () => {
     }, 1500)
   }
 
+  // Calculate FU dates correctly based on trial period:
+  // FU1 = midpoint of trial (halfway between hire and fineProva)
+  // FU2 = 1 month before fineProva
+  // FU2Manager = midpoint between FU1 and FU2
+  // Fallback if no fineProva: FU1 = hire+45d, FU2Manager = hire+60d
+  function calcFUDates(dataAssunzione, fineProva) {
+    if (!dataAssunzione) return {}
+    const hire = new Date(dataAssunzione)
+    const fmt = d => d.toISOString().split('T')[0]
+    if (fineProva) {
+      const fp = new Date(fineProva)
+      const totalDays = Math.round((fp - hire) / 86400000)
+      // FU1 = midpoint of trial
+      const fu1 = new Date(hire.getTime() + Math.round(totalDays / 2) * 86400000)
+      // FU2 = 1 month before fineProva
+      const fu2 = new Date(fp); fu2.setMonth(fu2.getMonth() - 1)
+      // If FU2 <= FU1 (very short trial), push FU1 earlier
+      if (fu2 <= fu1) {
+        fu1.setTime(hire.getTime() + Math.round(totalDays / 3) * 86400000)
+      }
+      // FU2Manager = midpoint between FU1 and FU2
+      const fu2mgr = new Date(fu1.getTime() + Math.round((fu2 - fu1) / 2))
+      return { scadenzaFU1: fmt(fu1), scadenzaFU2: fmt(fu2), scadenzaFU2Manager: fmt(fu2mgr) }
+    } else {
+      // No fineProva: use fixed offsets
+      const fu1 = new Date(hire); fu1.setDate(fu1.getDate() + 45)
+      const fu2mgr = new Date(hire); fu2mgr.setDate(fu2mgr.getDate() + 60)
+      return { scadenzaFU1: fmt(fu1), scadenzaFU2Manager: fmt(fu2mgr) }
+    }
+  }
+
   function recalcProva(emp) {
     if (!emp.dataAssunzione || !emp.livelloCCNL) return emp
+    // Se fineProva è stata impostata manualmente, non ricalcolare prova ma ricalcola FU
+    if (emp.fineProvaManuale) {
+      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva)
+      if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
+      if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
+      if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
+      return emp
+    }
     const r = calcProvatione(emp.livelloCCNL, emp.tipoContratto, emp.dataAssunzione, emp.scadenzaContratto)
     emp.durataProva = r.durata; emp.metodoComputo = r.metodo; emp.fineProva = r.fineProva
-    if (emp.dataAssunzione) {
-      const h = new Date(emp.dataAssunzione)
-      const fu1 = new Date(h); fu1.setDate(fu1.getDate() + 30)
-      emp.scadenzaFU1 = fu1.toISOString().split('T')[0]
-      const fu2mgr = new Date(h); fu2mgr.setDate(fu2mgr.getDate() + 45)
-      emp.scadenzaFU2Manager = fu2mgr.toISOString().split('T')[0]
-      if (r.fineProva) {
-        const fu2 = new Date(r.fineProva); fu2.setDate(fu2.getDate() - 30)
-        emp.scadenzaFU2 = fu2.toISOString().split('T')[0]
-      }
-    }
+    const fuDates = calcFUDates(emp.dataAssunzione, r.fineProva)
+    if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
+    if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
+    if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
     return emp
   }
 
@@ -564,35 +606,213 @@ export const useHrStore = defineStore('hr', () => {
 
   function saveFile() {
     const wb = XLSX.utils.book_new()
-    const anaRows = [
-      ['#','Nome','Società','Città','Team','Email','Data Assunzione','Tipo Contratto','Ore/Sett','Livello CCNL','Durata Prova','Metodo','Fine Prova','Esito Prova','FU1','Stato FU1','FU2','Stato FU2 Dip','Stato FU2 Mgr','Scad. Contratto','Stato'],
-      ...employees.value.map(e => [e.id,e.nome,e.societa||'MOVE Solutions',e.citta,e.team,e.email,e.dataAssunzione,e.tipoContratto,e.oreSettimana||'',e.livelloCCNL,e.durataProva,e.metodoComputo,e.fineProva,e.esitoProva,e.scadenzaFU1,e.statoFU1,e.scadenzaFU2,e.statoFU2Dip,e.statoFU2Manager,e.scadenzaContratto||'',e.stato])
-    ]
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(anaRows), 'Anagrafica')
-    const collRows = [
-      ['Nome','Team','C1 Data','C1 Esaur','C1 Carico','C1 Motiv','C1 Supp','C1 Equil','C1 Intent','C1 Esito','C2 Data','C2 Esaur','C2 Carico','C2 Motiv','C2 Supp','C2 Equil','C2 Intent','C2 Esito','C3 Data','C3 Esaur','C3 Carico','C3 Motiv','C3 Supp','C3 Equil','C3 Intent','C3 Esito','Note'],
-      ...colloqui.value.map(c => [c.nome,c.team,c.c1_data,c.c1_esaur,c.c1_carico,c.c1_motiv,c.c1_supp,c.c1_equil,c.c1_intent,c.c1_esito,c.c2_data,c.c2_esaur,c.c2_carico,c.c2_motiv,c.c2_supp,c.c2_equil,c.c2_intent,c.c2_esito,c.c3_data,c.c3_esaur,c.c3_carico,c.c3_motiv,c.c3_supp,c.c3_equil,c.c3_intent,c.c3_esito,c.note_trasversali])
-    ]
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(collRows), 'Onboarding')
+    const today = new Date().toISOString().split('T')[0]
 
-    // P&C Colloqui sheet
-    const pcRows = [
-      ['Nome','Team','Data','Tipo','Supervisor','Esaurimento','Carico','Motivazione','Supporto','Equilibrio','Intenzione','Performance','Engagement','Note','Prossimo Colloquio'],
-      ...colloquiPC.value.map(c => [c.nome,c.team,c.date,c.tipo,c.supervisor,c.esaur,c.carico,c.motiv,c.supp,c.equil,c.intent,c.performanceScore,c.engagementScore,c.noteColloquio,c.nextReviewDate])
-    ]
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(pcRows), 'Colloqui P&C')
+    // ═══════════════════════════════════════════
+    // SHEET 1: ANAGRAFICA COMPLETA
+    // ═══════════════════════════════════════════
+    const anaHeaders = ['ID','Nome','Cognome','Email','Città','Team','Società','Tipo Contratto','Ore/Sett','Livello CCNL',
+      'Data Assunzione','Durata Prova','Metodo Computo','Fine Prova','Esito Prova','Gg Rimanenti Prova',
+      'Scad. FU1','Stato FU1','Note FU1','Scad. FU2','Stato FU2 Dip','Stato FU2 Mgr',
+      'Scad. Contratto','Decisione Rinnovo','Data Decisione','Note Decisione',
+      'Stato Dipendente','Data Uscita','Motivo Uscita','Note Uscita']
+    const anaData = enrichedEmployees.value.map(e => [
+      e.id, e.nome, e.cognome, e.email, e.citta, e.team, getSocieta(e.team),
+      e.tipoContratto, e.oreSettimana || 40, e.livelloCCNL || '',
+      e.dataAssunzione, e.durataProva || '', e.metodoComputo || '', e.fineProva || '', e.esitoProva || '', e.daysToProva ?? '',
+      e.scadenzaFU1 || '', e.statoFU1 || '', e.noteFU1 || '', e.scadenzaFU2 || '', e.statoFU2Dip || '', e.statoFU2Manager || '',
+      e.scadenzaContratto || '', e.decisione || '', e.dataDecisioneRinnovo || '', e.noteDecisioneRinnovo || '',
+      e.stato, e.dataUscita || '', e.motivoUscita || '', e.noteUscita || ''
+    ])
+    const anaWs = XLSX.utils.aoa_to_sheet([anaHeaders, ...anaData])
+    anaWs['!cols'] = anaHeaders.map((h, i) => ({ wch: i <= 2 ? 16 : i === 3 ? 28 : 14 }))
+    XLSX.utils.book_append_sheet(wb, anaWs, 'Anagrafica')
 
-    // Dimissioni sheet
-    const dimRows = [
-      ['Nome','Team','Data Assunzione','Data Uscita','Motivo','Note'],
-      ...dimissioni.value.map(d => [d.nome,d.team,d.dataAssunzione,d.dataUscita,d.motivoUscita,d.noteUscita])
+    // ═══════════════════════════════════════════
+    // SHEET 2: VALUTAZIONI PERIODO DI PROVA
+    // ═══════════════════════════════════════════
+    const valHeaders = ['ID','Nome','Cognome','Team','Livello','Fine Prova','Esito Prova',
+      'Mgr Competenze','Mgr Qualità','Mgr Problem Solving','Mgr Velocità','Mgr Collaborazione','Mgr Comunicazione','Mgr Attitudine',
+      'Mgr Raccomandazione','Mgr Osservazioni','Mgr Data',
+      'HR Voto (1-10)','HR Commento','HR Data',
+      'CEO Decisione','CEO Motivazione','CEO Data']
+    const valData = employees.value.map(e => {
+      const v = e.valutazionePeriodoProva || {}
+      const m = v.manager || {}
+      const h = v.hr || {}
+      const c = v.ceo || {}
+      return [
+        e.id, e.nome, e.cognome, e.team, e.livelloCCNL || '', e.fineProva || '', e.esitoProva || '',
+        m.competenze || '', m.qualita || '', m.problemSolving || '', m.velocita || '', m.collaborazione || '', m.comunicazione || '', m.attitudine || '',
+        m.raccomandazione || '', m.osservazioni || '', v.dataValutazioneManager || '',
+        h.voto || '', h.commento || '', v.dataValutazioneHR || '',
+        c.decisione || '', c.motivazione || '', v.dataDecisioneCEO || ''
+      ]
+    })
+    const valWs = XLSX.utils.aoa_to_sheet([valHeaders, ...valData])
+    valWs['!cols'] = valHeaders.map(() => ({ wch: 16 }))
+    XLSX.utils.book_append_sheet(wb, valWs, 'Valutazioni Prova')
+
+    // ═══════════════════════════════════════════
+    // SHEET 3: FERIE & MALATTIE
+    // ═══════════════════════════════════════════
+    const ferHeaders = ['Nome','Team','Città','Società','Tipo Contratto Ferie',
+      'Ferie Annuali','Rata Mensile','Ferie Maturate','Residui AP','Ferie Godute','Ferie Residue','% Godute',
+      'Permessi Annuali (gg)','Permessi Maturati (gg)','Permessi Goduti (gg)','Permessi Residui (gg)',
+      'Permessi Annuali (ore)','Permessi Maturati (ore)',
+      'Gg Malattia','Episodi Malattia','Gg Malattia 3m','Assenze NG',
+      'Note Ferie','Note Malattia','Note Assenze']
+    const ferData = ferie.value.map(f => [
+      f.nome, f.team, f.citta || '', f.societa || '', f.tipoContrattoFerie || '',
+      f.ferieAnnuali || 0, f.rataMensile || 0, f.ferieSpettanti || 0, f.residuiAnniPrecedenti || 0, f.ferieGodute || 0, f.ferieResidue || 0, f.percGodute || 0,
+      f.permessiAnnualiGg || 0, f.permessiSpettantiGg || 0, f.permessiGodutiGg || 0, f.permessiResiduiGg || 0,
+      f.permessiAnnualiOre || 0, f.permessiSpettantiOre || 0,
+      f.ggMalattia || 0, f.episodiMalattia || 0, f.ggMalattia3m || 0, f.assenzeNonGiust || 0,
+      f.noteFerie || '', f.noteMalattia || '', f.noteAssenze || ''
+    ])
+    const ferWs = XLSX.utils.aoa_to_sheet([ferHeaders, ...ferData])
+    ferWs['!cols'] = ferHeaders.map(() => ({ wch: 15 }))
+    XLSX.utils.book_append_sheet(wb, ferWs, 'Ferie e Malattie')
+
+    // ═══════════════════════════════════════════
+    // SHEET 4: REGISTRO FERIE (entries dettaglio)
+    // ═══════════════════════════════════════════
+    const entryHeaders = ['Nome','Tipo','Data Inizio','Data Fine','Giorni','Stato','Note']
+    const entryData = []
+    ferie.value.forEach(f => {
+      if (f.entries && f.entries.length) {
+        f.entries.forEach(e => {
+          entryData.push([f.nome, e.tipo || '', e.dataInizio || '', e.dataFine || '', e.giorni || 0, e.stato || '', e.note || ''])
+        })
+      }
+    })
+    if (entryData.length > 0) {
+      const entryWs = XLSX.utils.aoa_to_sheet([entryHeaders, ...entryData])
+      entryWs['!cols'] = entryHeaders.map(() => ({ wch: 16 }))
+      XLSX.utils.book_append_sheet(wb, entryWs, 'Registro Assenze')
+    }
+
+    // ═══════════════════════════════════════════
+    // SHEET 5: COLLOQUI P&C
+    // ═══════════════════════════════════════════
+    const pcHeaders = ['Nome','Team','Data Ultimo','Esaurimento','Carico','Motivazione','Supporto','Equilibrio','Intenzione Permanenza',
+      'Esito','Engagement Score','Note','Prossimo Colloquio',
+      'N° Colloqui Storici']
+    const pcData = colloquiPC.value.map(c => [
+      c.nome, c.team, c.date || '', c.esaur || '', c.carico || '', c.motiv || '', c.supp || '', c.equil || '', c.intent || '',
+      c.esito || '', c.engagementScore || '', c.noteColloquio || c.note || '', c.nextReviewDate || '',
+      c.storico ? c.storico.length : 0
+    ])
+    const pcWs = XLSX.utils.aoa_to_sheet([pcHeaders, ...pcData])
+    pcWs['!cols'] = pcHeaders.map(() => ({ wch: 16 }))
+    XLSX.utils.book_append_sheet(wb, pcWs, 'Colloqui P&C')
+
+    // ═══════════════════════════════════════════
+    // SHEET 6: STORICO P&C (colloqui precedenti)
+    // ═══════════════════════════════════════════
+    const pcStoricoHeaders = ['Nome','Data','Esaurimento','Carico','Motivazione','Supporto','Equilibrio','Intenzione','Esito','Engagement Score','Note']
+    const pcStoricoData = []
+    colloquiPC.value.forEach(c => {
+      if (c.storico && c.storico.length) {
+        c.storico.forEach(s => {
+          pcStoricoData.push([c.nome, s.date || '', s.esaur || '', s.carico || '', s.motiv || '', s.supp || '', s.equil || '', s.intent || '', s.esito || '', s.engagementScore || '', s.note || ''])
+        })
+      }
+    })
+    if (pcStoricoData.length > 0) {
+      const pcStWs = XLSX.utils.aoa_to_sheet([pcStoricoHeaders, ...pcStoricoData])
+      pcStWs['!cols'] = pcStoricoHeaders.map(() => ({ wch: 14 }))
+      XLSX.utils.book_append_sheet(wb, pcStWs, 'Storico P&C')
+    }
+
+    // ═══════════════════════════════════════════
+    // SHEET 7: CONTRATTI A TERMINE
+    // ═══════════════════════════════════════════
+    const ctrHeaders = ['Nome','Cognome','Team','Tipo Contratto','Data Assunzione','Scadenza Contratto','Gg Rimanenti',
+      'Decisione','Data Decisione','Note Decisione','Data Proroga Fino',
+      'Valutazione Manager','Valutazione HR (voto)','Decisione CEO']
+    const ctrData = employees.value
+      .filter(e => e.tipoContratto === 'determinato')
+      .map(e => {
+        const v = e.valutazionePeriodoProva || {}
+        const daysLeft = e.scadenzaContratto ? Math.round((new Date(e.scadenzaContratto) - new Date()) / 86400000) : ''
+        return [
+          e.nome, e.cognome, e.team, e.tipoContratto, e.dataAssunzione, e.scadenzaContratto || '', daysLeft,
+          e.decisione || '', e.dataDecisioneRinnovo || '', e.noteDecisioneRinnovo || '', e.dataProrogaFino || '',
+          v.manager?.raccomandazione || '', v.hr?.voto || '', v.ceo?.decisione || ''
+        ]
+      })
+    const ctrWs = XLSX.utils.aoa_to_sheet([ctrHeaders, ...ctrData])
+    ctrWs['!cols'] = ctrHeaders.map(() => ({ wch: 16 }))
+    XLSX.utils.book_append_sheet(wb, ctrWs, 'Contratti Termine')
+
+    // ═══════════════════════════════════════════
+    // SHEET 8: DIMISSIONI
+    // ═══════════════════════════════════════════
+    const dimHeaders = ['Nome','Team','Data Assunzione','Data Uscita','Motivo Uscita','Note Uscita']
+    const dimData = dimissioni.value.map(d => [d.nome, d.team, d.dataAssunzione || '', d.dataUscita || '', d.motivoUscita || '', d.noteUscita || ''])
+    const dimWs = XLSX.utils.aoa_to_sheet([dimHeaders, ...dimData])
+    dimWs['!cols'] = dimHeaders.map(() => ({ wch: 18 }))
+    XLSX.utils.book_append_sheet(wb, dimWs, 'Uscite')
+
+    // ═══════════════════════════════════════════
+    // SHEET 9: ONBOARDING (FU1/FU2)
+    // ═══════════════════════════════════════════
+    const obHeaders = ['Nome','Team','C1 Data','C1 Esaur','C1 Carico','C1 Motiv','C1 Supp','C1 Equil','C1 Intent','C1 Esito',
+      'C2 Data','C2 Esaur','C2 Carico','C2 Motiv','C2 Supp','C2 Equil','C2 Intent','C2 Esito',
+      'C3 Data','C3 Esaur','C3 Carico','C3 Motiv','C3 Supp','C3 Equil','C3 Intent','C3 Esito','Note']
+    const obData = colloqui.value.map(c => [c.nome,c.team,c.c1_data,c.c1_esaur,c.c1_carico,c.c1_motiv,c.c1_supp,c.c1_equil,c.c1_intent,c.c1_esito,
+      c.c2_data,c.c2_esaur,c.c2_carico,c.c2_motiv,c.c2_supp,c.c2_equil,c.c2_intent,c.c2_esito,
+      c.c3_data,c.c3_esaur,c.c3_carico,c.c3_motiv,c.c3_supp,c.c3_equil,c.c3_intent,c.c3_esito,c.note_trasversali])
+    const obWs = XLSX.utils.aoa_to_sheet([obHeaders, ...obData])
+    obWs['!cols'] = obHeaders.map(() => ({ wch: 12 }))
+    XLSX.utils.book_append_sheet(wb, obWs, 'Onboarding')
+
+    // ═══════════════════════════════════════════
+    // SHEET 10: INDEX / RIEPILOGO
+    // ═══════════════════════════════════════════
+    const summaryRows = [
+      ['MOVE HR — Backup Completo'],
+      ['Data export:', today],
+      [],
+      ['RIEPILOGO ORGANICO'],
+      ['Totale dipendenti:', employees.value.length],
+      ['Attivi:', employees.value.filter(e => e.stato === 'Attivo').length],
+      ['In Uscita Concordata:', employees.value.filter(e => e.stato === 'In Uscita Concordata').length],
+      ['Inattivi:', employees.value.filter(e => e.stato === 'Inattivo').length],
+      ['Dimissioni Volontarie:', employees.value.filter(e => e.stato === 'Dimissioni Volontarie').length],
+      [],
+      ['CONTRATTI'],
+      ['Indeterminati:', employees.value.filter(e => e.tipoContratto === 'indeterminato').length],
+      ['Determinati:', employees.value.filter(e => e.tipoContratto === 'determinato').length],
+      ['Freelance:', employees.value.filter(e => e.team === 'Freelance').length],
+      [],
+      ['PROVE'],
+      ['In Corso:', employees.value.filter(e => e.esitoProva === 'In Corso').length],
+      ['Superato:', employees.value.filter(e => e.esitoProva === 'Superato').length],
+      ['Non Superato:', employees.value.filter(e => e.esitoProva === 'Non Superato').length],
+      [],
+      ['FOGLI INCLUSI'],
+      ['1. Anagrafica — Tutti i dipendenti con dati completi'],
+      ['2. Valutazioni Prova — Manager + HR + CEO per ogni dipendente'],
+      ['3. Ferie e Malattie — Riepilogo maturazione e godimento'],
+      ['4. Registro Assenze — Dettaglio singole richieste ferie/malattie/permessi'],
+      ['5. Colloqui P&C — Ultimo colloquio per dipendente'],
+      ['6. Storico P&C — Tutti i colloqui precedenti'],
+      ['7. Contratti Termine — Dettaglio contratti determinati e decisioni rinnovo'],
+      ['8. Uscite — Storico uscite dipendenti'],
+      ['9. Onboarding — Follow-up colloqui onboarding']
     ]
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dimRows), 'Dimissioni')
+    const summWs = XLSX.utils.aoa_to_sheet(summaryRows)
+    summWs['!cols'] = [{ wch: 40 }, { wch: 20 }]
+    XLSX.utils.book_append_sheet(wb, summWs, 'Riepilogo')
+    // Move Riepilogo to first position
+    wb.SheetNames = ['Riepilogo', ...wb.SheetNames.filter(n => n !== 'Riepilogo')]
 
     const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
-    const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([out])), download: 'MOVE_HR_export.xlsx' })
+    const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([out])), download: `MOVE_HR_Backup_${today}.xlsx` })
     a.click(); URL.revokeObjectURL(a.href)
-    notify('Excel esportato ✓')
+    notify('Excel backup completo esportato ✓ (10 fogli)')
   }
 
   const teams = computed(() => [...new Set(employees.value.map(e => e.team).filter(Boolean))].sort())
@@ -923,11 +1143,12 @@ export const useHrStore = defineStore('hr', () => {
         const fu1Date = new Date(e.scadenzaFU1)
         if (fu1Date < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu1Date - today) / 86400000)
-        if (daysUntil <= 0 && e.statoFU1 !== 'Fatto') {
+        const skip1 = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU1)
+        if (daysUntil <= 0 && !skip1) {
           items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU1 })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU1 !== 'Fatto') {
+        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip1) {
           items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU1 })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU1 !== 'Fatto') {
+        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip1) {
           items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU1 })
         }
       }
@@ -937,11 +1158,12 @@ export const useHrStore = defineStore('hr', () => {
         const fu2mDate = new Date(e.scadenzaFU2Manager)
         if (fu2mDate < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu2mDate - today) / 86400000)
-        if (daysUntil <= 0 && e.statoFU2Manager !== 'Fatto') {
+        const skip2m = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU2Manager)
+        if (daysUntil <= 0 && !skip2m) {
           items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Manager })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU2Manager !== 'Fatto') {
+        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip2m) {
           items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Manager })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU2Manager !== 'Fatto') {
+        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip2m) {
           items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Manager })
         }
       }
@@ -951,18 +1173,19 @@ export const useHrStore = defineStore('hr', () => {
         const fu2Date = new Date(e.scadenzaFU2)
         if (fu2Date < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu2Date - today) / 86400000)
-        if (daysUntil <= 0 && e.statoFU2Dip !== 'Fatto') {
+        const skip2d = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU2Dip)
+        if (daysUntil <= 0 && !skip2d) {
           items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Dip })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && e.statoFU2Dip !== 'Fatto') {
+        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip2d) {
           items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Dip })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && e.statoFU2Dip !== 'Fatto') {
+        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip2d) {
           items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Dip })
         }
       }
 
       // Employee Review Manager (if trial period, no review yet)
-      if (e.inProva && (!e.valutazionePeriodoProva || !e.valutazionePeriodoProva.manager) && e.daysToProva && e.daysToProva <= 45 && e.daysToProva >= 0) {
-        items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.fineProva, urgenza: e.daysToProva <= 7 ? 'ALTA' : 'MEDIA', color: e.daysToProva <= 7 ? 'orange' : 'yellow', giorni: e.daysToProva, stato: 'Da Fare' })
+      if (e.inProva && (!e.valutazionePeriodoProva || !e.valutazionePeriodoProva.manager) && e.daysToProva && e.daysToProva <= 45 && e.daysToProva >= 0 && !['Fatto', 'Eliminato', 'Scartato'].includes(e.statoReviewManager)) {
+        items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.fineProva, urgenza: e.daysToProva <= 7 ? 'ALTA' : 'MEDIA', color: e.daysToProva <= 7 ? 'orange' : 'yellow', giorni: e.daysToProva, stato: e.statoReviewManager || 'Da Fare' })
       }
     })
 
@@ -989,9 +1212,10 @@ export const useHrStore = defineStore('hr', () => {
         const rinnDate = new Date(e.scadenzaRinnovo)
         if (rinnDate < cutoffDate) return // Skip contracts before 2026
         const daysUntil = Math.floor((rinnDate - today) / 86400000)
-        if (daysUntil <= 0 && e.statoRinnovo !== 'Fatto') {
+        const skipR = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoRinnovo)
+        if (daysUntil <= 0 && !skipR) {
           items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoRinnovo })
-        } else if (daysUntil >= 0 && daysUntil <= 30 && e.statoRinnovo !== 'Fatto') {
+        } else if (daysUntil >= 0 && daysUntil <= 30 && !skipR) {
           items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoRinnovo })
         }
       }
@@ -1001,18 +1225,20 @@ export const useHrStore = defineStore('hr', () => {
         const dosDate = new Date(e.scadenzaDossierContratto)
         if (dosDate < cutoffDate) return // Skip contracts before 2026
         const daysUntil = Math.floor((dosDate - today) / 86400000)
-        if (daysUntil <= 0 && e.statoDossierContratto !== 'Fatto') {
+        const skipD = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoDossierContratto)
+        if (daysUntil <= 0 && !skipD) {
           items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoDossierContratto })
-        } else if (daysUntil >= 0 && daysUntil <= 30 && e.statoDossierContratto !== 'Fatto') {
+        } else if (daysUntil >= 0 && daysUntil <= 30 && !skipD) {
           items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoDossierContratto })
         }
       }
 
       // P&C colloqui scaduti o non ancora fatti (almeno 2 l'anno)
       const pcStatus = pcColloquiStatus.value[e.id]
-      if (pcStatus && pcStatus.status === 'Scaduto') {
+      const skipPC = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoPCKanban)
+      if (pcStatus && pcStatus.status === 'Scaduto' && !skipPC) {
         items.push({ id: e.id, tipo: 'PC_SCADUTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: pcStatus.lastDate, urgenza: 'MEDIA', color: 'yellow', giorni: pcStatus.daysSinceColloquio, stato: 'Scaduto' })
-      } else if (pcStatus && pcStatus.status === 'Non Fatto') {
+      } else if (pcStatus && pcStatus.status === 'Non Fatto' && !skipPC) {
         items.push({ id: e.id, tipo: 'PC_NON_FATTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: null, urgenza: 'BASSA', color: 'gray', giorni: null, stato: 'Non Fatto' })
       }
     })

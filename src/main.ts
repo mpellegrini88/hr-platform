@@ -13,7 +13,7 @@ import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
 import ValutazioneProva from './views/ValutazioneProva.vue'
 import VisualiMediche from './views/VisualiMediche.vue'
 import FerieMalattie from './views/FerieMalattie.vue'
-import Dimissioni from './views/Dimissioni.vue'
+import Uscite from './views/Uscite.vue'
 import Analytics from './views/Analytics.vue'
 import ContrattiTermine from './views/ContrattiTermine.vue'
 
@@ -31,7 +31,7 @@ const router = createRouter({
     { path: '/visite-mediche', component: VisualiMediche },
     { path: '/contratti-termine', component: ContrattiTermine },
     { path: '/ferie', component: FerieMalattie },
-    { path: '/dimissioni', component: Dimissioni },
+    { path: '/uscite', component: Uscite },
     { path: '/analytics', component: Analytics }
   ]
 })
