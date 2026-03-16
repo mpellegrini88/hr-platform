@@ -171,7 +171,7 @@
       "scadenzaFU1": "2026-02-25",
       "statoFU1": "Eliminato",
       "noteFU1": "",
-      "scadenzaFU2": "2026-06-25",
+      "scadenzaFU2": "2026-01-02",
       "statoFU2Dip": "Da Fare",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
@@ -221,7 +221,8 @@
       "scadenzaFU1": "2026-04-01",
       "statoFU1": "Eliminato",
       "noteFU1": "",
-      "scadenzaFU2": "2026-04-25",
+      "scadenzaFU2": "2026-04-01",
+      "statoFU2Dip": "Eliminato",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
       "scadenzaFU2Manager": null,
@@ -920,7 +921,7 @@
       "scadenzaFU1": "2026-01-31",
       "statoFU1": "N/A",
       "noteFU1": "",
-      "scadenzaFU2": "2026-06-01",
+      "scadenzaFU2": "2025-12-08",
       "statoFU2Dip": "N/A",
       "noteFU2Dip": "",
       "statoFU2Manager": "N/A",
@@ -1021,7 +1022,7 @@
       "scadenzaFU1": "2025-10-31",
       "statoFU1": "Fatto",
       "noteFU1": "Completato (pre-2026)",
-      "scadenzaFU2": "2026-03-01",
+      "scadenzaFU2": "2025-09-07",
       "statoFU2Dip": "Fatto",
       "noteFU2Dip": "Completato (pre-2026)",
       "statoFU2Manager": "Fatto",
@@ -1037,26 +1038,18 @@
         "dataValutazioneManager": "2026-03-16",
         "dataValutazioneHR": "2026-03-16",
         "manager": {
-          "competenze": 3,
-          "competenzeNote": "",
-          "qualita": 3,
-          "qualitaNote": "",
-          "problemSolving": 3,
-          "problemSolvingNote": "",
-          "velocita": 3,
-          "velocitaNote": "",
+          "osservazioni": "Il candidato che già in sede di assunzione aveva dimostrato alcuni problemi sull'elettronica di base ed era stato assunto perchpè c'era necessità reale, nel corso di questi sei mesi non è riuscito a colmare il gap raggiungendo il livello minimo di autonomia richiesto per questa posizione. Per tale motivo che va ad unirsi ad una comunicaszione poco efficiente che ha inficiato sicuramente anche la produttività. Il consiglio è quello di non confermare il dipendente.",
+          "competenze": 2,
+          "qualita": 2,
+          "problemSolving": 2,
+          "velocita": 1,
           "collaborazione": 3,
-          "collaborazioneNote": "",
-          "comunicazione": 3,
-          "comunicazioneNote": "",
-          "attitudine": 3,
-          "attitudineNote": "",
-          "osservazioni": "",
-          "raccomandazione": "Proroga temporanea",
-          "motivazioneRaccomandazione": "",
+          "comunicazione": 2,
+          "attitudine": 2,
+          "raccomandazione": "Non confermare",
+          "motivazioneRaccomandazione": "Difficoltà oggettive nello svolgimento delle attività, scarsa comunicazione e prioattività nel comunicare problemi e difficoltà.",
           "suggerimenti": "",
-          "areaeMiglioramento": "",
-          "tipo": "preliminare"
+          "areaeMiglioramento": ""
         },
         "hr": {
           "voto": 2,
@@ -1072,14 +1065,13 @@
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T15:18:20.907Z",
+        "dataUltimaModifica": "2026-03-16T10:58:22.936Z",
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "statoValutazionePrimaManager": "Fatto"
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 22,
@@ -1845,10 +1837,10 @@
       "dataAssunzione": "2025-12-09",
       "tipoContratto": "indeterminato",
       "oreSettimana": 40,
-      "livelloCCNL": "III",
-      "durataProva": null,
-      "metodoComputo": null,
-      "fineProva": null,
+      "livelloCCNL": "",
+      "durataProva": "5 giorni (lun-ven)",
+      "metodoComputo": "",
+      "fineProva": "2026-03-03",
       "esitoProva": "Superato",
       "scadenzaFU1": "2026-01-08",
       "statoFU1": "Eliminato",
@@ -1857,9 +1849,9 @@
       "statoFU2Dip": "Eliminato",
       "noteFU2Dip": "Completato (pre-2026)",
       "statoFU2Manager": "Fatto",
-      "scadenzaFU2Manager": "2026-02-07",
+      "scadenzaFU2Manager": null,
       "noteFU2Manager": "Completato (pre-2026)",
-      "scadenzaContratto": "",
+      "scadenzaContratto": null,
       "stato": "Attivo",
       "dataUscita": null,
       "motivoUscita": "",
@@ -1880,10 +1872,7 @@
       "scadenzaRinnovo": null,
       "statoRinnovo": "Da Fare",
       "scadenzaDossierContratto": null,
-      "statoDossierContratto": "Da Fare",
-      "telefono": "",
-      "manager": "",
-      "fineProvaManuale": false
+      "statoDossierContratto": "Da Fare"
     },
     {
       "id": 38,
@@ -2356,7 +2345,7 @@
       "scadenzaFU1": "2026-02-06",
       "statoFU1": "Fatto",
       "noteFU1": "",
-      "scadenzaFU2": "2026-03-02",
+      "scadenzaFU2": "2026-02-06",
       "statoFU2Dip": "Fatto",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
@@ -3854,10 +3843,10 @@
       "metodoComputo": "Giorni calendario",
       "fineProva": "2026-01-30",
       "esitoProva": "In Corso",
-      "scadenzaFU1": "2026-02-18",
+      "scadenzaFU1": "2026-01-23",
       "statoFU1": "Da Fare",
       "noteFU1": "",
-      "scadenzaFU2": "2025-12-31",
+      "scadenzaFU2": "2025-12-30",
       "statoFU2Dip": "Da Fare",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
@@ -4410,7 +4399,7 @@
       "scadenzaFU1": "2026-02-11",
       "statoFU1": "Da Fare",
       "noteFU1": "",
-      "scadenzaFU2": "2026-03-07",
+      "scadenzaFU2": "2026-02-11",
       "statoFU2Dip": "Da Fare",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
@@ -4652,49 +4641,6 @@
       },
       "id": 1773659516355,
       "metodoComputo": null
-    },
-    {
-      "nome": "Alessio",
-      "cognome": "Dedor",
-      "nomeBreve": "Alessio",
-      "societa": "Move-X",
-      "citta": "Milano",
-      "team": "Silicon Milano",
-      "email": "alessio.dedor@move-x.it",
-      "dataAssunzione": "2026-05-18",
-      "tipoContratto": "indeterminato",
-      "oreSettimana": 37.5,
-      "livelloCCNL": "2",
-      "durataProva": null,
-      "fineProva": null,
-      "esitoProva": "In Corso",
-      "scadenzaFU1": "2026-07-02",
-      "statoFU1": "Da Fare",
-      "scadenzaFU2Manager": "2026-07-17",
-      "statoFU2Manager": "Da Fare",
-      "scadenzaFU2": "2026-05-18",
-      "statoFU2Dip": "Da Fare",
-      "stato": "Attivo",
-      "motivoUscita": "",
-      "valutazionePeriodoProva": {
-        "faseCorrente": "manager-pending",
-        "dataValutazioneManager": null,
-        "dataValutazioneHR": null,
-        "dataDecisioneCEO": null,
-        "manager": null,
-        "hr": null,
-        "ceo": null
-      },
-      "preoboardingChecklist": {
-        "invioScritturaPrivata": false,
-        "creazioneProfiliweb": false,
-        "invioProcedure": false,
-        "visitaMedica": false,
-        "corsoFormazione": false,
-        "invioContratti": false
-      },
-      "id": 1773671118625,
-      "metodoComputo": null
     }
   ],
   "colloqui": [
@@ -4713,7 +4659,7 @@
       "c2_supp": 3,
       "c2_equil": 4,
       "c2_intent": null,
-      "c2_note": "durante il secondo colloquio è emersa una generale carenza sia di comunicazione che di praticità nel lavoro di ogni giorno. Il dipendente è sotto pressione perchè tecnicamebte sente di avere un gap difficilmente colmabile."
+      "c2_note": ""
     },
     {
       "nome": "Alessandro",
@@ -4749,10 +4695,6 @@
     {
       "nome": "Maria",
       "team": "Solutions > Marketing"
-    },
-    {
-      "nome": "Alessio",
-      "team": "Silicon Milano"
     }
   ],
   "ferie": [
@@ -7250,31 +7192,24 @@
       "permessiSpettantiGg": 0,
       "permessiSpettantiOre": 0,
       "permessiResiduiGg": 0
-    },
-    {
-      "nome": "Alessio",
-      "team": "Silicon Milano",
-      "citta": "Milano",
-      "ferieSpettanti": 5.49,
-      "ferieGodute": 0,
-      "ferieResidue": 5.49,
-      "percGodute": 0,
-      "ggMalattia": 0,
-      "episodiMalattia": 0,
-      "ggMalattia3m": 0,
-      "assenzeNonGiust": 0,
-      "ferieAnnuali": 21.96,
-      "rataMensile": 1.83,
-      "permessiAnnualiGg": 0,
-      "permessiSpettantiGg": 0,
-      "permessiSpettantiOre": 0,
-      "permessiResiduiGg": 0
     }
   ],
   "colloquiPC": [],
   "dimissioni": [],
   "valutazioni360": [],
   "allUrgenze": [
+    {
+      "id": 4,
+      "tipo": "FU2_DIP",
+      "nome": "Alessandro",
+      "cognome": "Fava",
+      "team": "Silicon Lucca",
+      "scadenza": "2026-01-02",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -74,
+      "stato": "Da Fare"
+    },
     {
       "id": 77,
       "tipo": "FU2_MANAGER",
@@ -7300,6 +7235,18 @@
       "stato": "Da Fare"
     },
     {
+      "id": 77,
+      "tipo": "FU1",
+      "nome": "Riccardo",
+      "cognome": "Rigamonti",
+      "team": "Silicon Milano",
+      "scadenza": "2026-01-23",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -53,
+      "stato": "Da Fare"
+    },
+    {
       "id": 19,
       "tipo": "FU1",
       "nome": "Ebabri",
@@ -7314,6 +7261,18 @@
     {
       "id": 88,
       "tipo": "FU1",
+      "nome": "Valerio",
+      "cognome": "Di Malta",
+      "team": "Silicon Milano",
+      "scadenza": "2026-02-11",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -34,
+      "stato": "Da Fare"
+    },
+    {
+      "id": 88,
+      "tipo": "FU2_DIP",
       "nome": "Valerio",
       "cognome": "Di Malta",
       "team": "Silicon Milano",
@@ -7348,30 +7307,6 @@
       "stato": "Da Fare"
     },
     {
-      "id": 77,
-      "tipo": "FU1",
-      "nome": "Riccardo",
-      "cognome": "Rigamonti",
-      "team": "Silicon Milano",
-      "scadenza": "2026-02-18",
-      "urgenza": "CRITICA",
-      "color": "red",
-      "giorni": -27,
-      "stato": "Da Fare"
-    },
-    {
-      "id": 88,
-      "tipo": "FU2_DIP",
-      "nome": "Valerio",
-      "cognome": "Di Malta",
-      "team": "Silicon Milano",
-      "scadenza": "2026-03-07",
-      "urgenza": "CRITICA",
-      "color": "red",
-      "giorni": -10,
-      "stato": "Da Fare"
-    },
-    {
       "id": 90,
       "tipo": "FU1",
       "nome": "William",
@@ -7381,18 +7316,6 @@
       "urgenza": "CRITICA",
       "color": "red",
       "giorni": -6,
-      "stato": "Da Fare"
-    },
-    {
-      "id": 90,
-      "tipo": "REVIEW_MANAGER",
-      "nome": "William",
-      "cognome": "Mancini",
-      "team": "Silicon Milano",
-      "scadenza": "2026-04-08",
-      "urgenza": "MEDIA",
-      "color": "yellow",
-      "giorni": 22,
       "stato": "Da Fare"
     },
     {
@@ -7420,6 +7343,18 @@
       "stato": "Da Fare"
     },
     {
+      "id": 90,
+      "tipo": "REVIEW_MANAGER",
+      "nome": "William",
+      "cognome": "Mancini",
+      "team": "Silicon Milano",
+      "scadenza": "2026-04-08",
+      "urgenza": "MEDIA",
+      "color": "yellow",
+      "giorni": 23,
+      "stato": "Da Fare"
+    },
+    {
       "id": 1773659516355,
       "tipo": "FU2_DIP",
       "nome": "Maria",
@@ -7440,7 +7375,7 @@
       "scadenza": "2026-04-13",
       "urgenza": "MEDIA",
       "color": "yellow",
-      "giorni": 27,
+      "giorni": 28,
       "stato": "Da Fare"
     },
     {
@@ -7456,27 +7391,15 @@
       "stato": "Fatto"
     },
     {
-      "id": 37,
-      "tipo": "FU2_MANAGER",
-      "nome": "Gabriele",
-      "cognome": "Roselli",
-      "team": "Silicon Milano",
-      "scadenza": "2026-02-07",
-      "urgenza": "BASSA",
-      "color": "gray",
-      "giorni": -38,
-      "stato": "Fatto"
-    },
-    {
       "id": 47,
       "tipo": "FU2_DIP",
       "nome": "Lento",
       "cognome": "Alessandro",
       "team": "Solutions > R & D",
-      "scadenza": "2026-03-02",
+      "scadenza": "2026-02-06",
       "urgenza": "BASSA",
       "color": "gray",
-      "giorni": -15,
+      "giorni": -39,
       "stato": "Fatto"
     },
     {
@@ -7488,7 +7411,7 @@
       "scadenza": "2026-04-01",
       "urgenza": "BASSA",
       "color": "gray",
-      "giorni": 15,
+      "giorni": 16,
       "stato": "Fatto"
     },
     {
@@ -7500,7 +7423,7 @@
       "scadenza": "2026-04-06",
       "urgenza": "BASSA",
       "color": "gray",
-      "giorni": 20,
+      "giorni": 21,
       "stato": "Fatto"
     },
     {
@@ -7552,9 +7475,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773674300925,
+  "timestamp": 1773661073761,
   "_meta": {
-    "savedAt": "2026-03-16T15:18:22.452Z",
+    "savedAt": "2026-03-16T11:37:55.309Z",
     "version": "2.0"
   }
 }

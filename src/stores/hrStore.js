@@ -154,7 +154,7 @@ export const useHrStore = defineStore('hr', () => {
     const emp = normalizeEmployeeSchema({ ...e, id: i + 1 })
     // Recalc FU dates for all employees with fineProva to fix seed data inconsistencies
     if (emp.dataAssunzione && emp.fineProva) {
-      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva)
+      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva, emp.tipoContratto, emp.scadenzaContratto)
       if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
       if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
       if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
@@ -251,28 +251,54 @@ export const useHrStore = defineStore('hr', () => {
   // FU2 = 1 month before fineProva
   // FU2Manager = midpoint between FU1 and FU2
   // Fallback if no fineProva: FU1 = hire+45d, FU2Manager = hire+60d
-  function calcFUDates(dataAssunzione, fineProva) {
+  function calcFUDates(dataAssunzione, fineProva, tipoContratto, scadenzaContratto) {
     if (!dataAssunzione) return {}
     const hire = new Date(dataAssunzione)
     const fmt = d => d.toISOString().split('T')[0]
+    
+    // FU1: sempre 1 mese dopo l'assunzione
+    const fu1 = new Date(hire)
+    fu1.setDate(fu1.getDate() + 30)
+    
     if (fineProva) {
       const fp = new Date(fineProva)
       const totalDays = Math.round((fp - hire) / 86400000)
-      // FU1 = midpoint of trial
-      const fu1 = new Date(hire.getTime() + Math.round(totalDays / 2) * 86400000)
-      // FU2 = 1 month before fineProva
-      const fu2 = new Date(fp); fu2.setMonth(fu2.getMonth() - 1)
-      // If FU2 <= FU1 (very short trial), push FU1 earlier
-      if (fu2 <= fu1) {
-        fu1.setTime(hire.getTime() + Math.round(totalDays / 3) * 86400000)
+      
+      // Determina la data di riferimento per FU2
+      // Se determinato con scadenzaContratto: usa quella, altrimenti usa fineProva
+      const dataRif = 
+        (tipoContratto === 'determinato' && scadenzaContratto) 
+          ? new Date(scadenzaContratto)
+          : fp
+      
+      // FU2: 
+      // - Per prova LUNGA (> 60 giorni): 1 mese e 1 settimana prima se indeterminato, 1 mese se determinato
+      // - Per prova BREVE (≤ 60 giorni): ~1 mese prima della fine
+      let fu2
+      if (totalDays > 60) {
+        // Prova lunga
+        if (tipoContratto === 'determinato') {
+          fu2 = new Date(dataRif)
+          fu2.setDate(fu2.getDate() - 30)
+        } else {
+          // Indeterminato: 37 giorni prima
+          fu2 = new Date(dataRif)
+          fu2.setDate(fu2.getDate() - 37)
+        }
+      } else {
+        // Prova breve: 1 mese prima della fine
+        fu2 = new Date(dataRif)
+        fu2.setDate(fu2.getDate() - 30)
       }
-      // FU2Manager = midpoint between FU1 and FU2
+      
+      // FU2Manager = metà tra FU1 e FU2
       const fu2mgr = new Date(fu1.getTime() + Math.round((fu2 - fu1) / 2))
+      
       return { scadenzaFU1: fmt(fu1), scadenzaFU2: fmt(fu2), scadenzaFU2Manager: fmt(fu2mgr) }
     } else {
-      // No fineProva: use fixed offsets
-      const fu1 = new Date(hire); fu1.setDate(fu1.getDate() + 45)
-      const fu2mgr = new Date(hire); fu2mgr.setDate(fu2mgr.getDate() + 60)
+      // No fineProva: usa offset fissi
+      const fu2mgr = new Date(hire)
+      fu2mgr.setDate(fu2mgr.getDate() + 60)
       return { scadenzaFU1: fmt(fu1), scadenzaFU2Manager: fmt(fu2mgr) }
     }
   }
@@ -281,7 +307,7 @@ export const useHrStore = defineStore('hr', () => {
     if (!emp.dataAssunzione || !emp.livelloCCNL) return emp
     // Se fineProva è stata impostata manualmente, non ricalcolare prova ma ricalcola FU
     if (emp.fineProvaManuale) {
-      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva)
+      const fuDates = calcFUDates(emp.dataAssunzione, emp.fineProva, emp.tipoContratto, emp.scadenzaContratto)
       if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
       if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
       if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
@@ -289,7 +315,7 @@ export const useHrStore = defineStore('hr', () => {
     }
     const r = calcProvatione(emp.livelloCCNL, emp.tipoContratto, emp.dataAssunzione, emp.scadenzaContratto)
     emp.durataProva = r.durata; emp.metodoComputo = r.metodo; emp.fineProva = r.fineProva
-    const fuDates = calcFUDates(emp.dataAssunzione, r.fineProva)
+    const fuDates = calcFUDates(emp.dataAssunzione, r.fineProva, emp.tipoContratto, emp.scadenzaContratto)
     if (fuDates.scadenzaFU1) emp.scadenzaFU1 = fuDates.scadenzaFU1
     if (fuDates.scadenzaFU2) emp.scadenzaFU2 = fuDates.scadenzaFU2
     if (fuDates.scadenzaFU2Manager) emp.scadenzaFU2Manager = fuDates.scadenzaFU2Manager
@@ -552,13 +578,22 @@ export const useHrStore = defineStore('hr', () => {
     const idx = employees.value.findIndex(e => e.id === employeeId)
     if (idx === -1) return
     const emp = employees.value[idx]
-    emp.valutazionePeriodoProva = emp.valutazionePeriodoProva || { faseCorrente: 'manager-pending', dataValutazioneManager: null, dataValutazioneHR: null, manager: null, hr: null }
-    emp.valutazionePeriodoProva.manager = managerReviewData
-    emp.valutazionePeriodoProva.dataValutazioneManager = new Date().toISOString().split('T')[0]
-    emp.valutazionePeriodoProva.faseCorrente = 'manager-complete'
+    emp.valutazionePeriodoProva = emp.valutazionePeriodoProva || { faseCorrente: 'manager-pending', managerPreliminary: null, managerFinal: null, hr: null, ceo: null }
+    
+    // Salva nella sezione corretta (preliminare o finale) basato sul tipo
+    const tipo = managerReviewData.tipo
+    if (tipo === 'finale') {
+      emp.valutazionePeriodoProva.managerFinal = managerReviewData
+      emp.valutazionePeriodoProva.dataValutazioneFinalManager = new Date().toISOString().split('T')[0]
+    } else {
+      // default: preliminare
+      emp.valutazionePeriodoProva.managerPreliminary = managerReviewData
+      emp.valutazionePeriodoProva.dataValutazionePrimaManager = new Date().toISOString().split('T')[0]
+    }
+    
     emp.valutazioneMetadata = emp.valutazioneMetadata || { anno: 2026, dataCreazione: null, dataUltimaModifica: null, datiPre2026Eliminati: false }
     emp.valutazioneMetadata.dataUltimaModifica = new Date().toISOString()
-    notify('Valutazione Manager salvata ✓')
+    notify(`Valutazione Manager ${tipo === 'finale' ? 'Finale' : 'Preliminare'} salvata ✓`)
     autoSave.trackChange(getStoreSnapshot())
     saveToIndexedDB()
   }

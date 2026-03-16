@@ -189,14 +189,16 @@
                   :stato="e.statoFU1"
                 />
                 <TimelineNode
-                  :done="e.statoFU2Manager === 'Fatto'"
-                  :urgent="e.fu2ManagerUrgente || e.fu2ManagerScaduto"
-                  :date="e.scadenzaFU2Manager"
-                  label="FU Manager"
-                  icon="👨‍💼"
-                  color="orange"
-                  desc="Valutazione manager a 45gg"
-                  :stato="e.statoFU2Manager"
+                  :done="e.statoValutazionePrimaManager === 'Fatto'"
+                  :urgent="e.valutazionePrimaManagerUrgente"
+                  :date="e.scadenzaValutazionePrimaManager"
+                  label="Stima Manager"
+                  icon="📋"
+                  color="amber"
+                  desc="Stima preliminare (45gg prima)"
+                  @click="goToValutazione(e)"
+                  class="cursor-pointer"
+                  :stato="e.statoValutazionePrimaManager"
                 />
                 <TimelineNode
                   :done="e.statoFU2Dip === 'Fatto'"
@@ -205,7 +207,7 @@
                   label="FU2 Dipendente"
                   icon="👔"
                   color="purple"
-                  desc="30gg prima fine prova (dip.)"
+                  desc="30gg prima fine prova"
                   :stato="e.statoFU2Dip"
                 />
                 <TimelineNode
@@ -213,11 +215,23 @@
                   :failed="e.esitoProva === 'Non Superato'"
                   :urgent="e.provaUrgente && e.esitoProva === 'In Corso'"
                   :date="e.fineProva"
-                  label="Fine prova"
+                  label="Fine Prova"
                   icon="🏁"
                   color="indigo"
                   desc="Valutazione periodo di prova"
                   :stato="e.esitoProva"
+                />
+                <TimelineNode
+                  :done="e.statoValutazioneFinalManager === 'Fatto'"
+                  :urgent="e.valutazioneFinalManagerUrgente"
+                  :date="e.scadenzaValutazioneFinalManager"
+                  label="Valutazione Manager"
+                  icon="📝"
+                  color="rose"
+                  desc="Valutazione finale (45gg dopo)"
+                  @click="goToValutazione(e)"
+                  class="cursor-pointer"
+                  :stato="e.statoValutazioneFinalManager"
                 />
               </div>
             </div>
@@ -378,19 +392,39 @@
 
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label class="form-label">Scadenza FU Manager</label>
-              <input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaFU2Manager)" readonly>
+              <label class="form-label">Scadenza Valutazione Manager</label>
+              <input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaValutazionePrimaManager)" readonly>
+              <div class="text-xs text-gray-500 mt-1">1 mese e 1 settimana prima della fine prova</div>
             </div>
             <div>
-              <label class="form-label">Stato FU Manager</label>
-              <select class="form-select" v-model="detail.emp.statoFU2Manager" @change="saveDetail">
+              <label class="form-label">Stato Valutazione Manager</label>
+              <select class="form-select" v-model="detail.emp.statoValutazionePrimaManager" @change="saveDetail">
+                <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
+              </select>
+            </div>
+          </div>
+
+          <div v-if="detail.emp.statoValutazionePrimaManager === 'Da Fare'" class="p-4 bg-blue-50 rounded-xl border border-blue-200">
+            <p class="text-sm font-medium text-blue-900">📝 Questa è la <strong>prima valutazione preliminare</strong> del manager (senza conferma finale).</p>
+            <p class="text-xs text-blue-800 mt-1">Scarica una stima dei voti. La pratica sarà successivamente confermata o definita nella valutazione finale a fine prova.</p>
+            <button @click="goToValutazione(detail.emp)" class="mt-3 btn btn-primary btn-sm">➜ Vai a Valutazione Prova</button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-4 mt-6">
+            <div>
+              <label class="form-label">Scadenza Stima Preliminare</label>
+              <input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaValutazionePrimaManager)" readonly>
+            </div>
+            <div>
+              <label class="form-label">Stato Stima Manager</label>
+              <select class="form-select" v-model="detail.emp.statoValutazionePrimaManager" @change="saveDetail">
                 <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
               </select>
             </div>
           </div>
 
           <!-- Manager Evaluation Form -->
-          <div v-if="detail.emp.statoFU2Manager === 'Fatto'" class="space-y-4">
+          <div v-if="detail.emp.statoValutazionePrimaManager === 'Fatto'" class="space-y-4">
             <!-- Osservazioni Generali -->
             <div class="bg-white p-4 rounded border border-gray-200">
               <label class="form-label">Osservazioni Generali (performance, atteggiamento, collaborazione, punti di forza, aree di attenzione)</label>
@@ -497,23 +531,17 @@
             </div>
           </div>
 
-          <div v-else-if="detail.emp.statoFU2Manager === 'Da Fare'" class="text-sm text-gray-600 p-4 bg-gray-50 rounded">
-            Completa il form sopra una volta che hai visitato il dipendente per la valutazione dei 45gg.
+          <div v-else-if="detail.emp.statoValutazionePrimaManager === 'Da Fare'" class="text-sm text-gray-600 p-4 bg-gray-50 rounded">
+            Completa il form sopra una volta che hai completato la stima preliminare del dipendente (45 giorni prima fine prova).
           </div>
         </Section>
 
         <Section title="Follow-up 2 — 30gg prima fine prova (dipendente + manager)">
-          <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-2 gap-4">
             <div><label class="form-label">Scadenza FU2</label><input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaFU2)" readonly></div>
             <div>
               <label class="form-label">Stato FU2 — Dipendente</label>
               <select class="form-select" v-model="detail.emp.statoFU2Dip" @change="saveDetail">
-                <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
-              </select>
-            </div>
-            <div>
-              <label class="form-label">Stato FU2 — Manager</label>
-              <select class="form-select" v-model="detail.emp.statoFU2Manager" @change="saveDetail">
                 <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
               </select>
             </div>
@@ -549,6 +577,24 @@
             <p class="text-sm font-medium text-red-800">❌ Periodo di prova non superato — aggiornare lo stato del dipendente in Anagrafica.</p>
           </div>
         </Section>
+
+        <Section title="Valutazione Manager Finale (45gg dopo fine prova)">
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="form-label">Scadenza Valutazione Finale</label>
+              <input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaValutazioneFinalManager)" readonly>
+            </div>
+            <div>
+              <label class="form-label">Stato Valutazione Finale</label>
+              <select class="form-select" v-model="detail.emp.statoValutazioneFinalManager" @change="saveDetail">
+                <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
+              </select>
+            </div>
+          </div>
+          <div v-if="detail.emp.statoValutazioneFinalManager === 'Da Fare'" class="text-sm text-gray-600 p-4 bg-gray-50 rounded">
+            Questa valutazione si terrà dopo la fine del periodo di prova per un feedback definitivo sulla conferma del dipendente.
+          </div>
+        </Section>
       </div>
       <template #footer>
         <button class="btn btn-secondary" @click="detail.open=false">Chiudi</button>
@@ -563,6 +609,7 @@
 
 <script setup>
 import { ref, computed, reactive, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useHelpers } from '@/composables/useHelpers.js'
 import Modal from '@/components/ui/Modal.vue'
@@ -573,6 +620,7 @@ import ScorePill from '@/components/ui/ScorePill.vue'
 import InfoBlock from '@/components/ui/InfoBlock.vue'
 
 const store = useHrStore()
+const router = useRouter()
 const { fmtDate, fmtDateShort, contractBadge, scoreColor } = useHelpers()
 
 const activeTab = ref('inCorso')
@@ -584,7 +632,57 @@ const tabs = [
   { value: 'storico', label: '📚 Storico' },
 ]
 
-const allOnboarding = computed(() => store.enrichedEmployees.filter(e => e.fineProva || e.dataAssunzione))
+const allOnboarding = computed(() => {
+  return store.enrichedEmployees
+    .filter(e => e.fineProva || e.dataAssunzione)
+    .map(e => {
+      const today = new Date()
+      
+      // Determina la data di riferimento per il flusso
+      const dataRiferimento = 
+        (e.tipoContratto === 'determinato' && e.scadenzaContratto) 
+          ? new Date(e.scadenzaContratto)
+          : e.fineProva ? new Date(e.fineProva) : null
+      
+      const daysToProva = dataRiferimento ? Math.round((dataRiferimento - today) / 86400000) : null
+      
+      // Calcola durata della prova per differenziare short vs long
+      let totalProvaLength = 0
+      if (e.dataAssunzione && dataRiferimento) {
+        totalProvaLength = Math.round((dataRiferimento - new Date(e.dataAssunzione)) / 86400000)
+      }
+      
+      // VALUTAZIONE 1: Stima preliminare - 45 giorni prima della fine prova/contratto
+      const scadenzaValPrimaManager = dataRiferimento ? new Date(dataRiferimento.getTime() - 45 * 86400000) : null
+      const daysToValManager = scadenzaValPrimaManager ? Math.round((scadenzaValPrimaManager - today) / 86400000) : null
+      
+      // VALUTAZIONE 2: Valutazione finale - 45 giorni DOPO la fine prova/contratto
+      const scadenzaValFinalManager = dataRiferimento ? new Date(dataRiferimento.getTime() + 45 * 86400000) : null
+      const daysToValFinalManager = scadenzaValFinalManager ? Math.round((scadenzaValFinalManager - today) / 86400000) : null
+      
+      return {
+        ...e,
+        inProva: e.esitoProva === 'In Corso',
+        provaUrgente: daysToProva !== null && daysToProva <= 7,
+        provaScaduta: daysToProva !== null && daysToProva < 0,
+        daysToProva,
+        fu1Urgente: e.scadenzaFU1 ? Math.round((new Date(e.scadenzaFU1) - today) / 86400000) <= 7 : false,
+        fu1Scaduto: e.scadenzaFU1 ? Math.round((new Date(e.scadenzaFU1) - today) / 86400000) < 0 : false,
+        fu2ManagerUrgente: e.scadenzaFU2Manager ? Math.round((new Date(e.scadenzaFU2Manager) - today) / 86400000) <= 7 : false,
+        fu2ManagerScaduto: e.scadenzaFU2Manager ? Math.round((new Date(e.scadenzaFU2Manager) - today) / 86400000) < 0 : false,
+        fu2Urgente: e.scadenzaFU2 ? Math.round((new Date(e.scadenzaFU2) - today) / 86400000) <= 7 : false,
+        fu2Scaduto: e.scadenzaFU2 ? Math.round((new Date(e.scadenzaFU2) - today) / 86400000) < 0 : false,
+        scadenzaValutazionePrimaManager: scadenzaValPrimaManager ? scadenzaValPrimaManager.toISOString().split('T')[0] : null,
+        daysToValManager,
+        valutazionePrimaManagerUrgente: daysToValManager !== null && daysToValManager <= 7,
+        scadenzaValutazioneFinalManager: scadenzaValFinalManager ? scadenzaValFinalManager.toISOString().split('T')[0] : null,
+        daysToValFinalManager,
+        valutazioneFinalManagerUrgente: daysToValFinalManager !== null && daysToValFinalManager <= 7,
+        statoValutazionePrimaManager: e.statoValutazionePrimaManager || 'Da Fare',
+        statoValutazioneFinalManager: e.statoValutazioneFinalManager || 'Da Fare'
+      }
+    })
+})
 
 const prossimiIngressi = computed(() => {
   const today = new Date()
@@ -601,7 +699,15 @@ const prossimiIngressi = computed(() => {
 })
 
 const inCorso = computed(() => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
   return allOnboarding.value
+    .filter(e => {
+      if (!e.dataAssunzione) return false
+      const dataAssunzione = new Date(e.dataAssunzione)
+      dataAssunzione.setHours(0, 0, 0, 0)
+      return dataAssunzione <= today
+    })
     .filter(e => e.inProva && (!search.value || e.nome.toLowerCase().includes(search.value.toLowerCase())))
     .sort((a, b) => (a.daysToProva ?? 9999) - (b.daysToProva ?? 9999))
 })
@@ -627,7 +733,7 @@ const storicoByYear = computed(() => {
 const years = computed(() => [...new Set(store.employees.map(e => e.dataAssunzione?.slice(0,4)).filter(Boolean))].sort().reverse())
 
 function progressPct(e) {
-  const steps = [true, e.statoFU1==='Fatto', e.statoFU2Manager==='Fatto', e.statoFU2Dip==='Fatto', e.esitoProva==='Superato']
+  const steps = [true, e.statoFU1==='Fatto', e.statoValutazionePrimaManager==='Fatto', e.statoFU2Dip==='Fatto', e.esitoProva==='Superato', e.statoValutazioneFinalManager==='Fatto']
   return (steps.filter(Boolean).length / steps.length) * 100
 }
 
@@ -687,7 +793,17 @@ function openDetail(e) {
 
 function saveDetail() {
   if (!detail.emp) return
-  store.updateEmployee(detail.emp.id, { statoFU1: detail.emp.statoFU1, statoFU2Dip: detail.emp.statoFU2Dip, statoFU2Manager: detail.emp.statoFU2Manager, esitoProva: detail.emp.esitoProva })
+  store.updateEmployee(detail.emp.id, { 
+    statoFU1: detail.emp.statoFU1, 
+    statoFU2Dip: detail.emp.statoFU2Dip, 
+    statoValutazionePrimaManager: detail.emp.statoValutazionePrimaManager,
+    statoValutazioneFinalManager: detail.emp.statoValutazioneFinalManager,
+    esitoProva: detail.emp.esitoProva 
+  })
+}
+
+function goToValutazione(e) {
+  router.push(`/valutazione-prova?empId=${e.id}`)
 }
 
 function saveDetailFull() {
@@ -698,7 +814,7 @@ function saveDetailFull() {
   })
   
   // Salva valutazione manager se completata
-  if (detail.emp.statoFU2Manager === 'Fatto') {
+  if (detail.emp.statoValutazionePrimaManager === 'Fatto') {
     store.saveValutazioneManager(detail.emp.id, {
       osservazioni: managerEval.osservazioni,
       competenze: managerEval.competenze,

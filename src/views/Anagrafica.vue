@@ -22,7 +22,16 @@
       <button @click="filterAzioni = !filterAzioni" :class="['btn btn-sm', filterAzioni ? 'bg-amber-500 text-white hover:bg-amber-600' : 'btn-secondary']">
         🔔 Azioni ({{ actionCount }})
       </button>
+      <button @click="filterValutare = !filterValutare" :class="['btn btn-sm', filterValutare ? 'bg-blue-500 text-white hover:bg-blue-600' : 'btn-secondary']">
+        🎯 Da Valutare ({{ needsEvaluationCount }})
+      </button>
       <button @click="openNew" class="btn btn-primary ml-auto">+ Nuovo dipendente</button>
+    </div>
+
+    <!-- Banner pre-onboarding -->
+    <div v-if="futureEmployees.length > 0" class="flex items-center gap-3 text-sm bg-gray-50 rounded-xl px-4 py-2 border border-gray-200">
+      <span class="text-gray-500">⏳ <strong>{{ futureEmployees.length }}</strong> dipendente/i in pre-onboarding (data ingresso futura) - saranno attivi dal giorno di assunzione.</span>
+      <button @click="$router.push('/pre-onboarding')" class="text-primary-600 hover:text-primary-800 font-medium underline">Gestisci Pre-Onboarding →</button>
     </div>
 
     <!-- Banner ex-dipendenti -->
@@ -80,11 +89,26 @@
               <td class="text-sm">{{ fmtDateShort(e.dataAssunzione) }}</td>
               <td class="text-sm text-gray-600">{{ e.livelloCCNL || '—' }}</td>
               <td class="text-sm">
-                <span :class="e.provaUrgente ? 'text-red-600 font-semibold' : ''">{{ fmtDateShort(e.fineProva) }}</span>
-                <div v-if="e.provaUrgente && e.esitoProva === 'In Corso'" class="text-xs text-red-500 font-medium mt-0.5">⚠ {{ e.daysToProva }}gg</div>
+                <span :class="(e.esitoProva === 'In Corso' && e.provaUrgente) || (dataPrincipale(e) && daysToDataPrincipale(e) <= 7) ? 'text-red-600 font-semibold' : ''">
+                  {{ fmtDateShort(dataPrincipale(e)) }}
+                  <span v-if="e.esitoProva === 'In Corso' && e.tipoContratto !== 'determinato'" class="text-xs text-gray-500">(prova)</span>
+                  <span v-else-if="e.esitoProva !== 'In Corso' && e.tipoContratto === 'determinato'" class="text-xs text-orange-600">(contratto)</span>
+                </span>
+                <div v-if="daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) <= 7 && daysToDataPrincipale(e) >= 0" class="text-xs text-amber-600 font-medium mt-0.5">⚠ {{ daysToDataPrincipale(e) }}gg</div>
+                <div v-else-if="daysToDataPrincipale(e) !== null && daysToDataPrincipale(e) < 0" class="text-xs text-red-600 font-bold mt-0.5">❌ SCADUTO</div>
               </td>
               <td>
-                <span :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
+                <!-- Quick action buttons when trial is expired -->
+                <div v-if="e.esitoProva === 'In Corso' && hasCritical(e)" class="flex gap-1 flex-wrap">
+                  <button class="badge badge-sm bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer hover:bg-emerald-100 transition font-medium" @click.stop="setQuickOutcome(e.id, 'Superato')">
+                    ✓ Superato
+                  </button>
+                  <button class="badge badge-sm bg-red-50 text-red-700 border border-red-200 cursor-pointer hover:bg-red-100 transition font-medium" @click.stop="setQuickOutcome(e.id, 'Non Superato')">
+                    ✗ Non Sup.
+                  </button>
+                </div>
+                <!-- Normal badge otherwise -->
+                <span v-else :class="['badge', esitoClass(e.esitoProva)]">{{ e.esitoProva || '—' }}</span>
               </td>
               <td @click.stop>
                 <div v-if="e.team === 'Freelance'" class="text-gray-300">—</div>
@@ -121,6 +145,50 @@
         </table>
       </div>
       <div class="px-4 py-2 border-t border-gray-50 text-xs text-gray-400">{{ filtered.length }} dipendenti</div>
+    </div>
+
+    <!-- Dipendenti in Pre-Onboarding (Data Assunzione Futura) -->
+    <div v-if="futureEmployees.length > 0" class="card overflow-hidden opacity-60">
+      <div class="px-5 py-4 bg-gray-100 border-b border-gray-200">
+        <h3 class="font-semibold text-gray-600">⏳ In Pre-Onboarding (Data Ingresso Futura)</h3>
+        <p class="text-xs text-gray-500 mt-1">Questi dipendenti diventeranno attivi dalla data di assunzione indicata</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome</th>
+              <th>Team</th>
+              <th>Contratto</th>
+              <th>Assunzione</th>
+              <th>Livello CCNL</th>
+              <th>Stato</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="e in futureEmployees" :key="e.id" class="tbl-clickable opacity-70 hover:opacity-100" @click="openDetail(e)">
+              <td class="text-gray-400 font-mono text-xs">{{ e.n }}</td>
+              <td>
+                <div class="font-medium text-gray-700">{{ e.nome }} {{ e.cognome }}</div>
+                <div class="text-xs text-gray-400">{{ e.email }}</div>
+              </td>
+              <td><span class="badge badge-gray">{{ e.team }}</span></td>
+              <td>
+                <span :class="['badge', contractBadge(e.tipoContratto)]">{{ e.tipoContratto }}</span>
+              </td>
+              <td class="text-sm font-medium text-amber-700">{{ fmtDateShort(e.dataAssunzione) }}</td>
+              <td class="text-sm text-gray-600">{{ e.livelloCCNL || '—' }}</td>
+              <td><span class="badge badge-gray">{{ e.stato }}</span></td>
+              <td @click.stop>
+                <button class="btn btn-ghost btn-xs text-gray-300 hover:text-red-600" @click.stop="del(e.id)">✕</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-4 py-2 border-t border-gray-50 text-xs text-gray-400">{{ futureEmployees.length }} in attesa di assunzione</div>
     </div>
 
     <!-- MODAL ADD/EDIT -->
@@ -273,20 +341,42 @@ const router = useRouter()
 const store = useHrStore()
 const { fmtDate, fmtDateShort, toInput, statoClass, contractBadge } = useHelpers()
 
-const search = ref(''), filterTeam = ref(''), filterContratto = ref(''), filterStato = ref(''), filterAzioni = ref(false)
+const search = ref(''), filterTeam = ref(''), filterContratto = ref(''), filterStato = ref(''), filterAzioni = ref(false), filterValutare = ref(false)
 
 // Escludi dipendenti in uscita concordata o inattivi dal flusso standard
 const STATI_ESCLUSI = ['In Uscita Concordata', 'Inattivo']
-const activeEmployees = computed(() => store.enrichedEmployees.filter(e => !STATI_ESCLUSI.includes(e.stato)))
+const today = new Date()
+today.setHours(0, 0, 0, 0)
+
+const futureEmployees = computed(() => 
+  store.enrichedEmployees.filter(e => 
+    e.dataAssunzione && new Date(e.dataAssunzione) > today && !STATI_ESCLUSI.includes(e.stato) && e.team !== 'Freelance'
+  )
+)
+
+const activeEmployees = computed(() => 
+  store.enrichedEmployees.filter(e => 
+    !STATI_ESCLUSI.includes(e.stato) && 
+    (!e.dataAssunzione || new Date(e.dataAssunzione) <= today) &&
+    e.team !== 'Freelance'
+  )
+)
 const exDipendenti = computed(() => store.enrichedEmployees.filter(e => STATI_ESCLUSI.includes(e.stato)))
+
+const needsEvaluationCount = computed(() => activeEmployees.value.filter(e => 
+  (e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') && e.valutazioneStatus !== 'complete'
+).length)
 
 const filtered = computed(() => activeEmployees.value.filter(e => {
   const s = search.value.toLowerCase()
-  return (!s || (e.nome||'').toLowerCase().includes(s) || (e.cognome||'').toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s))
-    && (!filterTeam.value || e.team === filterTeam.value)
-    && (!filterContratto.value || e.tipoContratto === filterContratto.value)
-    && (!filterStato.value || e.stato === filterStato.value)
-    && (!filterAzioni.value || needsAction(e))
+  const matchesSearch = !s || (e.nome||'').toLowerCase().includes(s) || (e.cognome||'').toLowerCase().includes(s) || (e.team||'').toLowerCase().includes(s)
+  const matchesTeam = !filterTeam.value || e.team === filterTeam.value
+  const matchesContratto = !filterContratto.value || e.tipoContratto === filterContratto.value
+  const matchesStato = !filterStato.value || e.stato === filterStato.value
+  const matchesAzioni = !filterAzioni.value || needsAction(e)
+  const matchesValutare = !filterValutare.value || ((e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') && e.valutazioneStatus !== 'complete')
+  
+  return matchesSearch && matchesTeam && matchesContratto && matchesStato && matchesAzioni && matchesValutare
 }))
 
 const actionCount = computed(() => activeEmployees.value.filter(e => needsAction(e)).length)
@@ -317,18 +407,80 @@ function save() {
 function del(id) {
   if (confirm('Eliminare questo dipendente?')) store.deleteEmployee(id)
 }
+
+// Quick action: set trial outcome directly from table
+async function setQuickOutcome(empId, outcome) {
+  const emp = store.employees.find(e => e.id === empId)
+  if (!emp) return
+  
+  // Confirm action
+  const msg = outcome === 'Superato' 
+    ? `Conferma: ${emp.nome} ${emp.cognome} ha SUPERATO la prova?`
+    : `Conferma: ${emp.nome} ${emp.cognome} ha FALLITO la prova?`
+  
+  if (!confirm(msg)) return
+  
+  // Update locally and in store
+  emp.esitoProva = outcome
+  
+  // If "Non Superato", set appropriate stato
+  if (outcome === 'Non Superato') {
+    emp.stato = 'Mancato Superamento Prova'
+  }
+  
+  // Save to backend
+  store.updateEmployee(empId, emp)
+  
+  // Toast notification
+  const resultMsg = outcome === 'Superato' 
+    ? `✓ ${emp.nome} ha superato la prova`
+    : `✗ ${emp.nome} non ha superato la prova`
+  store.notify(resultMsg, outcome === 'Superato' ? 'success' : 'warning')
+}
+
 function recalc() {
   if (!modal.data.dataAssunzione || !modal.data.livelloCCNL) return
   const r = calcProvatione(modal.data.livelloCCNL, modal.data.tipoContratto, modal.data.dataAssunzione, modal.data.scadenzaContratto)
   modal.data.durataProva = r.durata; modal.data.metodoComputo = r.metodo; modal.data.fineProva = r.fineProva
-  if (modal.data.dataAssunzione) {
-    const h = new Date(modal.data.dataAssunzione)
-    const fu1 = new Date(h); fu1.setDate(fu1.getDate()+30)
-    modal.data.scadenzaFU1 = fu1.toISOString().split('T')[0]
-  }
+  
+  // Calcola FU dates usando la stessa logica di hrStore
+  const hire = new Date(modal.data.dataAssunzione)
+  const fmt = d => d.toISOString().split('T')[0]
+  
+  // FU1: sempre 1 mese dopo l'assunzione
+  const fu1 = new Date(hire)
+  fu1.setDate(fu1.getDate() + 30)
+  modal.data.scadenzaFU1 = fmt(fu1)
+  
   if (r.fineProva) {
-    const fu2 = new Date(r.fineProva); fu2.setDate(fu2.getDate()-30)
-    modal.data.scadenzaFU2 = fu2.toISOString().split('T')[0]
+    const fp = new Date(r.fineProva)
+    const totalDays = Math.round((fp - hire) / 86400000)
+    
+    // Determina la data di riferimento per FU2
+    const dataRif = 
+      (modal.data.tipoContratto === 'determinato' && modal.data.scadenzaContratto) 
+        ? new Date(modal.data.scadenzaContratto)
+        : fp
+    
+    // FU2: dipende dalla durata della prova
+    let fu2
+    if (totalDays > 60) {
+      // Prova lunga
+      if (modal.data.tipoContratto === 'determinato') {
+        fu2 = new Date(dataRif)
+        fu2.setDate(fu2.getDate() - 30)
+      } else {
+        // Indeterminato: 37 giorni prima
+        fu2 = new Date(dataRif)
+        fu2.setDate(fu2.getDate() - 37)
+      }
+    } else {
+      // Prova breve: 1 mese prima della fine
+      fu2 = new Date(dataRif)
+      fu2.setDate(fu2.getDate() - 30)
+    }
+    
+    modal.data.scadenzaFU2 = fmt(fu2)
   }
 }
 
@@ -341,9 +493,9 @@ function esitoClass(e) {
 function rowHighlight(e) {
   if (!needsAction(e)) return ''
   if (hasCritical(e)) return 'bg-red-100 border-l-4 border-l-red-400'
-  // Urgente (≤7gg)
-  if ((e.provaUrgente && e.esitoProva === 'In Corso' && e.daysToProva <= 7) ||
-      (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 7))
+  // Urgente (≤7gg) - uses primary date (prova or contratto based on priority)
+  const daysToMain = daysToDataPrincipale(e)
+  if (daysToMain !== null && daysToMain <= 7)
     return 'bg-amber-100 border-l-4 border-l-amber-400'
   // In scadenza (≤30gg)
   return 'bg-yellow-50 border-l-4 border-l-yellow-400'
@@ -351,19 +503,41 @@ function rowHighlight(e) {
 
 function needsAction(e) {
   if (e.stato !== 'Attivo') return false
+  const daysToMain = daysToDataPrincipale(e)
   return hasCritical(e) ||
-    (e.provaUrgente && e.esitoProva === 'In Corso') ||
-    (e.valutazioneStatus !== 'complete' && e.esitoProva === 'In Corso' && e.daysToProva !== null && e.daysToProva <= 45) ||
-    (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 90)
+    (daysToMain !== null && daysToMain <= 90) ||
+    (e.valutazioneStatus !== 'complete' && e.esitoProva === 'In Corso' && daysToMain !== null && daysToMain <= 45)
 }
 
 function hasCritical(e) {
-  return (e.daysToProva !== null && e.daysToProva <= 0 && e.esitoProva === 'In Corso') ||
-    (e.tipoContratto === 'determinato' && e.scadenzaContratto && contractDaysLeft(e) <= 0)
+  const daysToMain = daysToDataPrincipale(e)
+  return daysToMain !== null && daysToMain <= 0
 }
 
 function contractDaysLeft(e) {
   if (!e.scadenzaContratto) return 999
   return Math.round((new Date(e.scadenzaContratto) - new Date()) / 86400000)
+}
+
+// Logica di priorità: se la prova è conclusa e c'è contratto determinato, mostra contratto
+function dataPrincipale(e) {
+  const provaConclusa = e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato'
+  const hasDeterminatoContract = e.tipoContratto === 'determinato' && e.scadenzaContratto
+  
+  if (provaConclusa && hasDeterminatoContract) {
+    return e.scadenzaContratto
+  }
+  return e.fineProva
+}
+
+function daysToDataPrincipale(e) {
+  const data = dataPrincipale(e)
+  if (!data) return null
+  return Math.round((new Date(data) - new Date()) / 86400000)
+}
+
+function daysUntilOnboarding(e) {
+  if (!e.dataAssunzione) return null
+  return Math.round((new Date(e.dataAssunzione) - today) / 86400000)
 }
 </script>

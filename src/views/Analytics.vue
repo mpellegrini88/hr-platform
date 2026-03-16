@@ -168,8 +168,13 @@
 
     <!-- TEAM STATISTICS TABLE -->
     <div class="card p-5">
-      <h3 class="font-semibold text-gray-900 mb-4">👥 Dipendenti per team (Dettaglio)</h3>
-      <div class="overflow-x-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-gray-900">👥 Dipendenti per team (Dettaglio)</h3>
+        <button @click="expandTeamStatsTable = !expandTeamStatsTable" class="text-xs font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1">
+          {{ expandTeamStatsTable ? '▼ Riduci' : '▶ Espandi' }}
+        </button>
+      </div>
+      <div class="overflow-x-auto" :style="{ maxHeight: expandTeamStatsTable ? 'none' : '300px', overflowY: expandTeamStatsTable ? 'visible' : 'auto' }">
         <table class="tbl text-sm">
           <thead>
             <tr>
@@ -338,6 +343,7 @@ const store = useHrStore()
 const { fmtDateShort } = useHelpers()
 const expandFerieTable = ref(false)
 const expandMalattiaTable = ref(false)
+const expandTeamStatsTable = ref(false)
 
 function r2(v) { return v != null ? Math.round(Number(v) * 100) / 100 : 0 }
 

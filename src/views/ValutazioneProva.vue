@@ -171,39 +171,68 @@
           <!-- Manager Evaluation -->
           <div class="bg-blue-50 rounded-lg p-5 border border-blue-200">
             <div class="flex items-center justify-between mb-4">
-              <h4 class="font-semibold text-blue-900">👨‍💼 Valutazione Manager/Responsabile Tecnico</h4>
+              <h4 class="font-semibold text-blue-900">👨‍💼 Stima Preliminare Manager (45gg prima)</h4>
               <div class="flex gap-2">
-                <button v-if="modal.open && modal.tipo === 'manager'" 
-                        @click="suggestScoresWithAI" 
-                        :disabled="aiLoading || !evalForm.osservazioni.trim()"
-                        class="btn btn-sm text-xs px-2" 
-                        :class="aiLoading ? 'opacity-50 cursor-wait' : 'hover:bg-blue-100'">
-                  {{ aiLoading ? '⏳ Analizzando...' : '🤖 Suggerisci scale' }}
-                </button>
-                <button v-if="!getManagerEvaluation(emp.id)" @click="openEvaluation(emp, 'manager')" class="btn btn-sm btn-primary">
+                <button v-if="!getManagerEvaluation(emp.id, 'prima')" @click="openEvaluation(emp, 'valutazione-prima')" class="btn btn-sm btn-primary">
                   Aggiungi valutazione
                 </button>
-                <button v-else @click="openEvaluation(emp, 'manager')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                <button v-else @click="openEvaluation(emp, 'valutazione-prima')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
                   ✎ Modifica
                 </button>
               </div>
             </div>
 
-            <div v-if="!getManagerEvaluation(emp.id)" class="text-sm text-blue-700">
+            <div v-if="!getManagerEvaluation(emp.id, 'prima')" class="text-sm text-blue-700">
               Valutazione non ancora compilata
             </div>
             <div v-else class="space-y-3" data-ai-result>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(emp.id).competenze }}/5</div>
-                <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(emp.id).qualita }}/5</div>
-                <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(emp.id).problemSolving }}/5</div>
-                <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(emp.id).velocita }}/5</div>
-                <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(emp.id).collaborazione }}/5</div>
-                <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(emp.id).comunicazione }}/5</div>
-                <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(emp.id).attitudine }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(emp.id, 'prima').competenze }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(emp.id, 'prima').qualita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(emp.id, 'prima').problemSolving }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(emp.id, 'prima').velocita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(emp.id, 'prima').collaborazione }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(emp.id, 'prima').comunicazione }}/5</div>
+                <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(emp.id, 'prima').attitudine }}/5</div>
               </div>
               <div class="bg-white p-3 rounded text-sm">
-                <strong>Raccomandazione:</strong> {{ getManagerEvaluation(emp.id).raccomandazione }}
+                <strong>Raccomandazione:</strong> {{ getManagerEvaluation(emp.id, 'prima').raccomandazione }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Manager Final Evaluation -->
+          <div class="bg-rose-50 rounded-lg p-5 border border-rose-200">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="font-semibold text-rose-900">👨‍💼 Valutazione Finale Manager (45gg dopo)</h4>
+              <div class="flex gap-2">
+                <button v-if="!getManagerEvaluation(emp.id, 'finale')" @click="openEvaluation(emp, 'valutazione-finale')" class="btn btn-sm btn-primary" :disabled="!getManagerEvaluation(emp.id, 'prima')">
+                  Aggiungi valutazione
+                </button>
+                <button v-else @click="openEvaluation(emp, 'valutazione-finale')" class="text-xs text-rose-600 hover:text-rose-800 font-medium">
+                  ✎ Modifica
+                </button>
+              </div>
+            </div>
+
+            <div v-if="!getManagerEvaluation(emp.id, 'prima')" class="text-sm text-rose-700 bg-rose-100 p-2 rounded">
+              ⚠️ Completare prima la stima preliminare
+            </div>
+            <div v-else-if="!getManagerEvaluation(emp.id, 'finale')" class="text-sm text-rose-700">
+              Valutazione non ancora compilata
+            </div>
+            <div v-else class="space-y-3" data-ai-result>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(emp.id, 'finale').competenze }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(emp.id, 'finale').qualita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(emp.id, 'finale').problemSolving }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(emp.id, 'finale').velocita }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(emp.id, 'finale').collaborazione }}/5</div>
+                <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(emp.id, 'finale').comunicazione }}/5</div>
+                <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(emp.id, 'finale').attitudine }}/5</div>
+              </div>
+              <div class="bg-white p-3 rounded text-sm">
+                <strong>Raccomandazione:</strong> {{ getManagerEvaluation(emp.id, 'finale').raccomandazione }}
               </div>
             </div>
           </div>
@@ -280,7 +309,8 @@
         <div>
           <h4 class="font-semibold text-blue-900 mb-1">Processo di Valutazione della Prova</h4>
           <ul class="text-sm text-blue-800 space-y-1">
-            <li>🔵 <strong>Manager/Responsabile Tecnico:</strong> Compila scala 7 criteri (1-5) + raccomandazione (Confermare / Proroga / Non Confermare)</li>
+            <li>� <strong>Stima Preliminare Manager (45gg prima):</strong> Valutazione iniziale senza obbligo di conferma</li>
+            <li>📝 <strong>Valutazione Finale Manager (45gg dopo):</strong> Valutazione definitiva dopo fine prova per decisione conferma/proroga</li>
             <li>🔵 <strong>HR:</strong> Valida con voto 1-10 + commento + approvazione finale</li>
             <li>👑 <strong>CEO:</strong> Decisione finale con motivazione (Rinnovo / Proroga / Conclusione)</li>
             <li>📋 <strong>Freelance:</strong> Esclusi da questo processo - gestiti solo in "Contratti a Termine"</li>
@@ -301,8 +331,11 @@
       </div>
 
       <!-- Manager Evaluation Form -->
-      <div v-if="modal.tipo === 'manager'" class="space-y-4">
-        <h4 class="font-semibold text-gray-900">Scala di Valutazione (1-5)</h4>
+      <div v-if="modal.tipo === 'valutazione-prima' || modal.tipo === 'valutazione-finale'" class="space-y-4">
+        <h4 class="font-semibold text-gray-900 mb-2">
+          {{ modal.tipo === 'valutazione-prima' ? '📋 Stima Preliminare (45gg prima fine prova)' : '📝 Valutazione Finale (45gg dopo fine prova)' }}
+        </h4>
+        <h5 class="font-semibold text-gray-900">Scala di Valutazione (1-5)</h5>
 
         <!-- Competenze Tecniche -->
         <div class="border border-gray-200 p-3 rounded">
@@ -393,18 +426,18 @@
       <!-- HR Validation Form -->
       <div v-else-if="modal.tipo === 'hr'" class="space-y-4">
         <!-- Manager Evaluation Summary -->
-        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-4 rounded border border-blue-200">
-          <p class="text-xs font-semibold text-blue-700 uppercase mb-2">Recap Valutazione Manager</p>
+        <div v-if="getManagerEvaluation(modal.emp?.id, 'prima')" class="bg-blue-50 p-4 rounded border border-blue-200">
+          <p class="text-xs font-semibold text-blue-700 uppercase mb-2">Recap Valutazione Preliminare Manager</p>
           <div class="grid grid-cols-2 gap-2 text-xs mb-2">
-            <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id).competenze }}/5</div>
-            <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id).qualita }}/5</div>
-            <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id).problemSolving }}/5</div>
-            <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id).velocita }}/5</div>
-            <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id).collaborazione }}/5</div>
-            <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id).comunicazione }}/5</div>
-            <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id).attitudine }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').competenze }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').qualita }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').problemSolving }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').velocita }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').collaborazione }}/5</div>
+            <div class="bg-white p-2 rounded"><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').comunicazione }}/5</div>
+            <div class="bg-white p-2 rounded col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').attitudine }}/5</div>
           </div>
-          <p class="text-xs text-blue-700"><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
+          <p class="text-xs text-blue-700"><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').raccomandazione }}</p>
         </div>
 
         <div class="bg-purple-50 border border-purple-200 rounded p-4">
@@ -493,19 +526,19 @@
 
       <!-- CEO Decision Form -->
       <div v-else-if="modal.tipo === 'ceo'" class="space-y-4">
-        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-4 rounded border border-blue-200 text-xs space-y-2">
-          <div class="font-semibold text-blue-900 mb-2">📊 Valutazione Manager</div>
-          <p><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
+        <div v-if="getManagerEvaluation(modal.emp?.id, 'prima')" class="bg-blue-50 p-4 rounded border border-blue-200 text-xs space-y-2">
+          <div class="font-semibold text-blue-900 mb-2">📊 Valutazione Preliminare Manager</div>
+          <p><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').raccomandazione }}</p>
           <div class="mt-2 pt-2 border-t border-blue-200 grid grid-cols-2 gap-1 text-xs">
-            <span><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id).competenze }}/5</span>
-            <span><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id).qualita }}/5</span>
-            <span><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id).problemSolving }}/5</span>
-            <span><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id).velocita }}/5</span>
-            <span><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id).collaborazione }}/5</span>
-            <span><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id).comunicazione }}/5</span>
-            <span class="col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id).attitudine }}/5</span>
+            <span><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').competenze }}/5</span>
+            <span><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').qualita }}/5</span>
+            <span><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').problemSolving }}/5</span>
+            <span><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').velocita }}/5</span>
+            <span><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').collaborazione }}/5</span>
+            <span><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').comunicazione }}/5</span>
+            <span class="col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id, 'prima').attitudine }}/5</span>
           </div>
-          <p class="text-gray-500 italic mt-2">{{ getManagerEvaluation(modal.emp?.id).osservazioni }}</p>
+          <p class="text-gray-500 italic mt-2">{{ getManagerEvaluation(modal.emp?.id, 'prima').osservazioni }}</p>
         </div>
         <div v-if="getHRValidation(modal.emp?.id)" class="bg-purple-50 p-4 rounded border border-purple-200 text-xs space-y-2">
           <div class="font-semibold text-purple-900 mb-2">🧠 Valutazione HR</div>
@@ -553,7 +586,7 @@
 
     <template #footer>
       <button @click="modal.open = false" class="btn btn-ghost">Annulla</button>
-      <button @click="saveEvaluation" class="btn btn-primary">💾 Salva</button>
+      <button @click="saveEvaluation" :disabled="modal.tipo === 'valutazione-finale' && !getManagerEvaluation(modal.emp?.id, 'prima')" class="btn btn-primary">💾 Salva</button>
     </template>
   </Modal>
 </template>
@@ -607,11 +640,24 @@ const getTeamsExcludingFreelance = computed(() => {
 
 const inCorso = computed(() => {
   const today = new Date()
-  return store.employees.filter(e =>
-    e.stato === 'Attivo' &&
-    e.esitoProva === 'In Corso' &&
-    !e.team.toLowerCase().includes('freelance')
-  ).sort((a, b) => {
+  return store.employees.filter(e => {
+    if (e.stato !== 'Attivo') return false
+    if (!e.fineProva) return false
+    if (e.team.toLowerCase().includes('freelance')) return false
+    
+    // Se prova ancora in corso (esitoProva === 'In Corso'), includi sempre
+    if (e.esitoProva === 'In Corso') return true
+    
+    // Se prova conclusa, includi solo se:
+    // - ha la valutazione preliminare completata (managerPreliminary exists)
+    // - e non ha ancora quella finale (managerFinal is null/undefined)
+    const hasPreliminary = e.valutazionePeriodoProva?.managerPreliminary
+    const hasNoFinal = !e.valutazionePeriodoProva?.managerFinal
+    
+    if (hasPreliminary && hasNoFinal) return true
+    
+    return false
+  }).sort((a, b) => {
     const dateA = a.fineProva ? new Date(a.fineProva).getTime() : Infinity
     const dateB = b.fineProva ? new Date(b.fineProva).getTime() : Infinity
     return dateA - dateB  // Earliest (closest deadline) first
@@ -782,9 +828,16 @@ function toggleExpanded(empId) {
   else expanded.value.push(empId)
 }
 
-function getManagerEvaluation(empId) {
+function getManagerEvaluation(empId, tipo = 'prima') {
   const emp = store.employees.find(e => e.id === empId)
-  return emp?.valutazionePeriodoProva?.manager || null
+  if (!emp) return null
+  
+  if (tipo === 'prima') {
+    return emp?.valutazionePeriodoProva?.managerPreliminary || null
+  } else if (tipo === 'finale') {
+    return emp?.valutazionePeriodoProva?.managerFinal || null
+  }
+  return null
 }
 
 function getHRValidation(empId) {
@@ -815,8 +868,26 @@ function openEvaluation(emp, tipo) {
   modal.emp = emp
   modal.tipo = tipo
 
-  if (tipo === 'manager') {
-    const existing = getManagerEvaluation(emp.id)
+  if (tipo === 'valutazione-prima' || tipo === 'valutazione-finale') {
+    const existing = getManagerEvaluation(emp.id, tipo === 'valutazione-prima' ? 'prima' : 'finale')
+    if (existing) {
+      Object.assign(evalForm, existing)
+    } else {
+      evalForm.competenze = 3
+      evalForm.qualita = 3
+      evalForm.problemSolving = 3
+      evalForm.velocita = 3
+      evalForm.collaborazione = 3
+      evalForm.comunicazione = 3
+      evalForm.attitudine = 3
+      evalForm.osservazioni = ''
+      evalForm.raccomandazione = 'Confermare il dipendente'
+      evalForm.motivazioneRaccomandazione = ''
+      evalForm.suggerimenti = ''
+      evalForm.areaeMiglioramento = ''
+    }
+  } else if (tipo === 'manager') {
+    const existing = getManagerEvaluation(emp.id, 'prima')
     if (existing) {
       Object.assign(evalForm, existing)
     } else {
@@ -874,12 +945,16 @@ function openEvaluation(emp, tipo) {
 
 function getModalTitle() {
   if (!modal.emp) return ''
-  const tipo = modal.tipo === 'manager' ? 'Manager' : modal.tipo === 'hr' ? 'HR' : 'CEO'
-  return `Valutazione ${tipo} — ${modal.emp.nome} ${modal.emp.cognome}`
+  let tipo = ''
+  if (modal.tipo === 'valutazione-prima') tipo = 'Stima Preliminare Manager (45gg prima)'
+  else if (modal.tipo === 'valutazione-finale') tipo = 'Valutazione Finale Manager (45gg dopo)'
+  else if (modal.tipo === 'hr') tipo = 'Validazione HR'
+  else if (modal.tipo === 'ceo') tipo = 'Decisione CEO'
+  return `${tipo} — ${modal.emp.nome} ${modal.emp.cognome}`
 }
 
 function avgManagerScore(empId) {
-  const m = getManagerEvaluation(empId)
+  const m = getManagerEvaluation(empId, 'prima')
   if (!m) return '—'
   const vals = [m.competenze, m.qualita, m.problemSolving, m.velocita, m.collaborazione, m.comunicazione, m.attitudine]
   return (vals.reduce((a, b) => a + (b || 0), 0) / vals.length).toFixed(1)
@@ -888,7 +963,8 @@ function avgManagerScore(empId) {
 function saveEvaluation() {
   if (!modal.emp) return
 
-  if (modal.tipo === 'manager') {
+  if (modal.tipo === 'valutazione-prima' || modal.tipo === 'valutazione-finale') {
+    const isFinale = modal.tipo === 'valutazione-finale'
     store.saveValutazioneManager(modal.emp.id, {
       competenze: evalForm.competenze, competenzeNote: evalForm.competenzeNote,
       qualita: evalForm.qualita, qualitaNote: evalForm.qualitaNote,
@@ -901,8 +977,15 @@ function saveEvaluation() {
       raccomandazione: evalForm.raccomandazione,
       motivazioneRaccomandazione: evalForm.motivazioneRaccomandazione,
       suggerimenti: evalForm.suggerimenti,
-      areaeMiglioramento: evalForm.areaeMiglioramento
+      areaeMiglioramento: evalForm.areaeMiglioramento,
+      tipo: isFinale ? 'finale' : 'preliminare'
     })
+    
+    // Aggiorna lo stato
+    const updateData = isFinale 
+      ? { statoValutazioneFinalManager: 'Fatto' }
+      : { statoValutazionePrimaManager: 'Fatto' }
+    store.updateEmployee(modal.emp.id, updateData)
   } else if (modal.tipo === 'hr') {
     store.saveValutazioneHR(modal.emp.id, {
       voto: evalForm.hrVoto,
