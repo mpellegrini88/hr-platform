@@ -493,13 +493,34 @@
 
       <!-- CEO Decision Form -->
       <div v-else-if="modal.tipo === 'ceo'" class="space-y-4">
-        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-3 rounded border border-blue-200 text-xs space-y-1">
-          <p><strong>Manager:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
-          <p class="text-gray-500">Media voti: {{ avgManagerScore(modal.emp?.id) }}/5</p>
+        <div v-if="getManagerEvaluation(modal.emp?.id)" class="bg-blue-50 p-4 rounded border border-blue-200 text-xs space-y-2">
+          <div class="font-semibold text-blue-900 mb-2">📊 Valutazione Manager</div>
+          <p><strong>Raccomandazione:</strong> {{ getManagerEvaluation(modal.emp?.id).raccomandazione }}</p>
+          <div class="mt-2 pt-2 border-t border-blue-200 grid grid-cols-2 gap-1 text-xs">
+            <span><strong>Competenze:</strong> {{ getManagerEvaluation(modal.emp?.id).competenze }}/5</span>
+            <span><strong>Qualità:</strong> {{ getManagerEvaluation(modal.emp?.id).qualita }}/5</span>
+            <span><strong>Problem Solving:</strong> {{ getManagerEvaluation(modal.emp?.id).problemSolving }}/5</span>
+            <span><strong>Velocità:</strong> {{ getManagerEvaluation(modal.emp?.id).velocita }}/5</span>
+            <span><strong>Collaborazione:</strong> {{ getManagerEvaluation(modal.emp?.id).collaborazione }}/5</span>
+            <span><strong>Comunicazione:</strong> {{ getManagerEvaluation(modal.emp?.id).comunicazione }}/5</span>
+            <span class="col-span-2"><strong>Attitudine:</strong> {{ getManagerEvaluation(modal.emp?.id).attitudine }}/5</span>
+          </div>
+          <p class="text-gray-500 italic mt-2">{{ getManagerEvaluation(modal.emp?.id).osservazioni }}</p>
         </div>
-        <div v-if="getHRValidation(modal.emp?.id)" class="bg-purple-50 p-3 rounded border border-purple-200 text-xs space-y-1">
-          <p><strong>HR Voto:</strong> {{ getHRValidation(modal.emp?.id).voto }}/10</p>
-          <p v-if="getHRValidation(modal.emp?.id).commento" class="text-gray-500">{{ getHRValidation(modal.emp?.id).commento }}</p>
+        <div v-if="getHRValidation(modal.emp?.id)" class="bg-purple-50 p-4 rounded border border-purple-200 text-xs space-y-2">
+          <div class="font-semibold text-purple-900 mb-2">🧠 Valutazione HR</div>
+          <p><strong>Voto:</strong> {{ getHRValidation(modal.emp?.id).voto }}/10</p>
+          <p v-if="getHRValidation(modal.emp?.id).commento" class="text-gray-600 italic">{{ getHRValidation(modal.emp?.id).commento }}</p>
+          
+          <!-- HR Psychometric Summary -->
+          <div v-if="getHRValidation(modal.emp?.id).hrOnboarding" class="mt-2 pt-2 border-t border-purple-200 grid grid-cols-2 gap-1 text-xs">
+            <span><strong>Onboarding:</strong> {{ getHRValidation(modal.emp?.id).hrOnboarding }}/5</span>
+            <span><strong>Engagement:</strong> {{ getHRValidation(modal.emp?.id).hrEngagement }}/5</span>
+            <span><strong>Wellbeing:</strong> {{ getHRValidation(modal.emp?.id).hrWellbeing }}/5</span>
+            <span><strong>Cultural Fit:</strong> {{ getHRValidation(modal.emp?.id).hrCulturalFit }}/5</span>
+            <span><strong>Growth:</strong> {{ getHRValidation(modal.emp?.id).hrGrowthPotential }}/5</span>
+            <span><strong>Retention:</strong> {{ getHRValidation(modal.emp?.id).hrRetention }}/5</span>
+          </div>
         </div>
 
         <!-- Contract impact banner for determinato -->
