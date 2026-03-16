@@ -4609,23 +4609,6 @@
     {
       "nome": "Andrea Ria",
       "team": "Silicon Lucca"
-    },
-    {
-      "nome": "Lento",
-      "c1_esaur": 2,
-      "c1_carico": 2,
-      "c1_motiv": 4,
-      "c1_supp": 4,
-      "c1_equil": 4,
-      "c1_intent": 4,
-      "c1_note": "tutto ok, è contento",
-      "c2_esaur": 2,
-      "c2_carico": 2,
-      "c2_motiv": 4,
-      "c2_supp": 4,
-      "c2_equil": 4,
-      "c2_intent": 4,
-      "c2_note": "tutto ok, si sta inserendo bene e procede bene. Sta imparando a lavorare con gli altri membri del team e il suo obiettivo futuro è migliorare nella praticità e concretizzare più idee."
     }
   ],
   "ferie": [
@@ -7345,9 +7328,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773655952983,
+  "timestamp": 1773655872972,
   "_meta": {
-    "savedAt": "2026-03-16T10:12:34.501Z",
+    "savedAt": "2026-03-16T10:11:14.501Z",
     "version": "2.0"
   }
 }

@@ -1143,13 +1143,18 @@ export const useHrStore = defineStore('hr', () => {
         const fu1Date = new Date(e.scadenzaFU1)
         if (fu1Date < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu1Date - today) / 86400000)
-        const skip1 = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU1)
-        if (daysUntil <= 0 && !skip1) {
-          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU1 })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip1) {
-          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU1 })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip1) {
-          items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU1 })
+        const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoFU1) // Only exclude deletions, not 'Fatto'
+        if (!skipRemovals) {
+          if (e.statoFU1 === 'Fatto') {
+            // Item completato - aggiungi per la colonna COMPLETATO
+            items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoFU1 })
+          } else if (daysUntil <= 0) {
+            items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU1 })
+          } else if (daysUntil >= 0 && daysUntil <= 7) {
+            items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU1 })
+          } else if (daysUntil >= 8 && daysUntil <= 30) {
+            items.push({ id: e.id, tipo: 'FU1', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU1, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU1 })
+          }
         }
       }
 
@@ -1158,13 +1163,17 @@ export const useHrStore = defineStore('hr', () => {
         const fu2mDate = new Date(e.scadenzaFU2Manager)
         if (fu2mDate < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu2mDate - today) / 86400000)
-        const skip2m = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU2Manager)
-        if (daysUntil <= 0 && !skip2m) {
-          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Manager })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip2m) {
-          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Manager })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip2m) {
-          items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Manager })
+        const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoFU2Manager)
+        if (!skipRemovals) {
+          if (e.statoFU2Manager === 'Fatto') {
+            items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoFU2Manager })
+          } else if (daysUntil <= 0) {
+            items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Manager })
+          } else if (daysUntil >= 0 && daysUntil <= 7) {
+            items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Manager })
+          } else if (daysUntil >= 8 && daysUntil <= 30) {
+            items.push({ id: e.id, tipo: 'FU2_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2Manager, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Manager })
+          }
         }
       }
 
@@ -1173,19 +1182,28 @@ export const useHrStore = defineStore('hr', () => {
         const fu2Date = new Date(e.scadenzaFU2)
         if (fu2Date < cutoffDate) return // Skip FU before 2026
         const daysUntil = Math.floor((fu2Date - today) / 86400000)
-        const skip2d = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoFU2Dip)
-        if (daysUntil <= 0 && !skip2d) {
-          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Dip })
-        } else if (daysUntil >= 0 && daysUntil <= 7 && !skip2d) {
-          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Dip })
-        } else if (daysUntil >= 8 && daysUntil <= 30 && !skip2d) {
-          items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Dip })
+        const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoFU2Dip)
+        if (!skipRemovals) {
+          if (e.statoFU2Dip === 'Fatto') {
+            items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoFU2Dip })
+          } else if (daysUntil <= 0) {
+            items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoFU2Dip })
+          } else if (daysUntil >= 0 && daysUntil <= 7) {
+            items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'ALTA', color: 'orange', giorni: daysUntil, stato: e.statoFU2Dip })
+          } else if (daysUntil >= 8 && daysUntil <= 30) {
+            items.push({ id: e.id, tipo: 'FU2_DIP', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaFU2, urgenza: 'MEDIA', color: 'yellow', giorni: daysUntil, stato: e.statoFU2Dip })
+          }
         }
       }
 
       // Employee Review Manager (if trial period, no review yet)
-      if (e.inProva && (!e.valutazionePeriodoProva || !e.valutazionePeriodoProva.manager) && e.daysToProva && e.daysToProva <= 45 && e.daysToProva >= 0 && !['Fatto', 'Eliminato', 'Scartato'].includes(e.statoReviewManager)) {
-        items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.fineProva, urgenza: e.daysToProva <= 7 ? 'ALTA' : 'MEDIA', color: e.daysToProva <= 7 ? 'orange' : 'yellow', giorni: e.daysToProva, stato: e.statoReviewManager || 'Da Fare' })
+      const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoReviewManager)
+      if (!skipRemovals && e.inProva && e.daysToProva && e.daysToProva <= 45 && e.daysToProva >= 0) {
+        if (e.statoReviewManager === 'Fatto') {
+          items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.fineProva, urgenza: 'BASSA', color: 'gray', giorni: e.daysToProva, stato: e.statoReviewManager })
+        } else if (!e.valutazionePeriodoProva || !e.valutazionePeriodoProva.manager) {
+          items.push({ id: e.id, tipo: 'REVIEW_MANAGER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.fineProva, urgenza: e.daysToProva <= 7 ? 'ALTA' : 'MEDIA', color: e.daysToProva <= 7 ? 'orange' : 'yellow', giorni: e.daysToProva, stato: e.statoReviewManager || 'Da Fare' })
+        }
       }
     })
 
@@ -1212,11 +1230,15 @@ export const useHrStore = defineStore('hr', () => {
         const rinnDate = new Date(e.scadenzaRinnovo)
         if (rinnDate < cutoffDate) return // Skip contracts before 2026
         const daysUntil = Math.floor((rinnDate - today) / 86400000)
-        const skipR = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoRinnovo)
-        if (daysUntil <= 0 && !skipR) {
-          items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoRinnovo })
-        } else if (daysUntil >= 0 && daysUntil <= 30 && !skipR) {
-          items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoRinnovo })
+        const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoRinnovo)
+        if (!skipRemovals) {
+          if (e.statoRinnovo === 'Fatto') {
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoRinnovo })
+          } else if (daysUntil <= 0) {
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoRinnovo })
+          } else if (daysUntil >= 0 && daysUntil <= 30) {
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoRinnovo })
+          }
         }
       }
 
@@ -1225,21 +1247,32 @@ export const useHrStore = defineStore('hr', () => {
         const dosDate = new Date(e.scadenzaDossierContratto)
         if (dosDate < cutoffDate) return // Skip contracts before 2026
         const daysUntil = Math.floor((dosDate - today) / 86400000)
-        const skipD = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoDossierContratto)
-        if (daysUntil <= 0 && !skipD) {
-          items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoDossierContratto })
-        } else if (daysUntil >= 0 && daysUntil <= 30 && !skipD) {
-          items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoDossierContratto })
+        const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoDossierContratto)
+        if (!skipRemovals) {
+          if (e.statoDossierContratto === 'Fatto') {
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoDossierContratto })
+          } else if (daysUntil <= 0) {
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoDossierContratto })
+          } else if (daysUntil >= 0 && daysUntil <= 30) {
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoDossierContratto })
+          }
         }
       }
 
       // P&C colloqui scaduti o non ancora fatti (almeno 2 l'anno)
       const pcStatus = pcColloquiStatus.value[e.id]
-      const skipPC = ['Fatto', 'Eliminato', 'Scartato'].includes(e.statoPCKanban)
-      if (pcStatus && pcStatus.status === 'Scaduto' && !skipPC) {
-        items.push({ id: e.id, tipo: 'PC_SCADUTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: pcStatus.lastDate, urgenza: 'MEDIA', color: 'yellow', giorni: pcStatus.daysSinceColloquio, stato: 'Scaduto' })
-      } else if (pcStatus && pcStatus.status === 'Non Fatto' && !skipPC) {
-        items.push({ id: e.id, tipo: 'PC_NON_FATTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: null, urgenza: 'BASSA', color: 'gray', giorni: null, stato: 'Non Fatto' })
+      const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoPCKanban)
+      if (!skipRemovals) {
+        if (e.statoPCKanban === 'Fatto') {
+          // Se è già completato, aggiungi con urgenza BASSA
+          if (pcStatus) {
+            items.push({ id: e.id, tipo: pcStatus.status === 'Scaduto' ? 'PC_SCADUTO' : 'PC_NON_FATTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: pcStatus.lastDate || null, urgenza: 'BASSA', color: 'gray', giorni: pcStatus.daysSinceColloquio || null, stato: 'Fatto' })
+          }
+        } else if (pcStatus && pcStatus.status === 'Scaduto') {
+          items.push({ id: e.id, tipo: 'PC_SCADUTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: pcStatus.lastDate, urgenza: 'MEDIA', color: 'yellow', giorni: pcStatus.daysSinceColloquio, stato: 'Scaduto' })
+        } else if (pcStatus && pcStatus.status === 'Non Fatto') {
+          items.push({ id: e.id, tipo: 'PC_NON_FATTO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: null, urgenza: 'BASSA', color: 'gray', giorni: null, stato: 'Non Fatto' })
+        }
       }
     })
 

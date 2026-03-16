@@ -468,16 +468,25 @@ const getTeamsExcludingFreelance = computed(() => {
 })
 
 const inCorso = computed(() => {
+  const today = new Date()
   return store.employees.filter(e =>
     e.stato === 'Attivo' &&
     e.esitoProva === 'In Corso' &&
     !e.team.toLowerCase().includes('freelance')
-  )
+  ).sort((a, b) => {
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : Infinity
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : Infinity
+    return dateA - dateB  // Earliest (closest deadline) first
+  })
 })
 
 const scaduti = computed(() => {
   const today = new Date()
-  return inCorso.value.filter(e => new Date(e.fineProva) < today)
+  return inCorso.value.filter(e => new Date(e.fineProva) < today).sort((a, b) => {
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : 0
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : 0
+    return dateA - dateB  // Earliest scaduto first
+  })
 })
 
 const entro7gg = computed(() => {
@@ -485,6 +494,10 @@ const entro7gg = computed(() => {
   return inCorso.value.filter(e => {
     const days = Math.round((new Date(e.fineProva) - today) / 86400000)
     return days > 0 && days <= 7
+  }).sort((a, b) => {
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : Infinity
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : Infinity
+    return dateA - dateB  // Earliest first
   })
 })
 
@@ -493,6 +506,10 @@ const entro30gg = computed(() => {
   return inCorso.value.filter(e => {
     const days = Math.round((new Date(e.fineProva) - today) / 86400000)
     return days > 7 && days <= 30
+  }).sort((a, b) => {
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : Infinity
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : Infinity
+    return dateA - dateB  // Earliest first
   })
 })
 
@@ -500,7 +517,11 @@ const completate = computed(() => {
   return store.employees.filter(e =>
     (e.esitoProva === 'Superato' || e.esitoProva === 'Non Superato') &&
     !e.team.toLowerCase().includes('freelance')
-  )
+  ).sort((a, b) => {
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : 0
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : 0
+    return dateB - dateA  // Newest (most recent) first
+  })
 })
 
 // Contratti a termine in scadenza entro 30gg (anche se non "In Corso" come prova)
@@ -517,7 +538,11 @@ const determinatiInScadenza = computed(() => {
     ...e,
     _isDeterminato: true,
     _daysToContratto: Math.round((new Date(e.scadenzaContratto) - today) / 86400000)
-  }))
+  })).sort((a, b) => {
+    const dateA = a.scadenzaContratto ? new Date(a.scadenzaContratto).getTime() : Infinity
+    const dateB = b.scadenzaContratto ? new Date(b.scadenzaContratto).getTime() : Infinity
+    return dateA - dateB  // Earliest (closest contract deadline) first
+  })
 })
 
 // Combina inCorso + determinati (senza duplicati)
@@ -552,11 +577,10 @@ const filtered = computed(() => {
     const matchTeam = !filterTeam.value || e.team === filterTeam.value
     return matchSearch && matchTeam
   }).sort((a, b) => {
-    // Default: dalla valutazione più recente (fine prova più vicina a oggi) in alto
-    // a quella più lontana nel tempo (fine prova più vecchia)
-    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : 0
-    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : 0
-    return dateB - dateA
+    // Ordina per data scadenza più vicina in alto, più lontana in basso
+    const dateA = a.fineProva ? new Date(a.fineProva).getTime() : (a.scadenzaContratto ? new Date(a.scadenzaContratto).getTime() : Infinity)
+    const dateB = b.fineProva ? new Date(b.fineProva).getTime() : (b.scadenzaContratto ? new Date(b.scadenzaContratto).getTime() : Infinity)
+    return dateA - dateB  // Earliest (soonest) deadline first
   })
 })
 

@@ -22,7 +22,7 @@
   .card { @apply bg-white rounded-xl border border-gray-200 shadow-sm; }
 
   /* Badges */
-  .badge          { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium; }
+  .badge          { @apply inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap; }
   .badge-green    { @apply bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200; }
   .badge-red      { @apply bg-red-50 text-red-700 ring-1 ring-red-200; }
   .badge-yellow   { @apply bg-amber-50 text-amber-700 ring-1 ring-amber-200; }

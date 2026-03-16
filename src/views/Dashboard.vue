@@ -572,20 +572,24 @@ const urgenti = computed(() => {
   const today = new Date()
   const list = []
   store.enrichedEmployees.forEach(e => {
-    if (e.fu1Scaduto) {
-      const days = Math.round((new Date(e.scadenzaFU1) - today) / 86400000)
-      list.push({ key: e.id+'fu1s', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: 'Scaduto!', badgeClass: 'badge-blue', urgClass: 'badge-red', rowClass: 'bg-red-100 border-l-4 border-l-red-400', critical: true, daysRemaining: days })
-    } else if (e.fu1Urgente) {
+    // Solo urgenti da fare da qui in poi - escludere scaduti (days < 0)
+    if (e.fu1Urgente) {
       const days = e.daysToFU1
-      list.push({ key: e.id+'fu1u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${days}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
+      if (days >= 0) {  // Escludere scaduti
+        list.push({ key: e.id+'fu1u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU1', data: e.scadenzaFU1, azione: `${days}gg`, badgeClass: 'badge-blue', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
+      }
     }
     if (e.fu2Urgente) {
       const days = e.daysToFU2
-      list.push({ key: e.id+'fu2u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${days}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
+      if (days >= 0) {  // Escludere scaduti
+        list.push({ key: e.id+'fu2u', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'FU2', data: e.scadenzaFU2, azione: `${days}gg`, badgeClass: 'badge-purple', urgClass: 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
+      }
     }
     if (e.provaUrgente) {
       const days = e.daysToProva
-      list.push({ key: e.id+'fp', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${days}gg`, badgeClass: 'badge-indigo', urgClass: days <= 0 ? 'badge-red' : days <= 7 ? 'badge-orange' : 'badge-yellow', rowClass: days <= 0 ? 'bg-red-100 border-l-4 border-l-red-400' : days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: days <= 0, daysRemaining: days })
+      if (days >= 0) {  // Escludere scaduti
+        list.push({ key: e.id+'fp', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Fine prova', data: e.fineProva, azione: `${days}gg`, badgeClass: 'badge-indigo', urgClass: days <= 7 ? 'badge-orange' : 'badge-yellow', rowClass: days <= 7 ? 'bg-amber-100 border-l-4 border-l-amber-400' : 'bg-yellow-50 border-l-4 border-l-yellow-400', critical: false, daysRemaining: days })
+      }
     }
     // Burnout risk: show only if P&C data exists
     if (store.colloquiPC.length > 0 && e.burnoutRisk === 'alto') list.push({ key: e.id+'br', nome: e.nome, cognome: e.cognome, team: e.team, tipo: 'Burnout', data: null, azione: 'Monitorare', badgeClass: 'badge-red', urgClass: 'badge-red', rowClass: 'bg-red-100 border-l-4 border-l-red-400', critical: true, daysRemaining: 999 })

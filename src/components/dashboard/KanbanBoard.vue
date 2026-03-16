@@ -31,18 +31,26 @@
     </div>
 
     <!-- Kanban Board -->
-    <div class="grid grid-cols-3 gap-4">
-      <!-- DA FARE Column -->
-      <div class="bg-gray-50 rounded-lg border border-gray-200">
-        <div class="bg-red-500 text-white px-4 py-3 rounded-t-lg font-semibold flex items-center justify-between">
-          <span>DA FARE</span>
-          <span class="bg-red-600 rounded-full px-2 py-1 text-xs font-bold">{{ daFareItems.length }}</span>
+    <div class="grid grid-cols-2 gap-4">
+      <!-- SCADENZA Column -->
+      <div class="bg-gray-50 rounded-lg border-2 border-amber-300">
+        <div class="bg-amber-600 text-white px-4 py-3 rounded-t-lg font-semibold flex items-center justify-between">
+          <span>📅 SCADENZA</span>
+          <span class="bg-amber-700 rounded-full px-2 py-1 text-xs font-bold">{{ scadenzaItems.length }}</span>
         </div>
-        <div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
-          <div v-for="item in daFareItems" :key="`${item.id}-${item.tipo}`"
+        <div 
+          @dragover.prevent="dragOverColumn = 'scadenza'"
+          @drop="handleDrop('scadenza')"
+          @dragleave="dragOverColumn = null"
+          class="p-3 space-y-2 max-h-[600px] overflow-y-auto min-h-[400px] transition"
+          :class="dragOverColumn === 'scadenza' ? 'bg-amber-50 border-2 border-dashed border-amber-400' : ''">
+          <div v-for="item in scadenzaItems" 
+            :key="`${item.id}-${item.tipo}`"
+            draggable="true"
+            @dragstart="startDrag($event, item, 'scadenza')"
             @click="openModal(item)"
-            class="bg-white border-l-4 border-red-500 rounded p-3 cursor-pointer hover:shadow-md transition group">
-            <p class="font-semibold text-sm text-gray-900 group-hover:text-red-600">{{ item.nome }} {{ item.cognome }}</p>
+            class="bg-white border-l-4 border-amber-500 rounded p-3 cursor-move hover:shadow-md transition group active:opacity-75">
+            <p class="font-semibold text-sm text-gray-900 group-hover:text-amber-600">{{ item.nome }} {{ item.cognome }}</p>
             <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
             <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
             <div class="flex items-center justify-between mt-2">
@@ -54,62 +62,33 @@
                 <div v-if="item.scadenza" class="text-[10px] text-gray-400">{{ fmtDateShort(item.scadenza) }}</div>
               </div>
             </div>
-            <div class="flex gap-2 mt-2">
-              <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 font-medium flex-1 py-1 rounded bg-green-50 hover:bg-green-100">
-                ✓ Risolvi
-              </button>
-              <button @click.stop="archiveItem(item)" class="text-xs text-gray-600 hover:text-red-600 font-medium px-2 py-1">
-                ✕
-              </button>
-            </div>
-          </div>
-          <div v-if="daFareItems.length === 0" class="text-center py-8">
-            <p class="text-gray-400 text-sm">Nessun item</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- IN CORSO Column -->
-      <div class="bg-gray-50 rounded-lg border border-gray-200">
-        <div class="bg-orange-500 text-white px-4 py-3 rounded-t-lg font-semibold flex items-center justify-between">
-          <span>IN CORSO</span>
-          <span class="bg-orange-600 rounded-full px-2 py-1 text-xs font-bold">{{ inCorsoItems.length }}</span>
-        </div>
-        <div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
-          <div v-for="item in inCorsoItems" :key="`${item.id}-${item.tipo}`"
-            @click="openModal(item)"
-            class="bg-white border-l-4 border-orange-500 rounded p-3 cursor-pointer hover:shadow-md transition group">
-            <p class="font-semibold text-sm text-gray-900 group-hover:text-orange-600">{{ item.nome }} {{ item.cognome }}</p>
-            <p class="text-xs text-gray-600 mt-1">{{ item.tipo }}</p>
-            <p class="text-xs text-gray-500 mt-1">{{ item.team }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span :class="['text-xs px-2 py-1 rounded font-semibold', urgencyBadgeClass(item.urgenza)]">
-                {{ item.urgenza }}
-              </span>
-              <div class="text-right">
-                <span class="text-xs font-semibold" :class="item.giorni <= 0 ? 'text-red-600' : 'text-gray-700'">{{ item.giorni }} gg</span>
-                <div v-if="item.scadenza" class="text-[10px] text-gray-400">{{ fmtDateShort(item.scadenza) }}</div>
-              </div>
-            </div>
-            <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 mt-2 font-medium">
-              Completa ✓
+            <button @click.stop="moveToCompleted(item)" class="text-xs text-green-600 hover:text-green-800 font-medium py-1 rounded bg-green-50 hover:bg-green-100 w-full">
+              ✓ Completa
             </button>
           </div>
-          <div v-if="inCorsoItems.length === 0" class="text-center py-8">
-            <p class="text-gray-400 text-sm">Nessun item</p>
+          <div v-if="scadenzaItems.length === 0" class="text-center py-8">
+            <p class="text-gray-300 text-sm">📭 Nessun item scadenza</p>
           </div>
         </div>
       </div>
 
       <!-- COMPLETATO Column -->
-      <div class="bg-gray-50 rounded-lg border border-gray-200">
-        <div class="bg-green-500 text-white px-4 py-3 rounded-t-lg font-semibold flex items-center justify-between">
-          <span>COMPLETATO</span>
-          <span class="bg-green-600 rounded-full px-2 py-1 text-xs font-bold">{{ completatoItems.length }}</span>
+      <div class="bg-gray-50 rounded-lg border-2 border-green-300">
+        <div class="bg-green-600 text-white px-4 py-3 rounded-t-lg font-semibold flex items-center justify-between">
+          <span>✓ COMPLETATO</span>
+          <span class="bg-green-700 rounded-full px-2 py-1 text-xs font-bold">{{ completatoItems.length }}</span>
         </div>
-        <div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
-          <div v-for="item in completatoItems" :key="`${item.id}-${item.tipo}`"
-            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 hover:opacity-100 transition">
+        <div 
+          @dragover.prevent="dragOverColumn = 'completato'"
+          @drop="handleDrop('completato')"
+          @dragleave="dragOverColumn = null"
+          class="p-3 space-y-2 max-h-[600px] overflow-y-auto min-h-[400px] transition"
+          :class="dragOverColumn === 'completato' ? 'bg-green-50 border-2 border-dashed border-green-400' : ''">
+          <div v-for="item in completatoItems" 
+            :key="`${item.id}-${item.tipo}`"
+            draggable="true"
+            @dragstart="startDrag($event, item, 'completato')"
+            class="bg-white border-l-4 border-green-500 rounded p-3 opacity-75 hover:opacity-100 transition cursor-move group">
             <div class="flex items-start justify-between">
               <div class="flex-1">
                 <p class="font-semibold text-sm text-gray-900 line-through">{{ item.nome }} {{ item.cognome }}</p>
@@ -131,7 +110,7 @@
             </div>
           </div>
           <div v-if="completatoItems.length === 0" class="text-center py-8">
-            <p class="text-gray-400 text-sm">Nessun item</p>
+            <p class="text-gray-300 text-sm">📭 Nessun completato</p>
           </div>
         </div>
       </div>
@@ -144,8 +123,21 @@
     <!-- Delete Confirmation Modal -->
     <Teleport to="body">
       <div v-if="deleteModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
-        <div class="fixed inset-0 bg-black/50" @click="closeDeleteModal"></div>
-        <div class="relative bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 z-10">
+        <div class="fixed inset-0 bg-black/50" @click="!isDeleting && closeDeleteModal"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 p-6 z-10 transition-all" 
+          :class="isDeleting ? 'opacity-75' : ''">
+          
+          <!-- Loading Spinner Overlay -->
+          <div v-if="isDeleting" class="absolute inset-0 flex items-center justify-center bg-white/80 rounded-xl z-20 backdrop-blur-sm">
+            <div class="flex flex-col items-center gap-3">
+              <div class="relative w-12 h-12">
+                <div class="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+                <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-red-500 border-r-red-500 animate-spin"></div>
+              </div>
+              <p class="text-sm font-medium text-gray-700">{{ deleteModalAction === 'elimina' ? 'Eliminazione...' : 'Scartamento...' }}</p>
+            </div>
+          </div>
+
           <h3 class="text-lg font-bold text-gray-900 mb-2">
             {{ deleteModalAction === 'elimina' ? '🗑️ Eliminazione definitiva' : '✕ Scartare attività' }}
           </h3>
@@ -161,9 +153,18 @@
             <p v-if="deleteModalItem.scadenza" class="text-sm text-gray-600">Scadenza: {{ fmtDateShort(deleteModalItem.scadenza) }}</p>
           </div>
           <div class="flex gap-3 justify-end">
-            <button @click="closeDeleteModal" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 font-medium">Annulla</button>
-            <button @click="confirmDelete" class="px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 font-medium">
-              {{ deleteModalAction === 'elimina' ? '🗑️ Elimina' : '✕ Scarta' }}
+            <button 
+              @click="closeDeleteModal" 
+              :disabled="isDeleting"
+              class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition">
+              Annulla
+            </button>
+            <button 
+              @click="confirmDelete" 
+              :disabled="isDeleting"
+              class="px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-2">
+              <span v-if="!isDeleting">{{ deleteModalAction === 'elimina' ? '🗑️ Elimina' : '✕ Scarta' }}</span>
+              <span v-else class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
             </button>
           </div>
         </div>
@@ -189,14 +190,34 @@ const selectedItem = ref(null)
 const deleteModalOpen = ref(false)
 const deleteModalItem = ref(null)
 const deleteModalAction = ref('')  // 'elimina' or 'scarta'
+const isDeleting = ref(false)  // Loading state
 
 const filters = ref({
   tipo: '',
   team: ''
 })
 
+// Drag & Drop state
+const dragOverColumn = ref(null)
+const draggedItem = ref(null)
+const draggedFromColumn = ref(null)
+
+// Calculate days from today
+function getDaysFromToday(scadenzaDate) {
+  if (!scadenzaDate) return 999
+  const scadenza = new Date(scadenzaDate)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  scadenza.setHours(0, 0, 0, 0)
+  const diff = scadenza - today
+  return Math.ceil(diff / (1000 * 60 * 60 * 24))
+}
+
 // Get all urgencies from store
-const allItems = computed(() => store.allUrgenze)
+const allItems = computed(() => store.allUrgenze.map(item => ({
+  ...item,
+  giorni: getDaysFromToday(item.scadenza)
+})))
 
 // Filter items
 const filteredItems = computed(() => {
@@ -207,33 +228,20 @@ const filteredItems = computed(() => {
   })
 })
 
-// Separate into columns (assuming items have a 'stato' field that could be tracked)
-// For now, we'll use a simple heuristic: newest items in DA FARE, some in IN CORSO, old stuff in COMPLETATO
-const daFareItems = computed(() => {
+// SCADENZA: tutti gli item non completati e non eliminati
+const scadenzaItems = computed(() => {
   return filteredItems.value.filter(item => {
-    // Exclude archived/eliminated items
-    if (item.stato === 'Scartato' || item.stato === 'Eliminato') return false
-    // Items with CRITICA or ALTA urgenza go to DA FARE
-    return ['CRITICA', 'ALTA'].includes(item.urgenza)
-  })
+    if (item.stato === 'Fatto' || item.stato === 'Eliminato' || item.stato === 'Scartato') return false
+    const giorni = getDaysFromToday(item.scadenza)
+    return giorni >= 0
+  }).sort((a, b) => getDaysFromToday(a.scadenza) - getDaysFromToday(b.scadenza))
 })
 
-const inCorsoItems = computed(() => {
-  return filteredItems.value.filter(item => {
-    // Exclude archived/eliminated items
-    if (item.stato === 'Scartato' || item.stato === 'Eliminato') return false
-    // Items with MEDIA urgenza go to IN CORSO
-    return item.urgenza === 'MEDIA'
-  })
-})
-
+// COMPLETATO: check stato field
 const completatoItems = computed(() => {
   return filteredItems.value.filter(item => {
-    // Items that are "Fatto" or very old go to COMPLETATO
-    // But exclude "Eliminato" and "Scartato" statuses
-    if (item.stato === 'Eliminato' || item.stato === 'Scartato') return false
-    return item.stato === 'Fatto' || item.urgenza === 'BASSA'
-  })
+    return item.stato === 'Fatto'
+  }).sort((a, b) => new Date(b.scadenza) - new Date(a.scadenza))
 })
 
 function urgencyBadgeClass(urgenza) {
@@ -244,6 +252,48 @@ function urgencyBadgeClass(urgenza) {
     'BASSA': 'bg-green-100 text-green-700'
   }
   return classes[urgenza] || 'bg-gray-100 text-gray-700'
+}
+
+// Drag & Drop handlers
+function startDrag(event, item, column) {
+  draggedItem.value = item
+  draggedFromColumn.value = column
+  event.dataTransfer.effectAllowed = 'move'
+  event.dataTransfer.setData('text/html', event.target.innerHTML)
+}
+
+function handleDrop(toColumn) {
+  if (!draggedItem.value || !draggedFromColumn.value) return
+  if (draggedFromColumn.value === toColumn) {
+    draggedItem.value = null
+    draggedFromColumn.value = null
+    dragOverColumn.value = null
+    return
+  }
+
+  const item = draggedItem.value
+  const newStato = toColumn === 'completato' ? 'Fatto' : 'In Corso'
+
+  // Update the item state based on target column
+  if (item.tipo === 'FU1') {
+    store.updateEmployee(item.id, { statoFU1: newStato })
+  } else if (item.tipo === 'FU2_MANAGER') {
+    store.updateEmployee(item.id, { statoFU2Manager: newStato })
+  } else if (item.tipo === 'FU2_DIP') {
+    store.updateEmployee(item.id, { statoFU2Dip: newStato })
+  } else if (item.tipo === 'RINNOVO') {
+    store.updateEmployee(item.id, { statoRinnovo: newStato })
+  } else if (item.tipo === 'DOSSIER') {
+    store.updateEmployee(item.id, { statoDossierContratto: newStato })
+  } else if (item.tipo === 'REVIEW_MANAGER') {
+    store.updateEmployee(item.id, { statoReviewManager: newStato })
+  } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
+    store.updateEmployee(item.id, { statoPCKanban: newStato })
+  }
+
+  draggedItem.value = null
+  draggedFromColumn.value = null
+  dragOverColumn.value = null
 }
 
 function openModal(item) {
@@ -288,28 +338,45 @@ function closeDeleteModal() {
   deleteModalOpen.value = false
   deleteModalItem.value = null
   deleteModalAction.value = ''
+  isDeleting.value = false
 }
 
 function confirmDelete() {
   const item = deleteModalItem.value
-  if (!item) return
+  if (!item || isDeleting.value) return
+  
+  isDeleting.value = true
   const stato = deleteModalAction.value === 'elimina' ? 'Eliminato' : 'Scartato'
-  if (item.tipo === 'FU1') {
-    store.updateEmployee(item.id, { statoFU1: stato })
-  } else if (item.tipo === 'FU2_MANAGER') {
-    store.updateEmployee(item.id, { statoFU2Manager: stato })
-  } else if (item.tipo === 'FU2_DIP') {
-    store.updateEmployee(item.id, { statoFU2Dip: stato })
-  } else if (item.tipo === 'RINNOVO') {
-    store.updateEmployee(item.id, { statoRinnovo: stato })
-  } else if (item.tipo === 'DOSSIER') {
-    store.updateEmployee(item.id, { statoDossierContratto: stato })
-  } else if (item.tipo === 'REVIEW_MANAGER') {
-    store.updateEmployee(item.id, { statoReviewManager: stato })
-  } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
-    store.updateEmployee(item.id, { statoPCKanban: stato })
-  }
-  closeDeleteModal()
+  
+  // Simulate slight delay for better UX (shows spinner)
+  setTimeout(() => {
+    try {
+      if (item.tipo === 'FU1') {
+        store.updateEmployee(item.id, { statoFU1: stato })
+      } else if (item.tipo === 'FU2_MANAGER') {
+        store.updateEmployee(item.id, { statoFU2Manager: stato })
+      } else if (item.tipo === 'FU2_DIP') {
+        store.updateEmployee(item.id, { statoFU2Dip: stato })
+      } else if (item.tipo === 'RINNOVO') {
+        store.updateEmployee(item.id, { statoRinnovo: stato })
+      } else if (item.tipo === 'DOSSIER') {
+        store.updateEmployee(item.id, { statoDossierContratto: stato })
+      } else if (item.tipo === 'REVIEW_MANAGER') {
+        store.updateEmployee(item.id, { statoReviewManager: stato })
+      } else if (item.tipo === 'PC_SCADUTO' || item.tipo === 'PC_NON_FATTO') {
+        store.updateEmployee(item.id, { statoPCKanban: stato })
+      }
+      
+      // Close modal after successful deletion
+      setTimeout(() => {
+        closeDeleteModal()
+        isDeleting.value = false
+      }, 300)
+    } catch (err) {
+      console.error('Delete failed:', err)
+      isDeleting.value = false
+    }
+  }, 500)
 }
 
 function handleItemSaved() {
