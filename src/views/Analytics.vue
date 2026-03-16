@@ -34,6 +34,55 @@
       />
     </div>
 
+    <!-- HIRING TREND BY DIVISION -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <!-- Silicon Trend -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-gray-900">🔌 Silicon Division — Trend Assunzioni</h3>
+          <span class="text-2xl font-bold" :class="siliconTrend >= 0 ? 'text-emerald-600' : 'text-red-600'">{{ siliconTrend >= 0 ? '↑' : '↓' }} {{ Math.abs(siliconTrend) }}</span>
+        </div>
+        <div class="space-y-2">
+          <div v-for="year in yearsAvailable" :key="year" class="flex items-center justify-between gap-3">
+            <span class="text-sm font-medium text-gray-700 w-12">{{ year }}</span>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500" :style="{ width: (getHiringByDivisionYear('silicon', year) / maxHiringYear * 100) + '%', transition: 'width 0.3s' }"></div>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 w-8 text-right">{{ getHiringByDivisionYear('silicon', year) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-500">
+          <p><strong>Totale:</strong> {{ getTotalHiringByDivision('silicon') }} persone</p>
+          <p><strong>Media/anno:</strong> {{ r2(getTotalHiringByDivision('silicon') / yearsAvailable.length) }}</p>
+        </div>
+      </div>
+
+      <!-- Solutions Trend -->
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-gray-900">💡 Solutions Division — Trend Assunzioni</h3>
+          <span class="text-2xl font-bold" :class="solutionsTrend >= 0 ? 'text-emerald-600' : 'text-red-600'">{{ solutionsTrend >= 0 ? '↑' : '↓' }} {{ Math.abs(solutionsTrend) }}</span>
+        </div>
+        <div class="space-y-2">
+          <div v-for="year in yearsAvailable" :key="year" class="flex items-center justify-between gap-3">
+            <span class="text-sm font-medium text-gray-700 w-12">{{ year }}</span>
+            <div class="flex-1 flex items-center gap-2">
+              <div class="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-purple-500" :style="{ width: (getHiringByDivisionYear('solutions', year) / maxHiringYear * 100) + '%', transition: 'width 0.3s' }"></div>
+              </div>
+              <span class="text-sm font-semibold text-gray-700 w-8 text-right">{{ getHiringByDivisionYear('solutions', year) }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-gray-200 text-xs text-gray-500">
+          <p><strong>Totale:</strong> {{ getTotalHiringByDivision('solutions') }} persone</p>
+          <p><strong>Media/anno:</strong> {{ r2(getTotalHiringByDivision('solutions') / yearsAvailable.length) }}</p>
+        </div>
+      </div>
+    </div>
+
     <!-- EX-DIPENDENTI (Uscita Concordata / Inattivo) -->
     <div v-if="exDipendenti.length > 0" class="card p-5 border-l-4 border-gray-400">
       <div class="flex items-center justify-between mb-4">
@@ -155,8 +204,13 @@
     <div class="grid grid-cols-12 gap-5">
       <!-- Ferie per team -->
       <div class="col-span-12 lg:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-4">🏖️ Ferie per Team</h3>
-        <div class="overflow-x-auto">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-gray-900">🏖️ Ferie per Team</h3>
+          <button @click="expandFerieTable = !expandFerieTable" class="text-xs font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1">
+            {{ expandFerieTable ? '▼ Riduci' : '▶ Espandi' }}
+          </button>
+        </div>
+        <div class="overflow-x-auto" :style="{ maxHeight: expandFerieTable ? 'none' : '300px', overflowY: expandFerieTable ? 'visible' : 'auto' }">
           <table class="tbl text-sm">
             <thead>
               <tr>
@@ -193,8 +247,13 @@
 
       <!-- Malattia per team -->
       <div class="col-span-12 lg:col-span-6 card p-5">
-        <h3 class="font-semibold text-gray-900 mb-4">🤒 Malattia per Team</h3>
-        <div class="overflow-x-auto">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold text-gray-900">🤒 Malattia per Team</h3>
+          <button @click="expandMalattiaTable = !expandMalattiaTable" class="text-xs font-medium text-primary-600 hover:text-primary-700 flex items-center gap-1">
+            {{ expandMalattiaTable ? '▼ Riduci' : '▶ Espandi' }}
+          </button>
+        </div>
+        <div class="overflow-x-auto" :style="{ maxHeight: expandMalattiaTable ? 'none' : '300px', overflowY: expandMalattiaTable ? 'visible' : 'auto' }">
           <table class="tbl text-sm">
             <thead>
               <tr>
@@ -270,15 +329,68 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useHrStore } from '@/stores/hrStore'
 import { useHelpers } from '@/composables/useHelpers.js'
 import KpiCard from '@/components/ui/KpiCard.vue'
 
 const store = useHrStore()
 const { fmtDateShort } = useHelpers()
+const expandFerieTable = ref(false)
+const expandMalattiaTable = ref(false)
 
 function r2(v) { return v != null ? Math.round(Number(v) * 100) / 100 : 0 }
+
+function getDivisionFromTeam(team) {
+  if (!team) return ''
+  if (team.toLowerCase().includes('silicon')) return 'silicon'
+  if (team.toLowerCase().includes('solutions')) return 'solutions'
+  return 'other'
+}
+
+function getHiringByDivisionYear(division, year) {
+  return store.employees.filter(e => {
+    const d = getDivisionFromTeam(e.team)
+    return d === division && e.dataAssunzione && e.dataAssunzione.startsWith(String(year))
+  }).length
+}
+
+function getTotalHiringByDivision(division) {
+  return store.employees.filter(e => getDivisionFromTeam(e.team) === division).length
+}
+
+const yearsAvailable = computed(() => {
+  const years = new Set()
+  store.employees.forEach(e => {
+    if (e.dataAssunzione) {
+      const year = parseInt(e.dataAssunzione.substring(0, 4))
+      years.add(year)
+    }
+  })
+  return Array.from(years).sort((a, b) => a - b)
+})
+
+const maxHiringYear = computed(() => {
+  let max = 1
+  yearsAvailable.value.forEach(year => {
+    max = Math.max(max, getHiringByDivisionYear('silicon', year), getHiringByDivisionYear('solutions', year))
+  })
+  return max
+})
+
+const siliconTrend = computed(() => {
+  if (yearsAvailable.value.length < 2) return 0
+  const current = getHiringByDivisionYear('silicon', yearsAvailable.value[yearsAvailable.value.length - 1])
+  const previous = getHiringByDivisionYear('silicon', yearsAvailable.value[yearsAvailable.value.length - 2])
+  return current - previous
+})
+
+const solutionsTrend = computed(() => {
+  if (yearsAvailable.value.length < 2) return 0
+  const current = getHiringByDivisionYear('solutions', yearsAvailable.value[yearsAvailable.value.length - 1])
+  const previous = getHiringByDivisionYear('solutions', yearsAvailable.value[yearsAvailable.value.length - 2])
+  return current - previous
+})
 
 const STATI_ESCLUSI = ['In Uscita Concordata', 'Inattivo']
 const exDipendenti = computed(() => store.enrichedEmployees.filter(e => STATI_ESCLUSI.includes(e.stato)))

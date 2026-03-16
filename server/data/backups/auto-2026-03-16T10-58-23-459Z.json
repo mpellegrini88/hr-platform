@@ -1034,20 +1034,27 @@
       "motivoUscita": "",
       "noteUscita": "",
       "valutazionePeriodoProva": {
-        "faseCorrente": "manager-complete",
+        "faseCorrente": "hr-complete",
         "dataValutazioneManager": "2026-03-16",
         "dataValutazioneHR": "2026-03-16",
         "manager": {
-          "osservazioni": "Il candidato che già in sede di assunzione aveva dimostrato alcuni problemi sull'elettronica di base ed era stato assunto perchpè c'era necessità reale, nel corso di questi sei mesi non è riuscito a colmare il gap raggiungendo il livello minimo di autonomia richiesto per questa posizione. Per tale motivo che va ad unirsi ad una comunicaszione poco efficiente che ha inficiato sicuramente anche la produttività. Il consiglio è quello di non confermare il dipendente.",
           "competenze": 2,
+          "competenzeNote": "scarse conoscenze di base nel campo della microelettronica. Dopo alcuni mesi in cui il candidato è stato posto sulle simuilazioni e quindi diciamo a fare cose più semplici delle cose che si fanno normalmente, è stato messo a confrontarsi con progetti più seri e ha evidenziato gravi difficoltà",
           "qualita": 2,
+          "qualitaNote": "Scarsa autonomia",
           "problemSolving": 2,
+          "problemSolvingNote": "Scarsa proattività",
           "velocita": 1,
+          "velocitaNote": "A questo ritmo purtroppo il divario è incolmabile",
           "collaborazione": 3,
+          "collaborazioneNote": "Nessun problema evidente nello stare in team anche se problemi evidenti di comunicazione difficoltà ai responsabili per timidezza.",
           "comunicazione": 2,
+          "comunicazioneNote": "poco comunicativo, soprattutto in fase di riporto problemi,",
           "attitudine": 2,
+          "attitudineNote": "",
+          "osservazioni": "Il candidato che già in sede di assunzione aveva dimostrato alcuni problemi sull'elettronica di base ed era stato assunto perchpè c'era necessità reale, nel corso di questi sei mesi non è riuscito a colmare il gap raggiungendo il livello minimo di autonomia richiesto per questa posizione. Per tale motivo che va ad unirsi ad una comunicaszione poco efficiente che ha inficiato sicuramente anche la produttività. Il consiglio è quello di non confermare il dipendente.",
           "raccomandazione": "Non confermare",
-          "motivazioneRaccomandazione": "Difficoltà oggettive nello svolgimento delle attività, scarsa comunicazione e prioattività nel comunicare problemi e difficoltà.",
+          "motivazioneRaccomandazione": "",
           "suggerimenti": "",
           "areaeMiglioramento": ""
         },
@@ -1065,7 +1072,7 @@
       "valutazioneMetadata": {
         "anno": 2026,
         "dataCreazione": null,
-        "dataUltimaModifica": "2026-03-16T10:58:22.936Z",
+        "dataUltimaModifica": "2026-03-16T10:54:42.408Z",
         "datiPre2026Eliminati": false
       },
       "scadenzaRinnovo": null,
@@ -7397,9 +7404,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773658702941,
+  "timestamp": 1773658482417,
   "_meta": {
-    "savedAt": "2026-03-16T10:58:24.469Z",
+    "savedAt": "2026-03-16T10:54:43.941Z",
     "version": "2.0"
   }
 }
