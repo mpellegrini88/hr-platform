@@ -4598,49 +4598,6 @@
       "scadenzaFU2": "2026-08-15",
       "id": 1773655709607,
       "scadenzaFU2Manager": "2026-07-16"
-    },
-    {
-      "nome": "Maria",
-      "cognome": "Frediani",
-      "nomeBreve": "Maria",
-      "societa": "Move-X",
-      "citta": "Lucca",
-      "team": "Solutions > Marketing",
-      "email": "maria.frediani@movesolutions.it",
-      "dataAssunzione": "2026-04-09",
-      "tipoContratto": "indeterminato",
-      "oreSettimana": 40,
-      "livelloCCNL": "3",
-      "durataProva": null,
-      "fineProva": null,
-      "esitoProva": "In Corso",
-      "scadenzaFU1": "2026-05-24",
-      "statoFU1": "Da Fare",
-      "scadenzaFU2Manager": "2026-06-08",
-      "statoFU2Manager": "Da Fare",
-      "scadenzaFU2": "2026-04-09",
-      "statoFU2Dip": "Da Fare",
-      "stato": "Attivo",
-      "motivoUscita": "",
-      "valutazionePeriodoProva": {
-        "faseCorrente": "manager-pending",
-        "dataValutazioneManager": null,
-        "dataValutazioneHR": null,
-        "dataDecisioneCEO": null,
-        "manager": null,
-        "hr": null,
-        "ceo": null
-      },
-      "preoboardingChecklist": {
-        "invioScritturaPrivata": false,
-        "creazioneProfiliweb": false,
-        "invioProcedure": false,
-        "visitaMedica": false,
-        "corsoFormazione": false,
-        "invioContratti": false
-      },
-      "id": 1773659516355,
-      "metodoComputo": null
     }
   ],
   "colloqui": [
@@ -4691,10 +4648,6 @@
       "c2_equil": 4,
       "c2_intent": 4,
       "c2_note": "tutto ok, si sta inserendo bene e procede bene. Sta imparando a lavorare con gli altri membri del team e il suo obiettivo futuro è migliorare nella praticità e concretizzare più idee."
-    },
-    {
-      "nome": "Maria",
-      "team": "Solutions > Marketing"
     }
   ],
   "ferie": [
@@ -7173,19 +7126,6 @@
       "permessiSpettantiGg": 0,
       "permessiSpettantiOre": 0,
       "permessiResiduiGg": 0
-    },
-    {
-      "nome": "Maria",
-      "team": "Solutions > Marketing",
-      "citta": "Lucca",
-      "ferieSpettanti": 0,
-      "ferieGodute": 0,
-      "ferieResidue": 0,
-      "percGodute": 0,
-      "ggMalattia": 0,
-      "episodiMalattia": 0,
-      "ggMalattia3m": 0,
-      "assenzeNonGiust": 0
     }
   ],
   "colloquiPC": [],
@@ -7349,18 +7289,6 @@
       "stato": "Da Fare"
     },
     {
-      "id": 1773659516355,
-      "tipo": "FU2_DIP",
-      "nome": "Maria",
-      "cognome": "Frediani",
-      "team": "Solutions > Marketing",
-      "scadenza": "2026-04-09",
-      "urgenza": "MEDIA",
-      "color": "yellow",
-      "giorni": 23,
-      "stato": "Da Fare"
-    },
-    {
       "id": 69,
       "tipo": "REVIEW_MANAGER",
       "nome": "Nicola",
@@ -7469,9 +7397,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773659516361,
+  "timestamp": 1773658702941,
   "_meta": {
-    "savedAt": "2026-03-16T11:11:57.891Z",
+    "savedAt": "2026-03-16T10:58:24.469Z",
     "version": "2.0"
   }
 }

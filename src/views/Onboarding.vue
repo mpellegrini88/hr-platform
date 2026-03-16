@@ -22,11 +22,15 @@
 
     <!-- PROSSIMI INGRESSI -->
     <div v-if="activeTab === 'prossimiIngressi'">
-      <div class="flex items-center justify-between mb-4">
+      <div class="mb-4">
         <h3 class="text-lg font-semibold text-gray-900">📥 Prossimi Ingressi</h3>
-        <button @click="newEmployeeModal.open = true" class="btn btn-primary btn-sm">➕ Nuovo Dipendente</button>
       </div>
-      <div v-if="prossimiIngressi.length === 0" class="card p-12 text-center text-gray-400">Nessun dipendente in arrivo</div>
+      <div v-if="prossimiIngressi.length === 0" class="card p-12 text-center space-y-3">
+        <div class="text-gray-400 text-lg">Nessun dipendente in arrivo</div>
+        <router-link to="/pre-onboarding" class="inline-block text-primary-600 hover:text-primary-700 font-medium text-sm">
+          📥 Aggiungi un nuovo dipendente in Pre-Onboarding →
+        </router-link>
+      </div>
       <div v-else class="space-y-4">
         <div v-for="e in prossimiIngressi" :key="e.id" class="card overflow-hidden">
           <!-- Header -->
@@ -553,92 +557,7 @@
     </Modal>
 
     <!-- NEW EMPLOYEE MODAL -->
-    <Modal :open="newEmployeeModal.open" @close="newEmployeeModal.open = false" width="max-w-2xl">
-      <template #header>
-        <h2 class="text-xl font-bold text-gray-900">➕ Nuovo Dipendente in Arrivo</h2>
-        <p class="text-sm text-gray-600 mt-1">Registra un nuovo dipendente con data di assunzione futura</p>
-      </template>
 
-      <div class="space-y-4">
-        <!-- Row 1: Nome & Cognome -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label">Nome *</label>
-            <input v-model="newEmployeeModal.form.nome" type="text" class="form-input" placeholder="es. Marco">
-          </div>
-          <div>
-            <label class="form-label">Cognome *</label>
-            <input v-model="newEmployeeModal.form.cognome" type="text" class="form-input" placeholder="es. Rossi">
-          </div>
-        </div>
-
-        <!-- Row 2: Email & Città -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label">Email (opzionale)</label>
-            <input v-model="newEmployeeModal.form.email" type="email" class="form-input" placeholder="nome.cognome@azienda.it">
-          </div>
-          <div>
-            <label class="form-label">Città</label>
-            <input v-model="newEmployeeModal.form.citta" type="text" class="form-input" placeholder="es. Lucca">
-          </div>
-        </div>
-
-        <!-- Row 3: Team & Data Assunzione -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label">Team *</label>
-            <select v-model="newEmployeeModal.form.team" class="form-select">
-              <option value="">Seleziona team</option>
-              <option v-for="t in store.teams" :key="t" :value="t">{{ t }}</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">Data Assunzione *</label>
-            <input v-model="newEmployeeModal.form.dataAssunzione" type="date" class="form-input">
-          </div>
-        </div>
-
-        <!-- Row 4: Tipo Contratto & Livello CCNL -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label">Tipo Contratto *</label>
-            <select v-model="newEmployeeModal.form.tipoContratto" class="form-select">
-              <option value="">Seleziona tipo</option>
-              <option value="indeterminato">Indeterminato</option>
-              <option value="determinato">Determinato</option>
-              <option value="apprendistato">Apprendistato</option>
-              <option value="stage">Stage</option>
-            </select>
-          </div>
-          <div>
-            <label class="form-label">Livello CCNL (opzionale)</label>
-            <input v-model="newEmployeeModal.form.livelloCCNL" type="text" class="form-input" placeholder="es. 1° Livello">
-          </div>
-        </div>
-
-        <!-- Row 5: Ore Settimana -->
-        <div>
-          <label class="form-label">Ore Settimana (opzionale)</label>
-          <input v-model.number="newEmployeeModal.form.oreSettimana" type="number" class="form-input" placeholder="es. 40">
-        </div>
-
-        <!-- Info box -->
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-          <p class="text-xs text-blue-700">
-            <strong>📌 Info:</strong> Il dipendente verrà creato con checklist pre-ingresso inizializzata.
-            Apparirà in "Prossimi Ingressi" fino alla data di assunzione, poi in "In Corso" automaticamente.
-          </p>
-        </div>
-      </div>
-
-      <template #footer>
-        <button @click="newEmployeeModal.open = false" class="btn btn-ghost">Annulla</button>
-        <button @click="saveNewEmployee" class="btn btn-primary" :disabled="!newEmployeeModal.form.nome || !newEmployeeModal.form.cognome || !newEmployeeModal.form.dataAssunzione || !newEmployeeModal.form.team || !newEmployeeModal.form.tipoContratto">
-          ✓ Crea Dipendente
-        </button>
-      </template>
-    </Modal>
   </div>
 </template>
 
@@ -722,22 +641,6 @@ function esitoClass(e) {
 
 // Detail modal
 const detail = reactive({ open: false, emp: null })
-
-// New Employee Modal
-const newEmployeeModal = reactive({
-  open: false,
-  form: {
-    nome: '',
-    cognome: '',
-    email: '',
-    citta: '',
-    team: '',
-    dataAssunzione: '',
-    tipoContratto: '',
-    livelloCCNL: '',
-    oreSettimana: null
-  }
-})
 
 const fu1Scores = reactive({ esaur:null, carico:null, motiv:null, supp:null, equil:null, intent:null, note:'' })
 const fu2Scores = reactive({ esaur:null, carico:null, motiv:null, supp:null, equil:null, intent:null, note:'' })
@@ -831,81 +734,6 @@ function getChecklistProgress(empId) {
   return tasks.length
 }
 
-function saveNewEmployee() {
-  // Validazione
-  if (!newEmployeeModal.form.nome || !newEmployeeModal.form.cognome || !newEmployeeModal.form.dataAssunzione || !newEmployeeModal.form.team || !newEmployeeModal.form.tipoContratto) {
-    alert('Compila i campi obbligatori: Nome, Cognome, Data Assunzione, Team, Tipo Contratto')
-    return
-  }
 
-  // Calcola durata prova e scadenze
-  const dataAssun = new Date(newEmployeeModal.form.dataAssunzione)
-  const durataProvaGiorni = 30 // Default 30 giorni
-  const fineProva = new Date(dataAssun)
-  fineProva.setDate(fineProva.getDate() + durataProvaGiorni)
-
-  // FU1: entro 30 giorni da inizio prova
-  const scadenzaFU1 = new Date(fineProva)
-  
-  // FU2Manager: a 45 giorni (convenzionale)
-  const scadenzaFU2Manager = new Date(dataAssun)
-  scadenzaFU2Manager.setDate(scadenzaFU2Manager.getDate() + 45)
-
-  // FU2Dip: 30 giorni prima della fine prova
-  const scadenzaFU2 = new Date(fineProva)
-  scadenzaFU2.setDate(scadenzaFU2.getDate() - 30)
-
-  // Crea nuovo dipendente
-  const newEmp = {
-    nome: newEmployeeModal.form.nome,
-    cognome: newEmployeeModal.form.cognome,
-    nomeBreve: newEmployeeModal.form.nome,
-    societa: 'Move-X',
-    citta: newEmployeeModal.form.citta,
-    team: newEmployeeModal.form.team,
-    email: newEmployeeModal.form.email || '',
-    dataAssunzione: newEmployeeModal.form.dataAssunzione,
-    tipoContratto: newEmployeeModal.form.tipoContratto,
-    oreSettimana: newEmployeeModal.form.oreSettimana || null,
-    livelloCCNL: newEmployeeModal.form.livelloCCNL || '',
-    durataProva: '30 giorni',
-    fineProva: fineProva.toISOString().split('T')[0],
-    esitoProva: 'In Corso',
-    scadenzaFU1: scadenzaFU1.toISOString().split('T')[0],
-    statoFU1: 'Da Fare',
-    scadenzaFU2Manager: scadenzaFU2Manager.toISOString().split('T')[0],
-    statoFU2Manager: 'Da Fare',
-    scadenzaFU2: scadenzaFU2.toISOString().split('T')[0],
-    statoFU2Dip: 'Da Fare',
-    stato: 'Attivo',
-    motivoUscita: '',
-    valutazionePeriodoProva: {
-      faseCorrente: 'manager-pending',
-      dataValutazioneManager: null,
-      dataValutazioneHR: null,
-      dataDecisioneCEO: null,
-      manager: null,
-      hr: null,
-      ceo: null
-    },
-    preoboardingChecklist: {
-      invioScritturaPrivata: false,
-      creazioneProfiliweb: false,
-      invioProcedure: false,
-      visitaMedica: false,
-      corsoFormazione: false,
-      invioContratti: false
-    }
-  }
-
-  store.addEmployee(newEmp)
-  
-  // Reset form
-  newEmployeeModal.form = {
-    nome: '', cognome: '', email: '', citta: '', team: '', 
-    dataAssunzione: '', tipoContratto: '', livelloCCNL: '', oreSettimana: null
-  }
-  newEmployeeModal.open = false
-}
 
 </script>

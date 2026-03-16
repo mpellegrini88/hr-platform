@@ -8,6 +8,7 @@ import Dashboard from './views/Dashboard.vue'
 import Anagrafica from './views/Anagrafica.vue'
 import AnagraficaDetail from './views/AnagraficaDetail.vue'
 import Onboarding from './views/Onboarding.vue'
+import PreOnboarding from './views/PreOnboarding.vue'
 import PeopleCulture from './views/PeopleCulture.vue'
 import PeopleCultureAnalytics from './views/PeopleCultureAnalytics.vue'
 import ValutazioneProva from './views/ValutazioneProva.vue'
@@ -24,6 +25,7 @@ const router = createRouter({
     { path: '/dashboard', component: Dashboard },
     { path: '/anagrafica', component: Anagrafica },
     { path: '/anagrafica/:id', component: AnagraficaDetail },
+    { path: '/pre-onboarding', component: PreOnboarding },
     { path: '/onboarding', component: Onboarding },
     { path: '/valutazione-prova', component: ValutazioneProva },
     { path: '/people-culture', component: PeopleCulture },

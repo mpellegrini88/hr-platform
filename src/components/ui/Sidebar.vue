@@ -33,6 +33,7 @@
       <div class="section-label px-2 mb-2">Generale</div>
       <NavItem to="/dashboard"      :icon="ChartBarIcon" label="Dashboard" />
       <NavItem to="/anagrafica"     :icon="UsersIcon" label="Anagrafica" />
+      <NavItem to="/pre-onboarding" :icon="CakeIcon" label="Pre-Onboarding" />
       <NavItem to="/onboarding"     :icon="SparklesIcon" label="Onboarding" :badge="store.kpiScadenze.ppInCorso" />
 
       <div class="section-label px-2 mt-4 mb-2">People & Culture</div>
@@ -75,7 +76,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 import { useAutoSave } from '@/composables/useAutoSave.js'
 import NavItem from './NavItem.vue'
-import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon, DocumentDuplicateIcon, CheckCircleIcon } from '@heroicons/vue/24/solid'
+import { ChartBarIcon, UsersIcon, SparklesIcon, ChatBubbleLeftIcon, ArrowTrendingUpIcon, ArrowRightOnRectangleIcon, CalendarIcon, PresentationChartLineIcon, DocumentDuplicateIcon, CheckCircleIcon, CakeIcon } from '@heroicons/vue/24/solid'
 
 const store = useHrStore()
 const autoSave = useAutoSave()
