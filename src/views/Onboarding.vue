@@ -253,6 +253,143 @@
           </div>
         </Section>
 
+        <Section title="Follow-up Manager — 45gg (Valutazione Responsabile Tecnico)">
+          <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 mb-4">
+            <div class="flex items-start gap-2">
+              <div class="text-lg">👨‍💼</div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-blue-900">Valutazione Responsabile Tecnico</p>
+                <p class="text-xs text-blue-700 mt-1">Il manager valuta il dipendente su criteri tecnici e comportamentali. Questo feedback servirà come pre-valutazione per il responso finale della prova.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="form-label">Scadenza FU Manager</label>
+              <input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaFU2Manager)" readonly>
+            </div>
+            <div>
+              <label class="form-label">Stato FU Manager</label>
+              <select class="form-select" v-model="detail.emp.statoFU2Manager" @change="saveDetail">
+                <option>Da Fare</option><option>Fatto</option><option>Non Necessario</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Manager Evaluation Form -->
+          <div v-if="detail.emp.statoFU2Manager === 'Fatto'" class="space-y-4">
+            <!-- Osservazioni Generali -->
+            <div class="bg-white p-4 rounded border border-gray-200">
+              <label class="form-label">Osservazioni Generali (performance, atteggiamento, collaborazione, punti di forza, aree di attenzione)</label>
+              <textarea v-model="managerEval.osservazioni" class="form-textarea" rows="4" placeholder="Descrivi il comportamento, la performance e l'integrazione del dipendente nei primi 45 giorni..."></textarea>
+            </div>
+
+            <!-- Scale Manager (7 criteri) -->
+            <div class="bg-white p-4 rounded border border-gray-200 space-y-4">
+              <p class="text-sm font-semibold text-gray-900">Scala di Valutazione (1-5):</p>
+              
+              <!-- Competenze Tecniche -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">1. Competenze Tecniche</label>
+                <input v-model.number="managerEval.competenze" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.competenze }}/5</span>
+                  <span>1=Inadeguato, 5=Eccellente</span>
+                </div>
+              </div>
+
+              <!-- Qualità del Lavoro -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">2. Qualità del Lavoro (precisione, affidabilità, autonomia)</label>
+                <input v-model.number="managerEval.qualita" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.qualita }}/5</span>
+                  <span>1=Incompleto, 5=Eccellente e puntuale</span>
+                </div>
+              </div>
+
+              <!-- Problem Solving -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">3. Capacità di Problem-Solving</label>
+                <input v-model.number="managerEval.problemSolving" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.problemSolving }}/5</span>
+                  <span>1=Attende indicazioni, 5=Autonomo e metodico</span>
+                </div>
+              </div>
+
+              <!-- Velocità di Apprendimento -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">4. Velocità di Apprendimento</label>
+                <input v-model.number="managerEval.velocita" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.velocita }}/5</span>
+                  <span>1=Lento, 5=Molto veloce</span>
+                </div>
+              </div>
+
+              <!-- Collaborazione -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">5. Collaborazione e Teamwork</label>
+                <input v-model.number="managerEval.collaborazione" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.collaborazione }}/5</span>
+                  <span>1=Individuale, 5=Eccellente relatore</span>
+                </div>
+              </div>
+
+              <!-- Comunicazione -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">6. Comunicazione (chiarezza, proattività, disponibilità)</label>
+                <input v-model.number="managerEval.comunicazione" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.comunicazione }}/5</span>
+                  <span>1=Scarsa, 5=Eccellente</span>
+                </div>
+              </div>
+
+              <!-- Attitudine -->
+              <div class="space-y-1">
+                <label class="text-sm font-medium text-gray-700">7. Attitudine e Cultura Aziendale (allineamento valori, spirito di iniziativa)</label>
+                <input v-model.number="managerEval.attitudine" type="range" min="1" max="5" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>{{ managerEval.attitudine }}/5</span>
+                  <span>1=Non allineato, 5=Perfettamente allineato</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Raccomandazione -->
+            <div class="bg-white p-4 rounded border border-gray-200">
+              <label class="form-label">Raccomandazione del Responsabile Tecnico</label>
+              <select v-model="managerEval.raccomandazione" class="form-select mb-3">
+                <option>Confermare il dipendente</option>
+                <option>Proroga temporanea</option>
+                <option>Non confermare</option>
+              </select>
+              <label class="form-label text-xs">Motivazione dettagliata:</label>
+              <textarea v-model="managerEval.motivazione" class="form-textarea" rows="3" placeholder="Motiva la tua raccomandazione con riferimento ai risultati osservati..."></textarea>
+            </div>
+
+            <!-- Suggerimenti e Aree di Miglioramento -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white p-4 rounded border border-gray-200">
+                <label class="form-label text-xs">Suggerimenti (formazione, supporto, cambi ruolo, affiancamento, ecc.)</label>
+                <textarea v-model="managerEval.suggerimenti" class="form-textarea" rows="3" placeholder="Quali azioni consigli per lo sviluppo?"></textarea>
+              </div>
+              <div class="bg-white p-4 rounded border border-gray-200">
+                <label class="form-label text-xs">Aree di Miglioramento e Punti di Forza</label>
+                <textarea v-model="managerEval.areaeMiglioramento" class="form-textarea" rows="3" placeholder="Punti di forza... Aree su cui lavorare..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div v-else-if="detail.emp.statoFU2Manager === 'Da Fare'" class="text-sm text-gray-600 p-4 bg-gray-50 rounded">
+            Completa il form sopra una volta che hai visitato il dipendente per la valutazione dei 45gg.
+          </div>
+        </Section>
+
         <Section title="Follow-up 2 — 30gg prima fine prova (dipendente + manager)">
           <div class="grid grid-cols-3 gap-4">
             <div><label class="form-label">Scadenza FU2</label><input class="form-input bg-gray-50" :value="fmtDateShort(detail.emp.scadenzaFU2)" readonly></div>
@@ -376,12 +513,44 @@ function esitoClass(e) {
 const detail = reactive({ open: false, emp: null })
 const fu1Scores = reactive({ esaur:null, carico:null, motiv:null, supp:null, equil:null, intent:null, note:'' })
 const fu2Scores = reactive({ esaur:null, carico:null, motiv:null, supp:null, equil:null, intent:null, note:'' })
+const managerEval = reactive({ 
+  osservazioni: '', 
+  competenze: 3, 
+  qualita: 3, 
+  problemSolving: 3, 
+  velocita: 3, 
+  collaborazione: 3, 
+  comunicazione: 3, 
+  attitudine: 3,
+  raccomandazione: 'Confermare il dipendente',
+  motivazione: '',
+  suggerimenti: '',
+  areaeMiglioramento: ''
+})
 
 function openDetail(e) {
   detail.emp = { ...e }
   const c = e._coll || {}
+  const m = e.valutazionePeriodoProva?.manager || {}
+  
   Object.assign(fu1Scores, { esaur:c.c1_esaur||null, carico:c.c1_carico||null, motiv:c.c1_motiv||null, supp:c.c1_supp||null, equil:c.c1_equil||null, intent:c.c1_intent||null, note:c.c1_note||'' })
   Object.assign(fu2Scores, { esaur:c.c2_esaur||null, carico:c.c2_carico||null, motiv:c.c2_motiv||null, supp:c.c2_supp||null, equil:c.c2_equil||null, intent:c.c2_intent||null, note:c.c2_note||'' })
+  
+  Object.assign(managerEval, {
+    osservazioni: m.osservazioni || '',
+    competenze: m.competenze || 3,
+    qualita: m.qualita || 3,
+    problemSolving: m.problemSolving || 3,
+    velocita: m.velocita || 3,
+    collaborazione: m.collaborazione || 3,
+    comunicazione: m.comunicazione || 3,
+    attitudine: m.attitudine || 3,
+    raccomandazione: m.raccomandazione || 'Confermare il dipendente',
+    motivazione: m.motivazioneRaccomandazione || '',
+    suggerimenti: m.suggerimenti || '',
+    areaeMiglioramento: m.areaeMiglioramento || ''
+  })
+  
   detail.open = true
 }
 
@@ -396,6 +565,25 @@ function saveDetailFull() {
     c1_esaur: fu1Scores.esaur, c1_carico: fu1Scores.carico, c1_motiv: fu1Scores.motiv, c1_supp: fu1Scores.supp, c1_equil: fu1Scores.equil, c1_intent: fu1Scores.intent, c1_note: fu1Scores.note,
     c2_esaur: fu2Scores.esaur, c2_carico: fu2Scores.carico, c2_motiv: fu2Scores.motiv, c2_supp: fu2Scores.supp, c2_equil: fu2Scores.equil, c2_intent: fu2Scores.intent, c2_note: fu2Scores.note,
   })
+  
+  // Salva valutazione manager se completata
+  if (detail.emp.statoFU2Manager === 'Fatto') {
+    store.saveValutazioneManager(detail.emp.id, {
+      osservazioni: managerEval.osservazioni,
+      competenze: managerEval.competenze,
+      qualita: managerEval.qualita,
+      problemSolving: managerEval.problemSolving,
+      velocita: managerEval.velocita,
+      collaborazione: managerEval.collaborazione,
+      comunicazione: managerEval.comunicazione,
+      attitudine: managerEval.attitudine,
+      raccomandazione: managerEval.raccomandazione,
+      motivazioneRaccomandazione: managerEval.motivazione,
+      suggerimenti: managerEval.suggerimenti,
+      areaeMiglioramento: managerEval.areaeMiglioramento
+    })
+  }
+  
   detail.open = false
 }
 </script>
