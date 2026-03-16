@@ -3,16 +3,8 @@
     <!-- Filters -->
     <div class="flex flex-wrap gap-3 items-center">
       <div class="flex gap-2">
-        <label class="text-sm font-medium text-gray-700">Filtra Tipo:</label>
-        <select v-model="filters.tipo" class="px-3 py-1 border rounded-lg text-sm">
-          <option value="">-- Tutti --</option>
-          <option value="FU1">FU1</option>
-          <option value="FU2_MANAGER">FU2 Manager</option>
-          <option value="REVIEW_MANAGER">Review Manager</option>
-          <option value="REVIEW_HR">Review HR</option>
-          <option value="RINNOVO">Rinnovo</option>
-          <option value="DOSSIER">Dossier</option>
-        </select>
+        <label class="text-sm font-medium text-gray-700">📋 Mostra:</label>
+        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium">Periodi prova + Rinnovi + Dossier</span>
       </div>
 
       <div class="flex gap-2">
@@ -193,7 +185,6 @@ const deleteModalAction = ref('')  // 'elimina' or 'scarta'
 const isDeleting = ref(false)  // Loading state
 
 const filters = ref({
-  tipo: '',
   team: ''
 })
 
@@ -216,13 +207,13 @@ function getDaysFromToday(scadenzaDate) {
 // Get all urgencies from store
 const allItems = computed(() => store.allUrgenze.map(item => ({
   ...item,
-  giorni: getDaysFromToday(item.scadenza)
+  // Usa il campo giorni già calcolato dal store, oppure calcolalo se manca
+  giorni: item.giorni !== undefined ? item.giorni : getDaysFromToday(item.scadenza)
 })))
 
 // Filter items
 const filteredItems = computed(() => {
   return allItems.value.filter(item => {
-    if (filters.value.tipo && item.tipo !== filters.value.tipo) return false
     if (filters.value.team && item.team !== filters.value.team) return false
     return true
   })

@@ -142,22 +142,57 @@
 
         <!-- Expanded Content -->
         <div v-if="expanded.includes(emp.id)" class="px-5 py-4 bg-white space-y-6 border-t border-gray-100">
+          <!-- Esito Periodo di Prova -->
+          <div :class="['rounded-lg p-5 border', emp.esitoProva === 'Superato' ? 'bg-emerald-50 border-emerald-200' : emp.esitoProva === 'Non Superato' ? 'bg-red-50 border-red-200' : 'bg-amber-50 border-amber-200']">
+            <div class="flex items-center justify-between mb-4">
+              <h4 :class="['font-semibold', emp.esitoProva === 'Superato' ? 'text-emerald-900' : emp.esitoProva === 'Non Superato' ? 'text-red-900' : 'text-amber-900']">🎯 Esito Periodo di Prova</h4>
+              <button @click="toggleEsitoEdit(emp.id)" :class="['text-xs font-medium', emp.esitoProva === 'Superato' ? 'text-emerald-600 hover:text-emerald-800' : emp.esitoProva === 'Non Superato' ? 'text-red-600 hover:text-red-800' : 'text-amber-600 hover:text-amber-800']">
+                ✎ Modifica
+              </button>
+            </div>
+
+            <div v-if="!esitoEditMode.includes(emp.id)" :class="['text-sm', emp.esitoProva === 'Superato' ? 'text-emerald-700' : emp.esitoProva === 'Non Superato' ? 'text-red-700' : 'text-amber-700']">
+              <strong>Esito attuale:</strong> {{ emp.esitoProva }}
+            </div>
+
+            <div v-else class="space-y-3">
+              <select v-model="tempEsitoProva" class="w-full px-3 py-2 border rounded-lg text-sm">
+                <option value="In Corso">In Corso</option>
+                <option value="Superato">Superato</option>
+                <option value="Non Superato">Non Superato</option>
+              </select>
+              <div class="flex gap-2">
+                <button @click="saveEsito(emp, tempEsitoProva)" class="btn btn-sm btn-primary">Salva</button>
+                <button @click="toggleEsitoEdit(emp.id)" class="btn btn-sm btn-secondary">Annulla</button>
+              </div>
+            </div>
+          </div>
+
           <!-- Manager Evaluation -->
           <div class="bg-blue-50 rounded-lg p-5 border border-blue-200">
             <div class="flex items-center justify-between mb-4">
               <h4 class="font-semibold text-blue-900">👨‍💼 Valutazione Manager/Responsabile Tecnico</h4>
-              <button v-if="!getManagerEvaluation(emp.id)" @click="openEvaluation(emp, 'manager')" class="btn btn-sm btn-primary">
-                Aggiungi valutazione
-              </button>
-              <button v-else @click="openEvaluation(emp, 'manager')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                ✎ Modifica
-              </button>
+              <div class="flex gap-2">
+                <button v-if="modal.open && modal.tipo === 'manager'" 
+                        @click="suggestScoresWithAI" 
+                        :disabled="aiLoading || !evalForm.osservazioni.trim()"
+                        class="btn btn-sm text-xs px-2" 
+                        :class="aiLoading ? 'opacity-50 cursor-wait' : 'hover:bg-blue-100'">
+                  {{ aiLoading ? '⏳ Analizzando...' : '🤖 Suggerisci scale' }}
+                </button>
+                <button v-if="!getManagerEvaluation(emp.id)" @click="openEvaluation(emp, 'manager')" class="btn btn-sm btn-primary">
+                  Aggiungi valutazione
+                </button>
+                <button v-else @click="openEvaluation(emp, 'manager')" class="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                  ✎ Modifica
+                </button>
+              </div>
             </div>
 
             <div v-if="!getManagerEvaluation(emp.id)" class="text-sm text-blue-700">
               Valutazione non ancora compilata
             </div>
-            <div v-else class="space-y-3">
+            <div v-else class="space-y-3" data-ai-result>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                 <div class="bg-white p-2 rounded"><strong>Competenze:</strong> {{ getManagerEvaluation(emp.id).competenze }}/5</div>
                 <div class="bg-white p-2 rounded"><strong>Qualità:</strong> {{ getManagerEvaluation(emp.id).qualita }}/5</div>
@@ -440,6 +475,8 @@ const search = ref('')
 const filterTeam = ref('')
 const filterStatus = ref('')
 const expanded = ref([])
+const esitoEditMode = ref([])  // Dipendenti in edit mode per esito
+const tempEsitoProva = ref('')  // Valore temporaneo durante edit
 const preSelectedEmpId = ref(null)
 
 const modal = reactive({ open: false, emp: null, tipo: null })
@@ -757,5 +794,72 @@ function saveEvaluation() {
   }
 
   modal.open = false
+}
+
+function toggleEsitoEdit(empId) {
+  const idx = esitoEditMode.value.indexOf(empId)
+  if (idx === -1) {
+    // Entrare in edit mode
+    const emp = store.employees.find(e => e.id === empId)
+    tempEsitoProva.value = emp?.esitoProva || 'In Corso'
+    esitoEditMode.value.push(empId)
+  } else {
+    // Uscire da edit mode
+    esitoEditMode.value.splice(idx, 1)
+  }
+}
+
+function saveEsito(emp, nuovoEsito) {
+  store.updateEmployee(emp.id, { esitoProva: nuovoEsito })
+  esitoEditMode.value = esitoEditMode.value.filter(id => id !== emp.id)
+}
+
+// AI Analysis
+const aiLoading = ref(false)
+
+async function suggestScoresWithAI() {
+  if (!modal.emp || !evalForm.osservazioni.trim()) {
+    alert('⚠️ Inserisci prima le osservazioni generali nella sezione apposita')
+    return
+  }
+
+  aiLoading.value = true
+  try {
+    const response = await fetch('http://localhost:3001/api/ai/analyze/manager-evaluation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ evaluationText: evalForm.osservazioni })
+    })
+
+    const data = await response.json()
+
+    if (data.error) {
+      alert(`❌ Errore AI: ${data.error}\n\nInstalla Ollama: https://ollama.ai`)
+      return
+    }
+
+    if (data.success) {
+      // Auto-fill form with suggested scores
+      evalForm.competenze = data.scores.competenze
+      evalForm.qualita = data.scores.qualita
+      evalForm.problemSolving = data.scores.problemSolving
+      evalForm.velocita = data.scores.velocita
+      evalForm.collaborazione = data.scores.collaborazione
+      evalForm.comunicazione = data.scores.comunicazione
+      evalForm.attitudine = data.scores.attitudine
+
+      // Scroll to form section
+      setTimeout(() => {
+        document.querySelector('[data-ai-result]')?.scrollIntoView({ behavior: 'smooth' })
+      }, 100)
+
+      // Show confirmation toast
+      console.log('✅ Scale suggerite da AI:', data.scores)
+    }
+  } catch (err) {
+    alert(`❌ Errore connessione: ${err.message}`)
+  } finally {
+    aiLoading.value = false
+  }
 }
 </script>

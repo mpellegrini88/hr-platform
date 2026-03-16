@@ -2321,10 +2321,10 @@
       "fineProva": "2026-04-01",
       "esitoProva": "In Corso",
       "scadenzaFU1": "2026-02-06",
-      "statoFU1": "Fatto",
+      "statoFU1": "Da Fare",
       "noteFU1": "",
       "scadenzaFU2": "2026-02-06",
-      "statoFU2Dip": "Fatto",
+      "statoFU2Dip": "Da Fare",
       "noteFU2Dip": "",
       "statoFU2Manager": "Da Fare",
       "scadenzaFU2Manager": null,
@@ -4123,7 +4123,7 @@
       "durataProva": "5 giorni (lun-ven)",
       "metodoComputo": "",
       "fineProva": "2025-10-30",
-      "esitoProva": "In Corso",
+      "esitoProva": "Superato",
       "scadenzaFU1": "2025-11-13",
       "statoFU1": "Fatto",
       "noteFU1": "Completato (pre-2026)",
@@ -7090,20 +7090,14 @@
       "nome": "Andrea Ria",
       "team": "Silicon Lucca",
       "citta": "Lucca",
-      "ferieSpettanti": 5.49,
+      "ferieSpettanti": 0,
       "ferieGodute": 0,
-      "ferieResidue": 5.49,
+      "ferieResidue": 0,
       "percGodute": 0,
       "ggMalattia": 0,
       "episodiMalattia": 0,
       "ggMalattia3m": 0,
-      "assenzeNonGiust": 0,
-      "ferieAnnuali": 21.96,
-      "rataMensile": 1.83,
-      "permessiAnnualiGg": 0,
-      "permessiSpettantiGg": 0,
-      "permessiSpettantiOre": 0,
-      "permessiResiduiGg": 0
+      "assenzeNonGiust": 0
     }
   ],
   "colloquiPC": [],
@@ -7169,6 +7163,30 @@
       "color": "red",
       "giorni": -45,
       "stato": "N/A"
+    },
+    {
+      "id": 47,
+      "tipo": "FU1",
+      "nome": "Lento",
+      "cognome": "Alessandro",
+      "team": "Solutions > R & D",
+      "scadenza": "2026-02-06",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -39,
+      "stato": "Da Fare"
+    },
+    {
+      "id": 47,
+      "tipo": "FU2_DIP",
+      "nome": "Lento",
+      "cognome": "Alessandro",
+      "team": "Solutions > R & D",
+      "scadenza": "2026-02-06",
+      "urgenza": "CRITICA",
+      "color": "red",
+      "giorni": -39,
+      "stato": "Da Fare"
     },
     {
       "id": 88,
@@ -7279,30 +7297,6 @@
       "stato": "Da Fare"
     },
     {
-      "id": 47,
-      "tipo": "FU1",
-      "nome": "Lento",
-      "cognome": "Alessandro",
-      "team": "Solutions > R & D",
-      "scadenza": "2026-02-06",
-      "urgenza": "BASSA",
-      "color": "gray",
-      "giorni": -39,
-      "stato": "Fatto"
-    },
-    {
-      "id": 47,
-      "tipo": "FU2_DIP",
-      "nome": "Lento",
-      "cognome": "Alessandro",
-      "team": "Solutions > R & D",
-      "scadenza": "2026-02-06",
-      "urgenza": "BASSA",
-      "color": "gray",
-      "giorni": -39,
-      "stato": "Fatto"
-    },
-    {
       "id": 28,
       "tipo": "PC_NON_FATTO",
       "nome": "Federica",
@@ -7351,9 +7345,9 @@
       "stato": "Non Fatto"
     }
   ],
-  "timestamp": 1773656814562,
+  "timestamp": 1773655952983,
   "_meta": {
-    "savedAt": "2026-03-16T10:26:56.084Z",
+    "savedAt": "2026-03-16T10:12:34.501Z",
     "version": "2.0"
   }
 }

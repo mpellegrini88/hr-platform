@@ -1233,11 +1233,11 @@ export const useHrStore = defineStore('hr', () => {
         const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoRinnovo)
         if (!skipRemovals) {
           if (e.statoRinnovo === 'Fatto') {
-            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoRinnovo })
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'BASSA', color: 'gray', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoRinnovo })
           } else if (daysUntil <= 0) {
-            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoRinnovo })
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: 'CRITICA', color: 'red', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoRinnovo })
           } else if (daysUntil >= 0 && daysUntil <= 30) {
-            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoRinnovo })
+            items.push({ id: e.id, tipo: 'RINNOVO', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaRinnovo, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoRinnovo })
           }
         }
       }
@@ -1250,11 +1250,11 @@ export const useHrStore = defineStore('hr', () => {
         const skipRemovals = ['Eliminato', 'Scartato'].includes(e.statoDossierContratto)
         if (!skipRemovals) {
           if (e.statoDossierContratto === 'Fatto') {
-            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'BASSA', color: 'gray', giorni: daysUntil, stato: e.statoDossierContratto })
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'BASSA', color: 'gray', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoDossierContratto })
           } else if (daysUntil <= 0) {
-            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: daysUntil, stato: e.statoDossierContratto })
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: 'CRITICA', color: 'red', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoDossierContratto })
           } else if (daysUntil >= 0 && daysUntil <= 30) {
-            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: daysUntil, stato: e.statoDossierContratto })
+            items.push({ id: e.id, tipo: 'DOSSIER', nome: e.nome, cognome: e.cognome, team: e.team, scadenza: e.scadenzaDossierContratto, urgenza: daysUntil <= 7 ? 'ALTA' : 'MEDIA', color: daysUntil <= 7 ? 'orange' : 'yellow', giorni: isNaN(daysUntil) ? 999 : daysUntil, stato: e.statoDossierContratto })
           }
         }
       }

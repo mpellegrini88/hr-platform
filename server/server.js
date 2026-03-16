@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
+const aiRoutes = require('./routes/ai')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -143,6 +144,9 @@ app.post('/api/restore/:filename', (req, res) => {
   }
 })
 
+// ── AI Routes ──
+app.use('/api/ai', aiRoutes)
+
 // ── Avvio server ──
 
 app.listen(PORT, () => {
@@ -155,12 +159,14 @@ app.listen(PORT, () => {
   console.log(`║  💾 Backup:  ${BACKUP_DIR}`)
   console.log('║                                              ║')
   console.log('║  API:                                        ║')
-  console.log('║  GET  /api/health    — Stato server          ║')
-  console.log('║  GET  /api/data      — Carica dati           ║')
-  console.log('║  POST /api/data      — Salva dati            ║')
-  console.log('║  POST /api/backup    — Crea backup           ║')
-  console.log('║  GET  /api/backups   — Lista backup          ║')
-  console.log('║  POST /api/restore/: — Ripristina backup     ║')
+  console.log('║  GET  /api/health              — Stato       ║')
+  console.log('║  GET  /api/data                — Carica      ║')
+  console.log('║  POST /api/data                — Salva       ║')
+  console.log('║  POST /api/backup              — Backup      ║')
+  console.log('║  GET  /api/backups             — Lista       ║')
+  console.log('║  POST /api/restore/:filename   — Ripristina  ║')
+  console.log('║  POST /api/ai/health           — Ollama OK?  ║')
+  console.log('║  POST /api/ai/analyze/*        — AI Analyze  ║')
   console.log('╚══════════════════════════════════════════════╝')
   console.log('')
 })

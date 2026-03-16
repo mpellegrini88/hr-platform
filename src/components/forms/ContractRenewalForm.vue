@@ -35,18 +35,35 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useHrStore } from '@/stores/hrStore.js'
 
-const props = defineProps({ employeeId: Number })
+const props = defineProps({ 
+  employeeId: Number,
+  initialData: {
+    type: Object,
+    default: () => ({ scadenzaRinnovo: '', statoRinnovo: 'Da Fare', noteRinnovo: '' })
+  }
+})
 const emit = defineEmits(['saved', 'cancel'])
 const store = useHrStore()
 
 const form = ref({
-  scadenzaRinnovo: '',
-  statoRinnovo: 'Da Fare',
-  noteRinnovo: ''
+  scadenzaRinnovo: props.initialData?.scadenzaRinnovo || '',
+  statoRinnovo: props.initialData?.statoRinnovo || 'Da Fare',
+  noteRinnovo: props.initialData?.noteRinnovo || ''
 })
+
+// Watch per aggiornare il form se initialData cambia
+watch(() => props.initialData, (newData) => {
+  if (newData) {
+    form.value = {
+      scadenzaRinnovo: newData.scadenzaRinnovo || '',
+      statoRinnovo: newData.statoRinnovo || 'Da Fare',
+      noteRinnovo: newData.noteRinnovo || ''
+    }
+  }
+}, { deep: true })
 
 function save() {
   store.updateContractRenewal(props.employeeId, {

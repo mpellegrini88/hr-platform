@@ -59,6 +59,7 @@
         <div v-if="item?.tipo === 'RINNOVO'" class="space-y-4">
           <p class="text-sm text-gray-600">Scadenza Rinnovo: <strong>{{ item.scadenza }}</strong></p>
           <ContractRenewalForm :employee-id="item.id" contract-type="determinato"
+            :initial-data="getRenewalData()"
             @saved="handleSaved" @cancel="closeModal" />
         </div>
 
@@ -119,6 +120,16 @@ function getHRData() {
   if (!props.item?.id) return {}
   const emp = store.employees.find(e => e.id === props.item.id)
   return emp?.valutazionePeriodoProva?.hr || {}
+}
+
+function getRenewalData() {
+  if (!props.item?.id) return {}
+  const emp = store.employees.find(e => e.id === props.item.id)
+  return {
+    scadenzaRinnovo: emp?.scadenzaRinnovo || '',
+    statoRinnovo: emp?.statoRinnovo || 'Da Fare',
+    noteRinnovo: emp?.noteRinnovo || ''
+  }
 }
 
 function handleSaved() {
